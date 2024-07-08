@@ -1,0 +1,99 @@
+section.landing_page_1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingpage1_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+}
+.landingpage1_sub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+}
+.wrapperDogCat {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.petAdoptionAndContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.text1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.petAdoptionAnd_text {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+/* image size */
+img.dogCat {
+    width: 500px;
+    /* height: 600px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 500px) {
+
+    section.landing_page_1 {
+        flex-direction: column;
+    }
+    .landingpage1_main {
+        flex-direction: column;
+    }
+    .landingpage1_sub {
+        flex-direction: column;
+    }
+
+    .petAdoptionAndContainer {
+        justify-content: center;
+        align-items: center;
+    }
+    .wrapperDogCat {
+        justify-content: center;
+    }
+    img.dogCat {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img.dogCatname {
+        height: auto;
+        width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  }
+
