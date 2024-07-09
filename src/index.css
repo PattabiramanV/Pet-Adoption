@@ -67,10 +67,10 @@ button:focus-visible {
   }
 } */
 
-body{
+/* body{
 
   display: contents;
-}
+} */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
