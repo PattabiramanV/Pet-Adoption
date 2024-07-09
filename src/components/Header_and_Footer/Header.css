@@ -1,15 +1,28 @@
 :root {
     --main-color: #2E256F;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 20px;
+  section.headr_nav {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 4em;
+}
+
+.header_main {
+  margin: 0 auto;
+  padding: 0 108px;
+  max-width: 1440px;
+}
+  .header {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 10px 20px; */
+
+      padding: 10px 0;
+    /* background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 4em; */
   }
   
   .logo {
@@ -145,6 +158,9 @@ nav.nav-links {
         nav.nav-links {
           display: none;
       }
+      .header_main {
+        padding: 0 50px;
+    }
     }
 
 
