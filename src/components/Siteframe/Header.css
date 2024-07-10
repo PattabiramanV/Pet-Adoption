@@ -183,6 +183,8 @@ button.signup:hover {
     }
 
 
-
+    .logo img { 
+      cursor: pointer;
+  }
 
     
