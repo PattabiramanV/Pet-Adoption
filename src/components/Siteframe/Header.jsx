@@ -103,7 +103,7 @@ const Header = () => {
           <div className="signup-profile">
             <button className="signup" onClick={openSignup}>
               <FontAwesomeIcon icon={faUser} className="signup-icon" />
-              <span>Login | Register</span>
+              <span>  Login | Register</span>
             </button>
           </div>
         </header>
