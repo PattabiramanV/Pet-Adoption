@@ -7,8 +7,8 @@ const Hostels = () => {
     { location: "New York", name: "John Doe", contact: "123-456-7890" },
     { location: "Los Angeles", name: "Jane Smith", contact: "987-654-3210" },
     { location: "Chicago", name: "Michael Johnson", contact: "555-555-5555" },
-    { location: "Houston", name: "Emily Davis", contact: "444-444-4444" },
-    { location: "Phoenix", name: "Daniel Brown", contact: "333-333-3333" },
+    // { location: "Houston", name: "Emily Davis", contact: "444-444-4444" },
+    // { location: "Phoenix", name: "Daniel Brown", contact: "333-333-3333" },
   ];
 
   return (
