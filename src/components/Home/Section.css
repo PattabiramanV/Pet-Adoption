@@ -6,6 +6,8 @@ section.landing_page_1 {
     align-items: center;
     margin: 0 auto;
     padding: 0 108px;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 .landingpage1_main {
@@ -68,6 +70,7 @@ img.dogCat {
 
     section.landing_page_1 {
         flex-direction: column;
+        padding: 20px;
     }
     .landingpage1_main {
         flex-direction: column;

@@ -1,5 +1,5 @@
-import Header from "./Header_and_Footer/Header";
-import Footer from "./Header_and_Footer/Footer";
+import Header from "./Siteframe/Header";
+import Footer from "./Siteframe/Footer";
 import Found_pets_list_card from "./foundpets/foundpetslist";
 import Reuniting_pets from "./reunitingpets/Reuniting";
 import Lost_pets from './lostpets/lostpetslist';

@@ -42,6 +42,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
+
+        <div className="div_sub_footer">
         <p>&copy;CharmingPrince6</p>
         <div className="social-icons">
           <a href="#"><FontAwesomeIcon icon={faInstagram}/></a>
@@ -50,6 +52,8 @@ const Footer = () => {
           <a href="#"><FontAwesomeIcon icon={faTwitter}/></a>
           <a href="#"> <FontAwesomeIcon icon={faGithub}/></a>
         </div>
+        </div>
+
       </div>
       {/* </div> */}
     </footer>
