@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login_and_signup/Login';
-import Signup from './components/Login_and_signup/RegisterForm';
+import Login from './components/Authentication/Login';
+import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
 // import PetHostelss from './components/Pet_Hostel/Hostels';
 

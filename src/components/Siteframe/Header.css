@@ -1,5 +1,5 @@
 :root {
-    --main-color: #2E256F;
+    --main-color: #4b0082;
   }
   section.headr_nav {
     background-color: #fff;
@@ -11,6 +11,10 @@
   margin: 0 auto;
   padding: 0 108px;
   max-width: 1440px;
+}
+a{
+  text-decoration: none;
+  color: var(--main-color);
 }
   .header {
 
@@ -140,6 +144,21 @@ nav.nav-links {
     justify-content: center;
     align-items: center;
     z-index: 3;
+}
+button.signup {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  border: 1px solid #675bc8;
+  background-color: #fff;
+  color: #675bc8;
+}
+button.signup:hover {
+  background-color: #675bc8;
+  color: #fff;
 }
   @media (max-width: 768px) {
 

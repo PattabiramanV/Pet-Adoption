@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import Logo from "../../assets/Logo.png";
 import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
-// import './Profile.css';
 import './Header.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons"; 
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
+  const navigate = useNavigate();
 
+  
   const handleMouseEnter = () => {
     setDropdownOpen(true);
   };
@@ -22,12 +26,19 @@ const Header = () => {
     setDropdownOpen(false);
   };
 
+  const openSignup = () => {
+    navigate('/signup'); // Navigate to the signup page
+  };
+  const handlehomepage = () => {
+    navigate('/'); // Navigate to the home page
+  };
+
   return (
     <section className="headr_nav">
       <div className="header_main">
         <header className="header">
           <div className="logo">
-            <img src={Logo} alt="Furry Friends Logo" />
+            <img src={Logo} alt="Furry Friends Logo" onClick={handlehomepage}  />
           </div>
 
           <nav className="nav-links">
@@ -72,7 +83,7 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="user-section">
+          {/* <div className="user-section">
             <div
               className="user-profile"
               onMouseEnter={handleMouseEnter}
@@ -87,6 +98,13 @@ const Header = () => {
                 </div>
               )}
             </div>
+          </div> */}
+
+          <div className="signup-profile">
+            <button className="signup" onClick={openSignup}>
+              <FontAwesomeIcon icon={faUser} className="signup-icon" />
+              <span>Login | Register</span>
+            </button>
           </div>
         </header>
 
