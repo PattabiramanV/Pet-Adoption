@@ -57,7 +57,7 @@ function HostelCard({ hostel,active }){
               Message
             </button>
           </div>
-            
+            <p>demo</p>
         </a>
     )
 
