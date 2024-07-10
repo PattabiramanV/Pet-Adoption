@@ -2,15 +2,24 @@
 import React from "react";
 import Footer from "../components/Header_and_Footer/Footer";
 import Header from "../components/Header_and_Footer/Header";
-import PetaddForm from "./Pet_Hostel/AddPetForHos";
-import Hostels from "./Pet_Hostel/Hostels"; // Adjusted the import path
+import PetaddForm from "./pethostel/AddPetForHos";
+import Hostels from "./pethostel/Hostels"; 
+
+
 
 function PetHostelPage() {
+
+
+
+
+
   return (
     <>
       <Header />
-      <PetaddForm />
       <Hostels />
+      {/* <Hostels hostel={data[1]}/>
+      <Hostels hostel={data[2]}/> */}
+      <PetaddForm />
       <Footer />
     </>
   );

@@ -41,8 +41,8 @@ const Header = () => {
                 {isDropdownOpen && (
                   <div className="dropdown-menu dropdown-menu-Features">
                     <a href="#Reuniting lost pets">Reuniting lost pets</a>
-                    <a href="#Pet Grooming">Pet Grooming</a>
-                    <a href="#Pet Hostel">Pet Hostel</a>
+                    <a href="PetGrooming">Pet Grooming</a>
+                    <a href="pethostel">Pet Hostel</a>
                   </div>
                 )}
               </div>
