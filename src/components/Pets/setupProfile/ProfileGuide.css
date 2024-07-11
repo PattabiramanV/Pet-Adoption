@@ -1,0 +1,93 @@
+.profile-guide-container {
+    position: relative;
+    bottom: 128px;
+
+}
+
+.background-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1; /* Ensure the background image is behind the cards */
+}
+.card p{
+  font-size:14px;
+  font-weight: 400;
+}
+.three-card-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background-color: #FFFFFF;
+  width: 270px;
+  height: 278px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profileIcons {
+  width: 80px;
+  height: 80px;
+      position: relative;
+    top: 89px;
+
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: #EAE8F7;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle_container {
+  display: flex;
+  justify-content: center;
+    position: absolute;
+    bottom: 254px;
+}
+
+.card1 {
+   position: relative;
+    left: 58px;
+
+}
+.content {
+    text-align: center;
+}
+.card3 {
+  position: relative;
+    right: 58px;
+}
+.content h3{
+  font-size:32px;
+  font-weight: 500;
+}
+.content p{
+  color: #0A453A;
+      position: relative;
+    bottom: 10px;
+  font-size: 24px;
+  font-weight:500;
+}
+.rehomeCard{
+       position: relative;
+    top: 39px;
+
+}
