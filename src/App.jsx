@@ -1,8 +1,8 @@
 // import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login_and_signup/Login';
-import Signup from './components/Login_and_signup/RegisterForm';
+import Login from './components/Authentication/Login';
+import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
 // import PetHostelss from './components/Pet_Hostel/Hostels';
 import Reuniting_lost_pets from './components/searchinglostandfoundpets';
@@ -11,6 +11,7 @@ import FoundingpetAdd from "./components/foundpetformpage";
 import Pets from './Pets';
 import AllPetList from './AllPetList';
 
+import BookHosPage from './components/pethostel/BookHosPage';
 function App() {
   return (
     <Router>
@@ -25,6 +26,8 @@ function App() {
         <Route path="/foundingpet" element={<FoundingpetAdd />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
+        <Route path="/bookHos" element={<BookHosPage />} />
+
 
       </Routes>
     </Router>

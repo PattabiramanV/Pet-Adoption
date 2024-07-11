@@ -1,5 +1,5 @@
-import Header from "./Header_and_Footer/Header";
-import Footer from "./Header_and_Footer/Footer";
+import Header from "./Siteframe/Header";
+import Footer from "./Siteframe/Footer";
 import Foundpetsform from "./foundpets/FoundpetsForm";
 
 
