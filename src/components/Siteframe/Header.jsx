@@ -60,7 +60,7 @@ const Header = () => {
             </div>
             <a href="#Veterinarians">Veterinarians</a>
             <a href="#Add Pets">Add Pets</a>
-            <a href="#Pets">Pets</a>
+            <a href="pets">Pets</a>
           </nav>
 
           <div className="nav-links_mobile">
@@ -77,7 +77,7 @@ const Header = () => {
                   <a href="findpet">Reuniting lost pets</a>
                   <a href="#Pet Grooming">Pet Grooming</a>
                   <a href="pethostel">Pet Hostel</a>
-                  <a href="#Pets">Pets</a>
+                  <a href="pets">Pets</a>
                 </div>
               )}
             </div>
