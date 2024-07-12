@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../Siteframe/Footer";
 import Header from "../Siteframe/Header";
-import BookHos from "./BookHos";
+import BookHosForm from "./BookHos";
 
 
 const BookHosPage =()=>{
@@ -11,9 +11,10 @@ const BookHosPage =()=>{
 
         <>
         
-        {/* <Header></Header> */}
-        <BookHos></BookHos>
-        {/* <Footer></Footer> */}
+        <Header></Header>
+        <BookHosForm/>
+
+        <Footer/>
         </>
 
 

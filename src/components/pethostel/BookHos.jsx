@@ -57,8 +57,8 @@ function BookHos(){
 
         <div className="w-full md:w-1/3 p-4">
           <div className="bg-white p-4 rounded-md shadow-md">
-          <button className={`${demo} "bg-yellow-500 text-white px-4 py-2 rounded mb-4"`}></button>
-            <button className={`${demo}"bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4"`}>Includes 2x Walk</button>
+          <button className={` "bg-yellow-500 text-white px-4 py-2 rounded mb-4"`}></button>
+            <button className={`"bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4"`}>Includes 2x Walk</button>
             <div className="border-t border-gray-300 pt-4">
               <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
               <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>

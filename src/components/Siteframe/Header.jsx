@@ -56,9 +56,10 @@ const Header = () => {
                     <a href="pethostel">Pet Hostel</a>
                   </div>
                 )}
+
               </div>
             </div>
-            <a href="#Veterinarians">Veterinarians</a>
+            <a href="Veterinary">Veterinarians</a>
             <a href="#Add Pets">Add Pets</a>
             <a href="pets">Pets</a>
           </nav>
@@ -72,10 +73,10 @@ const Header = () => {
               <span>☰</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-left">
-                  <a href="#Veterinarians">Veterinarians</a>
+                  <a href="Veterinary">Veterinarians</a>
                   <a href="#Add Pets">Add Pets</a>
                   <a href="findpet">Reuniting lost pets</a>
-                  <a href="#Pet Grooming">Pet Grooming</a>
+                  <a href="PetGrooming">Pet Grooming</a>
                   <a href="pethostel">Pet Hostel</a>
                   <a href="pets">Pets</a>
                 </div>

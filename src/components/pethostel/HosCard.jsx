@@ -14,7 +14,7 @@ function HostelCard({ hostel,active }){
 
         <a
           className="p-6 max-w-sm border border-indigo-300 rounded-xl hover:shadow-xl hover:shadow-indigo-50 flex flex-col pb-1"
-          href="#"
+          href=""
         >
           <img
             src={hostelImage}
