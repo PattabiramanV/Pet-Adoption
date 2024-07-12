@@ -90,24 +90,24 @@ function BookHos(){
 
               </div>
               <div>
-                <label htmlFor="pet-type" className="block text-gray-700">Pet Type*</label>
+                <label htmlFor="pet-type" className="block text-gray-700">Phone*</label>
                 <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="breed" type="text" placeholder="Breed" />
 
               </div>
               <div>
-                <label htmlFor="breed-type" className="block text-gray-700">Breed Type*</label>
+                <label htmlFor="breed-type" className="block text-gray-700">State*</label>
                 <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="breed" type="text" placeholder="Breed" />
 
               </div>
               <div>
-                <label htmlFor="pet-name" className="block text-gray-700">Pet Name</label>
+                <label htmlFor="pet-name" className="block text-gray-700">City</label>
                 <input type="text" id="pet-name" className="w-full px-3 py-2 border border-gray-300 rounded-md" />
               </div>
-              <div>
+              {/* <div>
                 <label htmlFor="age" className="block text-gray-700">Age*</label>
                 <input type="text" id="age" className="w-full px-3 py-2 border border-gray-300 rounded-md" />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label htmlFor="gender" className="block text-gray-700">Gender*</label>
                 <select id="gender" className="w-full px-3 py-2 border border-gray-300 rounded-md">
                 <option>Select</option>
@@ -115,14 +115,16 @@ function BookHos(){
                   <option>Female</option>
 
                 </select>
-              </div>
+              </div> */}
             </div>
             <button
-              type="button"
-              className=" max-w-full  text-white font-medium text-sm px-5 py-2.5 me-2 mb-2  dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Book Now
-            </button>
+  type="button"
+  className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+>
+  Book Now
+</button>
+
+            
           </form>
 
         </div>
