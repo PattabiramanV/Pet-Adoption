@@ -4,7 +4,7 @@ import HostelCard from "./HosCard";
 const Hostels = () => {
 
   const data = [
-    { location: "New York", name: "John Doe", contact: "123-456-7890" },
+    { location: "1/25,middle Street,Nsk Nagar,Chennai-600113", name: "JEden Pets Care", contact: "123-456-7890" },
     { location: "Los Angeles", name: "Jane Smith", contact: "987-654-3210" },
     { location: "Chicago", name: "Michael Johnson", contact: "555-555-5555" },
     // { location: "Houston", name: "Emily Davis", contact: "444-444-4444" },
