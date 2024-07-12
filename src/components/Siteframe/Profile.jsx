@@ -152,7 +152,7 @@ const Profile = ({ setProfileOpen }) => {
               )}
             </div>
           </div>
-          <div className="profile-row">
+          {/* <div className="profile-row">
             <div className="profile-column">
               <label>Password</label>
               {isEditing ? (
@@ -169,7 +169,7 @@ const Profile = ({ setProfileOpen }) => {
                 <p className="profile-text">{profile.password}</p>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
         {isEditing ? (
           <Space>
