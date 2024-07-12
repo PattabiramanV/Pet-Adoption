@@ -55,7 +55,7 @@ const Profile = ({ setProfileOpen }) => {
       <div className="profile-container">
         <div className="profile-close">
           <button className="pop_close_button" onClick={handlePopClose}>
-            X
+          ❌
           </button>
         </div>
         <div className="profile-header">
