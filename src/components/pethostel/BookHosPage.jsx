@@ -11,9 +11,9 @@ const BookHosPage =()=>{
 
         <>
         
-        <Header></Header>
+        {/* <Header></Header> */}
         <BookHos></BookHos>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
         </>
 
 
