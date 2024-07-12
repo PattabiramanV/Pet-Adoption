@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "./Footer";
-import Header from "./Header";
+// import Footer from "./Footer";
+// import Header from "./Header";
 import BookHos from "./BookHos";
 
 
@@ -11,9 +11,9 @@ const BookHosPage =()=>{
 
         <>
         
-        <Header></Header>
+        {/* <Header></Header> */}
         <BookHos></BookHos>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
         </>
 
 
