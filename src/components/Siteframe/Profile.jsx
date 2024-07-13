@@ -1,49 +1,55 @@
-import React, { useState } from "react";
-import { Button, Input, Space } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Button, Input, Space, Form } from "antd";
+import axios from "axios";
 import "./Profile.css";
 
 const Profile = ({ setProfileOpen }) => {
-  const initialProfileState = {
-    name: "Your Name",
-    email: "yourname@example.com",
-    gender: "Female",
-    country: "Your Country",
-    language: "English",
-    state: "Your State",
-    password: "********",
-  };
-
+  const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState(initialProfileState);
-  const [tempProfile, setTempProfile] = useState({ ...profile });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTempProfile((prevProfile) => ({
-      ...prevProfile,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost/Pet-Adoption/Backend/profile/read_items.php', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleEditClick = () => {
-    if (!isEditing) {
-      setTempProfile({ ...profile });
-    } else {
-      setTempProfile({ ...profile });
-    }
     setIsEditing(!isEditing);
   };
 
-  const handleSaveClick = () => {
-    setProfile({ ...tempProfile });
-    setIsEditing(false);
-    console.log("Profile saved:", tempProfile);
+  const handleSaveClick = async (values) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.post(
+        'http://localhost/Pet-Adoption/Backend/profile/update_profile.php',
+        values,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log('Success:', response.data);
+      setProfile(values); // Update profile state with form values
+      setIsEditing(false); // Exit edit mode
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleCancelClick = () => {
-    setTempProfile({ ...profile });
-    setIsEditing(false);
+    setIsEditing(false); // Exit edit mode without saving
   };
 
   const handlePopClose = () => {
@@ -55,7 +61,7 @@ const Profile = ({ setProfileOpen }) => {
       <div className="profile-container">
         <div className="profile-close">
           <button className="pop_close_button" onClick={handlePopClose}>
-          ❌
+            ❌
           </button>
         </div>
         <div className="profile-header">
@@ -63,124 +69,91 @@ const Profile = ({ setProfileOpen }) => {
             <img src="https://via.placeholder.com/150" alt="Profile Avatar" />
           </div>
           <div className="profile-info">
-            <h2>{profile.name}</h2>
+            <h2>{profile.username}</h2>
             <p>{profile.email}</p>
           </div>
         </div>
         <div className="profile-details">
-          <div className="profile-row">
-            <div className="profile-column">
-              <label>Name</label>
-              {isEditing ? (
-                <Input
-                  type="text"
-                  name="name"
-                  value={tempProfile.name}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p className="profile-text">{profile.name}</p>
-              )}
+          <Form
+            layout="vertical"
+            onFinish={handleSaveClick}
+            initialValues={profile}
+            hideRequiredMark={!isEditing}
+          >
+            <div className="profile-row">
+              <div className="profile-column">
+                <Form.Item label="Username" name="username">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.username}</p>
+                  )}
+                </Form.Item>
+              </div>
+              <div className="profile-column">
+                <Form.Item label="Email" name="email">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.email}</p>
+                  )}
+                </Form.Item>
+              </div>
             </div>
-            <div className="profile-column">
-              <label>Email</label>
-              {isEditing ? (
-                <Input
-                  type="text"
-                  name="email"
-                  value={tempProfile.email}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p className="profile-text">{profile.email}</p>
-              )}
+            <div className="profile-row">
+              <div className="profile-column">
+                <Form.Item label="Phone" name="phone">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.phone}</p>
+                  )}
+                </Form.Item>
+              </div>
+              <div className="profile-column">
+                <Form.Item label="Gender" name="gender">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.gender}</p>
+                  )}
+                </Form.Item>
+              </div>
             </div>
-          </div>
-          <div className="profile-row">
-            <div className="profile-column">
-              <label>Gender</label>
-              {isEditing ? (
-                <Input
-                  type="text"
-                  name="gender"
-                  value={tempProfile.gender}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p className="profile-text">{profile.gender}</p>
-              )}
+            <div className="profile-row">
+              <div className="profile-column">
+                <Form.Item label="State" name="state">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.state}</p>
+                  )}
+                </Form.Item>
+              </div>
+              <div className="profile-column">
+                <Form.Item label="City" name="city">
+                  {isEditing ? (
+                    <Input />
+                  ) : (
+                    <p className="profile-text">{profile.city}</p>
+                  )}
+                </Form.Item>
+              </div>
             </div>
-            <div className="profile-column">
-              <label>Country</label>
+            <Form.Item>
               {isEditing ? (
-                <Input
-                  type="text"
-                  name="country"
-                  value={tempProfile.country}
-                  onChange={handleChange}
-                />
+                <Space>
+                  <Button type="primary" htmlType="submit">
+                    Save
+                  </Button>
+                  <Button onClick={handleCancelClick}>Cancel</Button>
+                </Space>
               ) : (
-                <p className="profile-text">{profile.country}</p>
+                <Button onClick={handleEditClick}>Edit</Button>
               )}
-            </div>
-          </div>
-          <div className="profile-row">
-            <div className="profile-column">
-              <label>Language</label>
-              {isEditing ? (
-                <Input
-                  type="text"
-                  name="language"
-                  value={tempProfile.language}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p className="profile-text">{profile.language}</p>
-              )}
-            </div>
-            <div className="profile-column">
-              <label>State</label>
-              {isEditing ? (
-                <Input
-                  type="text"
-                  name="state"
-                  value={tempProfile.state}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p className="profile-text">{profile.state}</p>
-              )}
-            </div>
-          </div>
-          {/* <div className="profile-row">
-            <div className="profile-column">
-              <label>Password</label>
-              {isEditing ? (
-                <Input.Password
-                  type="password"
-                  name="password"
-                  value={tempProfile.password}
-                  onChange={handleChange}
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                />
-              ) : (
-                <p className="profile-text">{profile.password}</p>
-              )}
-            </div>
-          </div> */}
+            </Form.Item>
+          </Form>
         </div>
-        {isEditing ? (
-          <Space>
-            <Button type="primary" onClick={handleSaveClick}>
-              Save
-            </Button>
-            <Button onClick={handleCancelClick}>Cancel</Button>
-          </Space>
-        ) : (
-          <Button onClick={handleEditClick}>Edit</Button>
-        )}
       </div>
     </section>
   );
