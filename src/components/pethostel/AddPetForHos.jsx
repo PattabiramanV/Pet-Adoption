@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 function AddPetHos() {
 
   const [formData, setFormData] = useState({
@@ -24,19 +24,26 @@ function AddPetHos() {
     e.preventDefault();
 
     try {
-        const data=JSON.stringify(formData);
-        const response = await axios.post('http://localhost/Pet-Adaption//your-endpoint.php', data);
-        alert("Form submitted successfully!");
-        // console.log(response.data);
+        const data = JSON.stringify(formData);
+        const url = 'http://localhost/Pet-Adaption/Backend/api/hostel.php';
 
-      } catch (error) {
+        const response = await axios({
+            method: 'POST',
+            url: url,
+            data: data,
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        alert("Form submitted successfully!");
+        console.log(response.data);  // This will log the response data
+        // console.log(response.status);  // This will log the status code
+      alert(response.data); // This will log the entire response object
+
+    } catch (error) {
         console.error("There was an error submitting the form!", error);
         alert("There was an error submitting the form. Please try again.");
-      }
-  
-    alert("Form submitted");
-
-  };
+    }
+};
 
   return (
     <>
@@ -235,7 +242,7 @@ function AddPetHos() {
             </div>
           </div>
           <div>
-            <button className="w-full text-white py-2 rounded-lg bg-customBlue" type="submit">
+            <button className="w-full  text-white py-2 rounded-lg bg-lightPurpule" type="submit">
               Submit
             </button>
           </div>
