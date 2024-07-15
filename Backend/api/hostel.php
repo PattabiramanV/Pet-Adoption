@@ -4,33 +4,45 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
-echo "patano";
+// echo "patano";
 // Get the raw POST data
-// require "../controller/hostelcrud.php";
+require "./hostelcrud.php";
 
-// $hostel=new Hostel();
+$hostel=new Hostel();
 
 
-// $data = json_decode(file_get_contents("php://input"), true);
+$data = json_decode(file_get_contents("php://input"), true);
+$data=array_values($data);
 // print_r($data);
-// $method=($_SERVER['REQUEST_METHOD']);
-// $data=['pattabi','pattabi@gamil.com','123'];
-// switch($method){
+$method=$_SERVER['REQUEST_METHOD'];
 
-//   case 'POST';
-//    echo $hostel->createData($data);
+$id=$_GET['id'];
 
 
-//     }
-
-// print_r($_SERVER['REQUEST_METHOD']);
 
 
-// if ($data && isset($data['request']) && $data['request'] === 'get_name') {
-//     echo json_encode(["name" => "pattabi"]);
-// } else {
-//     echo json_encode(["error" => "Invalid request"]);
-// }
+switch($method){
+
+  case 'GET';
+  $all_Data= $hostel->getData($id);
+//   echo json_decode($all_Data);
+print_r($all_Data);
+  break;
+
+  case "POST";
+  $storeData=$hostel->createData($data);
+  echo $storeData;
+  break;
+  
+
+
+    }
+
+
+
+
+
+
 
 
 ?>

@@ -3,6 +3,7 @@
 
 
 class Database {
+
     private $host = 'localhost';
     private $db_name = 'pet_adoption';
     private $username = 'dckap';
@@ -10,7 +11,8 @@ class Database {
     private $conn;
 
     // Get the database connection
-    public function getConnection() {
+  public function __construct(){
+
         $this->conn = null;
 
         try {
@@ -26,24 +28,37 @@ class Database {
 
     // Execute a query
     public function executeQuery($query, $params = []) {
+
         try {
-            
-                $stmt = $this->conn->prepare($query);
-        
-                foreach ($params as $key => $value) {
-                    $stmt->bindValue($key + 1, $value); // Bind values to the placeholders
+
+    echo $query;
+
+            $stmt = $this->conn->prepare($query);
+            // Loop through parameters and bind them
+            foreach ($params as $key => &$value) {
+                echo "ram";
+                // If the key is numeric, treat it as positional parameter
+                if (is_int($key)) {
+                    $stmt->bindParam($key + 1, $value); // Positional binding
+                } else {
+                    $stmt->bindParam(':' . $key, $value); // Named binding
                 }
-        
-                $stmt->execute();
-                
-                return $stmt;
-        
-        
-        } catch(PDOException $exception) {
+            }
+
+            // Execute the prepared statement
+            
+            $result=$stmt->execute();
+
+            return $result;
+
+        } catch (PDOException $exception) {
             echo "Query error: " . $exception->getMessage();
             return null;
         }
     }
+      
 }
+
+
 
 ?>
