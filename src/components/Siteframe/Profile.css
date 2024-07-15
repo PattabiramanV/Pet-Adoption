@@ -1,4 +1,4 @@
-.profile-container {
+/* .profile-container {
   max-width: 600px;
   margin: 20px auto;
   padding: 2.5em;
@@ -17,7 +17,12 @@
   width: 100%;
   height: 100%;
   z-index: 1000;
+} */
+
+.profile-close{
+  display: none;
 }
+
 /* .profile-page {
   display: flex;
   justify-content: center;
@@ -72,7 +77,10 @@
 .profile-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  /* change for the modal  */
+
+  /* margin-bottom: 15px; */     
+
 }
 
 .profile-column {

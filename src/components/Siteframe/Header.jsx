@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Modal, Button } from "antd";
 import Logo from "../../assets/Logo.png";
 import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
@@ -10,15 +11,15 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setIsLoggedIn(true); // Set login status to true if token exists
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); // Set login status to false if token does not exist
+      setIsLoggedIn(false);
     }
   }, []);
 
@@ -35,18 +36,22 @@ const Header = () => {
     setDropdownOpen(false);
   };
 
+  const closeProfile = () => {
+    setProfileOpen(false);
+  };
+
   const openSignup = () => {
-    navigate("/signup"); // Navigate to the signup page
+    navigate("/signup");
   };
 
   const handleHomepage = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/");
   };
 
   const logout = () => {
-    localStorage.removeItem("token"); // Remove token from localStorage
-    setIsLoggedIn(false); // Update login status to false
-    navigate("/login"); // Navigate to the login page after logout
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/login");
   };
 
   return (
@@ -102,7 +107,7 @@ const Header = () => {
             </div>
           </div>
 
-          {isLoggedIn ? ( // Render profile section if logged in
+          {isLoggedIn ? (
             <div className="user-section">
               <div
                 className="user-profile"
@@ -120,7 +125,6 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            // Render login/signup section if not logged in
             <div className="signup-profile">
               <button className="signup" onClick={openSignup}>
                 <FontAwesomeIcon icon={faUser} className="signup-icon" />
@@ -128,16 +132,17 @@ const Header = () => {
               </button>
             </div>
           )}
-
         </header>
 
-        {isProfileOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <Profile setProfileOpen={setProfileOpen} />
-            </div>
-          </div>
-        )}
+        <Modal
+          title="Profile"
+          style={{ top: 15 }}
+          visible={isProfileOpen}
+          onCancel={closeProfile}
+          footer={null}
+        >
+          <Profile setProfileOpen={setProfileOpen} />
+        </Modal>
       </div>
     </section>
   );
