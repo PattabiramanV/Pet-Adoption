@@ -8,7 +8,7 @@ class Database {
     private $db_name = 'pet_adoption';
     private $username = 'dckap';
     private $password = 'Dckap2023Ubuntu';
-    private $conn;
+    public $conn;
 
     // Get the database connection
   public function __construct(){
@@ -27,6 +27,7 @@ class Database {
     }
 
     // Execute a query
+
     public function executeQuery($query, $params = []) {
 
         try {
@@ -56,6 +57,8 @@ class Database {
             return null;
         }
     }
+
+
       
 }
 

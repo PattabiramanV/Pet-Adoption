@@ -36,8 +36,8 @@ function AddPetHos() {
 
         alert("Form submitted successfully!");
         console.log(response.data);  // This will log the response data
-        console.log(response.status);  // This will log the status code
-        console.log(response);  // This will log the entire response object
+        // console.log(response.status);  // This will log the status code
+      alert(response.data); // This will log the entire response object
 
     } catch (error) {
         console.error("There was an error submitting the form!", error);
