@@ -1,4 +1,3 @@
-// PetCard.jsx
 import React from "react";
 import "./Petcard.css"; // Import your CSS file
 
@@ -39,6 +38,7 @@ const PetCard = ({ pet }) => {
         </div>
 
         <p className="pet-card-description">{pet.description}</p>
+        <button className="more-info-btn">More Info</button>
       </div>
     </div>
   );

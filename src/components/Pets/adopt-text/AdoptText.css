@@ -1,0 +1,36 @@
+.pet-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55vh; 
+}
+
+.inner-content {
+  text-align: center;
+    width: 46%;
+
+}
+.first-content{
+    line-height:9px;
+}
+.first-content h4{
+    font-size:1.5rem;
+    text-transform: uppercase;
+    color: #e5a62d;
+}
+.first-content h2{
+    font-size:3rem;
+    text-transform: capitalize;
+    position: relative;
+    top: 25px;
+}
+.first-content, .second-content {
+  margin-bottom: 21px;
+  width: 100%; 
+}
+.second-content p{
+    color: grey;
+    position: relative;
+    top: 25px;
+
+}

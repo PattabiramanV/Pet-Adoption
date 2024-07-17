@@ -1,0 +1,262 @@
+
+.filterSearch {
+
+    padding-left: 39px;
+    padding-top: 52px;
+}
+
+.filter {
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #CBCBCB;
+    width: 288px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter p {
+    color: #675BC8;
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 3%;
+}
+
+.filter_image {
+       display: flex;
+    gap: 40px;
+    padding-top: 16px;
+    /* width: 40px;
+    height: 124px; */
+}
+
+.filter_image img {
+    width: 124px;
+    height: 124px;
+}
+
+.filterLocation {
+    padding-top: 16px;
+    width: 288px;
+    height: 40px;
+}
+
+.filterLocation p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.locationData{
+    width: 288px;
+    Height:62px;
+    border-radius: 8px;
+    border:1px solid #DFDFDF;
+    padding-bottom: 1%;
+    position: relative;
+    top: 8px;
+
+}
+
+.locationData .code {
+    color: #606060;
+    font-size: 12px;
+    font-weight: 500;
+        position: relative;
+    top: 5px;
+}
+.locationData p{
+    padding-left: 4%;
+}
+.locationData .address{
+      position: relative;
+    top: 11px;
+
+}
+.currentl{
+       width: 188px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11%;
+    position: relative;
+    top: 84px;
+}
+.currentl .ltext{
+    font-size:12px;
+    font-weight: 500;
+    color: #0A453A;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 288px;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 23px;
+  height: 24px;
+  border: 0;
+  background: url('/src/assets/Rangevector.png');
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 23px;
+  height: 24px;
+  border: 0;
+  background: url('/src/assets/Rangevector.png');
+  cursor: pointer;
+}
+
+.priceRange{
+    width: 288px;
+    height: 52px;
+}
+.priceRange .rangePrice{
+       position: relative;
+    top: 3px;
+
+}
+.search{
+   position: relative;
+    top: 134px;
+    width: 288px;
+}
+.size{
+    margin-left: 2%;
+    width: 288px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 49px;
+    margin-top: 7%;
+}
+
+.size .ss{
+    width: 48px;
+    height: 48px;
+}
+.size .ms{
+    width: 64px;
+    height: 64px;
+}
+.size .ls{
+    width: 72px;
+    height: 72px;
+}
+
+/* Dropdown.css */
+.dropbtn {
+        padding: 7px;
+    font-size: 16px;
+    border: 1px solid #CBCBCB;
+    cursor: pointer;
+    width: 288px;
+    margin-top: 5%;
+    height: 40px;
+    border-radius: 8px;
+    background: white;
+}
+
+
+
+.dropdownSelect {
+        width: 288px;
+    position: relative;
+    top: 40px;
+
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {
+    display: block;
+    width: 288px;
+}
+
+.arrow {
+    display: inline-block;
+    padding: 3px;
+    transition: transform 0.2s;
+    align-items: flex-end;
+    float: right;
+    position: relative;
+    right: 10px;
+    top: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.apply{
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 48px;
+}
+.apply button {
+  border: 1px solid #675BC8;
+  color: #675BC8;
+  background-color: white;
+  width: 158px;
+  height: 56px;
+  border-radius: 8px;
+  /* padding: 8px, 16px, 8px, 16px; */
+}
+.filter-filterpet{
+          display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    padding-bottom: 21%;
+}
+.filter-filterpet .list-pet {
+       right: 87px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-top: 85px;
+
+}

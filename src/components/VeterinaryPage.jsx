@@ -1,12 +1,9 @@
 import React from "react";
 
-import Footer from "./Header_and_Footer/Footer";
-import Header from "./Header_and_Footer/Header";
+import Footer from "./Siteframe/Footer";
+import Header from "./Siteframe/Header";
 import AddVeterinaryDocter from "./veterinary/AddVeterinaryDocter";
-// import DoctorList from "./veterinary/carddoctor/Doctormainpage";
-// import GrommingForm from './veterinary/grommingform';
-// import PetGroomingPage from "./veterinary/PetGromming";
-// import Bookingform from "./veterinary/groomingBookingform";
+import DoctorList from "./veterinary/carddoctor/Doctormainpage";
 
 
 
@@ -17,14 +14,13 @@ function Veterinarian (){
     
     <Header/>
          
-        
-         {/* <DoctorList /> */}
+    <button class="absolute top-5 right-0 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-20 mr-10">
+  Add Your Doctor Profile
+</button>
+
+
+         <DoctorList />
           <AddVeterinaryDocter/>
-          {/* <PetGroomingPage/> */}
-         
-          {/* <GrommingForm/> */}
-          {/* <Bookingform /> */}
-          
          <Footer/>
 
         

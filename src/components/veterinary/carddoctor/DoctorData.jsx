@@ -40,51 +40,7 @@ let userData = [
     "profile": "/src/assets/profilepic.png",
     "description":"hi hello i am Buddy i am veterinary docter"
   },
-  // {
-  //   "Doctorname": "Buddy",
-  //     "education":"Mbs",
-  //     "clinic":"YES",
-  //     "experience": "4 years",
-  //     "specialisation":"surgery",
-  //     "address": "89 d,L block,anna nager east, chennai.",
-  //     "contactno":95678345526,
-  //    " HomeVisitingAvailable":"YES",
-  //     // available: true,
-  //     "profile": "/src/assets/profilepic.png",
-  //     "description":"hi hello i am Buddy i am veterinary docter"
-  //   },
-  // {
-  //   "name": "Charlie",
-  //   "city": "Houston",
-  //   "description": "Charlie is a lovable Golden Retriever who is great with children and other pets. He is well-mannered and loves to play fetch. Charlie is looking for an active family to join.",
-  //   "breed": "Golden Retriever",
-  //   "available": true,
-  //   "profile": "/src/assets/dog3.jpg"
-  // },
-  // {
-  //   "name": "Molly",
-  //   "city": "Phoenix",
-  //   "description": "Molly is a charming Shih Tzu who loves to be pampered. She is hypoallergenic and perfect for families with allergies. Molly enjoys short walks and lots of cuddles.",
-  //   "breed": "Shih Tzu",
-  //   "available": true,
-  //   "profile": "/src/assets/cat3.jpg"
-  // },
-  // {
-  //   "name": "Rocky",
-  //   "city": "Philadelphia",
-  //   "description": "Rocky is a strong and playful Boxer. He has a lot of energy and loves to run and play. Rocky is best suited for an active owner who can keep up with his energy levels.",
-  //   "breed": "Boxer",
-  //   "available": true,
-  //   "profile": "/src/assets/dog4.jpg"
-  // },
-  // {
-  //   "name": "Daisy",
-  //   "city": "San Antonio",
-  //   "description": "Daisy is a friendly and sociable Poodle. She is highly intelligent and easy to train. Daisy enjoys playing with toys and is great with other dogs and children.",
-  //   "breed": "Poodle",
-  //   "available": true,
-  //   "profile": "/src/assets/cat4.jpg"
-  // },
+  
 ];
 function DoctorDetails(props) {
   
