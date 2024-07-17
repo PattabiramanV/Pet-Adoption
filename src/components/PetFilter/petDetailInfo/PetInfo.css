@@ -1,0 +1,195 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.pet-info-page {
+  width: 100%;
+  height: auto;
+  padding: 13px 30px;
+}
+
+.pet-image-name {
+  width: 50%;
+}
+
+.pet-image-name-info {
+  padding-top: 1%;
+  display: flex;
+  gap: 13px;
+  width: 805px;
+}
+
+.pet-image-name-info .pet-image-info img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.pet-image-name-info .pet-image-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: #0A453A;
+}
+
+.welcome-user {
+  font-size: 24px;
+  font-weight: 500;
+  color: #202020;
+}
+
+.flag .map {
+  width: 12px;
+  height: 12px;
+}
+
+.pet-image-name-info .loca-info {
+  text-align: left;
+  padding-left: 6%;
+  font-size: 14px;
+  color: #66b366;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  left: 3px;
+  bottom: 23px;
+}
+
+.loca-info .location {
+  width: 14px;
+  height: 14px;
+  color: #37ff0f;
+}
+
+.maps {
+  position: relative;
+  bottom: 8px;
+}
+
+.slider-content {
+  display: flex;
+}
+
+.info-description h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0A453A;
+}
+
+.info-description {
+  display: flex;
+  flex-direction: column;
+  gap: 7%;
+  padding-left: 3%;
+}
+
+.info-description p {
+  width: 67%;
+}
+
+.healthImg {
+  width: 25px;
+  height: 32px;
+  padding: 3px 0.88px 3px 0.88px;
+}
+
+.health {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.healthDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.healthDetails span {
+  font-size: 18px;
+  font-weight: 400;
+  color: #0C0C0C;
+}
+
+.Imgsize {
+  width: 24px;
+}
+
+.petPerson {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 51px; 
+  width: 600px;
+  height: 89pxpx;
+  top: 983px;
+  left: 108px;
+  gap: 24px;
+ opacity: 0px;
+
+}
+
+.semi {
+  width: 38px;
+  height: 21px;
+}
+
+.info-title {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.52px;
+  color: #606060;
+}
+
+.infos h6 {
+ font-family: Inter;
+font-size: 14px;
+font-weight: 600;
+line-height: 16.94px;
+text-align: center;
+
+  color: #675BC8;
+}
+
+.gender-info, .breed-info, .age-info, .color-info {
+  width: 80px;
+  height: 89px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gender-info .genderinfo, 
+.breed-info .breedinfo, 
+.age-info .ageinfo, 
+.color-info .colorinfo {
+      width: 24px;
+    height: 24px;
+    position: relative;
+    top: 7px;
+}
+.gender-info img, 
+.breed-info img, 
+.age-info img, 
+.color-info img {
+  padding: 2px;
+  opacity: 1; /* Ensures the images are visible */
+}
+.infos {
+    margin: 5%;
+    width: 41pxpx;
+height: 40pxpx;
+top: 48px;
+left: 20px;
+padding: 4px 0px 0px 0px;
+gap: 4px;
+opacity: 0px;
+
+}
+.infos p{
+  color: #606060;
+  font-size: 12px;
+  font-weight:500;
+}

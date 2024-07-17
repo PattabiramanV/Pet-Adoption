@@ -9,9 +9,11 @@ import Reuniting_lost_pets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
 import FoundingpetAdd from "./components/foundpetformpage";
 import Pets from './Pets';
-import AllPetList from './AllPetList';
+// import CardView from './components/Pets/Card/Card.jsx';
 
-import BookHosPage from './components/pethostel/BookHosPage';
+import AllPetList from './AllPetList';
+import Info from './components/PetFilter/petDetailInfo/Info';
+
 function App() {
   return (
     <Router>
@@ -26,9 +28,9 @@ function App() {
         <Route path="/foundingpet" element={<FoundingpetAdd />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
-        <Route path="/bookHos" element={<BookHosPage />} />
+              {/* <Route path="/" element={<CardView />} /> */}
 
-
+          <Route path="/petDetails" element={<Info />} />
       </Routes>
     </Router>
   );

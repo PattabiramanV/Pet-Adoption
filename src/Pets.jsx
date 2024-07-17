@@ -4,8 +4,8 @@ import AdoptText from './components/Pets/adopt-text/AdoptText'
 import PetList from './components/Pets/Card/PetList'
 import ViewMore from './components/Pets/MoreButton/Button'
 import ProfileGuide from './components/Pets/setupProfile/ProfileGuide'
-import Header from './components/Header_and_Footer/Header'
-import Footer from './components/Header_and_Footer/Footer'
+import Header from './components/Siteframe/Header'
+import Footer from './components/Siteframe/Footer'
 
 
 const Pets = () => {
@@ -17,8 +17,6 @@ const Pets = () => {
     <PetList />
     <ViewMore /> 
     <ProfileGuide />
-        {/* <Background /> */}
-    {/* <Footer /> */}
     <Footer />
     </>
 

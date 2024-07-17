@@ -102,7 +102,7 @@ function PetDetails(props) {
         </div>
         <p className="description">{props.description.slice(0, 55)}...</p>
         <div className="buttons-card">
-          <button className="more"><a href='petDetails'></a>More info</button>
+          <button className="more"><a href='petDetails'>More info</a></button>
         </div>
       </div>
     </div>
