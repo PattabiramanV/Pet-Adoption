@@ -34,6 +34,7 @@ const Login = () => {
         message.success(response.data.message);
         
         localStorage.setItem('token', response.data.jwt);
+        // localStorage.setItem("loginTime", new Date().getTime());
         navigate("/"); // Navigate to the Home 
       
       } else {

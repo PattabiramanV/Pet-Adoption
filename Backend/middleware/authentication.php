@@ -14,6 +14,8 @@ function generateJWT($user_id) {
         "iat" => time(),
         // "exp" => time() + 3600,
         "exp" => time() + (60 * 60 * 24), // Expires in 1 day
+            // "exp" => time() + 60, // Expires in 1 minute (60 seconds)
+
         "data" => array(
             "id" => $user_id
         )

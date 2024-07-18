@@ -7,21 +7,44 @@ import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
+    fetchProfile();
   }, []);
+
+  const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        "http://localhost/Pet-Adoption/Backend/profile/read_profile.php",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.data.message === "Access denied. Invalid token.") {
+        logout();
+      } else {
+        setProfile(response.data);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
 
   const handleMouseEnter = () => {
     setDropdownOpen(true);
@@ -58,32 +81,24 @@ const Header = () => {
     <section className="header_nav">
       <div className="header_main">
         <header className="header">
-          <div className="logo">
-            <img
-              src={Logo}
-              alt="Furry Friends Logo"
-              onClick={handleHomepage}
-              className="logo-image"
-            />
+          <div className="logo" onClick={handleHomepage}>
+            <img src={Logo} alt="Furry Friends Logo" className="logo-image" />
           </div>
 
           <nav className="nav-links">
-            <div className="nav-links">
-              <div
-                className="user-profile"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span>Features</span>
-                {isDropdownOpen && (
-                  <div className="dropdown-menu dropdown-menu-Features">
-                    <a href="findpet">Reuniting lost pets</a>
-                    <a href="PetGrooming">Pet Grooming</a>
-                    <a href="pethostel">Pet Hostel</a>
-                  </div>
-                )}
-
-              </div>
+            <div
+              className="user-profile"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Features</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <a href="findpet">Reuniting lost pets</a>
+                  <a href="PetGrooming">Pet Grooming</a>
+                  <a href="pethostel">Pet Hostel</a>
+                </div>
+              )}
             </div>
             <a href="Veterinary">Veterinarians</a>
             <a href="#Add Pets">Add Pets</a>
@@ -110,15 +125,15 @@ const Header = () => {
             </div>
           </div>
 
-          {isLoggedIn ? (
+          {isLoggedIn && profile ? (
             <div className="user-section">
               <div
                 className="user-profile"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <img src={ProfileLogo} alt="User" />
-                <span>Samanta Smith</span>
+                <img src={ProfileLogo} alt="User" className="profile-image" />
+                <span>{profile.username}</span> {/* Display user's name */}
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}>Profile</a>

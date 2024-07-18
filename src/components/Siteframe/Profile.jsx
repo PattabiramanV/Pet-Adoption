@@ -11,12 +11,12 @@ const Profile = ({ setProfileOpen }) => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        console.error("No token found");
+        console.error("No token found");   // headers: { Authorization: `Bearer ${token}` }
         return;
       }
 
       try {
-        const response = await axios.get('http://localhost/Pet-Adoption/Backend/profile/read_items.php', {
+        const response = await axios.get('http://localhost/Pet-Adoption/Backend/profile/read_profile.php', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
@@ -59,11 +59,11 @@ const Profile = ({ setProfileOpen }) => {
   return (
     <section className="profile-page">
       <div className="profile-container">
-        <div className="profile-close">
-          <button className="pop_close_button" onClick={handlePopClose}>
-            ❌
-          </button>
-        </div>
+          {/* <div className="profile-close">
+            <button className="pop_close_button" onClick={handlePopClose}>
+              ❌
+            </button>
+          </div> */}
         <div className="profile-header">
           <div className="profile-avatar">
             <img src="https://via.placeholder.com/150" alt="Profile Avatar" />
