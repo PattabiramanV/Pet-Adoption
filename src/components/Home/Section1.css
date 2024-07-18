@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 :root {
   --primary-color: #004d40;
   --secondary-color: #5c6bc0;
   --text-color: #333;
   --text-secondary-color: #666;
   --text-description-color: #555;
-  --background-color: #f0f0f0;
+  --background-color: white;
   --border-color: #ccc;
   --box-shadow-color: rgba(0, 0, 0, 0.1);
-  --font-family: 'Arial, sans-serif';
+  --font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -26,11 +28,11 @@ section.Peaceful {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color);
+background-color: white;
   margin: 0 auto;
   padding: 0 108px;
+  max-width: 1440px;
 }
-
 .Peaceful_div_main {
   display: flex;
   flex-direction: row;
@@ -106,6 +108,12 @@ section.Peaceful {
   font-size: 0.9rem;
   color: var(--text-description-color);
 }
+
+/* .Peaceful_div_main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 108px;
+} */
 
 @media (max-width: 500px) {
   .Peaceful_div_main {

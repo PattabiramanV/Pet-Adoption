@@ -1,11 +1,9 @@
 // import Form from "antd/es/form/Form";
-import React from "react";
-import Footer from "../components/Header_and_Footer/Footer";
-import Header from "../components/Header_and_Footer/Header";
+// import React from "react";
+import Footer from "../components/Siteframe/Footer";
+import Header from "../components/Siteframe/Header";
 import PetaddForm from "./pethostel/AddPetForHos";
-import Hostels from "./pethostel/Hostels"; 
-
-
+import Hostels from "./pethostel/Hostels"; // Adjusted the import path
 
 function PetHostelPage() {
 
