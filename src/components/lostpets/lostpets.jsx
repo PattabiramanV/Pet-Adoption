@@ -40,6 +40,7 @@ const PetCard = ({ pet }) => {
 
         <p className="pet-card-description">{pet.description}</p>
       </div>
+
     </div>
   );
 };

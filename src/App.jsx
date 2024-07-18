@@ -8,6 +8,7 @@ import PetHostels from './components/PetHostel';
 import Reuniting_lost_pets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
 import FoundingpetAdd from "./components/foundpetformpage";
+import LostPetForm  from "./components/lostpets/lostpetsform";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/findpet" element={<Reuniting_lost_pets />} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
         <Route path="/foundingpet" element={<FoundingpetAdd />} />
-
+        <Route path="/LostPetForm" component={<LostPetForm />} />
 
       </Routes>
     </Router>

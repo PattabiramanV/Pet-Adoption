@@ -9,12 +9,12 @@ const Foundpets_form = () => {
             <form>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Pet Name</label>
-                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="name" type="text" placeholder="Pet Name" />
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Pet Type</label>
+                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="pet type" type="text" placeholder="Pet type" />
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">Pet Type</label>
-                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="Prt Type" type="text" placeholder="Pet Type" />
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">Breed</label>
+                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="Breed" type="text" placeholder="Breed" />
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Age</label>
@@ -33,8 +33,8 @@ const Foundpets_form = () => {
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 " id="Contact No" type="number" placeholder="Contact no" />
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="checkout">Lost Date</label>
-                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2" id="Lost" type="date" />
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="checkout">Date Found</label>
+                        <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2" id="Found" type="date" />
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">Photo</label>
@@ -49,8 +49,8 @@ const Foundpets_form = () => {
                         <textarea className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none " id="description" rows="4" placeholder="Describe your Pets"></textarea>
                     </div>
                 </div>
-                <div>
-                    <button className="w-full  text-white py-2 rounded-lg bg-purple-600 " type="submit">Submit</button>
+                <div className="flex justify-center">
+                    <button className="w-auto px-4 text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>
                 </div>
             </form>
         </div>
