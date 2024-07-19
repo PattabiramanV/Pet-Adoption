@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Space, Form } from "antd";
+import { Button, Input, Space, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
+
+const { Option } = Select;
 
 const Profile = ({ setProfileOpen }) => {
   const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        console.error("No token found");   // headers: { Authorization: `Bearer ${token}` }
+        console.error("No token found");
         return;
       }
 
@@ -20,16 +23,18 @@ const Profile = ({ setProfileOpen }) => {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
+        form.setFieldsValue(response.data);
       } catch (error) {
         console.error('Error fetching profile:', error);
+        notification.error({ message: 'Error fetching profile', description: error.message });
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [form]);
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing);
+    setIsEditing(true);
   };
 
   const handleSaveClick = async (values) => {
@@ -38,32 +43,39 @@ const Profile = ({ setProfileOpen }) => {
       const response = await axios.post(
         'http://localhost/Pet-Adoption/Backend/profile/update_profile.php',
         values,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        }
       );
       console.log('Success:', response.data);
       setProfile(values); // Update profile state with form values
       setIsEditing(false); // Exit edit mode
+      notification.success({ message: 'Profile updated successfully' });
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
+      notification.error({
+        message: 'Please try again and check the input fields.'
+      });
+      
+      // notification.error({ message: 'Error updating profile', description: error.response ? error.response.data.message : error.message });
     }
   };
+  
 
   const handleCancelClick = () => {
     setIsEditing(false); // Exit edit mode without saving
+    form.setFieldsValue(profile); // Reset form values to the original profile state
   };
 
-  const handlePopClose = () => {
-    setProfileOpen(false);
-  };
+  // const handlePopClose = () => {
+  //   setProfileOpen(false);
+  // };
 
   return (
     <section className="profile-page">
       <div className="profile-container">
-          {/* <div className="profile-close">
-            <button className="pop_close_button" onClick={handlePopClose}>
-              ❌
-            </button>
-          </div> */}
         <div className="profile-header">
           <div className="profile-avatar">
             <img src="https://via.placeholder.com/150" alt="Profile Avatar" />
@@ -76,6 +88,7 @@ const Profile = ({ setProfileOpen }) => {
         <div className="profile-details">
           <Form
             layout="vertical"
+            form={form}
             onFinish={handleSaveClick}
             initialValues={profile}
             hideRequiredMark={!isEditing}
@@ -113,7 +126,11 @@ const Profile = ({ setProfileOpen }) => {
               <div className="profile-column">
                 <Form.Item label="Gender" name="gender">
                   {isEditing ? (
-                    <Input />
+                    <Select>
+                      <Option value="Male">Male</Option>
+                      <Option value="Female">Female</Option>
+                      <Option value="Other">Other</Option>
+                    </Select>
                   ) : (
                     <p className="profile-text">{profile.gender}</p>
                   )}

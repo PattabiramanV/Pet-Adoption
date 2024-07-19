@@ -155,7 +155,7 @@ const Header = () => {
         <Modal
           title="Profile"
           style={{ top: 15 }}
-          visible={isProfileOpen}
+          open={isProfileOpen} // Updated prop here
           onCancel={closeProfile}
           footer={null}
         >

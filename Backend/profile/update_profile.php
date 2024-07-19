@@ -1,57 +1,63 @@
 <?php
-// update_user.php
-
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
 require '../config/config.php';
 
-// Preflight request handling
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    http_response_code(200);
-    exit();
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204); // No Content
+    exit;
 }
 
-$user_id = authenticate(); // Retrieve the authenticated user ID
+$user_id = authenticate(); 
 
-// Get POST data
-$data = json_decode(file_get_contents("php://input"), true);
-
-// Ensure required fields are present
-if (!isset($data['username']) || !isset($data['email'])) {
-    http_response_code(400);
-    echo json_encode(array("message" => "Missing required fields."));
-    exit();
+if (!$user_id) {
+    echo json_encode(["message" => "User not authenticated."]);
+    http_response_code(401); // Unauthorized
+    exit;
 }
 
-// Update user information
-$query = "UPDATE users SET username = :username, email = :email, phone = :phone, gender = :gender, state = :state, city = :city WHERE id = :user_id";
-$stmt = $conn->prepare($query);
+$data = json_decode(file_get_contents("php://input"));
 
-// Bind parameters
-$stmt->bindParam(':username', $data['username']);
-$stmt->bindParam(':email', $data['email']);
-$stmt->bindParam(':phone', $data['phone']);
-$stmt->bindParam(':gender', $data['gender']);
-$stmt->bindParam(':state', $data['state']);
-$stmt->bindParam(':city', $data['city']);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+if ($data) {
+    $username = htmlspecialchars(strip_tags($data->username));
+    $email = htmlspecialchars(strip_tags($data->email));
+    $phone = htmlspecialchars(strip_tags($data->phone));
+    $gender = htmlspecialchars(strip_tags($data->gender));
+    $state = htmlspecialchars(strip_tags($data->state));
+    $city = htmlspecialchars(strip_tags($data->city));
 
-// Execute query
-if ($stmt->execute()) {
-    // Return updated user data
-    $updated_user = array(
-        "username" => $data['username'],
-        "email" => $data['email'],
-        "phone" => $data['phone'],
-        "gender" => $data['gender'],
-        "state" => $data['state'],
-        "city" => $data['city']
-    );
-    echo json_encode($updated_user);
+    // Validate gender
+    $valid_genders = ['Male', 'Female', 'Other'];
+    if (!in_array($gender, $valid_genders)) {
+        echo json_encode(["message" => "Invalid gender value."]);
+        http_response_code(400); // Bad Request
+        exit;
+    }
+
+    try {
+        $query = "UPDATE users SET username = :username, email = :email, phone = :phone, gender = :gender, state = :state, city = :city WHERE id = :user_id";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':gender', $gender);
+        $stmt->bindParam(':state', $state);
+        $stmt->bindParam(':city', $city);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Profile updated successfully."]);
+            http_response_code(200); // OK
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            echo json_encode(["message" => "Unable to update profile. Error: " . $errorInfo[2]]);
+            http_response_code(500); // Internal Server Error
+        }
+    } catch (PDOException $e) {
+        echo json_encode(["message" => "Database error: " . $e->getMessage()]);
+        http_response_code(500); // Internal Server Error
+    }
 } else {
-    http_response_code(500);
-    echo json_encode(array("message" => "Failed to update user."));
+    echo json_encode(["message" => "Invalid input."]);
+    http_response_code(400); // Bad Request
 }
 ?>
