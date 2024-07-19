@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Space, Form, Select, Upload, notification } from "antd";
+import { Button, Input, Space, Form, Select, Upload, notification, message } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import axios from "axios";
 import "./Profile.css";
@@ -57,10 +57,11 @@ const Profile = ({ setProfileOpen }) => {
       setIsEditing(false); // Exit edit mode
       notification.success({ message: 'Profile updated successfully' });
     } catch (error) {
-      notification.error({
-        message: 'Error updating profile',
-        description: error.response ? error.response.data.message : error.message,
-      });
+      // notification.error({
+      //   message: 'Error updating profile',
+      //   description: error.response ? error.response.data.message : error.message,
+      // });
+      notification.error( {message :" please try again and check user input "});
     }
   };
 
