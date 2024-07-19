@@ -1,5 +1,6 @@
 import Footer from './components/Siteframe/Footer'
 import Header from './components/Siteframe/Header'
+// import PetDetail from './components/PetFilter/petDetailInfo/PetInfo'
 import SideBar from './components/PetFilter/sideBar/SideBar'
 
 const AllPetList = () => {

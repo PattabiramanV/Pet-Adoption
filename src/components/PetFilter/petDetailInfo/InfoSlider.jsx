@@ -26,12 +26,6 @@ export default function SimpleSlider() {
         <div>
           <img src="/src/assets/Bulldog.jpg" alt="" />
                </div>
-        <div className="slider-info">
-          <img src="/src/assets/Bulldog.jpg" alt="" />
-          </div>
-        <div className="slider-info">
-          <img src="/src/assets/Bulldog.jpg" alt="" />
-           </div>
       </Slider>
     </>
 

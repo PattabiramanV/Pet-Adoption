@@ -75,7 +75,12 @@ function PetDetailsRoute(props) {
                 <div className="house-info health">
                   <img className="healthImg" src="/src/assets/warehouse.png" alt="" /> <span>House-Trained</span>
                 </div>
-              </div>
+                  <div className="buttons adoptNow">
+                  <a href="/adopte">
+                    <button className="adopt">Adopt now</button>
+                  </a>
+                  </div>
+                </div>
              </div>
               
         </div>
