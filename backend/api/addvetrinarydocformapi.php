@@ -2,22 +2,26 @@
 
 require('../config/config.php');
 
-$user_id = authenticate();
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$user_id = authenticate(); // Ensure this function is correctly defined
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for empty fields
     if (empty($_POST['name']) || empty($_POST['education']) || empty($_POST['phone']) 
-    || empty($_POST['experience']) || empty($_POST['email']) || empty($_POST['have_a_clinic']) 
-    || empty($_POST['specialist']) || empty($_POST['address']) || empty($_POST['available_timing']) 
-    || empty($_POST['description']) || empty($_POST['home_visiting_available'])
-    || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name'])) {
+        || empty($_POST['experience']) || empty($_POST['email']) || empty($_POST['have_a_clinic']) 
+        || empty($_POST['specialist']) || empty($_POST['address']) || empty($_POST['available_timing']) 
+        || empty($_POST['description']) || empty($_POST['home_visiting_available'])
+        || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name'])) {
         echo json_encode(array("message" => "Please fill all the fields and upload an image."));
         die();
     }
 
     // Extract data and sanitize
     $doctorname = htmlspecialchars(strip_tags($_POST['name']));
-    $docContact = htmlspecialchars(strip_tags($_POST['phone'])); // No need for int conversion here
+    $docContact = htmlspecialchars(strip_tags($_POST['phone']));
     $docemail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $education = htmlspecialchars(strip_tags($_POST['education']));
     $experience = htmlspecialchars(strip_tags($_POST['experience']));
@@ -29,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $homeVisiting = htmlspecialchars(strip_tags($_POST['home_visiting_available']));
     $doctor_registerno = htmlspecialchars(strip_tags($_POST['doctor_registerno']));
 
-    // Phone number validation (basic format: +[country code][area code][number])
-    $phonePattern = '/^\+?[0-9\s\-()]+$/'; // Adjust regex as needed
+    // Phone number validation
+    $phonePattern = '/^\+?[0-9\s\-()]+$/';
     if (!preg_match($phonePattern, $docContact)) {
         echo json_encode(array("message" => "Invalid phone number format."));
         die();
@@ -38,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Image handling
     $imagePath = null;
-    if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] == 0) {
+    if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['profile_img']['tmp_name'];
         $fileName = $_FILES['profile_img']['name'];
-        $uploadFileDir = '../uploads/'; // Corrected to relative path
+        $uploadFileDir = 'uploads/';
         $dest_path = $uploadFileDir . $fileName;
 
         // Ensure the uploads directory exists and is writable
@@ -50,8 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (is_writable($uploadFileDir)) {
+            // Validate image type (basic example)
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($_FILES['profile_img']['type'], $allowedTypes)) {
+                echo json_encode(array("message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."));
+                die();
+            }
+
+            // Move the uploaded file
             if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $imagePath = $dest_path;
+                $imagePath = $fileName; // Store only the file name
             } else {
                 echo json_encode(array("message" => "Image upload failed. Could not move uploaded file."));
                 die();
@@ -69,27 +81,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query = "INSERT INTO vetneries (name, education, have_a_clinic, specialist, available_timing, phone, home_visiting_available, experience, address, description, user_id, email, profile_img, doctor_registerno) 
               VALUES (:doctorname, :education, :haveAclinic, :specialisation, :availableTiming, :docContact, :homeVisiting, :experience, :address, :description, :user_id, :docemail, :imagePath, :doctor_registerno)";
 
-    $stmt = $conn->prepare($query);
+    try {
+        $stmt = $conn->prepare($query);
 
-    $stmt->bindParam(':doctorname', $doctorname);
-    $stmt->bindParam(':education', $education);
-    $stmt->bindParam(':haveAclinic', $haveAclinic);
-    $stmt->bindParam(':specialisation', $specialisation);
-    $stmt->bindParam(':availableTiming', $availableTiming);
-    $stmt->bindParam(':docContact', $docContact);
-    $stmt->bindParam(':homeVisiting', $homeVisiting);
-    $stmt->bindParam(':experience', $experience);
-    $stmt->bindParam(':address', $address);
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':user_id', $user_id);
-    $stmt->bindParam(':docemail', $docemail);
-    $stmt->bindParam(':imagePath', $imagePath);
-    $stmt->bindParam(':doctor_registerno', $doctor_registerno);
+        $stmt->bindParam(':doctorname', $doctorname);
+        $stmt->bindParam(':education', $education);
+        $stmt->bindParam(':haveAclinic', $haveAclinic);
+        $stmt->bindParam(':specialisation', $specialisation);
+        $stmt->bindParam(':availableTiming', $availableTiming);
+        $stmt->bindParam(':docContact', $docContact);
+        $stmt->bindParam(':homeVisiting', $homeVisiting);
+        $stmt->bindParam(':experience', $experience);
+        $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':docemail', $docemail);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->bindParam(':doctor_registerno', $doctor_registerno);
 
-    if ($stmt->execute()) {
-        echo json_encode(array("message" => "Doctor registered successfully."));
-    } else {
-        echo json_encode(array("message" => "Unable to register doctor."));
+        if ($stmt->execute()) {
+            echo json_encode(array("message" => "Doctor registered successfully."));
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            echo json_encode(array("message" => "Unable to register doctor.", "error" => $errorInfo));
+        }
+    } catch (Exception $e) {
+        echo json_encode(array("message" => "An error occurred.", "error" => $e->getMessage()));
     }
 }
 ?>
