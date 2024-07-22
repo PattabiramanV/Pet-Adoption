@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-
+    
 $user_id = authenticate(); // Retrieve the authenticated user ID
 
 $query = "SELECT username, email, phone, gender, state, city FROM users WHERE id = :user_id";

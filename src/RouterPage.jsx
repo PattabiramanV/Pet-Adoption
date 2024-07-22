@@ -5,8 +5,8 @@ import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
 import Veterinarian from './components/VeterinaryPage';
-// import PetHostelss from './components/Pet_Hostel/Hostels';
-import Reuniting_lost_pets from './components/searchinglostandfoundpets';
+
+import ReunitingLostPets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
 import FoundingpetAdd from "./components/foundpetformpage";
 import Pets from './Pets';
@@ -14,16 +14,18 @@ import AllPetList from './AllPetList';
 
 import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/PetGroomingPage';
+import PrivateRoute from './PrivateRoute';
+import Practice from './components/practice';
 function RouterPage() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pethostel" element={<PetHostels />} />
+        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/pet-hostelss" element={<PetHostels />} />
-        <Route path="/findpet" element={<Reuniting_lost_pets />} />
+        
+        <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
         <Route path="/foundingpet" element={<FoundingpetAdd />} />
         <Route path="/pets" element={<Pets />} />
@@ -36,6 +38,7 @@ function RouterPage() {
         <Route path="/PetGrooming" element={<GroomingPage />} />
       </Routes>
     </Router>
+    // <Practice></Practice>
   );
 }
 

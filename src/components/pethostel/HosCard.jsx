@@ -9,7 +9,7 @@ function HostelCard({ hostel, active }) {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/bookHos");
+    navigate(`/bookHos?id=${hostel.id}`);
   };
 
   return (
@@ -68,7 +68,6 @@ function HostelCard({ hostel, active }) {
           Message
         </button>
       </div>
-  
     </a>
   );
 }

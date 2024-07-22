@@ -17,7 +17,7 @@ const Profile = ({ setProfileOpen }) => {
 
       try {
         const response = await axios.get('http://localhost/Pet-Adoption/Backend/profile/read_items.php', {
-          headers: { Authorization: `Bearer ${token}` }
+        
         });
         setProfile(response.data);
       } catch (error) {
