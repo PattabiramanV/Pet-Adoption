@@ -39,7 +39,7 @@ function AddVeterinaryDoctor() {
         }
 
         axios.post(
-            "http://localhost/Pet-Adoption/Backend/api/addVetrinaryDocformAPI.php",
+            "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
             formData,
             {
                 headers: {

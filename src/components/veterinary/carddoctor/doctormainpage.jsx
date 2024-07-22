@@ -1,5 +1,5 @@
 
-import Doctorcard from "./DoctorData";
+import Doctorcard from "./doctordata";
 
 const DoctorList = () => {
   return (

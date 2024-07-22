@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import './doctorPage.css';
+import './doctorpage.css';
 
 let userData = [
   {
@@ -104,7 +104,7 @@ export default DoctorCard;
 // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 // import React, { useEffect, useState } from "react";
-// import './doctorPage.css';
+// import './doctorpage.css';
 
 // const DoctorDetails = (props) => {
 //   return (
@@ -126,25 +126,45 @@ export default DoctorCard;
 
 // const DoctorCard = () => {
 //   const [userData, setUserData] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
 //   useEffect(() => {
 //     // Fetch data from the API
-//     fetch('http://localhost/Pet-Adoption/Backend/api/retriveVetrinaryDocinfo.php')
-//       .then(response => response.json())
+//     fetch('http://localhost/petadoption/backend/api/retriveVetrinarydocinfo.php')
+//       .then(response => {
+//         if (!response.ok) {
+//           throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         return response.json();
+//       })
 //       .then(data => {
 //         console.log('API response:', data); // Debugging statement
 //         if (Array.isArray(data)) {
 //           setUserData(data);
 //         } else {
-//           console.error('API response is not an array:', data);
+//           throw new Error('API response is not an array');
 //         }
+//         setLoading(false);
 //       })
-//       .catch(error => console.error('Error fetching data:', error));
+//       .catch(error => {
+//         console.error('Error fetching data:', error);
+//         setError(error);
+//         setLoading(false);
+//       });
 //   }, []);
+
+//   if (loading) {
+//     return <p>Loading...</p>;
+//   }
+
+//   if (error) {
+//     return <p>Error: {error.message}</p>;
+//   }
 
 //   return (
 //     <>
-//       {Array.isArray(userData) && userData.length > 0 ? (
+//       {userData.length > 0 ? (
 //         userData.map((user, index) => (
 //           <DoctorDetails 
 //             key={index}
@@ -168,3 +188,4 @@ export default DoctorCard;
 // };
 
 // export default DoctorCard;
+

@@ -2,8 +2,8 @@ import React from "react";
 
 import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
-import AddVeterinaryDocter from "./veterinary/AddVeterinaryDocter";
-import DoctorList from "./veterinary/carddoctor/Doctormainpage";
+import AddVeterinaryDocter from "./veterinary/addveterinarydocter";
+import DoctorList from "./veterinary/carddoctor/doctormainpage";
 
 
 

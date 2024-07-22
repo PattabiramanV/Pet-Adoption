@@ -1,6 +1,6 @@
 
 import React from 'react';
-import BookGrooming from "../Pet_Hostel/BookHos";
+import BookGrooming from "../pethostel/bookhos";
 
 
 function Bookingform(){

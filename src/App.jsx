@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
-import Veterinarian from './components/VeterinaryPage';
+import Veterinarian from './components/veterinarypage';
 // import PetHostelss from './components/Pet_Hostel/Hostels';
 import Reuniting_lost_pets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
@@ -13,7 +13,7 @@ import Pets from './Pets';
 import AllPetList from './AllPetList';
 
 import BookHosPage from './components/pethostel/BookHosPage';
-import GroomingPage  from './components/PetGroomingPage';
+import GroomingPage  from './components/petgroomingpage';
 
 function App() {
   return (
@@ -33,8 +33,8 @@ function App() {
 
 
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
-        <Route path="/Veterinary" element={<Veterinarian />} />
-        <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/veterinary" element={<Veterinarian />} />
+        <Route path="/petgrooming" element={<GroomingPage />} />
       </Routes>
     </Router>
   );
