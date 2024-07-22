@@ -4,7 +4,9 @@ require '../vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
 $key = 'Manoj';
+
 
 function generateJWT($user_id) {
     global $key;
@@ -22,6 +24,7 @@ function generateJWT($user_id) {
     );
 
     return JWT::encode($payload, $key,'HS256');
+    
 }
 
 function validateJWT($jwt) {
@@ -37,21 +40,31 @@ function validateJWT($jwt) {
 function authenticate() {
     global $key;
     $headers = getallheaders();
+ 
+  
     if (isset($headers['Authorization'])) {
         $jwt = str_replace('Bearer ', '', $headers['Authorization']);
+        $jwt = trim($jwt);
+    
 
         try {
+        
             $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             return $decoded->data->id;
         } catch (Exception $e) {
-            http_response_code(401);
             echo json_encode(array("message" => "Access denied. Invalid token."));
             exit();
+            // http_response_code(401);
+
         }
     } else {
-        http_response_code(401);
+       
+
+        // http_response_code(401); 
         echo json_encode(array("message" => "Access denied. No token provided."));
         exit();
     }
 }
+
+
 ?>

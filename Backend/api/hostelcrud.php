@@ -38,7 +38,7 @@ class Hostel {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // echo "Query executed successfully<br>";
-        print_r($results);
+        // print_r($results);
 
         return $results;
     }
@@ -119,6 +119,95 @@ class Hostel {
         $stmt->execute();
         return "sucess";
     }
+
+
+    public function getAllHosData() {
+        // echo "Starting getData function<br>";
+
+        // Base query
+        $query = "SELECT * FROM pet_hostels";
+        // if ($id) {
+        //     $query .= " WHERE id = :id";
+        //     echo "Modified query to include ID<br>";
+        // }
+
+        // Prepare the statement
+        $stmt = $this->db->conn->prepare($query);
+        // if ($id) {
+        //     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        // }
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Fetch the results
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // echo "Query executed successfully<br>";
+        // print_r($results);
+
+        return $results;
+    }
+public function bookHostel($hosId,$data,$user_id){
+
+$query = "INSERT INTO hostel_bookings (
+    hos_id, 
+    service_type, 
+    pet_type, 
+    breed_type, 
+    pet_name, 
+    age, 
+    gender, 
+    expectations, 
+    parent_name, 
+    parent_phone, 
+    parent_state, 
+    parent_city,
+    user_id
+) VALUES (:hos_id, :service_type, :pet_type, :breed_type, :pet_name, :age, :gender, :expectations, :parent_name, :parent_phone, :parent_state, :parent_city,:user_id)";
+
+$stmt = $this->db->conn->prepare($query);
+
+// Bind parameters  
+$stmt->bindParam(':hos_id', $hosId, PDO::PARAM_INT);
+$stmt->bindParam(':service_type', $data['serviceType'], PDO::PARAM_STR);
+$stmt->bindParam(':pet_type', $data['petType'], PDO::PARAM_STR);
+$stmt->bindParam(':breed_type', $data['breedType'], PDO::PARAM_STR);
+$stmt->bindParam(':pet_name', $data['parentName'], PDO::PARAM_STR);
+$stmt->bindParam(':age', $data['age'], PDO::PARAM_INT);
+$stmt->bindParam(':gender', $data['gender'], PDO::PARAM_STR);
+$stmt->bindParam(':expectations', $data['expectations'], PDO::PARAM_STR);
+$stmt->bindParam(':parent_name', $data['parentName'], PDO::PARAM_STR);
+$stmt->bindParam(':parent_phone', $data['parentPhone'], PDO::PARAM_STR);
+$stmt->bindParam(':parent_state', $data['parentState'], PDO::PARAM_STR);
+$stmt->bindParam(':parent_city', $data['parentCity'], PDO::PARAM_STR);
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+
+// Execute the statement
+if ($stmt->execute()) {
+    echo "Hostel Booking successfully.";
+    
+} else {
+    echo "Error: " . implode(" ", $stmt->errorInfo());
+}
+
+
+}
+
+public function getDataById($userId){
+    
+    echo $userId;
+}
+
+// public function emailSendFun(){
+
+
+// }
+
+
+
+
 }
 
 
@@ -126,4 +215,7 @@ class Hostel {
 
 
 
-?>
+
+
+
+
