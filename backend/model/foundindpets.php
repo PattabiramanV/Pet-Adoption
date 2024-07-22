@@ -1,7 +1,6 @@
 <?php
+require '../config/config.php';
 
-require "./dbconnect.php";
-include 'database.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -9,7 +8,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-require '../config/config.php';
 
 // Preflight request handling
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -35,11 +33,9 @@ if ($data) {
     $photoData = base64_decode($photo);
 
     try {
-        $database = new database();
-        $db = $database->connect();
-
+       
         // Prepare the SQL statement with the correct column names
-        $stmt = $db->prepare("INSERT INTO found_pets_details (user_id, pet_type, breed, age, gender, contact_no, date_found, photo, address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO found_pets_details (user_id, pet_type, breed, age, gender, contact_no, date_found, photo, address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $user_id);
         $stmt->bindParam(2, $petType);
         $stmt->bindParam(3, $breed);

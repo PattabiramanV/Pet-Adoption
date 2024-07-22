@@ -15,6 +15,7 @@
   align-items: center;
   gap: 20px;
   padding: 15px;
+  margin-top: 100px;
 }
 
 .Doccard-container {
@@ -49,6 +50,7 @@
 .Doccard-container .doctorImg:hover {
   transform: scale(1.1);
   transition: transform 0.3s;
+  cursor: pointer;
 }
 
 .Doccard-container .Docdetails {
@@ -76,6 +78,9 @@
   margin-bottom: 5%;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
+  position: absolute; /* Position the button absolutely */
+  bottom: 0px; /* Position the button at the bottom edge of the container */
+  
 }
 
 .Doccard-container .buttons-card .morebutton:hover {

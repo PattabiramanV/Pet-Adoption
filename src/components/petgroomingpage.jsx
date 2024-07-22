@@ -4,21 +4,21 @@ import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
 
 import GrommingForm from './veterinary/grommingform';
-import PetGroomingPage from "./veterinary/PetGromming";
+import PetGroomingPage from "./veterinary/petgromming";
 // import Bookingform from "./veterinary/groomingBookingform";
 
 const GroomingPage=()=>{
 
     return(
-<>
+    <>
         <Header/>
        <PetGroomingPage></PetGroomingPage>  
-<GrommingForm></GrommingForm>
+       <GrommingForm></GrommingForm>
         
          
         <Footer/>
 
-        </>
+    </>
     )
 }
 

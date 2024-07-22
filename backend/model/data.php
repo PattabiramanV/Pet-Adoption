@@ -2,7 +2,7 @@
 // read_items.php
 
 require '../config/config.php';
-require './dbconnect.php';
+// require './dbconnect.php';
 
 
 error_reporting(E_ALL);
@@ -20,12 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $user_id = authenticate(); // Retrieve the authenticated user ID
 
 try {
-    $database = new database();
-    $db = $database->connect();
+   
 
     // If you want to fetch items only for the authenticated user
     $query = "SELECT * FROM pet_losting_details WHERE user_id = :user_id";
-    $stmt = $db->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
 
