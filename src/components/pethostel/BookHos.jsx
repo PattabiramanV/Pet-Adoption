@@ -32,7 +32,7 @@ function BookHos() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost/petadoption/Backend/profile/read_items.php`,
+        `http://localhost/petadoption/Backend/profile/read_profile.php`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

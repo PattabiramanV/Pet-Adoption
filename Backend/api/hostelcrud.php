@@ -11,8 +11,8 @@ class Hostel {
 
     public function __construct() {
       
-        $this->db = new database();
-        $this->db = $this->db->connect();
+        $this->db = new Database();
+        // $this->db = $this->db->getConnection();
     }
     
     public function getData($id = null) {
