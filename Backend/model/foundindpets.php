@@ -5,8 +5,8 @@ include 'database.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-header("Access-Control-Allow-Origin: *"); // Allow from any origin
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 require '../config/config.php';
@@ -23,17 +23,15 @@ $user_id = authenticate(); // Retrieve the authenticated user ID
 $data = json_decode(file_get_contents("php://input"));
 
 if ($data) {
-    $name = $data->name;
     $petType = $data->petType;
+    $breed = $data->breed;
     $age = $data->age;
     $gender = $data->gender;
     $contactNo = $data->contactNo;
-    $lostDate = $data->lostDate;
+    $dateFound = $data->dateFound;
     $photo = $data->photo; // assuming this is base64 encoded
     $address = $data->address;
     $description = $data->description;
-
-    // Decode the photo from base64
     $photoData = base64_decode($photo);
 
     try {
@@ -41,14 +39,14 @@ if ($data) {
         $db = $database->connect();
 
         // Prepare the SQL statement with the correct column names
-        $stmt = $db->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO found_pets_details (user_id, pet_type, breed, age, gender, contact_no, date_found, photo, address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $user_id);
-        $stmt->bindParam(2, $name);
-        $stmt->bindParam(3, $petType);
+        $stmt->bindParam(2, $petType);
+        $stmt->bindParam(3, $breed);
         $stmt->bindParam(4, $age);
         $stmt->bindParam(5, $gender);
         $stmt->bindParam(6, $contactNo);
-        $stmt->bindParam(7, $lostDate);
+        $stmt->bindParam(7, $dateFound);
         $stmt->bindParam(8, $photoData, PDO::PARAM_LOB);
         $stmt->bindParam(9, $address);
         $stmt->bindParam(10, $description);

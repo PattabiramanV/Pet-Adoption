@@ -56,7 +56,7 @@ font-size: 14px;
 margin: 10px 0;
 }
 
-.more-info-btn {
+.more {
 padding: 10px 20px;
 border-radius: 5px;
 cursor: pointer;
@@ -69,7 +69,7 @@ background-color: #fff;
 color: #675bc8;
 }
 
-.more-info-btn:hover {
+.more:hover {
 background-color: #696299; /* DarkSlateBlue */
 color: white ;
 

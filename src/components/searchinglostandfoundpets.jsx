@@ -1,7 +1,7 @@
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import Found_pets_list_card from "./foundpets/foundpetslist";
-import Reuniting_pets from "./reunitingpets/Reuniting";
+import Reuniting_pets from "./reunitingpets/reuniting";
 import Lost_pets from './lostpets/lostpetslist';
 
 

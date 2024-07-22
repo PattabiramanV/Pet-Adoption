@@ -9,7 +9,7 @@ function lostpetandform() {
   return (
     <>
       <Header />
-      <LostPetForm/>
+      <Lostpetsform/>
       <Footer />
     </>
   );

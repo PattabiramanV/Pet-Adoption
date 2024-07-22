@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const LostPetForm = () => {
+const FoundPetsForm = () => {
     const [formData, setFormData] = useState({
-        name: '',
         petType: '',
+        breed: '',
         age: '',
         gender: '',
         contactNo: '',
-        lostDate: '',
+        dateFound: '',
         photo: null,
         address: '',
         description: ''
@@ -35,7 +35,7 @@ const LostPetForm = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost/pet-adoption/Backend/model/lostingpet.php', dataToSend, {
+                const response = await axios.post('http://localhost/pet-adoption/Backend/model/foundingpet.php', dataToSend, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert(response.data.message);
@@ -47,21 +47,9 @@ const LostPetForm = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
-            <h2 className="text-2xl font-bold mb-6 text-green-800">Add Lost Pets</h2>
+            <h2 className="text-2xl font-bold mb-6 text-green-800">Add Founding Pets</h2>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Pet Name</label>
-                        <input
-                            name="name"
-                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                            id="name"
-                            type="text"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Pet Name"
-                        />
-                    </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petType">Pet Type</label>
                         <input
@@ -72,6 +60,18 @@ const LostPetForm = () => {
                             value={formData.petType}
                             onChange={handleChange}
                             placeholder="Pet Type"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="breed">Breed</label>
+                        <input
+                            name="breed"
+                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                            id="breed"
+                            type="text"
+                            value={formData.breed}
+                            onChange={handleChange}
+                            placeholder="Breed"
                         />
                     </div>
                     <div>
@@ -113,13 +113,13 @@ const LostPetForm = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lostDate">Lost Date</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dateFound">Date Found</label>
                         <input
-                            name="lostDate"
+                            name="dateFound"
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2"
-                            id="lostDate"
+                            id="dateFound"
                             type="date"
-                            value={formData.lostDate}
+                            value={formData.dateFound}
                             onChange={handleChange}
                         />
                     </div>
@@ -161,9 +161,11 @@ const LostPetForm = () => {
                 <div className="flex justify-center">
                     <button className="w-auto px-4 text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>
                 </div>
-            </form>
+           
+                </form>
         </div>
     );
 };
 
-export default LostPetForm;
+
+export default FoundPetsForm ;

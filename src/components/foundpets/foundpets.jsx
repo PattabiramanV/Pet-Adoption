@@ -39,6 +39,7 @@ const PetCard = ({ pet }) => {
         </div>
 
         <p className="pet-card-description">{pet.description}</p>
+        <button className="more"><a href='FoundListpet' >See more</a></button>
       </div>
     </div>
   );
