@@ -77,7 +77,8 @@ img.dogCat {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #675bc8;
+    color: #675bc8;
     margin-top: 10px;
     border-radius: 5px;
+    border: 1px solid #675bc8;
 }

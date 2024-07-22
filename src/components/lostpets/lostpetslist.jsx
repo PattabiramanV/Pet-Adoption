@@ -47,6 +47,12 @@ const PetList = () => {
           ))}
         </div>
       </div>
+      {/* <div className="Rehome"> */}
+      {/* <div className="more-info">
+          <button className="more"> <a href='LostListPet' >See more</a> </button>
+      </div> */}
+    
+    {/* </div> */}
     </div>
   );
 };

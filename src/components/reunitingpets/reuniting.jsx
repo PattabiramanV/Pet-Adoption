@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import catanddog from "../../assets/dog.jpg";
-import './Reuniting.css';
+import './reuniting.css';
 
 const Reuniting = () => {
   const navigate = useNavigate();
