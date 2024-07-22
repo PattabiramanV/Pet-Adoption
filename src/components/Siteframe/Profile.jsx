@@ -21,7 +21,7 @@ const Profile = ({ setProfileOpen }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost/Pet-Adoption/Backend/profile/read_profile.php', {
+        const response = await axios.get('http://localhost/petadoption/Backend/profile/read_profile.php', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
@@ -44,7 +44,7 @@ const Profile = ({ setProfileOpen }) => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
-        'http://localhost/Pet-Adoption/Backend/profile/update_profile.php',
+        'http://localhost/petadoption/Backend/profile/update_profile.php',
         values,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -74,7 +74,7 @@ const Profile = ({ setProfileOpen }) => {
 
     try {
       const response = await axios.post(
-        'http://localhost/Pet-Adoption/Backend/profile/upload_avatar.php',
+        'http://localhost/petadoption/Backend/profile/upload_avatar.php',
         formData,
         {
           headers: {
