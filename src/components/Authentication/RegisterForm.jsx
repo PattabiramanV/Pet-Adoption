@@ -23,7 +23,7 @@ const RegisterForm = () => {
     try {
       // Send a POST request with the JSON string
       const response = await axios.post(
-        "http://localhost/Pet-Adoption/Backend/auth/register.php",
+        "http://localhost/petadoption/Backend/auth/register.php",
         values,
         {}
       );
