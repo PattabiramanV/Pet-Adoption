@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Space, Form, Select, Upload, notification } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
+import { Button, Input, Space, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
 
-const { Option } = Select;
+let { Option } = Select;
 
-const Profile = ({ setProfileOpen }) => {
+let Profile = ({ setProfileOpen }) => {
   const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState('');
+  const [avatarFile, setAvatarFile] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,12 +21,12 @@ const Profile = ({ setProfileOpen }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost/petadoption/Backend/profile/read_profile.php', {
+        const response = await axios.get('http://localhost/petadoption/backend/profile/read_profile.php', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
         form.setFieldsValue(response.data);
-        setImageUrl(response.data.avatar || ''); // Handle the case where there might not be an avatar
+        setImageUrl(response.data.avatar ? `http://localhost/petadoption/backend/profile/uploads/${response.data.avatar}` : ''); // Handle the case where there might not be an avatar
       } catch (error) {
         console.error('Error fetching profile:', error);
         notification.error({ message: 'Error fetching profile', description: error.message });
@@ -44,7 +44,7 @@ const Profile = ({ setProfileOpen }) => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
-        'http://localhost/petadoption/Backend/profile/update_profile.php',
+        'http://localhost/petadoption/backend/profile/update_profile.php',
         values,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -54,6 +54,10 @@ const Profile = ({ setProfileOpen }) => {
       setProfile(values); // Update profile state with form values
       setIsEditing(false); // Exit edit mode
       notification.success({ message: 'Profile updated successfully' });
+
+      if (avatarFile) {
+        handleImageUpload(avatarFile);
+      }
     } catch (error) {
       notification.error({
         message: 'Error updating profile',
@@ -65,6 +69,7 @@ const Profile = ({ setProfileOpen }) => {
   const handleCancelClick = () => {
     setIsEditing(false); // Exit edit mode without saving
     form.setFieldsValue(profile); // Reset form values to the original profile state
+    setImageUrl(profile.avatar ? `http://yourdomain.com/uploads/${profile.avatar}` : ''); // Reset image URL to the original
   };
 
   const handleImageUpload = async (file) => {
@@ -74,14 +79,17 @@ const Profile = ({ setProfileOpen }) => {
 
     try {
       const response = await axios.post(
-        'http://localhost/petadoption/Backend/profile/upload_avatar.php',
+        'http://localhost/petadoption/backend/profile/upload_avatar.php',
         formData,
         {
           headers: {
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
           }
         }
       );
+
+      console.log('Upload response:', response.data); // Check response
 
       if (response.data.url) {
         setImageUrl(response.data.url); // Update the image URL
@@ -94,20 +102,13 @@ const Profile = ({ setProfileOpen }) => {
     }
   };
 
-  const handleFileChange = (info) => {
-    if (info.file.status === 'done') {
-      handleImageUpload(info.file.originFileObj); // Pass the file object to the upload handler
-    } else if (info.file.status === 'error') {
-      notification.error({ message: 'Upload failed', description: 'There was an error uploading the image.' });
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      setImageUrl(URL.createObjectURL(file));
     }
   };
-
-  const uploadButton = (
-    <div>
-      <UploadOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   return (
     <section className="profile-page">
@@ -115,16 +116,7 @@ const Profile = ({ setProfileOpen }) => {
         <div className="profile-header">
           <div className="profile-avatar">
             {isEditing ? (
-              <Upload
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                customRequest={({ file, onSuccess, onError }) => {
-                  handleFileChange({ file, onSuccess, onError });
-                }}
-              >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-              </Upload>
+              <input type="file" accept="image/*" onChange={handleFileChange} />
             ) : (
               <img src={imageUrl || "https://via.placeholder.com/150"} alt="Profile Avatar" />
             )}

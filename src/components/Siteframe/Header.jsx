@@ -29,7 +29,7 @@ const Header = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost/petadoption/Backend/profile/read_profile.php",
+        "http://localhost/petadoption/backend/profile/read_profile.php",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
