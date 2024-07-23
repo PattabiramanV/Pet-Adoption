@@ -1,9 +1,4 @@
-
-.pet-list {
-    padding: 0 108px;
-    margin: 0 auto;
-    max-width: 1440px;
-}
+/* PetCard.css */
 .pet-card {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -11,6 +6,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
   max-width: 300px;
+  background-color: #fff;
 }
 
 .pet-card-header {
@@ -18,6 +14,7 @@
   width: 100%;
   height: 250px;
 }
+
 .pet-card-image {
   width: 100%;
   height: 100%;
@@ -29,12 +26,14 @@
 }
 
 .pet-card-name {
+  font-family: 'Arial', sans-serif;
   font-size: 24px;
   color: #4B0082; /* Indigo */
   margin: 0;
 }
 
 .pet-card-location {
+  font-family: 'Arial', sans-serif;
   color: #888;
   font-size: 14px;
   margin: 5px 0;
@@ -48,12 +47,7 @@
 
 .pet_left_de, .pet_right_de {
   width: 48%;
-}
-
-.pet-card-description {
-  color: #555;
-  font-size: 14px;
-  margin: 10px 0;
+  font-family: 'Arial', sans-serif;
 }
 
 .more-info-btn {
@@ -65,21 +59,28 @@
   margin-top: 10px;
   font-size: 16px;
   border: 1px solid #675bc8;
-  background-color: #fff; 
+  background-color: #fff;
   color: #675bc8;
+  font-family: 'Arial', sans-serif;
 }
 
 .more-info-btn:hover {
   background-color: #696299; /* DarkSlateBlue */
-  color: white ;
-
+  color: white;
 }
 
-/* pet list  */
 
+
+
+
+
+
+
+/* PetList.css */
 .pet-list {
-  padding: 0 108px;
+  padding: 20px 108px;
   margin: 0 auto;
+  max-width: 1440px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,35 +101,34 @@
 .pet-list-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 20px; /* Adds space between the cards */
+  justify-content: center; /* Centers the cards */
 }
 
-.pet-list-container-sub {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 100%;
-}
-@media (min-width: 1440px) {
-  .pet-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.pet-card {
+  flex: 1 1 calc(33.333% - 20px); /* 3 cards per row */
+  max-width: 300px; /* Ensures cards don’t exceed max width */
+  box-sizing: border-box; /* Includes padding and border in width */
 }
 
-  .pet-list-container, .pet-list-container-sub {
-    justify-content: center;
+@media (max-width: 1200px) {
+  .pet-card {
+    flex: 1 1 calc(33.333% - 20px); /* Maintain 3 cards per row on screens < 1200px */
   }
-
-
 }
 
+@media (max-width: 800px) {
+  .pet-card {
+    flex: 1 1 calc(50% - 20px); /* 2 cards per row on screens < 800px */
+  }
+}
 
 @media (max-width: 500px) {
-
   .pet-list {
     padding: 0 10px;
-    margin: 0 auto;
-}
+  }
+
+  .pet-card {
+    flex: 1 1 100%; /* 1 card per row on screens < 500px */
+  }
 }

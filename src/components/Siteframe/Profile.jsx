@@ -69,7 +69,7 @@ let Profile = ({ setProfileOpen }) => {
   const handleCancelClick = () => {
     setIsEditing(false); // Exit edit mode without saving
     form.setFieldsValue(profile); // Reset form values to the original profile state
-    setImageUrl(profile.avatar ? `http://yourdomain.com/uploads/${profile.avatar}` : ''); // Reset image URL to the original
+    setImageUrl(profile.avatar ? `http://localhost/petadoption/backend/profile/uploads/${profile.avatar}` : ''); // Reset image URL to the original
   };
 
   const handleImageUpload = async (file) => {

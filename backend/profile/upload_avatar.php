@@ -46,7 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($upload_dir, 0755, true);
         }
 
-        $file_name = uniqid() . '-' . basename($file['name']);
+        // Retrieve the current avatar filename from the database
+        $stmt = $conn->prepare("SELECT avatar FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $user_id);
+        $stmt->execute();
+        $current_avatar = $stmt->fetchColumn();
+
+        // Delete the current avatar file if it exists
+        if ($current_avatar && file_exists($upload_dir . $current_avatar)) {
+            unlink($upload_dir . $current_avatar);
+        }
+
+        // Use the user's ID as the filename
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $file_name = $user_id . '.' . $extension;
         $file_path = $upload_dir . $file_name;
 
         if (move_uploaded_file($file['tmp_name'], $file_path)) {
@@ -56,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':id', $user_id);
 
             if ($stmt->execute()) {
-                $full_url = "http://yourdomain.com/uploads/" . $file_name; // Update with your domain
+                $full_url = "http://localhost/petadoption/backend/profile/" . $file_name; // Update with your domain
                 header('Content-Type: application/json');
                 echo json_encode(["message" => "Avatar uploaded and updated successfully.", "url" => $full_url]);
                 http_response_code(200); // OK

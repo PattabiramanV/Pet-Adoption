@@ -30,8 +30,8 @@ section.Peaceful {
   align-items: center;
 background-color: white;
   margin: 0 auto;
-  padding: 0 108px;
-  max-width: 1440px;
+  padding: 20px 108px;
+    max-width: 1440px;
 }
 .Peaceful_div_main {
   display: flex;

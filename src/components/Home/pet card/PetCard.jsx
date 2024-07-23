@@ -1,44 +1,51 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Petcard.css"; // Import your CSS file
 
 const PetCard = ({ pet }) => {
   return (
     <div className="pet-card">
       <div className="pet-card-header">
-        <div className="pet_image">
-          <img src={pet.image} alt={pet.name} className="pet-card-image" />
-        </div>
+        <img src={pet.image} alt={pet.name} className="pet-card-image" />
       </div>
 
       <div className="pet-card-body">
-        <div className="pet_name">
-          <h2 className="pet-card-name">{pet.name}</h2>
-          <p className="pet-card-location">
-            <i className="fas fa-map-marker-alt"></i> {pet.location}
-          </p>
+        <div className="pet-name">
+          <div className="name">
+            <h2 className="pet-card-name">{pet.name}</h2>
+          </div>
+          <div className="location">
+            <p className="pet-card-location">
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.location}
+            </p>
+          </div>
         </div>
 
         <div className="pet-card-info">
           <div className="pet_left_de">
-            <p>
-              <strong>Gender:</strong> {pet.gender}
-            </p>
-            <p>
-              <strong>Breed:</strong> {pet.breed}
-            </p>
+            <div className="Gender">
+              <p>
+                <strong>Gender:</strong> {pet.gender}
+              </p>
+            </div>
+            <div className="type">
+              <p>
+              <strong>Lost Date:</strong> {pet.lostDate}
+              </p>
+            </div>
           </div>
           <div className="pet_right_de">
             <p>
-              <strong>Age:</strong> {pet.age}
-            </p>
-            <p>
-              <strong>Size:</strong> {pet.size}
+            <strong>Pet Type:</strong> {pet.petType}
+
             </p>
           </div>
         </div>
 
-        <p className="pet-card-description">{pet.description}</p>
-        <button className="more-info-btn">More Info</button>
+        <div className="btn">
+          <button className="more-info-btn">More Info</button>
+        </div>
       </div>
     </div>
   );
