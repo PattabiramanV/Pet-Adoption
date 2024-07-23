@@ -11,7 +11,8 @@ const LostPetForm = () => {
         lostDate: '',
         photo: null,
         address: '',
-        description: ''
+        description: '',
+        location: '' // Add the location field here
     });
 
     const handleChange = (e) => {
@@ -26,23 +27,40 @@ const LostPetForm = () => {
         e.preventDefault();
         const reader = new FileReader();
         const token = localStorage.getItem('token');
-        reader.readAsDataURL(formData.photo);
-        reader.onload = async () => {
-            const base64Photo = reader.result.split(",")[1];
+
+        if (formData.photo) {
+            reader.readAsDataURL(formData.photo);
+            reader.onload = async () => {
+                const base64Photo = reader.result.split(",")[1];
+                const dataToSend = {
+                    ...formData,
+                    photo: base64Photo
+                };
+
+                try {
+                    const response = await axios.post('http://localhost/petadoption/Backend/model/lostingpet.php', dataToSend, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    alert(response.data.message);
+                } catch (error) {
+                    console.error('There was an error!', error);
+                }
+            };
+        } else {
             const dataToSend = {
                 ...formData,
-                photo: base64Photo
+                photo: null
             };
 
             try {
-                const response = await axios.post('http://localhost/pet-adoption/Backend/model/lostingpet.php', dataToSend, {
+                const response = await axios.post('http://localhost/petadoption/Backend/model/lostingpet.php', dataToSend, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert(response.data.message);
             } catch (error) {
                 console.error('There was an error!', error);
             }
-        };
+        }
     };
 
     return (
@@ -143,6 +161,18 @@ const LostPetForm = () => {
                             value={formData.address}
                             onChange={handleChange}
                             placeholder="Address"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location</label>
+                        <input
+                            name="location"
+                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2"
+                            id="location"
+                            type="text"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="Location"
                         />
                     </div>
                     <div className="sm:col-span-2">

@@ -23,9 +23,6 @@ const Reuniting = () => {
                 Open your heart and your home to a shelter pet.
               </p>
               <div className="Div_btn">
-                <button className="button" onClick={() => handleNavigation('/foundingpet')}>
-                  Founding a Pet
-                </button>
                 <button className="button" onClick={() => handleNavigation('/lostingpet')}>
                   Losting a Pet
                 </button>

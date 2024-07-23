@@ -132,3 +132,14 @@ width: 100%;
   margin: 0 auto;
 }
 }
+
+/* searchinglostandfoundpets butt css */
+.div_more_btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button.hi {
+  width: 10%;
+}

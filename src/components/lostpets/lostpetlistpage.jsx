@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PetCard from './lostpets';
 
-const PetList = () => {
+const lostlistmain = () => {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,16 +37,16 @@ const PetList = () => {
 
   return (
     <div className="pet-list">
-      <h1 className="pet-list-name">Posting a Lost Pets</h1>
+      <h1 className="pet-list-name">Posting a Lost Pets Details</h1>
       <div className="pet-list-container">
         <div className="pet-list-container-sub">
-          {pets[0] && <PetCard pet={pets[0]} />}
-          {pets[1] && <PetCard pet={pets[1]} />}
-          {pets[2] && <PetCard pet={pets[2]} />}
+          {pets.map((pet, index) => (
+            <PetCard key={index} pet={pet} />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default PetList;
+export default lostlistmain;
