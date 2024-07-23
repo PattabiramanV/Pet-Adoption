@@ -246,17 +246,15 @@
 }
 .filter-filterpet{
           display: flex;
-    overflow: hidden;
     width: 100%;
     height: auto;
     padding-bottom: 21%;
 }
 .filter-filterpet .list-pet {
-       right: 87px;
+    left: 7px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-top: 85px;
-
+    padding-bottom: 66px;
 }

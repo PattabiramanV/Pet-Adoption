@@ -14,9 +14,10 @@ import AllPetList from './AllPetList';
 
 import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/PetGroomingPage';
-import Info from './components/PetFilter/petDetailInfo/Info';
-import Sale from './components/PetFilter/petsForms/sale';
-import Adoption from './components/PetFilter/petsForms/adaption';
+import Info from './components/petfilter/petDetailInfo/Info';
+import Sale from './components/petfilter/petsForms/sale';
+import Adoption from './components/petfilter/petsForms/adaption';
+// import SideBar from './components/PetFilter/sideBar/SideBar';
 
 function RouterPage() {
   return (
@@ -38,9 +39,10 @@ function RouterPage() {
         <Route path="/PetGrooming" element={<GroomingPage />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
-         <Route path="/petDetails" element={<Info />} />
+         <Route path="/petDetails/:name"  element={<Info />} />
          <Route path="/sale" element={<Sale />} />
          <Route path="/adopte" element={<Adoption />} />
+         {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
       </Routes>
     </Router>
   );

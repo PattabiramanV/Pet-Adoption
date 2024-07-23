@@ -1,13 +1,20 @@
-import  { useState, useEffect } from 'react';
-import PropTypes from "prop-types";
-// Dropdown.js
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-
-const Dropdown = ({ label, options }) => {
+const Dropdown = ({ label, options, onChange }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
 
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setShowDropdown(false);
+    if (onChange) {
+      onChange(option); // Notify parent component of the selected option
+    }
   };
 
   const handleClickOutside = (event) => {
@@ -27,22 +34,21 @@ const Dropdown = ({ label, options }) => {
   return (
     <div className="dropdown">
       <button onClick={handleDropdownToggle} className="dropbtn">
-        {label} <span className="arrow">{showDropdown ? 'v' : '^'}</span>
+        {selectedOption || label} <span className="arrow">{showDropdown ? 'v' : '^'}</span>
       </button>
       <div className={`dropdown-content ${showDropdown ? 'show' : ''}`}>
         {options.map((option, index) => (
-          <a key={index} href={`#${option.toLowerCase()}`}>{option}</a>
+          <a key={index} onClick={() => handleOptionClick(option)}>{option}</a>
         ))}
       </div>
     </div>
   );
 };
 
-export default Dropdown;
-
-
-
 Dropdown.propTypes = {
-    label: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired,
-}
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func // Callback function to handle option changes
+};
+
+export default Dropdown;

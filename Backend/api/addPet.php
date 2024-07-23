@@ -37,10 +37,9 @@ if ($data) {
     $photoData = base64_decode($photo);
 
     try {
-        // $database = new database();
-        // $db = $database->connect();
+       
 
-        $stmt = $conn->prepare("INSERT INTO pets (pet_name, gender, pet_category, age, breeds, price, state, city, description, photo, add_for, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO pets (pet_name, gender, pet_category, age, breeds, price, state, city, description, photo, add_for, user_id,size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
         $stmt->bindParam(1, $petname);
         $stmt->bindParam(2, $gender);
         $stmt->bindParam(3, $petcategory);
@@ -53,6 +52,7 @@ if ($data) {
         $stmt->bindParam(10, $photoData, PDO::PARAM_LOB);
         $stmt->bindParam(11, $add_for);
         $stmt->bindParam(12, $user_id);
+        $stmt->bindParam(13, $size);
 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Pet data inserted successfully"]);

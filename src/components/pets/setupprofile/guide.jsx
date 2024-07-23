@@ -1,4 +1,4 @@
-import ProfileGuide from "./ProfileGuide"
+import ProfileGuide from "./profileguide"
 
 
 const Background = () => {

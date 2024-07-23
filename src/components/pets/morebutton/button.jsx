@@ -1,4 +1,4 @@
-import './Button.css'
+import './button.css'
 const ViewMore = () => {
   return (
     <div className="Rehome">

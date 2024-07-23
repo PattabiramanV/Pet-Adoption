@@ -1,5 +1,5 @@
 // import React from 'react';
-import './ImageText.css';
+import './imagetext.css';
 const Image = () => {
   return (
     <div className="parentContainer">

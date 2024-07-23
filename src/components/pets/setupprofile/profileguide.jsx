@@ -1,4 +1,4 @@
-import './ProfileGuide.css';
+import './profileguide.css';
 const ProfileGuide = () => {
     return (
         <div className="profile-guide-container">
