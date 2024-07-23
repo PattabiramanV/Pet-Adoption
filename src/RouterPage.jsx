@@ -15,7 +15,8 @@ import AllPetList from './AllPetList';
 import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/PetGroomingPage';
 import PrivateRoute from './PrivateRoute';
-import Practice from './components/practice';
+// import Practice from './components/practice';
+// import DoctorAddForm from './components/veterinary/doctoraddform';
 
 function RouterPage() {
   return (
@@ -37,9 +38,12 @@ function RouterPage() {
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
         <Route path="/Veterinary" element={<Veterinarian />} />
         <Route path="/PetGrooming" element={<GroomingPage />} />
+        {/* <Route path="/adddoctor" element={<DoctorAddForm />} /> */}
+
+        
       </Routes>
     </Router>
-    // <Practice></Practice>
+    
   );
 }
 
