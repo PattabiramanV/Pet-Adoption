@@ -1,6 +1,5 @@
 <?php
-require '../config/config.php';
-require './dbconnect.php';
+require "../config/config.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");

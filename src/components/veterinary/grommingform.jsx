@@ -35,7 +35,7 @@ function GroomingPetsForm() {
         }
 
         axios.post(
-            "http://localhost/Pet-Adoption/Backend/api/groomingformAPI.php",
+            "http://localhost/petadoption/backend/api/groomingformapi.php",
              formData, {
             headers: {
                 "Authorization": `Bearer ${token}`,

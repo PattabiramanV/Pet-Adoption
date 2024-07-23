@@ -95,13 +95,13 @@ require '../vendor/autoload.php';
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
             $mail->SMTPAuth = true;
-            $mail->Username = 'pattabiramanvdckap@gmail.com'; // SMTP username
-            $mail->Password = 'jynzpfajhjjwnqzt'; // SMTP password (replace with the actual password)
+            $mail->Username = 'furryfriens123@gmail.com'; // SMTP username
+            $mail->Password = 'koifwsrjdmfnhplx'; // SMTP password (replace with the actual password)
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587; // TCP port to connect to
     
             // Set the sender's address
-            $mail->setFrom('pattabiramanvdckap@gmail.com', 'Furry friends');
+            $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
     
             // Add a recipient
             $mail->addAddress('pattabikrv2002@gmail.com', 'Pattabi');

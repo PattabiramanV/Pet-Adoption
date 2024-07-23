@@ -31,7 +31,7 @@ if (isset($_FILES['avatar'])) {
     // Move the uploaded file to the server
     if (move_uploaded_file($file['tmp_name'], $file_path)) {
         // Prepare the SQL statement to update the user's avatar
-        $stmt = $pdo->prepare("UPDATE users SET avatar = :avatar WHERE id = :id");
+        $stmt = $conn->prepare("UPDATE users SET avatar = :avatar WHERE id = :id");
         $stmt->bindParam(':avatar', $file_path);
         $stmt->bindParam(':id', $user_id);
         
