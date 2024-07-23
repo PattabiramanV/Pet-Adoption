@@ -10,15 +10,15 @@ import PetGroomingPage from "./veterinary/PetGromming";
 const GroomingPage=()=>{
 
     return(
-<>
+    <>
         <Header/>
        <PetGroomingPage></PetGroomingPage>  
-<GrommingForm></GrommingForm>
+       <GrommingForm></GrommingForm>
         
          
         <Footer/>
 
-        </>
+    </>
     )
 }
 
