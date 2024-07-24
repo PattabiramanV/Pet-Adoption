@@ -42,11 +42,10 @@
 .pet-card-info {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  gap: 20px;
 }
 
 .pet_left_de, .pet_right_de {
-  width: 48%;
   font-family: 'Arial', sans-serif;
 }
 

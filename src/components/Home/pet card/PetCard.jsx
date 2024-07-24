@@ -29,11 +29,7 @@ const PetCard = ({ pet }) => {
                 <strong>Gender:</strong> {pet.gender}
               </p>
             </div>
-            <div className="type">
-              <p>
-              <strong>Lost Date:</strong> {pet.lostDate}
-              </p>
-            </div>
+  
           </div>
           <div className="pet_right_de">
             <p>
@@ -42,6 +38,11 @@ const PetCard = ({ pet }) => {
             </p>
           </div>
         </div>
+        <div className="type">
+              <p>
+              <strong>Lost Date:</strong> {pet.lostDate}
+              </p>
+            </div>
 
         <div className="btn">
           <button className="more-info-btn">More Info</button>
