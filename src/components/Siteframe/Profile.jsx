@@ -3,9 +3,9 @@ import { Button, Input, Space, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
 
-let { Option } = Select;
+const { Option } = Select;
 
-let Profile = ({ setProfileOpen }) => {
+const Profile = ({ setProfileOpen }) => {
   const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
@@ -26,7 +26,7 @@ let Profile = ({ setProfileOpen }) => {
         });
         setProfile(response.data);
         form.setFieldsValue(response.data);
-        setImageUrl(response.data.avatar ? `http://localhost/petadoption/backend/profile/uploads/${response.data.avatar}` : ''); // Handle the case where there might not be an avatar
+        setImageUrl(response.data.avatar || '');
       } catch (error) {
         console.error('Error fetching profile:', error);
         notification.error({ message: 'Error fetching profile', description: error.message });
@@ -43,20 +43,19 @@ let Profile = ({ setProfileOpen }) => {
   const handleSaveClick = async (values) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post(
+      await axios.post(
         'http://localhost/petadoption/backend/profile/update_profile.php',
         values,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      console.log('Profile updated:', response.data);
-      setProfile(values); // Update profile state with form values
-      setIsEditing(false); // Exit edit mode
+      setProfile(values);
+      setIsEditing(false);
       notification.success({ message: 'Profile updated successfully' });
 
       if (avatarFile) {
-        handleImageUpload(avatarFile);
+        await handleImageUpload(avatarFile);
       }
     } catch (error) {
       notification.error({
@@ -67,9 +66,9 @@ let Profile = ({ setProfileOpen }) => {
   };
 
   const handleCancelClick = () => {
-    setIsEditing(false); // Exit edit mode without saving
-    form.setFieldsValue(profile); // Reset form values to the original profile state
-    setImageUrl(profile.avatar ? `http://localhost/petadoption/backend/profile/uploads/${profile.avatar}` : ''); // Reset image URL to the original
+    setIsEditing(false);
+    form.setFieldsValue(profile);
+    setImageUrl(profile.avatar || '');
   };
 
   const handleImageUpload = async (file) => {
@@ -89,11 +88,10 @@ let Profile = ({ setProfileOpen }) => {
         }
       );
 
-      console.log('Upload response:', response.data); // Check response
-
       if (response.data.url) {
-        setImageUrl(response.data.url); // Update the image URL
-        form.setFieldsValue({ avatar: response.data.url }); // Update the form with the new avatar URL
+        setImageUrl(response.data.url);
+        setProfile((prevProfile) => ({ ...prevProfile, avatar: response.data.url }));
+        form.setFieldsValue({ avatar: response.data.url });
       } else {
         notification.error({ message: 'Error uploading image', description: 'No URL returned from the server.' });
       }

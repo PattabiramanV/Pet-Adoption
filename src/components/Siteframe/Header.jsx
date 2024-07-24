@@ -6,7 +6,7 @@ import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
@@ -40,6 +40,7 @@ const Header = () => {
       } else {
         setProfile(response.data);
         setIsLoggedIn(true);
+        console.log(response.data);
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -94,15 +95,15 @@ const Header = () => {
               <span>Features</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <a href="findpet">Reuniting lost pets</a>
-                  <a href="PetGrooming">Pet Grooming</a>
-                  <a href="pethostel">Pet Hostel</a>
+                  <Link className="menu" to="/findpet">Reuniting lost pets</Link>
+                  <Link className="menu" to="/PetGrooming">Pet Grooming</Link>
+                  <Link className="menu" to="/pethostel">Pet Hostel</Link>
                 </div>
               )}
             </div>
-            <a href="Veterinary">Veterinarians</a>
-            <a href="#Add Pets">Add Pets</a>
-            <a href="pets">Pets</a>
+            <Link to="/Veterinary">Veterinarians</Link>
+            <Link to="/add-pets">Add Pets</Link>
+            <Link to="/pets">Pets</Link>
           </nav>
 
           <div className="nav-links_mobile">
@@ -114,12 +115,12 @@ const Header = () => {
               <span>☰</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-left">
-                  <a href="Veterinary">Veterinarians</a>
-                  <a href="#Add Pets">Add Pets</a>
-                  <a href="findpet">Reuniting lost pets</a>
-                  <a href="PetGrooming">Pet Grooming</a>
-                  <a href="pethostel">Pet Hostel</a>
-                  <a href="pets">Pets</a>
+                  <Link to="/Veterinary">Veterinarians</Link>
+                  <Link to="/add-pets">Add Pets</Link>
+                  <Link to="/findpet">Reuniting lost pets</Link>
+                  <Link to="/PetGrooming">Pet Grooming</Link>
+                  <Link to="/pethostel">Pet Hostel</Link>
+                  <Link to="/pets">Pets</Link>
                 </div>
               )}
             </div>
@@ -132,7 +133,11 @@ const Header = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <img src={ProfileLogo} alt="User" className="profile-image" />
+                <img
+                  src={profile.av || ProfileLogo}
+                  alt="User"
+                  className="profile-image"
+                />
                 <span>{profile.username}</span> {/* Display user's name */}
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
@@ -155,7 +160,7 @@ const Header = () => {
         <Modal
           title="Profile"
           style={{ top: 15 }}
-          open={isProfileOpen} // Updated prop here
+          open={isProfileOpen}
           onCancel={closeProfile}
           footer={null}
         >

@@ -90,4 +90,5 @@ img.pet_icon {
 }
 h2.title_icon {
     font-size: x-large;
+    filter: grayscale(1);
 }

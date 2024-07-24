@@ -23,6 +23,10 @@ $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
+    // If the avatar field contains a relative path, prepend the base URL
+    if (!empty($user['avatar'])) {
+        $user['avatar'] = 'http://localhost/petadoption/backend/profile/uploads/' . $user['avatar']; // Adjust the base URL as needed
+    }
     echo json_encode($user);
 } else {
     http_response_code(404);
