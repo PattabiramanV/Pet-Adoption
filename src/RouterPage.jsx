@@ -10,6 +10,8 @@ import ReunitingLostPets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
 import LostList from './components/lostlistpets';
 import Lostlistallpage from "./components/lostlistmainpage";
+import Mylostpostlist from "./components/mypetlost";
+
 import Pets from './Pets';
 import AllPetList from './AllPetList';
 import BookHosPage from './components/pethostel/BookHosPage';
@@ -29,6 +31,7 @@ function RouterPage() {
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
         <Route path="/LostListPet" element={<LostList />} />
+        <Route path="/mypetlostpost" element={<Mylostpostlist />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
