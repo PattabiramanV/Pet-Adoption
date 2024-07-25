@@ -1,66 +1,76 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-// import './PasswordResetVerify.css'; // Import the CSS file if you have one
+import React, { useState } from "react";
+import axios from "axios";
+import reset_verify from "../../assets/Reset password-cuate.png";
 
-const PasswordResetVerify = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [message, setMessage] = useState('');
+const PasswordResetVerify = ({ email }) => {
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost/petadoption/backend/resetpassword/password_reset_verify.php',
-        JSON.stringify({ email, otp, new_password: newPassword }), // Convert data to JSON
+        "http://localhost/petadoption/backend/resetpassword/password_reset_verify.php",
+        { email, otp, new_password: newPassword },
         {
           headers: {
-            'Content-Type': 'application/json' // Set content type to JSON
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
       setMessage(response.data.message);
     } catch (error) {
-      console.error('Error resetting password:', error); // Log the error for debugging
-      setMessage('Error resetting password. Please try again.');
+      console.error("Error resetting password:", error);
+      setMessage("Error resetting password. Please try again.");
     }
   };
 
   return (
-    <div className="container">
-      <h2>Verify OTP and Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="reset_verify">
+      <div className="container_reset_verify">
+        <div className="div_reset_verify_image">
+
+        <img className="reset_verif" loading="reset_verif" alt="" src={reset_verify} />
+
         </div>
-        <div className="form-group">
-          <label>OTP:</label>
-          <input
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-          />
+        
+<div className="div_main_password_verfiy">
+<div className="rest_verify_head_name">
+          <h2>Verify OTP and Reset Password</h2>
         </div>
-        <div className="form-group">
-          <label>New Password:</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
+
+        <div className="reset_form_verfiy">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" value={email} readOnly />
+            </div>
+            <div className="form-group">
+              <label>OTP:</label>
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>New Password:</label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Reset Password</button>
+          </form>
         </div>
-        <button type="submit">Reset Password</button>
-      </form>
-      {message && <p>{message}</p>}
+</div>
+       
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };

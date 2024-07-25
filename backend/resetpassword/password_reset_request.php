@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *"); // Allow from any origin
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
 header("Access-Control-Allow-Headers: Content-Type"); // Allowed headers
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Send OTP to email using PHPMailer
                 $mail = new PHPMailer(true);
-                $mail->SMTPDebug = 2; // Enable verbose debug output
+                // $mail->SMTPDebug = 2; // Enable verbose debug output
 
                 try {
                     // Server settings
@@ -88,5 +89,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     http_response_code(405); // Method Not Allowed
 }
-
-?>
