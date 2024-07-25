@@ -1,23 +1,22 @@
-// import React from 'react';
+import React from 'react';
 
-// // import Footer from "./Siteframe/Footer";
-// // import Header from "./Siteframe/Header";
+import Footer from "../Siteframe/Footer";
+import Header from "../Siteframe/Header";
+import AddVeterinaryDocter from "../veterinary/addveterinarydocter";
 
 
+function Adddoctorform(){
+    return (
+       <>
+        <Header/>
+         <div>
+           <AddVeterinaryDocter />
+        </div> 
 
-// function Adddoctorform(){
-//     return (
-//        <>
-//        <p>kk</p>
-//         {/* <Header/> */}
-//         {/* <div>
-//             <AddVeterinaryDocter />
-//         </div> */}
+      <Footer/>
 
-//      {/* <Footer/> */}
+       </>
+    );
+}
 
-//        </>
-//     );
-// }
-
-// export default Adddoctorform;
+export default Adddoctorform;
