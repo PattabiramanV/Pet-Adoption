@@ -133,8 +133,8 @@ const Header = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <img
-                  src={profile.av || ProfileLogo}
+         <img
+                  src={profile.avatar || ProfileLogo}
                   alt="User"
                   className="profile-image"
                 />
