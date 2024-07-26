@@ -17,6 +17,7 @@ import GroomingPage  from './components/petgroomingpage';
 import DoctorCard from './components/veterinary/carddoctor/doctordata';
 import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
 import Adddoctorform from './components/veterinary/doctoraddform';
+import Groomingusertable from './components/veterinary/groomingusertable';
 
 function RouterPage() {
   return (
@@ -41,6 +42,7 @@ function RouterPage() {
         <Route path="/doctorcard" element={<DoctorCard />} />
         <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
         <Route path="/doctoraddform" element={<Adddoctorform />} />
+        <Route path="/GroomingUsersTable" element={<Groomingusertable />} />
 
       </Routes>
     </Router>

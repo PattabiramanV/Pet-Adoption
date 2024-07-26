@@ -46,26 +46,24 @@ function GroomingPetsForm() {
             }
         }
     };
-// // validation inputs fields
-//     const validateForm = () => {
-//         const errors = {};
-//         if (!applyGrooming.name) errors.name = 'Doctor name is required';
-//         if (!applyGrooming.education) errors.education = 'Education is required';
-//         if (!applyGrooming.phone || doctorData.phone.length < 9) errors.phone = 'Valid contact number is required';
-//         if (!applyGrooming.email || !/\S+@\S+\.\S+/.test(doctorData.email)) errors.email = 'Valid email is required';
-//         if (!applyGrooming.have_a_clinic) errors.have_a_clinic = 'Select if you have a clinic';
-//         if (!applyGrooming.home_visiting_available) errors.home_visiting_available = 'Select if home visiting is available';
-//         if (!applyGrooming.specialist) errors.specialist = 'Specialization is required';
-//         if (!applyGrooming.address) errors.address = 'Address is required';
-//         if (!applyGrooming.available_timing) errors.available_timing = 'Available timing is required';
-//         if (!applyGrooming.description) errors.description = 'Description is required';
-//         if (!applyGrooming.doctor_registerno) errors.doctor_registerno = 'Doctor register number is required';
-//         if (!applyGrooming.profile_img) errors.profile_img = 'Profile image is required';
-    
-//         console.log("Validation Errors:", errors);
-//         return errors;
-//     };
 
+    // Validation function
+    const validateFields = () => {
+        const errors = {};
+        if (!applyGrooming.name) errors.name = 'Name is required';
+        if (!applyGrooming.contact || applyGrooming.contact.length < 9) errors.contact = 'Valid contact number is required';
+        if (!applyGrooming.email || !/\S+@\S+\.\S+/.test(applyGrooming.email)) errors.email = 'Valid email is required';
+        if (!applyGrooming.petType) errors.petType = 'Pet type is required';
+        if (!applyGrooming.petGender) errors.petGender = 'Pet gender is required';
+        if (!applyGrooming.petAge) errors.petAge = 'Pet age is required';
+        if (!applyGrooming.city) errors.city = 'City is required';
+        if (!applyGrooming.needForPet) errors.needForPet = 'Description of needs is required';
+        if (!applyGrooming.petimage) errors.petimage = 'Pet image is required';
+        if (!applyGrooming.selectdoctorname) errors.selectdoctorname = 'Doctor selection is required';
+
+        setError(errors);
+        return Object.keys(errors).length === 0;
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -101,31 +99,32 @@ function GroomingPetsForm() {
         });
     };
 
-   
-
     return (
         <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
             <h2 className="text-2xl font-bold mb-6 text-green-800">Apply for Pet Partner for Services</h2>
-            {error && <div className="text-red-500 mb-4">{error}</div>}
+            {error && typeof error === 'string' && <div className="text-red-500 mb-4">{error}</div>}
             {success && <div className="text-green-500 mb-4">{success}</div>}
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="name" type="text" name="name" value={applyGrooming.name} onChange={handleFields} placeholder="Name" required/>
-                        {error && !doctorData.name && <p className="text-red-600 text-sm">Doctor name is required</p>}
+                        {error && error.name && <p className="text-red-600 text-sm">{error.name}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">Contact No</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="contact" type="number" name="contact" value={applyGrooming.contact} onChange={handleFields} placeholder="Contact No" required/>
+                        {error && error.contact && <p className="text-red-600 text-sm">{error.contact}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="email" type="email" name="email" value={applyGrooming.email} onChange={handleFields} placeholder="Email" required/>
+                        {error && error.email && <p className="text-red-600 text-sm">{error.email}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petType">Pet Type</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="petType" type="text" name="petType" value={applyGrooming.petType} onChange={handleFields} placeholder="Pet Type" required/>
+                        {error && error.petType && <p className="text-red-600 text-sm">{error.petType}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petGender">Pet Gender</label>
@@ -142,10 +141,12 @@ function GroomingPetsForm() {
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
+                        {error && error.petGender && <p className="text-red-600 text-sm">{error.petGender}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petAge">Age of the Pet</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="petAge" type="number" name="petAge" value={applyGrooming.petAge} onChange={handleFields} placeholder="Age of the Pet" required/>
+                        {error && error.petAge && <p className="text-red-600 text-sm">{error.petAge}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="doctornames">Veterinary Doctors</label>
@@ -162,10 +163,12 @@ function GroomingPetsForm() {
                                 <option key={index} value={doctor.name}>{doctor.name}</option>
                             ))}
                         </select>
+                        {error && error.selectdoctorname && <p className="text-red-600 text-sm">{error.selectdoctorname}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">City</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="city" type="text" name="city" value={applyGrooming.city} onChange={handleFields} placeholder="City" required/>
+                        {error && error.city && <p className="text-red-600 text-sm">{error.city}</p>}
                     </div>
                     {applyGrooming.selectdoctorname && (
                         <div>
@@ -184,10 +187,12 @@ function GroomingPetsForm() {
                     <div className="sm:col-span-2">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="needForPet">What You Need for Your Pet</label>
                         <textarea className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="needForPet" rows="4" name="needForPet" value={applyGrooming.needForPet} onChange={handleFields} placeholder="Describe What You Need for Your Pet" required></textarea>
+                        {error && error.needForPet && <p className="text-red-600 text-sm">{error.needForPet}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petimage">Upload Your Pet Picture</label>
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="petimage" name="petimage" type="file" onChange={handleFields} required/>
+                        {error && error.petimage && <p className="text-red-600 text-sm">{error.petimage}</p>}
                     </div>
                 </div>
                 <div>

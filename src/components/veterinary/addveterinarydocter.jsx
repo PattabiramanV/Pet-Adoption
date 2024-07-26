@@ -104,7 +104,8 @@ function AddVeterinaryDoctor() {
         }
     };
 
-    return (
+    return ( 
+        
         <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
             <h2 className="text-2xl font-bold mb-6 text-green-800">Add Veterinary Doctor Information</h2>
             {success && <p className="text-green-600">{success}</p>}

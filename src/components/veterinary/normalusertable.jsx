@@ -4,19 +4,22 @@ import axios from 'axios';
 const GroomingUsersTable = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const userId = 3; // Replace with dynamic value if needed
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost/petadoption/backend/api/your-endpoint.php');
+        const response = await axios.get(`http://localhost/petadoption/backend/api/usertable.php?user_id=${userId}`);
         setData(response.data);
+        console.log('Fetched data:', response.data);
       } catch (error) {
+        console.error('Failed to fetch data:', error); // Log the error details
         setError('Failed to fetch data');
       }
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="container mx-auto p-4">
@@ -32,8 +35,7 @@ const GroomingUsersTable = () => {
             <th className="py-2 px-4 border-b">Doctor Email</th>
             <th className="py-2 px-4 border-b">Specialization</th>
             <th className="py-2 px-4 border-b">User ID</th>
-            <th className="py-2 px-4 border-b">User Name</th>
-            <th className="py-2 px-4 border-b">User Phone</th>
+            <th className="py-2 px-4 border-b">User Contact</th>
             <th className="py-2 px-4 border-b">User Email</th>
             <th className="py-2 px-4 border-b">Pet Type</th>
             <th className="py-2 px-4 border-b">Pet Gender</th>
@@ -47,25 +49,24 @@ const GroomingUsersTable = () => {
             data.map((row, index) => (
               <tr key={index} className="border-b">
                 <td className="py-2 px-4">{row.doctor_id}</td>
-                <td className="py-2 px-4">{row.vetneries_name}</td>
-                <td className="py-2 px-4">{row.vetneries_address}</td>
-                <td className="py-2 px-4">{row.vetneries_phone}</td>
-                <td className="py-2 px-4">{row.vetneries_email}</td>
-                <td className="py-2 px-4">{row.vetneries_specialization}</td>
+                <td className="py-2 px-4">{row.doctor_name}</td>
+                <td className="py-2 px-4">{row.doctor_address}</td>
+                <td className="py-2 px-4">{row.doctor_phone}</td>
+                <td className="py-2 px-4">{row.doctor_email}</td>
+                <td className="py-2 px-4">{row.specialization}</td>
                 <td className="py-2 px-4">{row.user_id}</td>
-                <td className="py-2 px-4">{row.user_name}</td>
-                <td className="py-2 px-4">{row.user_phone}</td>
+                <td className="py-2 px-4">{row.user_contact}</td>
                 <td className="py-2 px-4">{row.user_email}</td>
                 <td className="py-2 px-4">{row.pet_type}</td>
                 <td className="py-2 px-4">{row.pet_gender}</td>
                 <td className="py-2 px-4">{row.pet_age}</td>
                 <td className="py-2 px-4">{row.city}</td>
-                <td className="py-2 px-4">{row.what_you_need_for_your_pet}</td>
+                <td className="py-2 px-4">{row.need_for_pet}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="15" className="text-center py-4">No data available</td>
+              <td colSpan="14" className="text-center py-4">No data available</td>
             </tr>
           )}
         </tbody>
