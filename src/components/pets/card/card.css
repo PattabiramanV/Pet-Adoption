@@ -67,9 +67,13 @@
   width: 100%;
 }
 
-.detail1, .detail2 {
+.detail1 {
   display: flex;
   gap: 45px;
+}
+.detail2 {
+  display: flex;
+  gap: 92px;
 }
 
 .details p {
@@ -80,7 +84,7 @@
 }
 
 .details p span {
-  margin-left: 3px;
+  /* margin-left: 3px; */
   font-size: 12px;
 }
 
@@ -126,3 +130,15 @@ border: 1px solid #675BC8;
   text-decoration: none;
 }
 
+.breeds{
+  position: relative;
+  right: 10px;
+}
+.rightSide{
+  position: relative;
+  left: 10px;
+}
+.right {
+    position: relative;
+    /* left: 8px; */
+}

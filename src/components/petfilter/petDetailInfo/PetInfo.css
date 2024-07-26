@@ -122,12 +122,8 @@ html, body {
   justify-content: space-between;
   margin-top: 51px; 
   width: 600px;
-  height: 89pxpx;
-  top: 983px;
-  left: 108px;
+  height: 89px;
   gap: 24px;
- opacity: 0px;
-
 }
 
 .semi {
@@ -143,12 +139,11 @@ html, body {
 }
 
 .infos h6 {
- font-family: Inter;
-font-size: 14px;
-font-weight: 600;
-line-height: 16.94px;
-text-align: center;
-
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.94px;
+  text-align: center;
   color: #675BC8;
 }
 
@@ -165,11 +160,12 @@ text-align: center;
 .breed-info .breedinfo, 
 .age-info .ageinfo, 
 .color-info .colorinfo {
-      width: 24px;
-    height: 24px;
-    position: relative;
-    top: 7px;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 7px;
 }
+
 .gender-info img, 
 .breed-info img, 
 .age-info img, 
@@ -177,19 +173,111 @@ text-align: center;
   padding: 2px;
   opacity: 1; /* Ensures the images are visible */
 }
-.infos {
-    margin: 5%;
-    width: 41pxpx;
-height: 40pxpx;
-top: 48px;
-left: 20px;
-padding: 4px 0px 0px 0px;
-gap: 4px;
-opacity: 0px;
 
+.infos {
+  margin: 5%;
+  width: 41px;
+  height: 40px;
+  padding: 4px 0px 0px 0px;
+  gap: 4px;
+  opacity: 1;
 }
-.infos p{
+
+.infos p {
   color: #606060;
   font-size: 12px;
-  font-weight:500;
+  font-weight: 500;
 }
+
+.slider-info img {
+  width: 100%;
+  max-width: 593px;
+  height: 400px;
+}
+
+.slider-info {
+  width: 100%;
+  border: 1px solid #8c8b8b;
+}
+.price-info {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.priceImg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.price-info span {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: green;
+}
+
+/* Modal overlay */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Modal content */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Close button */
+.modal-close {
+  background-color: #f00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Confirm button */
+.modal-confirm {
+  background-color: #0f0;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+            /* $params[':size'] = $_GET['size'];
+        }
+        if (!empty($_GET['breed'])) {
+            $query .= " AND breed = :breed";
+            $params[':breeds'] = $_GET['breed'];
+        }
+        if (!empty($_GET['age'])) {
+            $query .= " AND age = :age";
+            $params[':age'] = $_GET['age'];
+        }
+        if (!empty($_GET['color'])) {
+            $query .= " AND color = :color";
+            $params[':color'] = $_GET['color'];
+        }
+    }
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute($params);
+    $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($pets);
+} catch (PDOException $e) {
+    echo json_encode(['error' => $e->getMessage()]);
+} */

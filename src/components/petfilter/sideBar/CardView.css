@@ -1,0 +1,42 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 300px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.card-name {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.card-breed, .card-age, .card-size, .card-city, .card-gender, .card-color {
+  margin: 0.25rem 0;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}

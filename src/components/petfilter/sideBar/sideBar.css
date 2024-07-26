@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.filter p {
+/* .filter p {
     color: #675BC8;
     font-size: 14px;
     font-weight: 400;
@@ -28,7 +28,7 @@
     padding-top: 16px;
     /* width: 40px;
     height: 124px; */
-}
+
 
 .filter_image img {
     width: 124px;
@@ -105,9 +105,9 @@
 
 .slider:hover {
   opacity: 1;
-}
+} 
 
-.slider::-webkit-slider-thumb {
+/* .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 23px;
@@ -160,10 +160,10 @@
 .size .ls{
     width: 72px;
     height: 72px;
-}
+} */
 
 /* Dropdown.css */
-.dropbtn {
+/* .dropbtn {
         padding: 7px;
     font-size: 16px;
     border: 1px solid #CBCBCB;
@@ -241,9 +241,9 @@
   background-color: white;
   width: 158px;
   height: 56px;
-  border-radius: 8px;
+  border-radius: 8px; */
   /* padding: 8px, 16px, 8px, 16px; */
-}
+ /* } */
 .filter-filterpet{
           display: flex;
     width: 100%;
@@ -257,4 +257,62 @@
     align-items: center;
     position: relative;
     padding-bottom: 66px;
+} 
+/* .dropdown.highlighted select {
+  border: 2px solid #007bff;
+}    */
+
+
+
+/* Container to hold the form and the CardView */
+.filter-filterpet {
+  display: flex;
+  justify-content: space-between; /* Aligns items on the left and right sides */
+  padding: 20px;
+}
+
+/* Style for the form container */
+.filterSearch {
+  flex: 1; /* Takes up the remaining space */
+  margin-right: 20px; /* Space between the form and the CardView */
+}
+
+/* Style for the form */
+.pet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between form fields */
+}
+
+/* Style for form labels and inputs */
+.pet-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.pet-form select,
+.pet-form input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Style for the submit button */
+.pet-form button {
+  padding: 10px;
+  /* background-color: #4CAF50; */
+  color: #675BC8 ;
+  border: 1px solid #675BC8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+/* Style for the CardView container */
+.list-pet {
+  flex: 2; /* Takes up more space than the form */
+  display: flex;
+  flex-direction: column;
 }

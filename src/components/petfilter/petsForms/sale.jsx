@@ -269,6 +269,7 @@ const Sale = () => {
                         />
                         {errors.profilePic && <p className="text-red-500 text-sm">{errors.profilePic}</p>}
                     </div>
+                    
                 </div>
                 <div className="flex justify-center">
                     <button className="w-auto px-4 text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>

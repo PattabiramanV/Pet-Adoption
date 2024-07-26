@@ -1,16 +1,15 @@
 <?php
-include '../config/database.php';
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
+include '../config/database.php';
+
 try {
-    $stmt = $conn->prepare("SELECT pet_name, gender, pet_category, age, breeds, price, state, city, description, photo, size FROM pets");
+    $stmt = $conn->prepare("SELECT id, pet_name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo FROM pets");
     $stmt->execute();
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Encode the photo data in base64
     foreach ($pets as &$pet) {
         $pet['photo'] = base64_encode($pet['photo']);
     }

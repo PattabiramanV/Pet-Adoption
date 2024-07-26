@@ -19,7 +19,7 @@ const Image = () => {
           <a href="#">
             <button className="adopt">Adopt now</button>
           </a>
-          <a href="#">
+          <a href="sale">
             <button className="rehome">Rehome Now</button>
           </a>
         </div>

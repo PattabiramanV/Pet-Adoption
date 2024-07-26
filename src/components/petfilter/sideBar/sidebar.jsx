@@ -1,99 +1,149 @@
-import { useState } from 'react';
-import Dropdown from './dropdown'; 
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
 
-const SideBar = () => {
-  const [rangeValue, setRangeValue] = useState(0);
-  const [breed, setBreed] = useState('');
-  const [color, setColor] = useState('');
-  const [age, setAge] = useState('');
+const PetForm = () => {
+  const [petTypes] = useState(['cat', 'dog']);
+  const [sizes] = useState(['Small', 'Medium', 'Large']);
+  const [breeds] = useState(['pug', 'golden', 'lab', 'rottie']);
+  const [ages] = useState([2, 3, 4, 5, 7, 8, 9]);
+  const [colors] = useState(['Brown', 'Black', 'White']);
+  const [genders] = useState(['Male', 'Female']);
 
-  const handleRangeChange = (event) => {
-    setRangeValue(event.target.value);
+  const [formData, setFormData] = useState({
+    petType: '',
+    searchLocation: '',
+    size: '',
+    breed: '',
+    age: '',
+    color: '',
+    gender: ''
+  });
+  const [pets, setPets] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const response = await axios.get('http://localhost/petadoption/Backend/api/get_all_pets.php');
+        setPets(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error('Error fetching pet data:', error);
+        setError('Failed to fetch initial pet data.');
+      }
+    };
+
+    fetchPets();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const breedOptions = ['Labrador', 'Poodle', 'Bulldog', 'Beagle'];
-  const colorOptions = ['Black', 'White', 'Brown', 'Golden'];
-  const ageOptions = ['Puppy', 'Adult', 'Senior'];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const queryParams = new URLSearchParams(formData).toString();
+
+    try {
+      const response = await axios.get(`http://localhost/petadoption/Backend/api/filter_search.php?${queryParams}`);
+      if (Array.isArray(response.data)) {
+        if (response.data.length === 0) {
+          setError('No matching pets found.');
+        } else {
+          setPets(response.data);
+          setError('');
+        }
+      } else {
+        setPets([]);
+        setError('No matching pets found.');
+      }
+    } catch (error) {
+      console.error('Error fetching pet data:', error);
+      setError('Failed to fetch pet data.');
+    }
+  };
 
   return (
     <div className="filter-filterpet">
       <div className="filterSearch">
-        <div className="filter">
-          <p>Filters</p>
-        </div>
-        <div className="filter_image">
-          <div className="dog_image">
-            <img src="/src/assets/Find_dog_filter.png" alt="Dog Filter" />
-          </div>
-          <div className="cat_image">
-            <img src="/src/assets/Find_cat_filter.png" alt="Cat Filter" />
-          </div>
-        </div>
-        <div className="filterLocation">
-          <p>Location</p>
-          <div className="locationData">
-            <p className="code">city or zip</p>
-            <p className="address">Ave 11th FI, New York</p>
-          </div>
-        </div>
-        <div className="currentl">
-          <div className="map">
-            <img src="/src/assets/near_me.png" alt="Near Me" />
-          </div>
-          <div className="ltext">
-            <p>Use current location</p>
-          </div>
-        </div>
-        <div className="search">
-          <div className="priceRange">
-            <div className="slidecontainer">
-              <input
-                name="range"
-                type="range"
-                min="0"
-                max="100000"
-                value={rangeValue}
-                className="slider"
-                id="myRange"
-                onChange={handleRangeChange}
-              />
-            </div>
-            <p className="rangePrice">Price: {rangeValue}</p>
-          </div>
-          <div className="size">
-            <div className="ss">
-              <img src="/src/assets/Ssize.png" alt="Small Size" />
-            </div>
-            <div className="ms">
-              <img src="/src/assets/Msize.png" alt="Medium Size" />
-            </div>
-            <div className="ls">
-              <img src="/src/assets/Lsize.png" alt="Large Size" />
-            </div>
-          </div>
-          <div className="dropdownSelect">
-            <div className="breed">
-              <Dropdown label="Breed Types" options={breedOptions} onChange={setBreed} />
-            </div>
-            <div className="color">
-              <Dropdown label="Color" options={colorOptions} onChange={setColor} />
-            </div>
-            <div className="age">
-              <Dropdown label="Age" options={ageOptions} onChange={setAge} />
-            </div>
-            <div className="apply">
-              <button>Apply your Filter</button>
-            </div>
-          </div>
-        </div>
+        <form className="pet-form" onSubmit={handleSubmit}>
+          <label>
+            Pet Type:
+            <select name="petType" value={formData.petType} onChange={handleChange}>
+              <option value="">Select Pet Type</option>
+              {petTypes.map(type => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Search Location:
+            <input
+              type="text"
+              name="searchLocation"
+              value={formData.searchLocation}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Size:
+            <select name="size" value={formData.size} onChange={handleChange}>
+              <option value="">Select Size</option>
+              {sizes.map(size => (
+                <option key={size} value={size}>{size}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Breed:
+            <select name="breed" value={formData.breed} onChange={handleChange}>
+              <option value="">Select Breed</option>
+              {breeds.map(breed => (
+                <option key={breed} value={breed}>{breed}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Age:
+            <select name="age" value={formData.age} onChange={handleChange}>
+              <option value="">Select Age</option>
+              {ages.map(age => (
+                <option key={age} value={age}>{age}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Color:
+            <select name="color" value={formData.color} onChange={handleChange}>
+              <option value="">Select Color</option>
+              {colors.map(color => (
+                <option key={color} value={color}>{color}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Gender:
+            <select name="gender" value={formData.gender} onChange={handleChange}>
+              <option value="">Select Gender</option>
+              {genders.map(gender => (
+                <option key={gender} value={gender}>{gender}</option>
+              ))}
+            </select>
+          </label>
+          <button type="submit" className='more'>Search</button>
+        </form>
       </div>
       <div className="list-pet">
-        <CardView priceRange={rangeValue} breed={breed} color={color} age={age} />
+        {error && <p className="error-message">{error}</p>}
+        <CardView pets={pets} />
       </div>
     </div>
   );
 };
 
-export default SideBar;
+export default PetForm;

@@ -16,7 +16,9 @@ import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/PetGroomingPage';
 import Info from './components/petfilter/petDetailInfo/Info';
 import Sale from './components/petfilter/petsForms/sale';
-import Adoption from './components/petfilter/petsForms/adaption';
+import Test from './components/text';
+
+// import Adoption from './components/petfilter/petsForms/adaption';
 // import SideBar from './components/PetFilter/sideBar/SideBar';
 
 function RouterPage() {
@@ -39,10 +41,12 @@ function RouterPage() {
         <Route path="/PetGrooming" element={<GroomingPage />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
-         <Route path="/petDetails/:name"  element={<Info />} />
+         <Route path="/petDetails/:id"  element={<Info />} />
          <Route path="/sale" element={<Sale />} />
-         <Route path="/adopte" element={<Adoption />} />
+         {/* <Route path="/adopte" element={<Adoption />} /> */}
          {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
+                  <Route path="/test" element={<Test />} />
+
       </Routes>
     </Router>
   );

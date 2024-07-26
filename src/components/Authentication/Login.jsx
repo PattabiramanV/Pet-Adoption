@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost/Pet-Adoption/Backend/auth/login.php",
+        "http://localhost/petadoption/Backend/auth/login.php",
         values,
         {
           headers: {
