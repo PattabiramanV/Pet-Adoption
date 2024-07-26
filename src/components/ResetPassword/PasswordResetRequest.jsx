@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./PasswordResetRequest.css";
-import reset_main from "../../assets/Reset password-amico.png";
+import reset_main from "../../assets/Two factor authentication-pana.png";
 import PasswordResetVerify from "./PasswordResetVerify";
 
 const PasswordResetRequest = () => {
@@ -40,7 +40,7 @@ const PasswordResetRequest = () => {
           <img className="password_image" loading="password_image" alt="" src={reset_main} />
         </div>
         <div className="div_right">
-          <div className="name_reset_head">
+          <div className="name_reset_head"> 
             <h2>Password Reset Request</h2>
           </div>
           <div className="div_form_reset">
@@ -51,8 +51,11 @@ const PasswordResetRequest = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
+                  required 
                 />
+                <div className="div_message">
+                <p>{message}</p>
+                </div>
               </div>
               <button type="submit">Send OTP</button>
             </form>
