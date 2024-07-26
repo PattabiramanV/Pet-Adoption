@@ -5,7 +5,7 @@ class database
     private $server = 'localhost';
     private $dbname = 'pet_adoption';
     private $user = 'dckap';
-    private $pass = 'Dckap2023Ecommerce';
+    private $pass = 'Dckap2023Ubuntu';
 
     public function connect() {
         try {

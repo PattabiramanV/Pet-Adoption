@@ -29,7 +29,7 @@ function RouterPage() {
           <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pethostel" element={<PetHostels />} />
+        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
