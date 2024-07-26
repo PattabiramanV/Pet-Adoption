@@ -62,7 +62,9 @@ const Login = () => {
   return (
     <section className="login-section">
       <div className="login-main">
+        
         <div className="login-container">
+          
           <div className="login-form">
             <div className="heading_name">
               <Title level={4} className="color">
@@ -129,6 +131,8 @@ const Login = () => {
           </div>
 
           <div className="login-image">
+            
+            
             <div className="login-img">
               <img
                 src={LoginLogo1}
@@ -139,8 +143,11 @@ const Login = () => {
             <div className="login-img1">
               <img src={LoginLogo} alt="Login illustration" />
             </div>
+            
           </div>
+          
         </div>
+     
       </div>
     </section>
   );
