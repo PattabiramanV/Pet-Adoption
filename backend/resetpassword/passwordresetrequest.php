@@ -64,7 +64,97 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Content
                     $mail->isHTML(true);                                        // Set email format to HTML
                     $mail->Subject = 'Your OTP Code';
-                    $mail->Body    = "Your OTP code is: <strong>$otp</strong>";
+                    $mail->Body = '
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Your OTP Code</title>
+                        <style>
+                            body {
+                                font-family: \'Verdana\', sans-serif;
+                                background-color: #f0f4f8;
+                                color: #333333;
+                                padding: 20px;
+                                margin: 0;
+                            }
+                            .container {
+                                background-color: #ffffff;
+                                border-radius: 15px;
+                                padding: 25px;
+                                max-width: 500px;
+                                margin: 0 auto;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                border-top: 5px solid #696299; /* Updated top border color */
+                            }
+                            .header {
+                                text-align: center;
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #e0e0e0;
+                                margin-bottom: 20px;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                color: #696299; /* Updated header color */
+                                font-size: 28px;
+                            }
+                            .content {
+                                padding: 20px 0;
+                            }
+                            .content p {
+                                font-size: 18px;
+                                line-height: 1.5;
+                                margin-bottom: 15px;
+                            }
+                            .otp {
+                                display: inline-block;
+                                background-color: #ffffff; /* OTP background color */
+                                color: #696299; /* OTP text color */
+                                font-size: 32px;
+                                font-weight: bold;
+                                padding: 15px 30px;
+                                border-radius: 8px;
+                                margin: 20px 0;
+                                text-align: center;
+                                border: 2px solid #696299; /* Border color for OTP */
+                            }
+                            .footer {
+                                text-align: center;
+                                font-size: 14px;
+                                color: #888888;
+                                padding-top: 15px;
+                                border-top: 1px solid #e0e0e0;
+                            }
+                            .footer p {
+                                margin: 5px 0;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Furry Friends</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi there,</p>
+                                <p>Your OTP code is:</p>
+                                <div class="otp">' . $otp . '</div>
+                                <p>Use this code to complete your password reset request. The OTP will expire in 15 minutes.</p>
+                            </div>
+                            <div class="footer">
+                                <p>If you didn\'t request this code, please ignore this email.</p>
+                                <p>Best regards,</p>
+                                <p>The Furry Friends Team</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    ';
+
+                    
+                        // Plain text alternative body
+                        $mail->AltBody = "Your OTP code is: $otp";
                     $mail->AltBody = "Your OTP code is: $otp";
 
                     $mail->send();

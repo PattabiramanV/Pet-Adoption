@@ -64,7 +64,7 @@ const PasswordResetVerify = ({ email }) => {
                 required
               />
             </div>
-            <button type="submit">Reset Password</button>
+            <button type="submit" className="otp_btn">Reset Password</button>
           </form>
         </div>
 </div>

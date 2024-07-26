@@ -57,7 +57,7 @@ const PasswordResetRequest = () => {
                 <p>{message}</p>
                 </div>
               </div>
-              <button type="submit">Send OTP</button>
+              <button type="submit" className="otp_btn">Send OTP</button>
             </form>
           </div>
         </div>

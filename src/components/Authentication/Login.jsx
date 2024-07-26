@@ -30,13 +30,9 @@ const Login = () => {
       console.log("Received response:", response.data);
 
       if (response.status === 200) {
-
         message.success(response.data.message);
-        
         localStorage.setItem('token', response.data.jwt);
-        // localStorage.setItem("loginTime", new Date().getTime());
         navigate("/"); // Navigate to the Home 
-      
       } else {
         message.error(response.data.message);
       }
@@ -59,12 +55,14 @@ const Login = () => {
     navigate("/"); // Navigate to the home page
   };
 
+  const handleForgotPassword = () => {
+    navigate("/reset"); // Navigate to the reset password page
+  };
+
   return (
     <section className="login-section">
       <div className="login-main">
-        
         <div className="login-container">
-          
           <div className="login-form">
             <div className="heading_name">
               <Title level={4} className="color">
@@ -100,7 +98,7 @@ const Login = () => {
               </Form.Item>
 
               <Form.Item>
-                <Link className="forgot-password" href="#">
+                <Link className="forgot-password" onClick={handleForgotPassword}>
                   Forgot Password?
                 </Link>
               </Form.Item>
@@ -131,8 +129,6 @@ const Login = () => {
           </div>
 
           <div className="login-image">
-            
-            
             <div className="login-img">
               <img
                 src={LoginLogo1}
@@ -143,11 +139,8 @@ const Login = () => {
             <div className="login-img1">
               <img src={LoginLogo} alt="Login illustration" />
             </div>
-            
           </div>
-          
         </div>
-     
       </div>
     </section>
   );
