@@ -16,10 +16,17 @@ import Pets from './Pets';
 import AllPetList from './AllPetList';
 
 import BookHosPage from './components/pethostel/BookHosPage';
-import GroomingPage  from './components/petgroomingpage';
+// import GroomingPage  from './components/petgroomingpage';
 import PrivateRoute from './PrivateRoute';
 // import Practice from './components/practice';
 import Reset from './components/resetpassword';
+import GroomingPage  from './components/veterinary/petgromming';
+import Info from './components/petfilter/petDetailInfo/Info';
+import Sale from './components/petfilter/petsForms/sale';
+import Test from './components/text';
+
+// import Adoption from './components/petfilter/petsForms/adaption';
+// import SideBar from './components/PetFilter/sideBar/SideBar';
 
 function RouterPage() {
   return (
@@ -43,6 +50,15 @@ function RouterPage() {
         <Route path="/Veterinary" element={<Veterinarian />} />
         <Route path="/PetGrooming" element={<GroomingPage />} />
         <Route path="/reset" element={<Reset />} />
+        {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
+
+        <Route path="/pets" element={<Pets />} />
+        <Route path="/petList" element={<AllPetList />} />
+         <Route path="/petDetails/:id"  element={<Info />} />
+         <Route path="/sale" element={<Sale />} />
+         {/* <Route path="/adopte" element={<Adoption />} /> */}
+         {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
+                  <Route path="/test" element={<Test />} />
 
       </Routes>
     </Router>
