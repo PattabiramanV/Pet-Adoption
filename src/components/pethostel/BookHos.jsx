@@ -1,19 +1,27 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function BookHos() {
+  const token = localStorage.getItem('token');
   const location = useLocation();
-  const [hostel, setHostel] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [hostels, setHostels] = useState([]);
   const queryParams = new URLSearchParams(location.search);
-  let hostelId = queryParams.get('id');
+  const hostelId = queryParams.get('id');
+  const [selectedHostel, setSelectedHostel] = useState({
+    id: '',
+    name: '',
+    address: '',
+    phone: ''
+  });
+
   const [formData, setFormData] = useState({
     serviceType: "",
     petType: "",
     breedType: "",
     petName: "",
-    age: "",
+    age: 0,
     gender: "",
     expectations: "",
     parentName: "",
@@ -23,21 +31,52 @@ function BookHos() {
   });
 
   useEffect(() => {
-    if (hostelId) {
-      fetchUserData();
-    }
-  }, [hostelId]);
+    fetchUserData();
+    getAllHosFun();
+
+  }, []);
 
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost/petadoption/Backend/profile/read_items.php`,
+        `http://localhost/petadoption/backend/profile/read_items.php`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      setCurrentUser(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
-      setHostel(response.data);
-      console.log(hostel);
+  const getAllHosFun = async () => {
+    try {
+   
+      const response = await axios.get(
+        `http://localhost/petadoption/backend/api/hostel.php`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setHostels(response.data);
+
+      // Automatically select the hostel if hostelId is provided
+      if (hostelId) {
+        const selected = response.data.find(hostel => String(hostel.id) === String(hostelId));
+        console.log(selected);
+        if (selected) {
+     
+          setSelectedHostel(prevState=>({
+            id: selected.id,
+            name: selected.name,
+            address: selected.address,
+            phone: selected.contact
+          }));
+          setFormData(prevState => ({
+            ...prevState,
+            hostelId: selected.id
+          }));
+        }
+        console.log(selectedHostel);
+
+      }
     } catch (error) {
       console.error('Error fetching hostel data:', error);
     }
@@ -46,13 +85,12 @@ function BookHos() {
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
-      parentName: hostel.username || "",
-      parentState: hostel.state || "",
-      parentCity: hostel.city || "",
-      parentPhone: hostel.phone || ""
+      parentName: currentUser.username || "",
+      parentState: currentUser.state || "",
+      parentCity: currentUser.city || "",
+      parentPhone: currentUser.phone || ""
     }));
-  }, [hostel]);
-
+  }, [currentUser]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -62,193 +100,263 @@ function BookHos() {
     }));
   };
 
+  const handleHostelChange = (e) => {
+    const selectedId = e.target.value;
+    const selected = hostels.find(hostel => String(hostel.id) === String(selectedId));
+    if (selected) {
+      setSelectedHostel({
+        id: selected.id,
+        name: selected.name,
+        address: selected.address,
+        phone: selected.contact
+      });
+      // setFormData(prevState => ({
+      //   ...prevState,
+      //   hostelId: selected.id
+      // }));
+    }
+    //  else {
+    //   setSelectedHostel({
+    //     id: '',
+    //     name: '',
+    //     address: '',
+    //     phone: ''
+    //   });
+    // }
+    
+    
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const updatedData = { ...formData, hostelId: selectedHostel.id };
 
-    const updatedData = Object.assign({}, formData, hostel);
-
+    console.log(updatedData);
     try {
       const response = await axios.post(
-        `http://localhost/petadoption/Backend/api/hostel.php?hosId=${hostelId}`,
+        `http://localhost/petadoption/backend/api/hostel.php?hosid=${selectedHostel.id}`,
         JSON.stringify(updatedData),
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
+console.log(response);
       console.log('Response:', response.data);
-      alert(response.data);
+      alert('Booking successful!');
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert('Error submitting the booking. Please try again.');
     }
   };
 
 
-
-
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-col md:flex-row p-6 bg-gray-50 w-full">
-        <div className="w-full md:w-2/3 p-4 bg-slate-100">
-          <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Details</h2>
-          <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about your pet.</p>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col md:flex-row p-6 bg-gray-50 w-full">
+          <div className="w-full md:w-2/3 p-4 bg-slate-100">
+            <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Details</h2>
+            <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about your pet.</p>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-              <div>
-                <label htmlFor="serviceType" className="block text-gray-700">Service Type*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="serviceType"
-                  type="text"
-                  value={formData.serviceType}
-                  onChange={handleChange}
-                />
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                <div>
+                  <label htmlFor="serviceType" className="block text-gray-700">Service Type*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="serviceType"
+                    type="text"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="petType" className="block text-gray-700">Pet Type*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="petType"
+                    type="text"
+                    value={formData.petType}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="breedType" className="block text-gray-700">Breed Type*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="breedType"
+                    type="text"
+                    value={formData.breedType}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label  htmlFor="petName" className="block text-gray-700">Pet Name</label>
+                  <input
+                    type="text"
+                    id="petName"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value={formData.petName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="age" className="block text-gray-700">Age*</label>
+                  <input
+                    type="number"
+                    id="age"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value={formData.age}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="gender" className="block text-gray-700">Gender*</label>
+                  <select
+                    id="gender"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value={formData.gender}
+                    onChange={handleChange}
+                  > 
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
               </div>
+
               <div>
-                <label htmlFor="petType" className="block text-gray-700">Pet Type*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="petType"
-                  type="text"
-                  value={formData.petType}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="breedType" className="block text-gray-700">Breed Type*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="breedType"
-                  type="text"
-                  value={formData.breedType}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="petName" className="block text-gray-700">Pet Name</label>
-                <input
-                  type="text"
-                  id="petName"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={formData.petName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="age" className="block text-gray-700">Age*</label>
-                <input
-                  type="text"
-                  id="age"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={formData.age}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="gender" className="block text-gray-700">Gender*</label>
+                <label htmlFor="hostel" className="block text-gray-700">Select Hostel*</label>
                 <select
-                  id="gender"
+  id="hostel"
+  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+  value={selectedHostel.id}
+  onChange={handleHostelChange}
+>
+  {hostels.length > 0 ? (
+    hostels.map(hostel => (
+      <option key={hostel.id} value={hostel.id}>
+        {hostel.name}
+      </option>
+    ))
+  ) : (
+    ''
+  )}
+</select>
+
+              </div>
+
+              <div>
+                <label htmlFor="expectations" className="block text-gray-700">Address</label>
+                <textarea
+                  id="expectations"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={formData.gender}
+                  value={selectedHostel.address}
                   onChange={handleChange}
-                >
-                  <option value="">Select</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
+                  readOnly
+                ></textarea>
               </div>
             </div>
-            <div>
-              <label htmlFor="expectations" className="block text-gray-700">Your Expectations from this Service</label>
-              <textarea
-                id="expectations"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                value={formData.expectations}
-                onChange={handleChange}
-              ></textarea>
+          </div>
+
+          <div className="w-full md:w-1/3 p-4">
+            <div className="bg-white p-4 rounded-md shadow-md">
+              <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Include 2x Food</button>
+              <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
+              <div className="border-t border-gray-300 pt-4">
+                <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
+                <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>
+                <p className="text-gray-600">(Inclusive of all taxes)</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>
+                  <li className="text-gray-600">Daily Photo Updates <span className="text-gray-800 font-semibold">Free</span></li>
+                  <li className="text-gray-600">24/7 customer support <span className="text-gray-800 font-semibold">Included</span></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full md:w-1/3 p-4">
-          <div className="bg-white p-4 rounded-md shadow-md">
-            <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Include 2x Food</button>
-            <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
-            <div className="border-t border-gray-300 pt-4">
-              <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
-              <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>
-              <p className="text-gray-600">(Inclusive of all taxes)</p>
-              <ul className="mt-4 space-y-2">
-                <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>
-                <li className="text-gray-600">Daily Photo Updates <span className="text-gray-800 font-semibold">Free</span></li>
-                <li className="text-gray-600">24/7 customer support <span className="text-gray-800 font-semibold">Included</span></li>
-              </ul>
+
+{/* 
+        {selectedHostel && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Selected Hostel Address:</h3>
+          <p>{selectedHostel.address}</p>
+        </div>
+        
+      )} */}
+
+
+
+
+
+
+        <div className="bg-gray-50">
+          <div className="w-full md:w-2/3 p-4 bg-slate-100 ml-6">
+            <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Parent Details</h2>
+            <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about you.</p>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                <div>
+                  <label htmlFor="parentName" className="block text-gray-700">Name*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="parentName"
+                    type="text"
+                    value={formData.parentName}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label htmlFor="parentPhone" className="block text-gray-700">Phone*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="parentPhone"
+                    type="text"
+                    value={formData.parentPhone}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label htmlFor="parentState" className="block text-gray-700">State*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="parentState"
+                    type="text"
+                    value={formData.parentState}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label htmlFor="parentCity" className="block text-gray-700">City</label>
+                  <input
+                    type="text"
+                    id="parentCity"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value={formData.parentCity}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                </div>
+              </div>
+              <button type="submit" className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                Book Now
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="bg-gray-50">
-        <div className="w-full md:w-2/3 p-4 bg-slate-100 ml-6">
-          <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Parent Details</h2>
-          <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about you.</p>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-              <div>
-                <label htmlFor="parentName" className="block text-gray-700">Name*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="parentName"
-                  type="text"
-                  value={formData.parentName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="parentPhone" className="block text-gray-700">Phone*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="parentPhone"
-                  type="text"
-                  value={formData.parentPhone}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="parentState" className="block text-gray-700">State*</label>
-                <input
-                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                  id="parentState"
-                  type="text"
-                  value={formData.parentState}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="parentCity" className="block text-gray-700">City</label>
-                <input
-                  type="text"
-                  id="parentCity"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={formData.parentCity}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <button type="submit" className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-              Book Now
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+      
+    </>
   );
 };
 
 export default BookHos;
+
 
 
 

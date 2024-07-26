@@ -9,7 +9,7 @@ class Database {
     private $username = 'dckap';
     private $password = 'Dckap2023Ubuntu';
     public $conn;
-
+    
     // Get the database connection
   public function __construct(){
 

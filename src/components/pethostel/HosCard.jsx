@@ -13,6 +13,8 @@ function HostelCard({ hostel, active }) {
   };
 
   return (
+
+    
     <a
       className="p-6 max-w-sm border border-indigo-300 rounded-md hover:shadow-xl hover:shadow-indigo-50 flex flex-col pb-1"
       href="#"

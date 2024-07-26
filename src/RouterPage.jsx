@@ -16,6 +16,7 @@ import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/PetGroomingPage';
 import PrivateRoute from './PrivateRoute';
 import Practice from './components/practice';
+import Whatsapp from './components/pethostel/Whatsapp'
 function RouterPage() {
   return (
     <Router>
@@ -36,6 +37,8 @@ function RouterPage() {
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
         <Route path="/Veterinary" element={<Veterinarian />} />
         <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/whatsapp" element={<Whatsapp />} />
+
       </Routes>
     </Router>
     // <Practice></Practice>
