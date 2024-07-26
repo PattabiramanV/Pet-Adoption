@@ -14,7 +14,7 @@ const PetDetailsRoute = () => {
   useEffect(() => {
     const fetchPet = async () => {
       try {
-        const response = await fetch(`http://localhost/petadoption/Backend/api/get_pet_details.php?id=${id}`);
+        const response = await fetch(`http://localhost/petadoption/backend/api/get_pet_details.php?id=${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

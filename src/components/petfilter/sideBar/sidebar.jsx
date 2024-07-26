@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
+import Column from 'antd/es/table/Column';
 
 const PetForm = () => {
   const [petTypes] = useState(['cat', 'dog']);
@@ -10,6 +11,14 @@ const PetForm = () => {
   const [ages] = useState([2, 3, 4, 5, 7, 8, 9]);
   const [colors] = useState(['Brown', 'Black', 'White']);
   const [genders] = useState(['Male', 'Female']);
+const [filters, setFilters] = useState({
+  petType: '',
+  size: '',
+  breed: '',
+  age: '',
+  color: '',
+  gender: ''
+});
 
   const [formData, setFormData] = useState({
     petType: '',
@@ -26,7 +35,7 @@ const PetForm = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await axios.get('http://localhost/petadoption/Backend/api/get_all_pets.php');
+        const response = await axios.get('http://localhost/petadoption/backend/api/get_all_pets.php');
         setPets(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error('Error fetching pet data:', error);
@@ -45,27 +54,107 @@ const PetForm = () => {
     }));
   };
 
+
+const filterFun = (e) => {
+
+  if (e.target.name == 'petType') {
+getData('pet');
+ // Do something if the target name is empty (though it's unclear why this condition would be useful)
+  }
+ if (e.target.name == 'size') {
+   
+ // Do something if the target name is empty (though it's unclear why this condition would be useful)
+  }
+   if (e.target.name == 'breed') {
+   
+  //
+   
+  }
+
+if (e.target.name == 'age') {
+   
+  //
+   
+  }
+  if (e.target.name == 'color') {
+   
+  //
+   
+  }
+ if (e.target.name == 'gender') {
+   
+  //
+   
+  }
+
+ console.log(e.target.name);
+  console.log(e.target.value);
+  
+}
+
+    function getData(column){
+      console.log(column);
+
+    //     fetch(`http://localhost/petadoption/Backend/api/get_all_pets.php?${queryString}`)
+    // .then(response => response.json())
+    // .then(data => {
+    //   // Process and display the filtered pet data
+    //   console.log(data);
+    // })
+    // .catch(error => {
+    //   console.error('Error fetching filtered pets:', error);
+    // });
+
+    }
+
+// const filterFun = (e) => {
+//   const { name, value } = e.target;
+
+//   setFilters({
+//     ...filters,
+//     [name]: value
+//   });
+
+//   // After updating the filters, you can call the function to fetch filtered results
+//   fetchFilteredPets({ ...filters, [name]: value });
+// };
+
+// const fetchFilteredPets = (filterParams) => {
+
+// console.log(filterParams);
+//   const queryString = Object.keys(filterParams)
+//     .filter(key => filterParams[key] !== '')
+//     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filterParams[key])}`)
+//     .join('&');
+
+// };
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(e);
     const queryParams = new URLSearchParams(formData).toString();
+console.log(queryParams);
+    // try {
+    //   const response = await axios.get(`http://localhost/petadoption/backend/api/filter_search.php?${queryParams}`);
+    //   if (Array.isArray(response.data)) {
+    //     if (response.data.length === 0) {
+    //       setError('No matching pets found.');
+    //     } else {
+    //       setPets(response.data);
+    //       setError('');
+    //     }
+    //   } else {
+    //     setPets([]);
+    //     setError('No matching pets found.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching pet data:', error);
+    //   setError('Failed to fetch pet data.');
+    // }
 
-    try {
-      const response = await axios.get(`http://localhost/petadoption/Backend/api/filter_search.php?${queryParams}`);
-      if (Array.isArray(response.data)) {
-        if (response.data.length === 0) {
-          setError('No matching pets found.');
-        } else {
-          setPets(response.data);
-          setError('');
-        }
-      } else {
-        setPets([]);
-        setError('No matching pets found.');
-      }
-    } catch (error) {
-      console.error('Error fetching pet data:', error);
-      setError('Failed to fetch pet data.');
-    }
   };
 
   return (
@@ -74,10 +163,10 @@ const PetForm = () => {
         <form className="pet-form" onSubmit={handleSubmit}>
           <label>
             Pet Type:
-            <select name="petType" value={formData.petType} onChange={handleChange}>
+            <select name="petType" value={formData.petType} onClick={filterFun} onChange={handleChange}>
               <option value="">Select Pet Type</option>
               {petTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
+                <option key={type}   value={type}>{type}</option>
               ))}
             </select>
           </label>
@@ -92,7 +181,7 @@ const PetForm = () => {
           </label>
           <label>
             Size:
-            <select name="size" value={formData.size} onChange={handleChange}>
+            <select name="size" value={formData.size} onChange={handleChange} onClick={filterFun}>
               <option value="">Select Size</option>
               {sizes.map(size => (
                 <option key={size} value={size}>{size}</option>
@@ -101,7 +190,7 @@ const PetForm = () => {
           </label>
           <label>
             Breed:
-            <select name="breed" value={formData.breed} onChange={handleChange}>
+            <select name="breed" value={formData.breed} onChange={handleChange} onClick={filterFun}>
               <option value="">Select Breed</option>
               {breeds.map(breed => (
                 <option key={breed} value={breed}>{breed}</option>
@@ -110,7 +199,7 @@ const PetForm = () => {
           </label>
           <label>
             Age:
-            <select name="age" value={formData.age} onChange={handleChange}>
+            <select name="age" value={formData.age} onChange={handleChange} onClick={filterFun}>
               <option value="">Select Age</option>
               {ages.map(age => (
                 <option key={age} value={age}>{age}</option>
@@ -119,7 +208,7 @@ const PetForm = () => {
           </label>
           <label>
             Color:
-            <select name="color" value={formData.color} onChange={handleChange}>
+            <select name="color" value={formData.color} onChange={handleChange} onClick={filterFun}>
               <option value="">Select Color</option>
               {colors.map(color => (
                 <option key={color} value={color}>{color}</option>
@@ -128,7 +217,7 @@ const PetForm = () => {
           </label>
           <label>
             Gender:
-            <select name="gender" value={formData.gender} onChange={handleChange}>
+            <select name="gender" value={formData.gender} onChange={handleChange} onClick={filterFun}>
               <option value="">Select Gender</option>
               {genders.map(gender => (
                 <option key={gender} value={gender}>{gender}</option>
