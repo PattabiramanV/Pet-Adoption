@@ -13,7 +13,7 @@ const PasswordResetRequest = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/petadoption/backend/resetpassword/password_reset_request.php",
+        "http://localhost/petadoption/backend/resetpassword/passwordresetrequest.php",
         { email }
       );
       console.log(response.data);

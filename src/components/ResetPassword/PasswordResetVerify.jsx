@@ -11,7 +11,7 @@ const PasswordResetVerify = ({ email }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/petadoption/backend/resetpassword/password_reset_verify.php",
+        "http://localhost/petadoption/backend/resetpassword/passwordresetverify.php",
         { email, otp, new_password: newPassword },
         {
           headers: {
