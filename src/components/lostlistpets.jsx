@@ -1,18 +1,19 @@
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
-import Foundpetsform from "./foundpets/foundpetsform";
+import LostListpet from "./lostpets/lostlistpet";
 
 
 
 
-function foundPetandForm() {
+
+function LostList() {
   return (
     <>
       <Header />
-      <Foundpetsform/>
+      <LostListpet/>
       <Footer />
     </>
   );
 }
 
-export default foundPetandForm;
+export default LostList;

@@ -1,0 +1,16 @@
+.more.active {
+  background-color: #4CAF50; /* Active button color */
+  color: white;
+}
+
+.more.inactive {
+  background-color: #f44336; /* Inactive button color */
+  color: white;
+  cursor: not-allowed;
+}
+.btn_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}

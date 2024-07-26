@@ -1,8 +1,8 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import "./lostpets.css"; // Import your CSS file
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import "../lostpets.css"; // Import your CSS file
 
 const PetCard = ({ pet }) => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ const PetCard = ({ pet }) => {
   };
 
   const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
-  console.log(pet.location);
 
   return (
     <div className="pet-card">
@@ -41,8 +40,9 @@ const PetCard = ({ pet }) => {
               <strong>Pet:</strong> {pet.pet_type}
             </p>
           </div>
-         </div>
+        </div>
         <p><strong>LostDate:</strong> {pet.lost_date}</p>
+        
         <button className="more" onClick={handleNavigation}>See more</button>
       </div>
     </div>
