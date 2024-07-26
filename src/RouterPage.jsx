@@ -18,7 +18,7 @@ import AllPetList from './AllPetList';
 import BookHosPage from './components/pethostel/BookHosPage';
 import GroomingPage  from './components/petgroomingpage';
 import PrivateRoute from './PrivateRoute';
-import Practice from './components/practice';
+// import Practice from './components/practice';
 import Reset from './components/resetpassword';
 
 function RouterPage() {
