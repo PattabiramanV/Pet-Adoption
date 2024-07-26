@@ -1,7 +1,7 @@
 import hostelImage from "../../assets/dog_hostel_img.jpg"; // Corrected: added ".jpg" file extension
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { IoLocationOutline } from "react-icons/io5";
 
 function HostelCard({ hostel, active }) {
