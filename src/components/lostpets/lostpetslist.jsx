@@ -10,7 +10,7 @@ const PetList = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost/petadoption/Backend/model/getlostingpet.php');
+        const response = await fetch('http://localhost/petadoption/backend/model/getlostingpet.php');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

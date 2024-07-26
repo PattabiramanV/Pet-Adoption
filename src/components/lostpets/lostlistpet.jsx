@@ -14,7 +14,7 @@ const LostListPet = () => {
       const fetchPetDetails = async () => {
         try {
           const response = await fetch(
-            "http://localhost/petadoption/Backend/model/getlostingpet.php"
+            "http://localhost/petadoption/backend/model/getlostingpet.php"
           );
           const data = await response.json();
           console.log("Fetched Pet Data:", data); // Debugging output

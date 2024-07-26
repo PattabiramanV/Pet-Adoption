@@ -43,12 +43,7 @@ const PetCard = ({ pet }) => {
         </div>
         <p><strong>LostDate:</strong> {pet.lost_date}</p>
         
-        <button 
-          className="more" 
-          onClick={handleNavigation}
-        >
-          See more
-        </button>
+        <button className="more" onClick={handleNavigation}>See more</button>
       </div>
     </div>
   );

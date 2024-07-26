@@ -21,4 +21,5 @@ try {
 } catch (Exception $e) {
     echo json_encode(["message" => "Database Error: " . $e->getMessage()]);
 }
+
 ?>
