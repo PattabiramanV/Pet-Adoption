@@ -1,74 +1,74 @@
 <?php
 
 
+
 require '../config/config.php';
 require "./hostelcrud.php";
 
-$user_id= authenticate();
+$user_id = authenticate();
 
-// echo json_encode(['anme'=>'patatbi']);
-
-$hostel=new Hostel();
-
+$hostel = new Hostel();
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-// $data=array_values($data);
+$method = $_SERVER['REQUEST_METHOD'];
 
-$method=$_SERVER['REQUEST_METHOD'];
-
-
-
-
-
-
-switch($method){
-
-  case 'GET';
-  if (isset($_GET['userId'])) {
-    $userId = $_GET['userId'];
-    $data = $hostel->getDataById($userId);
-    echo json_encode($data);
-  } else {
-    $all_Data = $hostel->getAllHosData();
-    echo json_encode($all_Data);
-  }
-  break;
-
-  
-  case "POST";
-  if (isset($_GET['hosId'])) {
-    $hosId = $_GET['hosId'];
-   
-    $bookHostel = $hostel->bookHostel($hosId,$data,$user_id);
-    echo json_encode($bookHostel);
-    emailSendFun();
-    
-    // $data = $hostel->getDataById($id);
-    // echo json_encode($data);
-    // echo $id;
-  } else {
-    $storeData=$hostel->createData($data);
-    echo json_encode($storeData);
-  
-  }
-
-  break;
-
-  case "PUT";
-  $updateData=$hostel->updateData($data,$id);
-  echo json_encode($updateData);
-  break;
-  
-  case "DELETE";
-  $updateData=$hostel->deleteData($id);
-  echo json_encode($updateData);
-  break;
-
+switch ($method) {
+  case 'GET':
+    if (isset($_GET['hosid'])) {
+      $userId = $_GET['hosid'];
+      $data = $hostel->getData( $query,$userId);
+      echo json_encode($data);
+    } else {
+      $query = "SELECT * FROM pet_hostels";
+      $all_Data = $hostel->getData( $query);
+      echo json_encode($all_Data);
     }
+    break;
+
+  case 'POST':
+    if (isset($_GET['hosid'])) {
+      $hosId = $_GET['hosid'];
+      $bookHostel = $hostel->bookHostel($hosId, $data, $user_id);
+      echo json_encode($bookHostel);
+       // getDataForEmail
+    $all_Data = $hostel->getDataForEmail($hosId);
+
+   
+
+      emailSendFun( $all_Data); // Ensure this function is defined
+    } else {
+      $storeData = $hostel->createData($data);
+      echo json_encode($storeData);
+    }
+    break;
+
+  case 'PUT':
+    if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $updateData = $hostel->updateData($data, $id);
+      echo json_encode($updateData);
+    } else {
+      echo json_encode(['error' => 'ID parameter is missing']);
+    }
+    break;
+
+  case 'DELETE':
+    if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $deleteData = $hostel->deleteData($id);
+      echo json_encode($deleteData);
+    } else {
+      echo json_encode(['error' => 'ID parameter is missing']);
+    }
+    break;
+
+  default:
+    echo json_encode(['error' => 'Invalid request method']);
+    break;
+}
 
 
-    
 
 
 
@@ -85,18 +85,23 @@ require '../vendor/autoload.php';
 
 
 
-     function emailSendFun(){
+   function emailSendFun($data){
 
-        
+   
+ 
+   
+        // $data=
         $mail = new PHPMailer(true);
 
         try {
+
+          $toUser=$data['email'];
             //Server settings
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
             $mail->SMTPAuth = true;
             $mail->Username = 'furryfriens123@gmail.com'; // SMTP username
-            $mail->Password = 'koifwsrjdmfnhplx'; // SMTP password (replace with the actual password)
+            $mail->Password = 'rtcgadrtpxgbepdd'; // SMTP password (replace with the actual password)
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587; // TCP port to connect to
     
@@ -104,7 +109,7 @@ require '../vendor/autoload.php';
             $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
     
             // Add a recipient
-            $mail->addAddress('pattabikrv2002@gmail.com', 'Pattabi');
+            $mail->addAddress("$toUser", 'Pattabi');
     
             // Email content
             $mail->isHTML(true);
