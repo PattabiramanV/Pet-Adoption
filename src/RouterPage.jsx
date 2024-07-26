@@ -20,13 +20,16 @@ import GroomingPage  from './components/petgroomingpage';
 import PrivateRoute from './PrivateRoute';
 import Practice from './components/practice';
 import Reset from './components/resetpassword';
+import DoctorCard from './components/veterinary/carddoctor/doctordata';
+import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
+import Adddoctorform from './components/veterinary/doctoraddform';
 
 function RouterPage() {
   return (
-    <Router>
+          <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
+        <Route path="/pethostel" element={<PetHostels />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
@@ -39,14 +42,21 @@ function RouterPage() {
         <Route path="/lostpetlisting" element={<Lostlistallpage />} />
 
 
+
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
-        <Route path="/Veterinary" element={<Veterinarian />} />
-        <Route path="/PetGrooming" element={<GroomingPage />} />
+        {/* <Route path="/Veterinary" element={<Veterinarian />} /> */}
+        {/* <Route path="/PetGrooming" element={<GroomingPage />} /> */}
         <Route path="/reset" element={<Reset />} />
+        <Route path="/veterinary" element={<Veterinarian />} />
+        <Route path="/petgrooming" element={<GroomingPage />} />
+        <Route path="/doctorcard" element={<DoctorCard />} />
+        <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
+        <Route path="/doctoraddform" element={<Adddoctorform />} />
 
       </Routes>
     </Router>
-    // <Practice></Practice>
+ 
+    
   );
 }
 
