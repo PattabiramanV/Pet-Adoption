@@ -14,6 +14,8 @@ function AddVeterinaryDoctor() {
         address: "",
         description: "",
         email: "",
+        city: "",
+        
         doctor_registerno: "",
         profile_img: null,
     });
@@ -82,12 +84,15 @@ function AddVeterinaryDoctor() {
                         phone: "",
                         home_visiting_available: "",
                         experience: "",
-                        address: "",
+                        city: "",
+                        state: "",
+                        address: "",                 
                         description: "",
                         email: "",
                         doctor_registerno: "",
                         profile_img: null,
                     });
+                    
                 })
                 .catch((err) => {
                     setError("Failed to submit the form. Please try again.");
@@ -222,34 +227,61 @@ function AddVeterinaryDoctor() {
                         />
                         {error && !doctorData.specialist && <p className="text-red-600 text-sm">Specialization is required</p>}
                     </div>
+                   
+
+                 
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">Your Address</label>
-                        <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.address ? 'border-red-500' : ''}`}
-                            id="address"
-                            type="text"
-                            name="address"
-                            value={doctorData.address}
-                            onChange={handleFieldsChange}
-                            placeholder="Address"
-                            // required
-                        />
-                        {error && !doctorData.address && <p className="text-red-600 text-sm">Address is required</p>}
-                    </div>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">city</label>
+                            <input
+                                className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.city ? 'border-red-500' : ''}`}
+                                id="city"
+                                type="text"
+                                name="city"
+                                value={doctorData.city}
+                                onChange={handleFieldsChange}
+                                placeholder="city"
+                                // required
+                            />
+                            {error && !doctorData.city && <p className="text-red-600 text-sm">city</p>}
+                            </div>
+                                <div>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">state</label>
+                                    <input
+                                        className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.state ? 'border-red-500' : ''}`}
+                                        id="state"
+                                        type="text"
+                                        name="state"
+                                        value={doctorData.state}
+                                        onChange={handleFieldsChange}
+                                        placeholder="state"
+                                        // required
+                                    />
+                                    {error && !doctorData.state && <p className="text-red-600 text-sm">state is required</p>}
+                                </div>
+                        
+                            <div>
+                               
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">address</label>      
+                                <textarea
+                                    className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.address ? 'border-red-500' : ''}`}
+                                    id="address"
+                                    type="text"
+                                    name="address"
+                                    value={doctorData.address}
+                                    onChange={handleFieldsChange}
+                                    placeholder="address"
+                                    // required
+                                />
+                                {error && !doctorData.address && <p className="text-red-600 text-sm">address is required</p>}
+                                </div>
+    
+                        </div>
+                       
+
+
+
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="available_timing">Available Timing</label>
-                        <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.available_timing ? 'border-red-500' : ''}`}
-                            id="available_timing"
-                            type="text"
-                            name="available_timing"
-                            value={doctorData.available_timing}
-                            onChange={handleFieldsChange}
-                            placeholder="Available Timing (e.g. 10:00 AM - 5:00 PM)"
-                            // required
-                        />
-                        {error && !doctorData.available_timing && <p className="text-red-600 text-sm">Available timing is required</p>}
-                    </div>
+                        
                     <div className="sm:col-span-2">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Tell us about yourself</label>
                         <textarea
