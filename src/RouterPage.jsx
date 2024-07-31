@@ -1,5 +1,6 @@
 // import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PublicRoute from './PublicRoute';
 import Home from './components/Home';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
@@ -37,8 +38,8 @@ function RouterPage() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
         <Route path="/LostListPet" element={<LostList />} />
@@ -68,6 +69,9 @@ function RouterPage() {
          {/* <Route path="/adopte" element={<Adoption />} /> */}
          {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
                   <Route path="/test" element={<Test />} />
+        <Route path="/Veterinary" element={<Veterinarian />} />
+        <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} />
 
       </Routes>
     </Router>
