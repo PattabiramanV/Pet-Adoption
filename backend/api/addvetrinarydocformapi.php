@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         || empty($_POST['experience']) || empty($_POST['email']) || empty($_POST['have_a_clinic']) 
         || empty($_POST['specialist']) || empty($_POST['address']) || empty($_POST['available_timing']) 
         || empty($_POST['description']) || empty($_POST['home_visiting_available'])
-        || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name'])) {
+        || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name']) || empty($_POST['state']) || empty($_POST['city'])) {
         echo json_encode(array("message" => "Please fill all the fields and upload an image."));
         die();
     }
@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = htmlspecialchars(strip_tags($_POST['description']));
     $homeVisiting = htmlspecialchars(strip_tags($_POST['home_visiting_available']));
     $doctor_registerno = htmlspecialchars(strip_tags($_POST['doctor_registerno']));
+    $state = htmlspecialchars(strip_tags($_POST['state']));
+    $city = htmlspecialchars(strip_tags($_POST['city']));
 
     // Phone number validation
     $phonePattern = '/^\+?[0-9\s\-()]+$/';
@@ -44,42 +46,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagePath = null;
     if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['profile_img']['tmp_name'];
-        $fileName = $_FILES['profile_img']['name'];
-        $uploadFileDir = 'uploads/';
+        $fileName = basename($_FILES['profile_img']['name']);
+        $uploadFileDir = '../docterprofile/';
         $dest_path = $uploadFileDir . $fileName;
 
-        // Ensure the uploads directory exists and is writable
-        if (!file_exists($uploadFileDir)) {
-            mkdir($uploadFileDir, 0755, true);
+        // Validate image type
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($_FILES['profile_img']['type'], $allowedTypes)) {
+            echo json_encode(["message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."]);
+            die();
         }
 
-        if (is_writable($uploadFileDir)) {
-            // Validate image type (basic example)
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            if (!in_array($_FILES['profile_img']['type'], $allowedTypes)) {
-                echo json_encode(array("message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."));
+        // Check if the directory exists
+        if (!is_dir($uploadFileDir)) {
+            if (!mkdir($uploadFileDir, 0755, true)) {
+                echo json_encode(["message" => "Failed to create upload directory."]);
                 die();
             }
+        }
 
-            // Move the uploaded file
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $imagePath = $fileName; // Store only the file name
-            } else {
-                echo json_encode(array("message" => "Image upload failed. Could not move uploaded file."));
-                die();
-            }
+        // Move the uploaded file
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $imagePath = $dest_path;
         } else {
-            echo json_encode(array("message" => "Image upload failed. Uploads directory is not writable."));
+            echo json_encode(["message" => "Possible file upload attack or move failed!"]);
             die();
         }
     } else {
-        echo json_encode(array("message" => "Image upload failed. No file uploaded or upload error."));
+        echo json_encode(["message" => "Image upload failed. No file uploaded or upload error."]);
         die();
     }
-
     // Insert data into database
-    $query = "INSERT INTO vetneries (name, education, have_a_clinic, specialist, available_timing, phone, home_visiting_available, experience, address, description, user_id, email, profile_img, doctor_registerno) 
-              VALUES (:doctorname, :education, :haveAclinic, :specialisation, :availableTiming, :docContact, :homeVisiting, :experience, :address, :description, :user_id, :docemail, :imagePath, :doctor_registerno)";
+    $query = "INSERT INTO vetneries (name, education, have_a_clinic, specialist, available_timing, phone, home_visiting_available, experience, address, description, user_id, email, profile_img, doctor_registerno,state,city) 
+              VALUES (:doctorname, :education, :haveAclinic, :specialisation, :availableTiming, :docContact, :homeVisiting, :experience, :address, :description, :user_id, :docemail, :imagePath, :doctor_registerno, :state, :city)";
 
     try {
         $stmt = $conn->prepare($query);
@@ -98,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':docemail', $docemail);
         $stmt->bindParam(':imagePath', $imagePath);
         $stmt->bindParam(':doctor_registerno', $doctor_registerno);
+        $stmt->bindParam(':state', $state);
+        $stmt->bindParam(':city', $city);
 
         if ($stmt->execute()) {
             echo json_encode(array("message" => "Doctor registered successfully."));

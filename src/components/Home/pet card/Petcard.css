@@ -133,3 +133,22 @@ width: 100%;
     flex: 1 1 100%; /* 1 card per row on screens < 500px */
   }
 }
+.pet-list-container_1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
+
+
+/* card size */
+
+.Gender {
+  width: 20em;
+}
+.pet-card-info {
+  gap: 0;
+}

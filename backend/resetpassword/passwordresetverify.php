@@ -50,3 +50,8 @@ if ($data && isset($data->email) && isset($data->otp) && isset($data->new_passwo
     http_response_code(400);
 }
 ?>
+
+
+
+
+

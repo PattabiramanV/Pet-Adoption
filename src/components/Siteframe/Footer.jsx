@@ -44,7 +44,7 @@ const Footer = () => {
       <div className="footer-bottom">
 
         <div className="div_sub_footer">
-        <p>&copy;CharmingPrince6</p>
+        <p>&copy;Furry Friends</p>
         <div className="social-icons">
           <a href="#"><FontAwesomeIcon icon={faInstagram}/></a>
           <a href="#"><FontAwesomeIcon icon={faGithub}/></a>
