@@ -15,8 +15,8 @@ try {
                 pet_grooming_users.pet_age, 
                 pet_grooming_users.city, 
                 pet_grooming_users.what_you_need_for_your_pet, 
-                -- vetneries.name AS doctor_name, 
-                -- vetneries.address AS doctor_address 
+                vetneries.name AS doctor_name, 
+                vetneries.address AS doctor_address 
             FROM pet_grooming_users 
             JOIN vetneries ON vetneries.id = pet_grooming_users.doctor_id 
             JOIN users ON users.id = pet_grooming_users.user_id 

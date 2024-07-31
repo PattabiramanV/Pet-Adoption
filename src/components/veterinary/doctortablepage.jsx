@@ -68,17 +68,17 @@ const Doctorpersonalpage = () => {
             title: 'Needs',
             dataIndex: 'what_you_need_for_your_pet',
             key: 'what_you_need_for_your_pet'
+        },
+        {
+            title: 'Doctor Name',
+            dataIndex: 'doctor_name',
+            key: 'doctor_name'
+        },
+        {
+            title: 'Doctor Address',
+            dataIndex: 'doctor_address',
+            key: 'doctor_address'
         }
-        // {
-        //     title: 'Doctor Name',
-        //     dataIndex: 'doctor_name',
-        //     key: 'doctor_name'
-        // },
-        // {
-        //     title: 'Doctor Address',
-        //     dataIndex: 'doctor_address',
-        //     key: 'doctor_address'
-        // }
     ];
 
     if (loading) return <Spin size="large" />;
