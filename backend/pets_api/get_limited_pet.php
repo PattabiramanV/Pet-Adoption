@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-$limit = 3;
+// $limit = 3; 
 
 try {
-    $stmt = $conn->prepare("SELECT pet_name AS name, city, description, gender, breeds AS breed, age, size, photo AS profile FROM pets LIMIT :limit");
+    $stmt = $conn->prepare("SELECT pet_name AS name, city, description, gender, breeds AS breed, age, size, photo AS profile FROM pets LIMIT 3");
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
     

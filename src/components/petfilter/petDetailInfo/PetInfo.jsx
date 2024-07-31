@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactCountryFlag from 'react-country-flag';
 import Swal from 'sweetalert2';
 import './PetInfo.css';
+
 import { getCode } from 'country-list';
 
 const PetDetailsRoute = () => {
@@ -13,9 +14,18 @@ const PetDetailsRoute = () => {
 
   useEffect(() => {
     const fetchPet = async () => {
+      
+       const token = localStorage.getItem("token");
+
+       if (!token) {
+        console.error("No token found");
+        return;
+      }
+
       try {
-        const response = await fetch(`http://localhost/petadoption/backend/api/get_pet_details.php?id=${id}`);
-        if (!response.ok) {
+        const response = await fetch(`http://localhost/petadoption/backend/pets_api/get_pet_details.php?id=${id}`);
+        
+        if (!response.ok) {     
           throw new Error('Network response was not ok');
         }
         const data = await response.json();

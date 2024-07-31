@@ -309,7 +309,9 @@
 }
 
 
-
+.petnot{
+  text-align: center;
+}
 /* Style for the CardView container */
 .list-pet {
   flex: 2; /* Takes up more space than the form */

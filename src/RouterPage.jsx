@@ -24,9 +24,9 @@ import GroomingPage  from './components/veterinary/petgromming';
 import Info from './components/petfilter/petDetailInfo/Info';
 import Sale from './components/petfilter/petsForms/sale';
 import Test from './components/text';
+import PetForm from './AllPetList';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
-// import SideBar from './components/PetFilter/sideBar/SideBar';
 
 function RouterPage() {
   return (
@@ -57,8 +57,8 @@ function RouterPage() {
          <Route path="/petDetails/:id"  element={<Info />} />
          <Route path="/sale" element={<Sale />} />
          {/* <Route path="/adopte" element={<Adoption />} /> */}
-         {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
-                  <Route path="/test" element={<Test />} />
+         <Route path="/adopte" element={<PetForm />} />
+         <Route path="/test" element={<Test />} />
 
       </Routes>
     </Router>

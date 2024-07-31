@@ -1,30 +1,27 @@
 <?php
-include '../config/database.php'; // Ensure this file connects to your database
-include '../config/config.php'; // Include any other configuration or authentication
+include '../config/database.php'; 
+include '../config/config.php'; 
 
-// Enable error reporting for debugging
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-// Set CORS headers to allow access from different origins
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Handle preflight OPTIONS request
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Function to authenticate user (should be defined in config.php or another file)
-$user_id = authenticate(); // Ensure this function returns a valid user ID
+$user_id = authenticate(); 
 
-// Get and decode JSON input data
+
 $data = json_decode(file_get_contents("php://input"));
 
 if ($data) {
-    // Extract form data from JSON
     $petname = $data->petName;
     $petcategory = $data->petcategory;
     $city = $data->city;
@@ -38,16 +35,13 @@ if ($data) {
     $color = $data->color;
     $address = $data->address;
     $photo = $data->profilePic;
-    $add_for = 'Sale'; // Set this to 'Adopt' or 'Sale' based on your use case
+    $add_for = 'Sale';
 
-    // Decode the base64-encoded image
     $photoData = base64_decode($photo);
 
     try {
-        // Prepare SQL query
         $stmt = $conn->prepare("INSERT INTO pets (pet_name, gender, pet_category, age, breeds, price, state, city, description, add_for, user_id, size, color, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
-        // Bind parameters
         $stmt->bindParam(1, $petname);
         $stmt->bindParam(2, $gender);
         $stmt->bindParam(3, $petcategory);
@@ -63,7 +57,6 @@ if ($data) {
         $stmt->bindParam(13, $color);
         $stmt->bindParam(14, $photoData, PDO::PARAM_LOB);
 
-        // Execute the statement
         if ($stmt->execute()) {
             echo json_encode(["message" => "Pet data inserted successfully"]);
         } else {
