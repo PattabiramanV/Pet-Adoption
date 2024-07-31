@@ -3,11 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Petcard.css"; // Import your CSS file
 
+
+
+
 const PetCard = ({ pet }) => {
+
+  const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
+  console.log(pet.location);
   return (
     <div className="pet-card">
       <div className="pet-card-header">
-        <img src={pet.image} alt={pet.name} className="pet-card-image" />
+        <img src={imageSrc} alt={pet.name} className="pet-card-image" />
       </div>
 
       <div className="pet-card-body">
@@ -33,14 +39,14 @@ const PetCard = ({ pet }) => {
           </div>
           <div className="pet_right_de">
             <p>
-            <strong>Pet Type:</strong> {pet.petType}
+            <strong>PetType:</strong> {pet.pet_type}
 
             </p>
           </div>
         </div>
         <div className="type">
               <p>
-              <strong>Lost Date:</strong> {pet.lostDate}
+              <strong>Lost Date:</strong> {pet.lost_date}
               </p>
             </div>
 

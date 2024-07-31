@@ -16,7 +16,7 @@ function Veterinarian (){
     <Link to={"/groomingusertable"} > <button>normal user</button></Link>
 
     <br></br>
-    <Link to={"/docterpersonalpage"} > <button>Doctor personalpage</button></Link>
+    <Link to={"/doctorpersonaltable"} > <button>Doctor personalpage</button></Link>
 
 
       <nav>

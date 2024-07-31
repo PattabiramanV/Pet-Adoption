@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Spin, Alert } from 'antd';
-
+import { Table, Alert, Spin } from 'antd';
+import Loader from '../Loader/Loader';
 const Doctorpersonalpage = () => {
     const [doctorData, setDoctorData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -81,7 +81,7 @@ const Doctorpersonalpage = () => {
         }
     ];
 
-    if (loading) return <Spin size="large" />;
+    if (loading) return <Loader />
     if (error) return <Alert message="Error" description={error} type="error" showIcon />;
 
     return (
