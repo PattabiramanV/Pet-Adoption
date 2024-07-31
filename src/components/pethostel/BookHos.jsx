@@ -13,7 +13,8 @@ function BookHos() {
     id: '',
     name: '',
     address: '',
-    phone: ''
+    phone: '',
+    price:''
   });
 
   const [formData, setFormData] = useState({
@@ -62,12 +63,13 @@ function BookHos() {
         const selected = response.data.find(hostel => String(hostel.id) === String(hostelId));
         console.log(selected);
         if (selected) {
-     
+       
           setSelectedHostel(prevState=>({
             id: selected.id,
             name: selected.name,
             address: selected.address,
-            phone: selected.contact
+            phone: selected.contact,
+            price:selected. price_per_day
           }));
           setFormData(prevState => ({
             ...prevState,
@@ -100,6 +102,7 @@ function BookHos() {
     }));
   };
 
+
   const handleHostelChange = (e) => {
     const selectedId = e.target.value;
     const selected = hostels.find(hostel => String(hostel.id) === String(selectedId));
@@ -108,8 +111,12 @@ function BookHos() {
         id: selected.id,
         name: selected.name,
         address: selected.address,
-        phone: selected.contact
+        phone: selected.contact,
+        price:selected. price_per_day
       });
+
+      // console.log(selectedHostel);
+
       // setFormData(prevState => ({
       //   ...prevState,
       //   hostelId: selected.id
@@ -264,7 +271,7 @@ console.log(response);
               <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
               <div className="border-t border-gray-300 pt-4">
                 <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
-                <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>
+                <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ {selectedHostel.price}/-</p>
                 <p className="text-gray-600">(Inclusive of all taxes)</p>
                 <ul className="mt-4 space-y-2">
                   <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>

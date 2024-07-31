@@ -259,7 +259,6 @@
 
 
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -341,31 +340,11 @@ function AddPetHos() {
     if (validateForm()) {
       try {
 
+
+console.log(formData.photos[0].name);
+
 console.log(formData);
-        // const data = new FormData();
-        
-        // Append other form data
-        // for (const key in formData) {
-        //   if (key !== 'photos') {
-        //     data.append(key, formData[key]);
-        //   }
-        // }
-  
-        // // Append files separately
-        // Array.from(formData.photos).forEach(file => data.append('photos[]', file));
-        
-        // // Log form data for debugging
-        // console.log("Form Data:");
-        // for (const [key, value] of data.entries()) {
-        //   if (key === 'photos[]') {
-        //     console.log(`File: ${value.name}, Size: ${value.size} bytes`);
-        //   } else {
-        //     console.log(`${key}: ${value}`);
-        //   }
-        // }
 
-
-       
         const token = localStorage.getItem('token');
         const response = await axios.post(
           'http://localhost/petadoption/backend/hostel/hostelimgupload.php',
@@ -382,6 +361,7 @@ console.log(formData);
         }
   
       } catch (error) {
+        
         console.error("There was an error submitting the form!", error.response || error.message);
         alert("There was an error submitting the form. Please try again.");
       }
@@ -505,7 +485,7 @@ console.log(formData);
                 name="photos"
                 type="file"
            
-                multiple
+                // multiple
                 onChange={onChangeFun}
               />
               {errors.photos && <p className="text-red-500 text-xs mt-1">{errors.photos}</p>}

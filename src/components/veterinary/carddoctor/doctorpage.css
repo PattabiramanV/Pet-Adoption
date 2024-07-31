@@ -1,0 +1,128 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.doctorContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  margin-top: 100px;
+}
+
+.Doccard-container {
+  background-color: #f9f9fa;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  
+  width: 288px;
+  height: 470px;
+  max-width: 100%; 
+  text-align: center;
+  position: relative;
+  margin: 10px; 
+} 
+
+.Doccard-container h3 {
+  margin: 10px 0;
+}
+
+.Doccard-container h3, .Doccard-container p {
+  text-align: left;
+  margin: 10px;
+}
+
+.Doccard-container .doctorImg {
+  width: 50%;
+  height: 170px;
+  border-radius: 50%;
+  margin: 10px auto;
+  display: block;
+}
+
+.Doccard-container .doctorImg:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.Doccard-container .Docdetails {
+  padding: 5%;
+  gap: 11%;
+  position: relative;
+}
+
+.Doccard-container .Docdetails p {
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.Doccard-container .docname {
+  text-align: center;
+  color: #675BC8;
+}
+
+.Doccard-container .buttons-card .morebutton {
+  border: 1px solid #675BC8;
+  color: #675BC8;
+  width: 80%;
+  font-weight: 500;
+  height: 44px;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  position: absolute; /* Position the button absolutely */
+  bottom: 0px; /* Position the button at the bottom edge of the container */
+  
+}
+
+.Doccard-container .buttons-card .morebutton:hover {
+  background-color: #675BC8;
+  color: white;
+  cursor: pointer;
+}
+
+.Doccard-container .buttons-card {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Doccard-container.description {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.Doccard-container.address {
+  color: #555;
+}
+
+.Doccard-container .docname span, .doctorcontact span, .address span {
+  color: #09090a;
+  font-weight: bolder;
+}
+
+.doctorcontact {
+  margin: 10px 0;
+  color: #555;
+}
+
+.list-pet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+ 
+}
+
+
+

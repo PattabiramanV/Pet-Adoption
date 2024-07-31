@@ -36,35 +36,97 @@ if (!$user_id) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
-    try {
-        // Prepare the SQL query
-        $stmt = $db->conn->prepare("INSERT INTO pet_hostels (name, address, price_per_day, description, contact, user_id, available_time) VALUES (:name, :address, :price_per_day, :description, :contact, :user_id, :available_time)");
+
+$imagePath = null;
+// print_r($_FILES['fiels']);
+// print_r($data);
+echo json_encode($data);
+// print_r($data['photos'][0]);
+    //  if (isset($_FILES['photos']) && $_FILES['photos']['error'] === UPLOAD_ERR_OK) {
+    //     $fileTmpPath = $_FILES['profile_img']['tmp_name'];
+    //     $fileName = basename($_FILES['profile_img']['name']);
+    //     $uploadFileDir = '../docterprofile/';
+    //     $dest_path = $uploadFileDir . $fileName;
+
+    //     // Validate image type
+    //     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    //     if (!in_array($_FILES['profile_img']['type'], $allowedTypes)) {
+    //         echo json_encode(["message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."]);
+    //         die();
+    //     }
+
+    //     // Check if the directory exists
+    //     if (!is_dir($uploadFileDir)) {
+    //         if (!mkdir($uploadFileDir, 0755, true)) {
+    //             echo json_encode(["message" => "Failed to create upload directory."]);
+    //             die();
+    //         }
+    //     }
+
+    //     // Move the uploaded file
+    //     if (move_uploaded_file($fileTmpPath, $dest_path)) {
+    //         $imagePath = $dest_path;
+    //     } else {
+    //         echo json_encode(["message" => "Possible file upload attack or move failed!"]);
+    //         die();
+    //     }
+    // } else {
+    //     echo json_encode(["message" => "Image upload failed. No file uploaded or upload error."]);
+    //     die();
+    // }
+
+
+
+
+
+
+
+
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+//     try {
+//         // Prepare the SQL query
+//         $stmt = $db->conn->prepare("INSERT INTO pet_hostels (name, address, price_per_day, description, contact, user_id, available_time) VALUES (:name, :address, :price_per_day, :description, :contact, :user_id, :available_time)");
     
-        // Bind parameters
-        $stmt->bindParam(':name', $data['name']);
-        $stmt->bindParam(':address', $data['address']);
-        $stmt->bindParam(':price_per_day', $data['price_per_day']);
-        $stmt->bindParam(':description', $data['description']);
-        $stmt->bindParam(':contact', $data['contact']);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':available_time', $data['available_time']);
+//         // Bind parameters
+//         $stmt->bindParam(':name', $data['name']);
+//         $stmt->bindParam(':address', $data['address']);
+//         $stmt->bindParam(':price_per_day', $data['price_per_day']);
+//         $stmt->bindParam(':description', $data['description']);
+//         $stmt->bindParam(':contact', $data['contact']);
+//         $stmt->bindParam(':user_id', $user_id);
+//         $stmt->bindParam(':available_time', $data['available_time']);
     
-        // Execute the query
-        if ($stmt->execute()) {
-            echo json_encode(["message" => "Record inserted successfully."]);
-        } else {
-            // If execute fails, fetch and display the error info
-            $errorInfo = $stmt->errorInfo();
-            echo json_encode(["message" => "Failed to execute query.", "error" => $errorInfo]);
-        }
-    } catch (PDOException $e) {
-        // Handle and display PDO exceptions
-        echo json_encode(["message" => "Database error occurred.", "error" => $e->getMessage()]);
-    }
+//         // Execute the query
+//         if ($stmt->execute()) {
+//             echo json_encode(["message" => "Record inserted successfully."]);
+//         } else {
+//             // If execute fails, fetch and display the error info
+//             $errorInfo = $stmt->errorInfo();
+//             echo json_encode(["message" => "Failed to execute query.", "error" => $errorInfo]);
+//         }
+//     } catch (PDOException $e) {
+//         // Handle and display PDO exceptions
+//         echo json_encode(["message" => "Database error occurred.", "error" => $e->getMessage()]);
+//     }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // $uploadedFiles = [];
@@ -168,8 +230,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     echo json_encode(["message" => $e->getMessage()]);
     //     http_response_code(500); // Internal Server Error
     // }
-} else {
-    header('Content-Type: application/json');
-    echo json_encode(["message" => "Invalid request method."]);
-    http_response_code(405); // Method Not Allowed
-}
+
+
+
+// } else {
+//     header('Content-Type: application/json');
+//     echo json_encode(["message" => "Invalid request method."]);
+//     http_response_code(405); // Method Not Allowed
+// }

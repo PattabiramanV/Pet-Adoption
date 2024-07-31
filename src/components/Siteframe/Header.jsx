@@ -6,22 +6,46 @@ import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
+    fetchProfile();
   }, []);
+
+  const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        "http://localhost/petadoption/backend/profile/read_profile.php",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.data.message === "Access denied. Invalid token.") {
+        logout();
+      } else {
+        setProfile(response.data);
+        setIsLoggedIn(true);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
 
   const handleMouseEnter = () => {
     setDropdownOpen(true);
@@ -58,36 +82,28 @@ const Header = () => {
     <section className="header_nav">
       <div className="header_main">
         <header className="header">
-          <div className="logo">
-            <img
-              src={Logo}
-              alt="Furry Friends Logo"
-              onClick={handleHomepage}
-              className="logo-image"
-            />
+          <div className="logo" onClick={handleHomepage}>
+            <img src={Logo} alt="Furry Friends Logo" className="logo-image" />
           </div>
 
           <nav className="nav-links">
-            <div className="nav-links">
-              <div
-                className="user-profile"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span>Features</span>
-                {isDropdownOpen && (
-                  <div className="dropdown-menu dropdown-menu-Features">
-                    <a href="findpet">Reuniting lost pets</a>
-                    <a href="PetGrooming">Pet Grooming</a>
-                    <a href="pethostel">Pet Hostel</a>
-                  </div>
-                )}
-
-              </div>
+            <div
+              className="user-profile"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Features</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">Reuniting lost pets</Link>
+                  <Link className="menu" to="/PetGrooming">Pet Grooming</Link>
+                  <Link className="menu" to="/pethostel">Pet Hostel</Link>
+                </div>
+              )}
             </div>
-            <a href="Veterinary">Veterinarians</a>
-            <a href="#Add Pets">Add Pets</a>
-            <a href="pets">Pets</a>
+            <Link to="/Veterinary">Veterinarians</Link>
+            <Link to="/add-pets">Add Pets</Link>
+            <Link to="/pets">Pets</Link>
           </nav>
 
           <div className="nav-links_mobile">
@@ -99,26 +115,30 @@ const Header = () => {
               <span>☰</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-left">
-                  <a href="Veterinary">Veterinarians</a>
-                  <a href="#Add Pets">Add Pets</a>
-                  <a href="findpet">Reuniting lost pets</a>
-                  <a href="PetGrooming">Pet Grooming</a>
-                  <a href="pethostel">Pet Hostel</a>
-                  <a href="pets">Pets</a>
+                  <Link to="/Veterinary">Veterinarians</Link>
+                  <Link to="/add-pets">Add Pets</Link>
+                  <Link to="/findpet">Reuniting lost pets</Link>
+                  <Link to="/PetGrooming">Pet Grooming</Link>
+                  <Link to="/pethostel">Pet Hostel</Link>
+                  <Link to="/pets">Pets</Link>
                 </div>
               )}
             </div>
           </div>
 
-          {isLoggedIn ? (
+          {isLoggedIn && profile ? (
             <div className="user-section">
               <div
                 className="user-profile"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <img src={ProfileLogo} alt="User" />
-                <span>Samanta Smith</span>
+         <img
+                  src={profile.avatar || ProfileLogo}
+                  alt="User"
+                  className="profile-image"
+                />
+                <span>{profile.username}</span> {/* Display user's name */}
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}>Profile</a>
@@ -140,7 +160,7 @@ const Header = () => {
         <Modal
           title="Profile"
           style={{ top: 15 }}
-          visible={isProfileOpen}
+          open={isProfileOpen}
           onCancel={closeProfile}
           footer={null}
         >

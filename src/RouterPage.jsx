@@ -4,47 +4,77 @@ import Home from './components/Home';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
-import Veterinarian from './components/VeterinaryPage';
+import Veterinarian from './components/veterinarypage';
 
 import ReunitingLostPets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
-import FoundingpetAdd from "./components/foundpetformpage";
+import LostList from './components/lostlistpets';
+import Lostlistallpage from "./components/lostlistmainpage";
+import Mylostpostlist from "./components/mypetlost";
+
 import Pets from './Pets';
 import AllPetList from './AllPetList';
 
 import BookHosPage from './components/pethostel/BookHosPage';
-import GroomingPage  from './components/PetGroomingPage';
+// import GroomingPage  from './components/petgroomingpage';
 import PrivateRoute from './PrivateRoute';
-import Practice from './components/practice';
-import Whatsapp from './components/pethostel/Whatsapp'
+// import Practice from './components/practice';
+import Reset from './components/resetpassword';
+import DoctorCard from './components/veterinary/carddoctor/doctordata';
+import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
+import Adddoctorform from './components/veterinary/doctoraddform';
+import GroomingPage  from './components/veterinary/petgromming';
+import Info from './components/petfilter/petDetailInfo/Info';
+import Sale from './components/petfilter/petsForms/sale';
+import Test from './components/text';
+
+// import Adoption from './components/petfilter/petsForms/adaption';
+// import SideBar from './components/PetFilter/sideBar/SideBar';
+
 function RouterPage() {
   return (
-    <Router>
+          <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
-        <Route path="/foundingpet" element={<FoundingpetAdd />} />
+        <Route path="/LostListPet" element={<LostList />} />
+        <Route path="/mypetlostpost" element={<Mylostpostlist />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
+        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+
 
 
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
-        <Route path="/Veterinary" element={<Veterinarian />} />
-        <Route path="/PetGrooming" element={<GroomingPage />} />
-        <Route path="/whatsapp" element={<Whatsapp />} />
+        {/* <Route path="/Veterinary" element={<Veterinarian />} /> */}
+        {/* <Route path="/PetGrooming" element={<GroomingPage />} /> */}
+        <Route path="/reset" element={<Reset />} />
+        <Route path="/veterinary" element={<Veterinarian />} />
+        <Route path="/petgrooming" element={<GroomingPage />} />
+        <Route path="/doctorcard" element={<DoctorCard />} />
+        <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
+        <Route path="/doctoraddform" element={<Adddoctorform />} />
+        {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
+
+        <Route path="/pets" element={<Pets />} />
+        <Route path="/petList" element={<AllPetList />} />
+         <Route path="/petDetails/:id"  element={<Info />} />
+         <Route path="/sale" element={<Sale />} />
+         {/* <Route path="/adopte" element={<Adoption />} /> */}
+         {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
+                  <Route path="/test" element={<Test />} />
 
       </Routes>
     </Router>
-    // <Practice></Practice>
+ 
+    
   );
 }
 
 export default RouterPage;
-
 

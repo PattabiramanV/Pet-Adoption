@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Form, Input, Button, Typography, Divider, message } from "antd";
 import { GoogleOutlined, UserOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -34,6 +34,7 @@ const Login = () => {
         message.success(response.data.message);
         
         localStorage.setItem('token', response.data.jwt);
+        // localStorage.setItem("loginTime", new Date().getTime());
         navigate("/"); // Navigate to the Home 
       
       } else {
@@ -61,7 +62,9 @@ const Login = () => {
   return (
     <section className="login-section">
       <div className="login-main">
+        
         <div className="login-container">
+          
           <div className="login-form">
             <div className="heading_name">
               <Title level={4} className="color">
@@ -128,6 +131,8 @@ const Login = () => {
           </div>
 
           <div className="login-image">
+            
+            
             <div className="login-img">
               <img
                 src={LoginLogo1}
@@ -138,8 +143,11 @@ const Login = () => {
             <div className="login-img1">
               <img src={LoginLogo} alt="Login illustration" />
             </div>
+            
           </div>
+          
         </div>
+     
       </div>
     </section>
   );
