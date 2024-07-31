@@ -89,7 +89,8 @@ function GroomingPetsForm() {
             }
         )
         .then((res) => {
-            setSuccess("Form submitted successfully!");
+            // setSuccess("Form submitted successfully!");
+            alert('Form submitted successfully!');
             console.log(res.data);
             setError({});
         })

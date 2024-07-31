@@ -25,10 +25,12 @@ import DoctorCard from './components/veterinary/carddoctor/doctordata';
 import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
 import Adddoctorform from './components/veterinary/doctoraddform';
 import GroomingPage  from './components/veterinary/petgromming';
+import Groomingmainpage from './components/petgroomingpage';
 import Info from './components/petfilter/petDetailInfo/Info';
 import Sale from './components/petfilter/petsForms/sale';
 import Userpersonaltable from './components/veterinary/groomingusertable';
 import Doctorpersonaltable from './components/veterinary/docterpersonalpage';
+// import GroomingForm from './components/veterinary/grommingform';
 import Test from './components/text';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
@@ -58,7 +60,8 @@ function RouterPage() {
         {/* <Route path="/PetGrooming" element={<GroomingPage />} /> */}
         <Route path="/reset" element={<Reset />} />
         <Route path="/veterinary" element={<Veterinarian />} />
-        <Route path="/petgrooming" element={<GroomingPage />} />
+        <Route path="/petgroomingmainpage" element={<GroomingPage />} />
+        <Route path="/petgrooming" element={<Groomingmainpage />} />
         <Route path="/doctorcard" element={<DoctorCard />} />
         <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
         <Route path="/doctoraddform" element={<Adddoctorform />} />
@@ -74,7 +77,7 @@ function RouterPage() {
          {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
                   <Route path="/test" element={<Test />} />
         <Route path="/Veterinary" element={<Veterinarian />} />
-        <Route path="/PetGrooming" element={<GroomingPage />} />
+        {/* <Route path="/PetGroomingform" element={<GroomingForm />} /> */}
         <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} />
 
       </Routes>
