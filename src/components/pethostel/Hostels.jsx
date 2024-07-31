@@ -1,29 +1,25 @@
-import React from "react";
-import Addform from "./AddPetForHos"
-import HostelCard from "./HosCard";
-import { useState,useEffect } from "react";
-import axios from "axios";
-const Hostels = () => {
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Addform from './AddPetForHos';
+import HostelCard from './HosCard';
+import Loader from '../Loader/Loader'; // Import your Loader component
 
+const Hostels = () => {
   const [data, setData] = useState([]);
   const [hostelBookUser, setHostelBookUser] = useState([]);
-  const [userType, setUserType]=useState(true);
+  const [userType, setUserType] = useState(true);
+  const [loading, setLoading] = useState(true); // Loading state
   const token = localStorage.getItem('token');
-
- 
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Replace with your actual API endpoint
-        const token=localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
         const response = await axios.get(
           'http://localhost/petadoption/backend/api/hostel.php',
           { headers: { Authorization: `Bearer ${token}` } }
-
         );
         setData(response.data);
         checkUserTypeFun();
@@ -31,11 +27,12 @@ const Hostels = () => {
         console.log(response.data);
       } catch (error) {
         // setError(error);
-      } 
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched
+      }
     };
 
     fetchData();
-
   }, []); // Empty dependency array means this useEffect runs once after the initial render
 
   async function checkUserTypeFun(){
@@ -99,6 +96,7 @@ const Hostels = () => {
     
        }
 
+       if(loading) return <Loader></Loader>;
   return (
     <>
   

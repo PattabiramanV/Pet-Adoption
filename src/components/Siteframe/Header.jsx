@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, notification } from "antd";
 import Logo from "../../assets/Logo.png";
 import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
@@ -8,13 +8,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "../Loader/Loader"; // Import Loader component
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     fetchProfile();
@@ -27,9 +31,10 @@ const Header = () => {
       return;
     }
 
+    setLoading(true); // Show loader
     try {
       const response = await axios.get(
-        "http://localhost/petadoption/backend/profile/read_profile.php",
+        `${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -44,6 +49,9 @@ const Header = () => {
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
+      notification.error({ message: 'Error fetching profile', description: error.message });
+    } finally {
+      setLoading(false); // Hide loader
     }
   };
 
@@ -77,6 +85,14 @@ const Header = () => {
     setIsLoggedIn(false);
     navigate("/login");
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <Loader /> {/* Use your custom loader component */}
+      </div>
+    );
+  }
 
   return (
     <section className="header_nav">
@@ -133,7 +149,7 @@ const Header = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-         <img
+                <img
                   src={profile.avatar || ProfileLogo}
                   alt="User"
                   className="profile-image"
@@ -164,7 +180,7 @@ const Header = () => {
           onCancel={closeProfile}
           footer={null}
         >
-          <Profile setProfileOpen={setProfileOpen} />
+          <Profile setProfileOpen={setProfileOpen} /> 
         </Modal>
       </div>
     </section>

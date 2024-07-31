@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Input, Space, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
+import Loader from "../Loader/Loader";  // Import the Loader component
 
 const { Option } = Select;
 
@@ -11,6 +12,7 @@ const Profile = ({ setProfileOpen }) => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState('');
   const [avatarFile, setAvatarFile] = useState(null);
+  const [loading, setLoading] = useState(false);  // Add loading state
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,8 +22,9 @@ const Profile = ({ setProfileOpen }) => {
         return;
       }
 
+      setLoading(true);  // Show loader
       try {
-        const response = await axios.get('http://localhost/petadoption/backend/profile/read_profile.php', {
+        const response = await axios.get(`${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
@@ -30,6 +33,8 @@ const Profile = ({ setProfileOpen }) => {
       } catch (error) {
         console.error('Error fetching profile:', error);
         notification.error({ message: 'Error fetching profile', description: error.message });
+      } finally {
+        setLoading(false);  // Hide loader
       }
     };
 
@@ -42,9 +47,10 @@ const Profile = ({ setProfileOpen }) => {
 
   const handleSaveClick = async (values) => {
     const token = localStorage.getItem('token');
+    setLoading(true);  // Show loader
     try {
       await axios.post(
-        'http://localhost/petadoption/backend/profile/update_profile.php',
+        `${import.meta.env.VITE_PROFILE_BASE_URL}update_profile.php`,
         values,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -62,6 +68,8 @@ const Profile = ({ setProfileOpen }) => {
         message: 'Error updating profile',
         description: error.response ? error.response.data.message : error.message,
       });
+    } finally {
+      setLoading(false);  // Hide loader
     }
   };
 
@@ -76,9 +84,10 @@ const Profile = ({ setProfileOpen }) => {
     const formData = new FormData();
     formData.append('avatar', file);
 
+    setLoading(true);  // Show loader
     try {
       const response = await axios.post(
-        'http://localhost/petadoption/backend/profile/upload_avatar.php',
+        `${import.meta.env.VITE_PROFILE_BASE_URL}upload_avatar.php`,
         formData,
         {
           headers: {
@@ -97,6 +106,8 @@ const Profile = ({ setProfileOpen }) => {
       }
     } catch (error) {
       notification.error({ message: 'Upload failed', description: error.response ? error.response.data.message : error.message });
+    } finally {
+      setLoading(false);  // Hide loader
     }
   };
 
@@ -107,6 +118,14 @@ const Profile = ({ setProfileOpen }) => {
       setImageUrl(URL.createObjectURL(file));
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <Loader /> {/* Use your custom loader component */}
+      </div>
+    );
+  }
 
   return (
     <section className="profile-page">

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import Loader from '../Loader/Loader'; // Import the Loader component
+import { Form, Input, Button, Typography, Divider, message } from "antd";
 
 function BookHos() {
+  const [loading, setLoading] = useState(false); // Loading state
   const token = localStorage.getItem('token');
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
@@ -14,7 +17,7 @@ function BookHos() {
     name: '',
     address: '',
     phone: '',
-    price:''
+    price: ''
   });
 
   const [formData, setFormData] = useState({
@@ -34,7 +37,6 @@ function BookHos() {
   useEffect(() => {
     fetchUserData();
     getAllHosFun();
-
   }, []);
 
   const fetchUserData = async () => {
@@ -44,6 +46,7 @@ function BookHos() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCurrentUser(response.data);
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -51,7 +54,6 @@ function BookHos() {
 
   const getAllHosFun = async () => {
     try {
-   
       const response = await axios.get(
         `http://localhost/petadoption/backend/api/hostel.php`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -61,23 +63,19 @@ function BookHos() {
       // Automatically select the hostel if hostelId is provided
       if (hostelId) {
         const selected = response.data.find(hostel => String(hostel.id) === String(hostelId));
-        console.log(selected);
         if (selected) {
-       
-          setSelectedHostel(prevState=>({
+          setSelectedHostel(prevState => ({
             id: selected.id,
             name: selected.name,
             address: selected.address,
             phone: selected.contact,
-            price:selected. price_per_day
+            price: selected.price_per_day
           }));
           setFormData(prevState => ({
             ...prevState,
             hostelId: selected.id
           }));
         }
-        console.log(selectedHostel);
-
       }
     } catch (error) {
       console.error('Error fetching hostel data:', error);
@@ -102,7 +100,6 @@ function BookHos() {
     }));
   };
 
-
   const handleHostelChange = (e) => {
     const selectedId = e.target.value;
     const selected = hostels.find(hostel => String(hostel.id) === String(selectedId));
@@ -112,48 +109,38 @@ function BookHos() {
         name: selected.name,
         address: selected.address,
         phone: selected.contact,
-        price:selected. price_per_day
+        price: selected.price_per_day
       });
-
-      // console.log(selectedHostel);
-
-      // setFormData(prevState => ({
-      //   ...prevState,
-      //   hostelId: selected.id
-      // }));
     }
-    //  else {
-    //   setSelectedHostel({
-    //     id: '',
-    //     name: '',
-    //     address: '',
-    //     phone: ''
-    //   });
-    // }
-    
-    
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when submitting
+
     const updatedData = { ...formData, hostelId: selectedHostel.id };
 
-    console.log(updatedData);
     try {
       const response = await axios.post(
         `http://localhost/petadoption/backend/api/hostel.php?hosid=${selectedHostel.id}`,
         JSON.stringify(updatedData),
         { headers: { Authorization: `Bearer ${token}` } }
       );
-console.log(response);
+
       console.log('Response:', response.data);
-      alert('Booking successful!');
+     if(response.status==200){
+      message.success('Hostel Booking Sucessfull');
+
+     }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Error submitting the booking. Please try again.');
+    } finally {
+      setLoading(false); // Set loading to false after response is received
     }
   };
+
+  if (loading) return <Loader />; // Display loader while loading
 
 
   return (
@@ -357,7 +344,7 @@ console.log(response);
           </div>
         </div>
       </form>
-      
+    
     </>
   );
 };

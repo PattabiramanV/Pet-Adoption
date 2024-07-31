@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Divider, Typography, message } from "antd";
 import {
   UserOutlined,
@@ -6,8 +6,9 @@ import {
   LockOutlined,
   GoogleOutlined,
 } from "@ant-design/icons";
-import axios from "axios"; // Import axios
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader"; // Import the Loader component
 import Login_logo1 from "../../assets/Logo.png";
 import Login_logo from "../../assets/Dog_login.png";
 import "./RegisterForm.css";
@@ -16,19 +17,19 @@ const { Text, Link } = Typography;
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
 
+    setLoading(true);
+
     try {
-      // Send a POST request with the JSON string
       const response = await axios.post(
-        "http://localhost/petadoption/backend/auth/register.php",
+        `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}register.php`,
         values,
         {}
       );
-
-      // console.log("Received response:", response.data);
 
       if (response.status === 201) {
         message.success(response.data.message);
@@ -39,21 +40,21 @@ const RegisterForm = () => {
     } catch (error) {
       console.error("There was an error submitting the form!", error);
       if (error.response && error.response.status === 400) {
-        // Handle email already registered error
         message.error(error.response.data.message);
       } else {
-        // Handle other errors
         message.error("There was an error submitting the form!");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSignInClick = () => {
-    navigate("/login"); // Navigate to the log-in page
+    navigate("/login");
   };
 
   const handleHomepage = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/");
   };
 
   return (
@@ -133,6 +134,7 @@ const RegisterForm = () => {
                       type="primary"
                       htmlType="submit"
                       className="register-form-button"
+                      disabled={loading}
                     >
                       Create Account
                     </Button>
@@ -154,6 +156,7 @@ const RegisterForm = () => {
           </div>
         </div>
       </div>
+      {loading && <Loader />} {/* Use the Loader component */}
     </section>
   );
 };
