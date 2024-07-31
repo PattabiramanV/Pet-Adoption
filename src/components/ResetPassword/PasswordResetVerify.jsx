@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import reset_verify from "../../assets/Reset password-cuate.png";
+import { notification } from "antd";
 
 const PasswordResetVerify = ({ email }) => {
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
 
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message: message,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/petadoption/backend/resetpassword/passwordresetverify.php",
+        `${import.meta.env.VITE_RESETPASSWORD_BASE_URL}passwordresetverify.php`,
         { email, otp, new_password: newPassword },
         {
           headers: {
@@ -20,6 +28,7 @@ const PasswordResetVerify = ({ email }) => {
         }
       );
       setMessage(response.data.message);
+      openNotification(response.data.message);
     } catch (error) {
       console.error("Error resetting password:", error);
       setMessage("Error resetting password. Please try again.");

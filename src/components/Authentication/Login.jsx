@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Typography, Divider, message } from "antd";
 import { GoogleOutlined, UserOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader"; // Import the Loader component
 
 import LoginLogo1 from "../../assets/Logo.png";
 import LoginLogo from "../../assets/Cat_login.png";
@@ -11,14 +12,17 @@ import "./Login.css";
 const { Title, Text, Link } = Typography;
 
 const Login = () => {
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
 
+    setLoading(true); // Show loader
+
     try {
       const response = await axios.post(
-        "http://localhost/petadoption/backend/auth/login.php",
+        `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}login.php`,
         values,
         {
           headers: {
@@ -44,6 +48,8 @@ const Login = () => {
       } else {
         message.error("There was an error submitting the form!");
       }
+    } finally {
+      setLoading(false); // Hide loader
     }
   };
 
@@ -61,6 +67,7 @@ const Login = () => {
 
   return (
     <section className="login-section">
+      {loading && <Loader />} {/* Show loader if loading */}
       <div className="login-main">
         <div className="login-container">
           <div className="login-form">

@@ -1,30 +1,52 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { notification } from "antd";
 import "./PasswordResetRequest.css";
 import reset_main from "../../assets/Two factor authentication-pana.png";
 import PasswordResetVerify from "./PasswordResetVerify";
+import { Oval } from 'react-loader-spinner';
 
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message: message,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost/petadoption/backend/resetpassword/passwordresetrequest.php",
+      let response = await axios.post(
+        `${import.meta.env.VITE_RESETPASSWORD_BASE_URL}passwordresetrequest.php`,
         { email }
       );
       console.log(response.data);
       setMessage(response.data.message);
       if (response.data.message === "OTP sent to your email.") {
-        console.log("OTP successfully sent, transitioning to verify page.");
+        openNotification("success", "OTP successfully sent to your email.");
         setOtpSent(true);
+      } else {
+        openNotification("error", response.data.message);
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-      setMessage("Error sending OTP. Please try again.");
+      // setMessage("Error sending OTP. Please try again.");
+            // setMessage("Error Please enter valid user email.");
+
+      // openNotification("error", "Error sending OTP. Please try again.");
+            openNotification("error", "Please enter valid user email.");
+
+
+
+
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,15 +76,31 @@ const PasswordResetRequest = () => {
                   required 
                 />
                 <div className="div_message">
-                <p>{message}</p>
+                  <p>{message}</p>
                 </div>
               </div>
-              <button type="submit" className="otp_btn">Send OTP</button>
+              <button type="submit" className="otp_btn" disabled={loading}>
+                {loading ? <Oval color="#fff" height={20} width={20} /> : "Send OTP"}
+              </button>
             </form>
           </div>
         </div>
-        {message && <p>{message}</p>}
+        {/* {message && <p>{message}</p>} */}
       </div>
+      {loading && (
+        <div className="loader-overlay">
+          <Oval
+            height={80}
+            width={80}
+            color="#696299"
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#f0f0f0"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        </div>
+      )}
     </div>
   );
 };

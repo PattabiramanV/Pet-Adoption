@@ -5,17 +5,14 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 const Hostels = () => {
 
-  // const data = [
-  //   { location: "1/25,middle Street,Nsk Nagar,Chennai-600113", name: "JEden Pets Care", contact: "123-456-7890" },
-  //   { location: "Los Angeles", name: "Jane Smith", contact: "987-654-3210" },
-  //   { location: "Chicago", name: "Michael Johnson", contact: "555-555-5555" },
-  //   // { location: "Houston", name: "Emily Davis", contact: "444-444-4444" },
-  //   // { location: "Phoenix", name: "Daniel Brown", contact: "333-333-3333" },
-  // ];
-
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [hostelBookUser, setHostelBookUser] = useState([]);
+  const [userType, setUserType]=useState(true);
+  const token = localStorage.getItem('token');
+
+ 
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,34 +21,131 @@ const Hostels = () => {
         const token=localStorage.getItem('token');
 
         const response = await axios.get(
-          'http://localhost/petadoption/Backend/api/hostel.php',
+          'http://localhost/petadoption/backend/api/hostel.php',
           { headers: { Authorization: `Bearer ${token}` } }
 
         );
         setData(response.data);
+        checkUserTypeFun();
         // console.log(JSON.parse(response.data));
         console.log(response.data);
       } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
+        // setError(error);
+      } 
     };
 
     fetchData();
+
   }, []); // Empty dependency array means this useEffect runs once after the initial render
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  async function checkUserTypeFun(){
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  try {
+    const response = await axios.get(
+      `http://localhost/petadoption/backend/profile/read_items.php`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    // setCurrentUser(response.data);
+    setUserType(response.data.user_type);
+    
+    
+  } catch (error) {
+    console.error('Error fetching user data:', error);
   }
+  
+ }
 
+ const fetchAllHosBookUser= async()=>{
+
+  try {
+    const response = await axios.get(
+      `http://localhost/petadoption/backend/api/hostelbook.php?endpoint=hostel_user`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    // setCurrentUser(response.data);
+    console.log(response.data);
+    // setUserType(response.data.user_type);  
+    setHostelBookUser(response.data);
+    
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+  
+
+ }
+
+ const fetchHosBookbyUser= async()=>{
+
+  try {
+    const response = await axios.get(
+      `http://localhost/petadoption/backend/api/hostelbook.php?endpoint=normal_user`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    // setCurrentUser(response.data);
+    console.log(response.data);
+    // setUserType(response.data.user_type);  
+    setHostelBookUser(response.data);
+    
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+  
+
+ }
+
+      const addHostelFun=()=>{
+
+     
+    
+       }
 
   return (
     <>
+  
+      {userType=='hostel_user' ? (
+        <div>
+        <button
+        onClick={fetchAllHosBookUser}
+          type="button"
+          className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+         View Hos Details
+        </button>
+            </div>
+      ) : 
+      null
+
+      }
+      
+       <button
+      onClick={fetchHosBookbyUser}
+          type="button"
+          className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+         View your details 
+        </button>
+
+
+        <div className="">
+        {hostelBookUser?.map((item) => 
+
+<div>
+<p>{item.username}</p>
+{/* <p>{item.name}</p> */}
+</div>
+   
+
+)}
+
+<button
+      onClick={addHostelFun}
+          type="button"
+          className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+         Add Hostel
+        </button>
+        </div>
+
       <h1 className="text-3xl text-center mt-10">Book The Best Hostel Service For Your Pet</h1>
       <div className="flex flex-wrap justify-center space-x-4 mt-16">
       {/* <HostelCard hostel={data[0]}/>
