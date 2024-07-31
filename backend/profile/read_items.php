@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     
 $user_id = authenticate(); // Retrieve the authenticated user ID
 
-$query = "SELECT username, email, phone, gender, state, city FROM users WHERE id = :user_id";
+// $query = "SELECT username, email, phone, gender, state, city , avatar FROM users WHERE id = :user_id";
+$query = "SELECT * FROM users WHERE id = :user_id";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -23,6 +24,10 @@ $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
+    // If the avatar field contains a relative path, prepend the base URL
+    if (!empty($user['avatar'])) {
+        $user['avatar'] = 'http://localhost/petadoption/backend/profile/uploads/' . $user['avatar']; // Adjust the base URL as needed
+    }
     echo json_encode($user);
 } else {
     http_response_code(404);

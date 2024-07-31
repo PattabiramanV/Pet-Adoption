@@ -89,7 +89,9 @@ a{
     white-space: nowrap;
     text-align: center;
   }
-  
+  a.menu {
+    text-align: left;
+}
   .dropdown-menu a:hover {
     background-color: #f0f0f0;
   }
@@ -108,8 +110,9 @@ nav.nav-links {
 /* Features menu  */
 
 .dropdown-menu.dropdown-menu-Features {
-  width: 11em;
+  width: fit-content;
   padding: 10px;
+  z-index: 10;
 }
 
   /* .dropdown-menu */

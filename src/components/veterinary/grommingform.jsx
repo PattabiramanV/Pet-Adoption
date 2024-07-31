@@ -148,6 +148,27 @@ function GroomingPetsForm() {
                         <input className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none" id="petAge" type="number" name="petAge" value={applyGrooming.petAge} onChange={handleFields} placeholder="Age of the Pet" required/>
                         {error && error.petAge && <p className="text-red-600 text-sm">{error.petAge}</p>}
                     </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petGender">Pet Gender</label>
+                        <select
+                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                            id="petGender"
+                            name="petGender"
+                            value={applyGrooming.petGender}
+                            onChange={handleFields} 
+                            required
+                        >
+                            <option value="">Select gender</option>
+                            <option value="Bothing">Bothing</option>
+                            <option value="Tick Remove">Tick Remove</option>
+                            <option value="Bathing + Tick Remove">Bathing + Tick Remove</option>
+                            <option value="Bathing">Cutting</option>
+                            <option value="Bathing + Cutting">Bathing + Cutting</option>
+                        </select>
+                        {error && error.petGender && <p className="text-red-600 text-sm">{error.petGender}</p>}
+                    </div>
+
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="doctornames">Veterinary Doctors</label>
                         <select
@@ -203,4 +224,5 @@ function GroomingPetsForm() {
     );
 }
 
-export default GroomingPetsForm;
+
+export default GroomingPetsForm; 

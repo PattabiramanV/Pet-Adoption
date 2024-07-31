@@ -5,10 +5,13 @@ import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
 import PetHostels from './components/PetHostel';
 import Veterinarian from './components/veterinarypage';
-// import PetHostelss from './components/Pet_Hostel/Hostels';
-import Reuniting_lost_pets from './components/searchinglostandfoundpets';
+
+import ReunitingLostPets from './components/searchinglostandfoundpets';
 import LostingpetAdd  from "./components/lostpetformpage";
-import FoundingpetAdd from "./components/foundpetformpage";
+import LostList from './components/lostlistpets';
+import Lostlistallpage from "./components/lostlistmainpage";
+import Mylostpostlist from "./components/mypetlost";
+
 import Pets from './Pets';
 import AllPetList from './AllPetList';
 
@@ -18,6 +21,10 @@ import DoctorCard from './components/veterinary/carddoctor/doctordata';
 import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
 import Adddoctorform from './components/veterinary/doctoraddform';
 import Groomingusertable from './components/veterinary/groomingusertable';
+import Doctortable from './components/veterinary/docterpersonalpage';
+import PrivateRoute from './PrivateRoute';
+import Practice from './components/practice';
+import Reset from './components/resetpassword';
 
 function RouterPage() {
   return (
@@ -27,13 +34,15 @@ function RouterPage() {
         <Route path="/pethostel" element={<PetHostels />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/pet-hostelss" element={<PetHostels />} />
-        <Route path="/findpet" element={<Reuniting_lost_pets />} />
+        <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<LostingpetAdd />} />
-        <Route path="/foundingpet" element={<FoundingpetAdd />} />
+        <Route path="/LostListPet" element={<LostList />} />
+        <Route path="/mypetlostpost" element={<Mylostpostlist />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
+        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+
 
 
         {/* <Route path="/pet-hostelss" element={<PetHostelss />} /> */}
@@ -42,8 +51,11 @@ function RouterPage() {
         <Route path="/doctorcard" element={<DoctorCard />} />
         <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
         <Route path="/doctoraddform" element={<Adddoctorform />} />
-        <Route path="/GroomingUsersTable" element={<Groomingusertable />} />
-
+        {/* <Route path="/user/:userId" element={<Groomingusertable />} /> */}
+        <Route path="/groomingusertable" element={<Groomingusertable />} />
+        <Route path="/docterpersonalpage" element={<Doctortable />} />
+        <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/reset" element={<Reset />} />
       </Routes>
     </Router>
  
@@ -52,10 +64,4 @@ function RouterPage() {
 }
 
 export default RouterPage;
-
-
-
-
-
-
 

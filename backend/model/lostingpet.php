@@ -1,14 +1,11 @@
 <?php
-
-
 require '../config/config.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-header("Access-Control-Allow-Origin: *"); // Allow from any origin
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
 
 // Preflight request handling
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -16,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-$user_id = authenticate(); // Retrieve the authenticated user ID
+// Assuming you have a function `authenticate` that retrieves the authenticated user ID
+$user_id = authenticate(); 
 
 // Get the POST data
 $data = json_decode(file_get_contents("php://input"));
@@ -31,15 +29,14 @@ if ($data) {
     $photo = $data->photo; // assuming this is base64 encoded
     $address = $data->address;
     $description = $data->description;
+    $location = $data->location; // Add location field
 
     // Decode the photo from base64
     $photoData = base64_decode($photo);
 
     try {
-        
-
         // Prepare the SQL statement with the correct column names
-        $stmt = $conn->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $user_id);
         $stmt->bindParam(2, $name);
         $stmt->bindParam(3, $petType);
@@ -50,6 +47,7 @@ if ($data) {
         $stmt->bindParam(8, $photoData, PDO::PARAM_LOB);
         $stmt->bindParam(9, $address);
         $stmt->bindParam(10, $description);
+        $stmt->bindParam(11, $location);
 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Pet data inserted successfully"]);
@@ -62,5 +60,4 @@ if ($data) {
 } else {
     echo json_encode(["message" => "No data received"]);
 }
-
 ?>
