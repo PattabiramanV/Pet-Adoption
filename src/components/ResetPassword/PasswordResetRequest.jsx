@@ -37,11 +37,7 @@ const PasswordResetRequest = () => {
     } catch (error) {
       console.error("Error sending OTP:", error);
       // setMessage("Error sending OTP. Please try again.");
-            // setMessage("Error Please enter valid user email.");
-
-      // openNotification("error", "Error sending OTP. Please try again.");
-            openNotification("error", "Please enter valid user email.");
-
+      openNotification("error", "Please enter a valid user email. Please try again.");
 
 
 

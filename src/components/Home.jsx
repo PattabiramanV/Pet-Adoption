@@ -11,9 +11,10 @@ function Home() {
     <>
       <Header />
       <Section />
+      <PeacefulCoexistence />
+
       <Petcard />
       {/* <Section1 /> */}
-      <PeacefulCoexistence />
       <Footer />
       {/* <Login /> */}
     </>

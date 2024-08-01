@@ -18,8 +18,6 @@ const Header = () => {
   const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
-  
-
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -45,14 +43,18 @@ const Header = () => {
       } else {
         setProfile(response.data);
         setIsLoggedIn(true);
-        console.log(response.data);
+        console.log("Profile data:", response.data);
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
-      notification.error({ message: 'Error fetching profile', description: error.message });
+      notification.error({
+        message: "Error fetching profile",
+        description: error.message,
+      });
     } finally {
       setLoading(false); // Hide loader
     }
+    // console.log(response.data.user_type);
   };
 
   const handleMouseEnter = () => {
@@ -111,16 +113,46 @@ const Header = () => {
               <span>Features</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">Reuniting lost pets</Link>
-                  <Link className="menu" to="/PetGrooming">Pet Grooming</Link>
-                  <Link className="menu" to="/pethostel">Pet Hostel</Link>
+                  <Link className="menu" to="/findpet">
+                    Reuniting lost pets
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                    Pet Grooming
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                    Pet Hostel
+                  </Link>
                 </div>
               )}
             </div>
             <Link to="/Veterinary">Veterinarians</Link>
             <Link to="/add-pets">Add Pets</Link>
             <Link to="/pets">Pets</Link>
+
+
+            {(profile && profile.hostel_user_type === "hostel_user") || (profile && profile.doctor_user_type === "doctor") ? (
+  <div
+    className="user-profile"
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <span>More</span>
+    {isDropdownOpen && (
+      <div className="div_user_roll dropdown-menu dropdown-menu-Features">
+        {profile.hostel_user_type === "hostel_user" && (
+          <Link to="/hostel-dashboard">Hostel</Link>
+        )}
+        {profile.doctor_user_type === "doctor" && (
+          <Link to="/doctor-dashboard">Doctor</Link>
+        )}
+      </div>
+    )}
+  </div>
+) : null}
+
           </nav>
+
+        
 
           <div className="nav-links_mobile">
             <div
@@ -180,7 +212,7 @@ const Header = () => {
           onCancel={closeProfile}
           footer={null}
         >
-          <Profile setProfileOpen={setProfileOpen} /> 
+          <Profile setProfileOpen={setProfileOpen} />
         </Modal>
       </div>
     </section>
