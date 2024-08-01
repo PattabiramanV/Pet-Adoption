@@ -1,15 +1,16 @@
+import React from 'react';
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import Alllostlist from "./lostpets/lostpetlistpage";
 
-function lostlistmainpage() {
+const Lostlistmainpage = () => {
   return (
     <>
       <Header />
-      <Alllostlist/>
+      <Alllostlist />
       <Footer />
     </>
   );
-}
+};
 
-export default lostlistmainpage;
+export default Lostlistmainpage;

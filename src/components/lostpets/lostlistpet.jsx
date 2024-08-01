@@ -73,9 +73,9 @@ const LostListPet = () => {
             </div>
             <div className="btn_for_message">
               <button className="add-to-cart">Contact Owner</button>
-              <button className="back-button" onClick={() => navigate("/lostpetlisting")}>
+              <button className="back-button" onClick={() => navigate("/lostpetlisting")}> 
                 Go Back
-              </button>
+               </button>
             </div>
           </div>
         </div>
@@ -85,3 +85,15 @@ const LostListPet = () => {
 };
 
 export default LostListPet;
+
+
+
+
+
+
+
+
+
+
+
+
