@@ -207,7 +207,7 @@ const Header = () => {
 
         <Modal
           title="Profile"
-          style={{ top: 15 }}
+          style={{ top: 60 }}
           open={isProfileOpen}
           onCancel={closeProfile}
           footer={null}

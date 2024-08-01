@@ -15,6 +15,8 @@ const PasswordResetRequest = () => {
   const openNotification = (type, message) => {
     notification[type]({
       message: message,
+      placement: "top",
+
     });
   };
 
