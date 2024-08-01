@@ -135,7 +135,7 @@ const Profile = ({ setProfileOpen }) => {
             {isEditing ? (
               <input type="file" accept="image/*" onChange={handleFileChange} />
             ) : (
-              <img src={imageUrl || "https://via.placeholder.com/150"} alt="Profile Avatar" />
+              <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
             )}
           </div>
           <div className="profile-info">

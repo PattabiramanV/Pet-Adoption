@@ -10,7 +10,7 @@ const PasswordResetVerify = ({ email }) => {
   const openNotification = (type, message) => {
     notification[type]({
       message: message,
-      placement: "top",
+      // placement: "top",
     });
   };
 
