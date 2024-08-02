@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import reset_verify from "../../assets/Reset password-cuate.png";
 import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const PasswordResetVerify = ({ email }) => {
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const navigate = useNavigate(); // Get the navigate function
 
   const openNotification = (type, message) => {
     notification[type]({
@@ -44,6 +46,8 @@ const PasswordResetVerify = ({ email }) => {
         }
       );
       openNotification("success", response.data.message);
+      // Navigate to the login page
+      navigate("/login");
     } catch (error) {
       console.error("Error resetting password:", error);
       openNotification("error", "Correct the OTP and password. Please try again.");
