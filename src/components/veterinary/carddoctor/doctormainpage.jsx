@@ -1,9 +1,10 @@
 
 import Doctorcard from "./doctordata";
+import './doctorpage.css';
 
 const DoctorList = () => {
   return (
-   <div className="list-pet">
+   <div className="list-Doctor">
         <Doctorcard />
     </div>
   )

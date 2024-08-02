@@ -1,10 +1,8 @@
-// src/components/DoctorInfo.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Spin, Alert } from 'antd';
+import { Table, Alert, Spin } from 'antd';
 import Loader from '../Loader/Loader';
-
-const DoctorInfo = () => {
+const Doctorpersonalpage = () => {
     const [doctorData, setDoctorData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -14,7 +12,7 @@ const DoctorInfo = () => {
             let token = localStorage.getItem('token');
            
             try {
-                const response = await axios.get('http://localhost/petadoption/backend/api/usertable.php', {
+                const response = await axios.get('http://localhost/petadoption/backend/api/doctortable.php', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -32,45 +30,19 @@ const DoctorInfo = () => {
 
     const columns = [
         {
-            title: 'Profile',
-            dataIndex: 'doctor_profile',
-            key: 'doctor_profile',
-            render: (text) => <img src={text} alt="Profile" style={{ width: '50px', height: '50px' }} />
-        },
-        {
-            title: 'Name',
-            dataIndex: 'doctor_name',
-            key: 'doctor_name'
-        },
-        {
-            title: 'City',
-            dataIndex: 'doctor_city',
-            key: 'doctor_city'
-        },
-        {
-            title: 'State',
-            dataIndex: 'doctor_state',
-            key: 'doctor_state'
-        },
-        {
-            title: 'Address',
-            dataIndex: 'doctor_address',
-            key: 'doctor_address'
+            title: 'User Name',
+            dataIndex: 'grooming_user_name',
+            key: 'grooming_user_name'
         },
         {
             title: 'Phone',
-            dataIndex: 'doctor_phone',
-            key: 'doctor_phone'
+            dataIndex: 'grooming_user_phone',
+            key: 'grooming_user_phone'
         },
         {
             title: 'Email',
-            dataIndex: 'doctor_email',
-            key: 'doctor_email'
-        },
-        {
-            title: 'Specialization',
-            dataIndex: 'specialization',
-            key: 'specialization'
+            dataIndex: 'grooming_user_email',
+            key: 'grooming_user_email'
         },
         {
             title: 'Pet Type',
@@ -88,21 +60,36 @@ const DoctorInfo = () => {
             key: 'pet_age'
         },
         {
+            title: 'City',
+            dataIndex: 'city',
+            key: 'city'
+        },
+        {
             title: 'Needs',
-            dataIndex: 'need_for_pet',
-            key: 'need_for_pet'
+            dataIndex: 'what_you_need_for_your_pet',
+            key: 'what_you_need_for_your_pet'
+        },
+        {
+            title: 'Doctor Name',
+            dataIndex: 'doctor_name',
+            key: 'doctor_name'
+        },
+        {
+            title: 'Doctor Address',
+            dataIndex: 'doctor_address',
+            key: 'doctor_address'
         }
     ];
 
-    if (loading) return <Loader />;
+    if (loading) return <Loader />
     if (error) return <Alert message="Error" description={error} type="error" showIcon />;
 
     return (
         <div>
             <h1>Doctor Information</h1>
-            <Table dataSource={doctorData} columns={columns} rowKey="doctor_id" />
+            <Table dataSource={doctorData} columns={columns} rowKey="doctor_name" />
         </div>
     );
 };
 
-export default DoctorInfo;
+export default Doctorpersonalpage;
