@@ -1,13 +1,14 @@
 
 import React from 'react';
-import BookGrooming from "../pethostel/bookhos";
+import BookGrooming from "./grommingform";
 
 
 function Bookingform(){
     return (
         <>
         {/* <GroomingBookingForm demo="hidden" title="Add Grooming Service for your Pet"/> */}
-        <BookGrooming demo="none" />
+        <BookGrooming  />
+        
         </>
     );
 }

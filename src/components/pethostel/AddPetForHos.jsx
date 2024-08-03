@@ -258,13 +258,15 @@
 
 
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Loader/Loader'; // Import the Loader component
+import { Form, Input, Button, Typography, Divider, message } from "antd";
 
 function AddPetHos() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Loading state
 
   const [formData, setFormData] = useState({
     name: '',
@@ -273,7 +275,7 @@ function AddPetHos() {
     available_time: '',
     address: '',
     description: '',
-    photos: []
+    photos: [] // Changed to an array to support multiple files
   });
 
   const [errors, setErrors] = useState({});
@@ -282,9 +284,10 @@ function AddPetHos() {
     const { name, value, type, files } = e.target;
 
     if (type === 'file') {
+      // Use Array.from to convert FileList to an array
       setFormData(prevFormData => ({
         ...prevFormData,
-        [name]: files
+        [name]: Array.from(files) // Handle multiple file uploads
       }));
     } else {
       setFormData(prevFormData => ({
@@ -307,10 +310,19 @@ function AddPetHos() {
       formErrors.name = "Name is required";
       valid = false;
     }
-    if (!formData.contact) {
-      formErrors.contact = "Contact No is required";
+    if (!formData.contact || formData.contact.length<10) {
+
+      if(formData.contact.length==0){
+        formErrors.contact = "Contact no is required";
+
+      }
+      // else{
+      //   formErrors.contact = "Contact no must be 10 charactor ";
+      // }
+
       valid = false;
     }
+   
     if (!formData.price_per_day) {
       formErrors.price_per_day = "Price per day is required";
       valid = false;
@@ -328,46 +340,68 @@ function AddPetHos() {
       valid = false;
     }
     if (!formData.description) {
-      formErrors.description = "description is required";
+      formErrors.description = "Description is required";
       valid = false;
     }
     setErrors(formErrors);
     return valid;
   };
+
   const formSubmitFun = async (e) => {
     e.preventDefault();
     
     if (validateForm()) {
       try {
+        const data = new FormData();
 
-
-console.log(formData.photos[0].name);
-
-console.log(formData);
-
+        // Append each field to FormData
+        for (const key in formData) {
+          if (key === 'photos') {
+            formData[key].forEach((file, index) => {
+              data.append('photos[]', file); // Use array notation for multiple files
+            });
+          } else {
+            data.append(key, formData[key]);
+          }
+        }
+      setLoading(true)
         const token = localStorage.getItem('token');
         const response = await axios.post(
-          'http://localhost/petadoption/backend/hostel/hostelimgupload.php',
-          JSON.stringify(formData),
+          `${import.meta.env.VITE_API_BASE_URL}/hostel/hostelimgupload.php`,
+          data, // Send FormData directly
           { headers: { 
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data' // Required for file uploads
           } }
         );
- 
+
         console.log(response.data);
         if (response.status === 200) {
-          alert("Successfully added your request!");
+          message.success("hostel added sucessfully");
+
+          // setFormData({
+
+          //   name: '',
+          //   contact: '',
+          //   price_per_day: '',
+          //   available_time: '',
+          //   address: '',
+          //   description: '',
+          //   photos: []
+          // })
+          // alert("Successfully added your request!");
           // navigate('/success'); // Uncomment this if you have a success page
         }
   
       } catch (error) {
-        
         console.error("There was an error submitting the form!", error.response || error.message);
         alert("There was an error submitting the form. Please try again.");
+      }finally {
+        setLoading(false); // Set loading to false after response is received
       }
     }
   };
-  
+  if (loading) return <Loader />;
 
   return (
     <>
@@ -396,15 +430,15 @@ console.log(formData);
             </div>
 
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="number">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">
                 Contact No
               </label>
               <input
                 className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                id="number"
+                id="contact"
                 name="contact"
                 value={formData.contact}
-                type="number"
+                type="number" // Changed to text to handle non-numeric inputs
                 placeholder="Contact No"
                 onChange={onChangeFun}
               />
@@ -484,8 +518,7 @@ console.log(formData);
                 id="photos"
                 name="photos"
                 type="file"
-           
-                // multiple
+                multiple // Allow multiple file uploads
                 onChange={onChangeFun}
               />
               {errors.photos && <p className="text-red-500 text-xs mt-1">{errors.photos}</p>}
@@ -493,9 +526,11 @@ console.log(formData);
 
           </div>
 
-          <button className="w-full text-white py-2 rounded-lg bg-lightPurpule" type="submit">
-            Submit
-          </button>
+          <button className="w-full text-black hover:text-white font-bold py-2 rounded-lg border border-transparent border-purple-500 hover:bg-purple-500" type="submit">
+  Submit
+</button>
+
+
         </form>
       </div>
     </>
@@ -503,6 +538,7 @@ console.log(formData);
 }
 
 export default AddPetHos;
+
 
 
 

@@ -249,20 +249,17 @@ class Hostel {
         return $this->executeQuery($sql, $data);
     }
 
-    public function updateData($data, $id) {
-        $query = "UPDATE pet_hostel_users SET 
-                  pet_type = :petType, 
-                  breeds = :breed, 
-                  age = :age, 
-                  gender = :gender, 
-                  start_date = :checkin, 
-                  end_date = :checkout, 
-                  pet_behaviour = :behavior, 
-                  are_you_a_pet_parent = :petParent 
-                  WHERE id = :id";
-
-        $data['id'] = $id;
-        return $this->executeQuery($query, $data);
+    public function updateData($query, $params = []) {
+        $stmt = $this->db->conn->prepare($query);
+    
+        // Bind parameters if any are provided
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+    
+        $stmt->execute();
+        // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return  $stmt;
     }
 
     public function deleteData($id) {
@@ -357,6 +354,7 @@ class Hostel {
 
 
 }
+
 
 
 ?>

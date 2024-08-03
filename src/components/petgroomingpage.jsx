@@ -3,7 +3,7 @@ import React from "react";
 import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
 
-import GrommingForm from './veterinary/grommingform';
+import GrommingForm from './veterinary/groomingbookingform';
 import PetGroomingPage from "./veterinary/petgromming";
 // import Bookingform from "./veterinary/groomingBookingform";
 

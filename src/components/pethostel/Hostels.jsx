@@ -75,7 +75,7 @@ const Hostels = () => {
 
   try {
     const response = await axios.get(
-      `http://localhost/petadoption/backend/api/hostelbook.php?endpoint=normal_user`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/hostelbook.php?endpoint=normal_user`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     // setCurrentUser(response.data);

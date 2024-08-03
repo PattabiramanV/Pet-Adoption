@@ -122,7 +122,7 @@ function BookHos() {
 
     try {
       const response = await axios.post(
-        `http://localhost/petadoption/backend/api/hostel.php?hosid=${selectedHostel.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${selectedHostel.id}`,
         JSON.stringify(updatedData),
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -141,7 +141,6 @@ function BookHos() {
   };
 
   if (loading) return <Loader />; // Display loader while loading
-
 
   return (
     <>
