@@ -260,6 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $petAge = filter_var($_POST['petAge'], FILTER_VALIDATE_INT, ["options" => ["min_range" => 0]]);
     $city = htmlspecialchars(strip_tags($_POST['city']));
     $needForYou = htmlspecialchars(strip_tags($_POST['needForPet']));
+    $service = htmlspecialchars(strip_tags($_POST['sevice']));
     $doctorName = htmlspecialchars(strip_tags($_POST['selectdoctorname']));
     $doctorAddress = htmlspecialchars(strip_tags($_POST['doctorAddress']));
 
@@ -315,8 +316,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare SQL query
-    $query = "INSERT INTO pet_grooming_users (name, phone, email, pet_type, pet_gender, pet_age, city, what_you_need_for_your_pet, user_id, doctor_id, doctor_address, pet_img) 
-              VALUES (:username, :userContact, :email, :petType, :petGender, :petAge, :city, :needForYou, :user_id, :doctorID, :doctorAddress, :imagePath)";
+    $query = "INSERT INTO pet_grooming_users (name, phone, email, pet_type, pet_gender, pet_age, city, what_you_need_for_your_pet, user_id, doctor_id, doctor_address, pet_img ,service_type) 
+              VALUES (:username, :userContact, :email, :petType, :petGender, :petAge, :city, :needForYou, :user_id, :doctorID, :doctorAddress, :imagePath ,:sevice)";
 
     $stmt = $conn->prepare($query);
 
@@ -332,12 +333,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':doctorID', $doctorID);
     $stmt->bindParam(':doctorAddress', $doctorAddress);
     $stmt->bindParam(':imagePath', $imagePath);
+    $stmt->bindParam(':sevice', $service);
 
     try {
         if ($stmt->execute()) {
             echo json_encode(array("message" => "User registered successfully."));
             // Send email to the user
-            emailSendFun($email, $doctorName, $doctorEmail);
+            emailSendFun($email, $doctorName, $doctorEmail,$username);
         } else {
             echo json_encode(array("message" => "Unable to register user."));
         }

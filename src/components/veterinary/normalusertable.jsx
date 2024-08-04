@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Spin, Alert } from 'antd';
 import Loader from '../Loader/Loader';
+import './normaltable.css';
+
+
 
 const DoctorInfo = () => {
     const [doctorData, setDoctorData] = useState([]);
@@ -100,7 +103,7 @@ const DoctorInfo = () => {
     return (
         <div>
             <h1>Doctor Information</h1>
-            <Table dataSource={doctorData} columns={columns} rowKey="doctor_id" />
+            <Table dataSource={doctorData} columns={columns} rowKey="doctor_id" className="tabless"/>
         </div>
     );
 };
