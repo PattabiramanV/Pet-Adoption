@@ -258,7 +258,7 @@
 
 
 
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader/Loader'; // Import the Loader component
@@ -267,6 +267,7 @@ import { Form, Input, Button, Typography, Divider, message } from "antd";
 function AddPetHos() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Loading state
+ const fileInputRef = useRef(null); // Reference for the file input
 
   const [formData, setFormData] = useState({
     name: '',
@@ -279,7 +280,6 @@ function AddPetHos() {
   });
 
   const [errors, setErrors] = useState({});
-
   const onChangeFun = (e) => {
     const { name, value, type, files } = e.target;
 
@@ -316,9 +316,9 @@ function AddPetHos() {
         formErrors.contact = "Contact no is required";
 
       }
-      // else{
-      //   formErrors.contact = "Contact no must be 10 charactor ";
-      // }
+      else{
+        formErrors.contact = "Contact no must be 10 charactor ";
+      }
 
       valid = false;
     }
@@ -374,21 +374,26 @@ function AddPetHos() {
             'Content-Type': 'multipart/form-data' // Required for file uploads
           } }
         );
+        // if (loading) { <Loader />}
 
         console.log(response.data);
         if (response.status === 200) {
           message.success("hostel added sucessfully");
 
-          // setFormData({
+          setFormData({
 
-          //   name: '',
-          //   contact: '',
-          //   price_per_day: '',
-          //   available_time: '',
-          //   address: '',
-          //   description: '',
-          //   photos: []
-          // })
+            name: '',
+            contact: '',
+            price_per_day: '',
+            available_time: '',
+            address: '',
+            description: '',
+            photos: []
+          })
+ // Clear the file input field
+ if (fileInputRef.current) {
+  fileInputRef.current.value = '';
+}
           // alert("Successfully added your request!");
           // navigate('/success'); // Uncomment this if you have a success page
         }
@@ -401,10 +406,10 @@ function AddPetHos() {
       }
     }
   };
-  if (loading) return <Loader />;
 
   return (
     <>
+      {loading && <Loader />}
       <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
         <h2 className="text-2xl font-bold mb-6 text-green-800">
           Need pet hostel services? We're here to take care of your pet!

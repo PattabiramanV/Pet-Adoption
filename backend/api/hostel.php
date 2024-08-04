@@ -203,8 +203,9 @@ switch ($method) {
     case 'GET':
         if (isset($_GET['hosid'])) {
             $userId = $_GET['hosid'];
-            $query = "SELECT * FROM pet_hostels WHERE id = ?";
-            $data = $hostel->getData($query, $userId);
+            $query = "SELECT * FROM pet_hostels WHERE id = :hosid";
+            $params=[':hosid'=>$_GET['hosid']];
+            $data = $hostel->getData($query,  $params);
             echo json_encode($data);
         } else {
             $query = "SELECT * FROM pet_hostels";
@@ -215,12 +216,19 @@ switch ($method) {
 
     case 'POST':
         if (isset($_GET['hosid'])) {
+            // echo json_encode($data);
+
             $hosId = $_GET['hosid'];
             $bookHostel = $hostel->bookHostel($hosId, $data, $user_id);
             echo json_encode($bookHostel);
 
             // Get data for email
             $all_Data = $hostel->getDataForEmail($hosId);
+            $all_Data['price']=$data['price'];
+            $all_Data['days']=$data['days'];
+            $all_Data['dates']=$data['checkin'].' to '.$data['checkout'];
+
+
             emailSendFun($all_Data);
         } else {
             $storeData = $hostel->createData($data);
@@ -258,7 +266,9 @@ switch ($method) {
 
 function emailSendFun($data) {
 
-    print_r($data);
+    // print_r($data);
+    // exit;
+    
     global $hostel;
     global $user_id;
     $query = "SELECT * FROM users WHERE id = :id";
@@ -287,8 +297,10 @@ function emailSendFun($data) {
     $hostelName = $data['name'];
     $bookingUserEmail = $userData[0]['email'];
     $bookingUsername = $userData[0]['username'];
-    $bookingUserContact = $userData[0]['phone']; // assuming contact field exists
-
+    $bookingUserContact = $userData[0]['phone'];
+    $totalPrice = $data['price']; // assuming contact field exists
+    $totaldays = $data['days']; // assuming contact field exists
+    $bookingDates=$data['dates'];
     // Recipients and their respective email bodies
     $recipients = [
         // Email to the hostel owner
@@ -304,7 +316,14 @@ function emailSendFun($data) {
                     <ul style=\"color: #555; font-size: 16px;\">
                         <li><strong>Name:</strong> {$bookingUsername}</li>
                         <li><strong>Email:</strong> $bookingUserEmail</li>
-                        <li><strong>Contact:</strong> {$bookingUserContact}</li>
+                        <li><strong>Phone:</strong> {$bookingUserContact}</li>
+                        <li><strong>Dates:</strong> {$bookingDates}</li>
+                        <li><strong>totaldays:</strong> {$totaldays}</li>
+                        <li><strong>totalPrice:</strong> {$totalPrice}</li>
+
+                        
+
+             
                     </ul>
                     <p style=\"color: #555; font-size: 16px;\">Please prepare for their arrival.</p>
                     <p style=\"color: #555; font-size: 16px;\">Thank you!</p>

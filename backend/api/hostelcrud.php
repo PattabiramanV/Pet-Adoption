@@ -273,9 +273,10 @@ class Hostel {
     }
 
     public function bookHostel($hosId, $data, $user_id) {
+
         $query = "INSERT INTO hostel_bookings (
-            hos_id, service_type, pet_type, breed_type, pet_name, age, gender, expectations, user_id
-        ) VALUES (:hos_id, :serviceType, :petType, :breedType, :petName, :age, :gender, :expectations, :user_id)";
+            hos_id, service_type, pet_type, breed_type, pet_name, age, gender, expectations, user_id,checkin_date,checkout_date
+        ) VALUES (:hos_id, :serviceType, :petType, :breedType, :petName, :age, :gender, :expectations, :user_id,:checkin_date,:checkout_date)";
     
         // Add hostel ID and user ID to data array
         $data['hos_id'] = $hosId;
@@ -293,6 +294,9 @@ class Hostel {
         $stmt->bindValue(':gender', $data['gender'] ?? null);
         $stmt->bindValue(':expectations', $data['expectations'] ?? null);
         $stmt->bindValue(':user_id', $data['user_id'] ?? null);
+        $stmt->bindValue(':checkin_date', $data['checkin'] ?? null);
+        $stmt->bindValue(':checkout_date', $data['checkout'] ?? null);
+
     
         try {
             $stmt->execute();

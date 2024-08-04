@@ -9,7 +9,7 @@ function HostelCard({ hostel, active }) {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate(`/bookHos?id=${hostel.id}`);
+    navigate(`/hosdetailpage?id=${hostel.id}`);
   };
 
   return (
@@ -55,21 +55,21 @@ function HostelCard({ hostel, active }) {
         </p>
       </div>
 
-      <div className="w-90 mt-5 flex justify-between w-full">
+      {/* <div className="w-90 mt-5 flex justify-center w-full"> */}
         <button
           type="button"
           onClick={handleButtonClick}
-          className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2  dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="w-full max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2  dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Book Now
+          View More
         </button>
-        <button
+        {/* <button
           type="button"
           className={`w-1/2 max-w-40 ${active} border border-customPurple rounded-md font-medium text-lightPurpule text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800`}
         >
           Message
-        </button>
-      </div>
+        </button> */}
+      {/* </div> */}
     </a>
   );
 }
