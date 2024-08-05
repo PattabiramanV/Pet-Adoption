@@ -1,6 +1,8 @@
 import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
-import HostelDetails from "../components/pethostel/HosDetail"
+import HostelDetails from "../components/pethostel/HosDetail";
+import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary
+
 const HosDetailPage=()=>{
 
 
@@ -8,6 +10,8 @@ const HosDetailPage=()=>{
 
         <>
         <Header></Header>
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Pet Detail Page',href: '/pethostel' }]} />
+
         <HostelDetails></HostelDetails>
         <Footer></Footer>
         </>

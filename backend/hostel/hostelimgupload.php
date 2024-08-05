@@ -91,11 +91,12 @@ function handleFileUploads($photos)
 
 function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files)
 {
-    $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    global $user_id;
+    $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos,user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     $stmt = $db->conn->prepare($query);
 
     $photos_list = implode(',', $uploaded_files);
-    $stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $photos_list]);
+    $stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $photos_list,$user_id]);
 
     echo json_encode(['status' => 'success', 'message' => 'Data successfully inserted']);
 }

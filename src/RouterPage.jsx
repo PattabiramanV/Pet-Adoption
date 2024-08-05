@@ -38,6 +38,7 @@ import HostelUserTable from "./components/HostelUserTable"
 // import SideBar from './components/PetFilter/sideBar/SideBar';
 import AddHosPage from './components/AddHosPage';
 import HosDetailPage from "./components/HosDetailPage";
+
 function RouterPage() {
   return (
           <Router>

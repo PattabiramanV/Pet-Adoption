@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+import { useLocation, useNavigate,Link } from "react-router-dom";
 import axios from 'axios';
 import Addform from './AddPetForHos';
 import HostelCard from './HosCard';
@@ -100,7 +102,7 @@ const Hostels = () => {
   return (
     <>
   
-      {userType=='hostel_user' ? (
+      {/* {userType=='hostel_user' ? (
         <div>
         <button
         onClick={fetchAllHosBookUser}
@@ -113,39 +115,47 @@ const Hostels = () => {
       ) : 
       null
 
-      }
+      } */}
       
-       <button
+       {/* <button
       onClick={fetchHosBookbyUser}
           type="button"
           className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
          View your details 
-        </button>
+        </button> */}
 
 
-        <div className="">
+        {/* <div className="">
         {hostelBookUser?.map((item) => 
 
 <div>
-{/* <p>{item.username}</p> */}
-{/* <p>{item.name}</p> */}
+<p>{item.username}</p>
+<p>{item.name}</p>
 </div>
    
 
 )}
+  </div> */}
 
-<button
-      onClick={addHostelFun}
-          type="button"
-          className="w-1/2 max-w-40 border border-customPurple rounded-md text-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-         Add Hostel
-        </button>
-        </div>
+        
+<div  style={{ width: '90%',margin:"0 auto",marginTop:"10px" }}  className="mt-4 flex justify-end " >
+      <Link
+        to="/addhostel"
+        onClick={addHostelFun}
+        type="button"
+        className="px-5 py-2.5 rounded-md cursor-pointer text-center w-40 mt-2 text-base border border-[#675bc8] bg-white text-[#675bc8] hover:bg-[#675bc8] hover:text-white"
 
-      <h1 className="text-3xl text-center mt-10">Book The Best Hostel Service For Your Pet</h1>
-      <div className="flex flex-wrap justify-center space-x-4 mt-16">
+     >
+
+        Add Hostel
+      </Link>
+    </div>
+
+      
+
+      <h1 className="text-3xl text-center mt-5">Book The Best Hostel Service For Your Pet</h1>
+      <div className="flex flex-wrap justify-center space-x-4 mt-16 gap-x-2 gap-y-6">
       {/* <HostelCard hostel={data[0]}/>
       <HostelCard hostel={data[1]}/>
       <HostelCard hostel={data[2]}/> */}

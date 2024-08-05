@@ -637,6 +637,12 @@ console.log(formData);
     return valid;
   };
 
+  const getNextDay = (dateStr) => {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().split('T')[0];
+  };
+  
  
  // Display loader while loading
 
@@ -672,7 +678,7 @@ console.log(formData);
                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
                     id="checkout"
                     type="date"
-                    min={dates.nextDay}
+                    min={formData.checkin==''?dates.nextDay:getNextDay(formData.checkin)}
                     value={formData.checkout}
                     onChange={handleChange}
                   />

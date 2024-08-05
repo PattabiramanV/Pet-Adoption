@@ -230,6 +230,7 @@ switch ($method) {
 
 
             emailSendFun($all_Data);
+            
         } else {
             $storeData = $hostel->createData($data);
             echo json_encode($storeData);

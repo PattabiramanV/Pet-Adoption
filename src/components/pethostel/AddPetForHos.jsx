@@ -389,7 +389,8 @@ function AddPetHos() {
             address: '',
             description: '',
             photos: []
-          })
+          });
+          navigate("/pethostel")
  // Clear the file input field
  if (fileInputRef.current) {
   fileInputRef.current.value = '';
