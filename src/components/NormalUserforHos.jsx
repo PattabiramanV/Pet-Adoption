@@ -4,10 +4,14 @@ import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
 import DataTable from "../components/commoncomponent/DataTable";
 import text from "../assets/Cat_login.png";
+import Loader from '../components/Loader/Loader'; // Import the Loader component
+import { Form, Input, Button, Typography, Divider, message } from "antd";
+import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary
+
 const Hosteldetails = () => {
   const [hostelBookUser, setHostelBookUser] = useState(null);
   const token = localStorage.getItem("token"); // Replace with your actual token
-
+  const [loading, setLoading] = useState(false); 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -22,7 +26,7 @@ const Hosteldetails = () => {
     };
     fetchUserData();
   }, []); // Empty dependency array means this effect runs once when the component mounts
-  console.log(hostelBookUser);
+  
   const columns = [
     {
         title: 'Profile',
@@ -70,11 +74,78 @@ const Hosteldetails = () => {
         dataIndex: 'craeted_at',
         key: 'craeted_at'
     },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status,record) => (
+        status === 'Pending' || status ==='Accepted' ? (
+          
+          <div className='flex items-center gap-2'>
+            <p>{  status}</p>
+            <button 
+                onClick={() => handleClear(record)} 
+                className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+            >
+                Clear
+            </button>
+            </div>
+        ) : (
+            status
+        )
+    )
+  }
   
 ];
+
+const handleClear = async (data) => {
+  
+  try {
+   console.log(data.checkin_date);
+   
+        
+    const givenDateString = data.checkin_date;
+
+    const givenDate = new Date(givenDateString);
+
+    const currentDate = new Date();
+    
+    if (currentDate > givenDate) {
+        alert("The current date is greater than the given date.");
+    }
+
+
+    setLoading(true);
+    console.log(token);
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?id=${data.id}&value=Deleted`,
+      {}, // Pass an empty object for the request body
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  
+    console.log(response.data);
+    if (response.status === 200) {
+      message.success("Hostel deleted successfully");
+  
+      // alert("Successfully added your request!");
+      // navigate('/success'); // Uncomment this if you have a success page
+    }
+  
+  } catch (error) {
+    console.error("There was an error submitting the form!", error.response || error.message);
+    alert("There was an error submitting the form. Please try again.");
+  } finally {
+    setLoading(false); // Set loading to false after response is received
+  }
+  
+
+};
   return (
     <>
+     {loading && <Loader />}
       <Header />
+     <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'NormalUserBookingPage',href: '/normaluserforhos' }]} />
+
       <DataTable data={hostelBookUser} columns={columns} title="Hostel User Information" />
       <Footer />
     </>
@@ -82,3 +153,17 @@ const Hosteldetails = () => {
 };
 
 export default Hosteldetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

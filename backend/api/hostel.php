@@ -239,7 +239,19 @@ switch ($method) {
         break;
 
     case 'PUT':
-        if (isset($_GET['id'])) {
+        if(isset($_GET['id']) && isset($_GET['value'])){
+            $sql = "UPDATE hostel_bookings SET status = :status WHERE id = :id";
+            $params = [':status' => $_GET['value'], ':id' => $_GET['id']];
+            $updateUserType = $hostel->updateData($sql, $params);
+        
+            if ($updateUserType) {
+                echo "Update successful";
+            } else {
+                echo "Update failed";
+            }
+        }
+        
+       elseif (isset($_GET['id'])) {
             $id = $_GET['id'];
             $updateData = $hostel->updateData($data, $id);
             echo json_encode($updateData);

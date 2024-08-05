@@ -22,7 +22,10 @@ users.state,
 users.phone,
 pet_hostels.name,
 pet_hostels.price_per_day,
-hostel_bookings.craeted_at
+hostel_bookings.craeted_at,
+hostel_bookings.status,
+hostel_bookings.id
+   
   FROM hostel_bookings
         JOIN pet_hostels ON pet_hostels.id = hostel_bookings.hos_id
         JOIN users ON users.id = hostel_bookings.user_id
@@ -43,7 +46,10 @@ hostel_bookings.craeted_at
     pet_hostels.address ,
     pet_hostels.contact ,
     pet_hostels.price_per_day ,
-    hostel_bookings.craeted_at 
+    hostel_bookings.craeted_at,
+    hostel_bookings.status,
+    hostel_bookings.id  ,
+    hostel_bookings.checkin_date   
 FROM 
     pet_hostels 
 JOIN 

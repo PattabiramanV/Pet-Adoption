@@ -250,17 +250,25 @@ class Hostel {
     }
 
     public function updateData($query, $params = []) {
-        $stmt = $this->db->conn->prepare($query);
-    
-        // Bind parameters if any are provided
-        foreach ($params as $key => $value) {
-            $stmt->bindValue($key, $value);
+        try {
+            $stmt = $this->db->conn->prepare($query);
+            
+            // Bind parameters
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+            
+            // Execute the query
+            $result = $stmt->execute();
+            
+            return $result; // This will be true if the query was successful, false otherwise
+        } catch (PDOException $e) {
+            // Handle exception
+            error_log("Error executing query: " . $e->getMessage());
+            return false;
         }
-    
-        $stmt->execute();
-        // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return  $stmt;
     }
+    
 
     public function deleteData($id) {
         $query = "DELETE FROM pet_hostel_users WHERE id = :id";

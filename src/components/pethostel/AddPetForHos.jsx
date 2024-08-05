@@ -351,6 +351,7 @@ function AddPetHos() {
     e.preventDefault();
     
     if (validateForm()) {
+      
       try {
         const data = new FormData();
 

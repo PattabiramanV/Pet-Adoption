@@ -3,11 +3,14 @@ import axios from 'axios';
 import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
 import DataTable from "../components/commoncomponent/DataTable";
-
+import Loader from '../components/Loader/Loader';
+import { Form, Input, Button, Typography, Divider, message } from "antd";
+import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary
 
 const Hosteldetails = () => {
   const [hostelBookUser, setHostelBookUser] = useState(null);
   const token = localStorage.getItem("token"); // Replace with your actual token
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -78,11 +81,64 @@ const Hosteldetails = () => {
         dataIndex: 'craeted_at',
         key: 'craeted_at'
     },
+
+   
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status,record) => (
+          status === 'Pending' ? (
+            <button 
+            onClick={() => handleAccept(record)} 
+            className="bg-green-500 text-white px-4 py-2 rounded"
+        >
+            Accept
+        </button>
+
+          ) : (
+              status
+          )
+      )
+  }
   
 ];
+
+const handleAccept = async(data) => {
+
+  try {
+    setLoading(true);
+    console.log(token);
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?id=${data.id}&value=Accepted`,
+      {}, // Pass an empty object for the request body
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  
+    console.log(response.data);
+    if (response.status === 200) {
+      message.success("Hostel deleted successfully");
+  
+      // alert("Successfully added your request!");
+      // navigate('/success'); // Uncomment this if you have a success page
+    }
+  
+  } catch (error) {
+    console.error("There was an error submitting the form!", error.response || error.message);
+    alert("There was an error submitting the form. Please try again.");
+  } finally {
+    setLoading(false); // Set loading to false after response is received
+  }
+
+};
+
   return (
     <>
+     {loading && <Loader />}
+
       <Header />
+<BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'HostelUserBookingPage',href: '/hostelusertable' }]} />
+
       <DataTable data={hostelBookUser} columns={columns} title="Hostel User Information" />
       <Footer />
     </>
