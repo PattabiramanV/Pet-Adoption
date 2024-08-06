@@ -314,6 +314,8 @@ function emailSendFun($data) {
     $totalPrice = $data['price']; // assuming contact field exists
     $totaldays = $data['days']; // assuming contact field exists
     $bookingDates=$data['dates'];
+
+    
     // Recipients and their respective email bodies
     $recipients = [
         // Email to the hostel owner
@@ -347,15 +349,55 @@ function emailSendFun($data) {
         [
             'email' => $bookingUserEmail,
             'name' => $bookingUsername,
-            'body' => $header ."
-                <div style=\"padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;\">
-                    <h1 style=\"color: #333; font-size: 24px; text-align: center;\">Hostel Booking Confirmation</h1>
-                    <p style=\"color: #555; font-size: 16px;\">Dear {$bookingUsername},</p>
-                    <p style=\"color: #555; font-size: 16px;\">Your booking at <strong style=\"color: #000;\">{$hostelName}</strong> has been confirmed.</p>
-                    <p style=\"color: #555; font-size: 16px;\">Thank you for choosing us!</p>
-                </div>". $footer,
+            'body' => $header . "
+                <div style='padding: 24px; font-family: Arial, sans-serif; background-color: #f9f9f9;'>
+                    <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+                        <h1 style='font-size: 24px; font-weight: bold;'>New Booking Notification</h1>
+                    </div>
+                    <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
+                        <p>Dear Pattabi,</p>
+                        <p>A new booking has been made at <strong>Pamela Bates</strong>.</p>
+                        
+                        <div style='margin-top: 24px;'>
+                            <table style='width: 100%; border-collapse: collapse;'>
+                                <thead>
+                                    <tr>
+                                        <th style='background-color: #f5f5f5; text-align: left; padding: 16px; border-bottom: 1px solid #e0e0e0;'>Hostel Info</th>
+                                        <th style='background-color: #f5f5f5; text-align: left; padding: 16px; border-bottom: 1px solid #e0e0e0;'>User Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style='padding: 16px;'>
+                                            <div style='margin-bottom: 16px;'>
+                                                <p><strong>Name:</strong> {$hostelName}</p>
+                                                <p><strong>Email:</strong> {$bookingUserEmail}</p>
+                                                <p><strong>Phone:</strong> {$data['contact']}</p>
+                                                <p><strong>Address:</strong>{$data['address']} </p>
+                                                
+                                            </div>
+                                        </td>
+                                        
+                                        <td style='padding: 16px;'>
+                                            <div style='display: grid; gap: 16px;'>
+
+                                                 <p><strong>Dates:</strong> {$bookingDates}</p>
+                                                <p><strong>Total Days:</strong> {$totaldays}</p>
+                                                <p><strong>Total Price:</strong> {$totalPrice}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <p style='margin-top: 16px;'>Please prepare for their arrival.</p>
+                        <p>Thank you!</p>
+                    </div>
+                </div>" . $footer,
             'altBody' => "Dear {$bookingUsername},\n\nYour booking at {$hostelName} has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website."
         ]
+        
     ];
 
     foreach ($recipients as $recipient) {

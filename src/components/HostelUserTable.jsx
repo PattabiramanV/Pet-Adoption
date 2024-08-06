@@ -12,19 +12,23 @@ const Hosteldetails = () => {
   const token = localStorage.getItem("token"); // Replace with your actual token
   const [loading, setLoading] = useState(false); 
 
+  const fetchUserData = async () => {
+    setLoading(true)
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostelbook.php?endpoint=hostel_user`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setHostelBookUser(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }finally{
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/hostelbook.php?endpoint=hostel_user`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        setHostelBookUser(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchUserData();
+  fetchUserData();
+   
   }, []); // Empty dependency array means this effect runs once when the component mounts
   console.log(hostelBookUser);
   const columns = [
@@ -117,8 +121,10 @@ const handleAccept = async(data) => {
   
     console.log(response.data);
     if (response.status === 200) {
-      message.success("Hostel deleted successfully");
-  
+      message.success("Hostel Accepted successfully");
+
+      fetchUserData();
+     
       // alert("Successfully added your request!");
       // navigate('/success'); // Uncomment this if you have a success page
     }
@@ -139,7 +145,7 @@ const handleAccept = async(data) => {
       <Header />
 <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'HostelUserBookingPage',href: '/hostelusertable' }]} />
 
-      <DataTable data={hostelBookUser} columns={columns} title="Hostel User Information" />
+      <DataTable data={hostelBookUser} columns={columns} title="Hostel  Information" />
       <Footer />
     </>
   );
