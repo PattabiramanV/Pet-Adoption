@@ -54,12 +54,19 @@
 
 
 
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+  padding: 1em;
+}
 .profile-avatar img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 20px;
-  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
 .profile-info h2 {
@@ -106,6 +113,7 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  max-height: 50px;
 }
 
 .profile-column input[type="text"],
@@ -169,4 +177,122 @@
     gap: 1em; /* Adds gap between items */
     align-items: center; /* Centers items horizontally */
   }
+}
+
+textarea:where(.css-dev-only-do-not-override-1uq9j6g).ant-input {
+    max-width: 100%;
+    height: 50px;
+    min-height: 32px;
+    line-height: 1.5714285714285714;
+    vertical-align: bottom;
+    transition: all 0.3s, height 0s;
+    resize: vertical;
+}
+
+
+/* Profile.css */
+
+/* Add a specific class for the address field */
+.address-text {
+  max-height: 70px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Add vertical scrollbar if content overflows */
+  word-wrap: break-word; /* Ensure long words are broken to fit within the container */
+}
+/* Profile.css */
+
+.address-text {
+  overflow: auto; /* Enables scrolling */
+  max-height: 100px; /* Adjust height as needed */
+  white-space: pre-wrap; /* Ensures proper wrapping of text */
+  word-break: break-word; /* Breaks long words to prevent overflow */
+}
+
+
+
+/* profile edit  */
+
+
+.profile-avatar {
+  /* width: 100%; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+/* .divprofile {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+} */
+
+
+input[type="file"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+
+.profile{
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 30%;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #675bc8;
+  background-color: #fff;
+  color: #675bc8;
+  font-family: 'Arial', sans-serif;
+
+}
+
+.profile:hover {
+  background-color: #696299; 
+  color: white;
+}
+
+
+.div_profile_edit {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+save-button-profile{
+  width:20% ;
+}
+
+button.save-button-profile.profile {
+  width: 30%;
+  border: 1px solid #4eb10c;
+  color: #4eb10c;
+}
+
+button.save-button-profile.profile:hover{
+  background-color: #4eb10c; 
+  color: white;
+}
+
+  
+
+button.cancel-button-profile.profile {
+  width: 30%;
+  border: 1px solid #f03b0e;
+  color: #f03b0e;
+}
+button.cancel-button-profile.profile:hover{
+  background-color: #f03b0e; 
+  color: white;
+}
+
+.div_main_for_edit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

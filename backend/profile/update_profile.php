@@ -23,6 +23,7 @@ if ($data) {
     $gender = htmlspecialchars(strip_tags($data->gender));
     $state = htmlspecialchars(strip_tags($data->state));
     $city = htmlspecialchars(strip_tags($data->city));
+    $address = htmlspecialchars(strip_tags($data->address));  // Add address field
 
     // Validate gender
     $valid_genders = ['Male', 'Female', 'Other'];
@@ -33,16 +34,19 @@ if ($data) {
     }
 
     try {
-        $query = "UPDATE users SET username = :username, email = :email, phone = :phone, gender = :gender, state = :state, city = :city WHERE id = :user_id";
+        // Update query
+        $query = "UPDATE users SET username = :username, email = :email, phone = :phone, gender = :gender, state = :state, city = :city, address = :address WHERE id = :user_id";
         $stmt = $conn->prepare($query);
 
+        // Bind parameters
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':gender', $gender);
         $stmt->bindParam(':state', $state);
         $stmt->bindParam(':city', $city);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':user_id', $user_id);  // Bind user_id parameter for update
 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Profile updated successfully."]);

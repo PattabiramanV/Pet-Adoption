@@ -105,7 +105,7 @@ const Header = () => {
           </div>
 
           <nav className="nav-links">
-            <div
+            {/* <div
               className="user-profile"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -124,13 +124,130 @@ const Header = () => {
                   </Link>
                 </div>
               )}
+            </div> */}
+
+{/* Pet-Spotlight */}
+            <div
+              className="user-profile Pet-Spotlight"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Spotlight</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">
+                    Add lost pets
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+               Lost pets
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                    Found Pets
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  My Entries
+                  </Link>
+                </div>
+              )}
             </div>
-            <Link to="/Veterinary">Veterinarians</Link>
+
+{/* Pet-Expertise */}
+
+            <div
+              className="user-profile Pet-Expertise"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Expertise</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">
+                  Veterinarians
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                   Add Veterinarians
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                   Apply for Grooming
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Service Records
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Patient Info
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Doctor Registration       
+                              </Link>
+              
+                </div>
+              )}
+            </div>
+
+{/* Pet-Haven */}
+            <div
+              className="user-profile Pet-Haven"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Haven</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">
+                  Home Finder
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                    Add Forms Pet
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Pet Showcase
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                  My Adopt List
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  My Adopt Post
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  My Request 
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Pet-Oasis */}
+                       <div
+              className="user-profile Pet-Oasis"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Oasis</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">
+                   Pet Hostel List
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                  Hostel Add
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Hostel Owner Record
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                  Hostel Booking
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Client Info
+                  </Link>
+                </div>
+              )}
+            </div>
+            {/* <Link to="/Veterinary">Veterinarians</Link>
             <Link to="/add-pets">Add Pets</Link>
-            <Link to="/pets">Pets</Link>
+            <Link to="/pets">Pets</Link> */}
 
 
-            {(profile && profile.hostel_user_type === "hostel_user") || (profile && profile.doctor_user_type === "doctor") ? (
+            {/* {(profile && profile.hostel_user_type === "hostel_user") || (profile && profile.doctor_user_type === "doctor") ? (
   <div
     className="user-profile"
     onMouseEnter={handleMouseEnter}
@@ -148,7 +265,7 @@ const Header = () => {
       </div>
     )}
   </div>
-) : null}
+) : null} */}
 
           </nav>
 
@@ -172,6 +289,10 @@ const Header = () => {
                 </div>
               )}
             </div>
+
+
+
+            
           </div>
 
           {isLoggedIn && profile ? (
@@ -207,7 +328,7 @@ const Header = () => {
 
         <Modal
           title="Profile"
-          style={{ top: 60 }}
+          style={{ top: 10 }}
           open={isProfileOpen}
           onCancel={closeProfile}
           footer={null}

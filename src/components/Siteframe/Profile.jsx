@@ -195,15 +195,29 @@ const Profile = ({ setProfileOpen }) => {
                 </Form.Item>
               </div>
             </div>
+            <div className="profile-row">
+              <div className="profile-column">
+                <Form.Item label="Address" name="address">
+                  {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
+                </Form.Item>
+              </div>
+            </div>
             <Form.Item>
+              <div className="div_main_for_edit">
               {isEditing ? (
-                <Space>
-                  <Button type="primary" htmlType="submit">Save</Button>
-                  <Button onClick={handleCancelClick}>Cancel</Button>
-                </Space>
+                <div className="div_profile_edit">
+                  <button className="save-button-profile profile">Save</button>
+                  <button  onClick={handleCancelClick} className="cancel-button-profile profile">Cancel</button>
+                </div>
+     
               ) : (
-                <Button onClick={handleEditClick}>Edit</Button>
+         
+                <button onClick={handleEditClick} className="edit-button profile">Edit</button>
+
+
               )}
+              </div>
+              
             </Form.Item>
           </Form>
         </div>

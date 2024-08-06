@@ -201,4 +201,11 @@ button.signup:hover {
       cursor: pointer;
   }
 
-    
+    /* nav fix   */
+
+    /* section.header_nav {
+      position: fixed;
+      width: 100%;
+      z-index: 600;
+      background: white;
+  } */
