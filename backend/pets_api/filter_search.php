@@ -7,7 +7,7 @@ include_once '../config/database.php';
 
 try {
     // Start with base query
-    $query = "SELECT * FROM pets WHERE 1=1";
+    $query = "SELECT * FROM pets WHERE 1=1 AND status = 'available' ";
 
     // Prepare parameters array
     $params = [];

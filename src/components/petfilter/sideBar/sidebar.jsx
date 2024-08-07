@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
+import { Table, Spin, Alert } from 'antd';
+import Loader from '../../Loader/Loader';
 
 const PetForm = () => {
   const [petTypes] = useState(['cat', 'dog']);
@@ -10,7 +12,7 @@ const PetForm = () => {
   const [ages, setAges] = useState([]);
   const [colors] = useState(['Brown', 'Black', 'White']);
   const [genders] = useState(['Male', 'Female']);
-
+  
   const [formData, setFormData] = useState({
     petType: '',
     searchLocation: '',
@@ -22,6 +24,7 @@ const PetForm = () => {
   });
   const [pets, setPets] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -37,6 +40,8 @@ const PetForm = () => {
       } catch (error) {
         console.error('Error fetching initial data:', error);
         setError('Failed to fetch initial data.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -81,10 +86,15 @@ const PetForm = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    filterPets();
+  };
+
   return (
     <div className="filter-filterpet">
       <div className="filterSearch">
-        <form className="pet-form">
+        <form className="pet-form" onSubmit={handleSubmit}>
           <label>
             Pet Type:
             <select name="petType" value={formData.petType} onChange={handleChange}>
@@ -148,13 +158,20 @@ const PetForm = () => {
               ))}
             </select>
           </label>
+         
         </form>
       </div>
 
       <div className="pet-details">
-        {error && <p className="error-message">{error}</p>}
-        <CardView pets={pets} />
-      </div>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {error && <Alert message={error} type="error" className="error-alert" />}
+            <CardView pets={pets} />
+          </>
+        )}
+      </div>        
     </div>
   );
 };

@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 $id = isset($_GET['id']) ? $_GET['id'] : die(json_encode(["message" => "Pet ID not provided."]));
 
 try {
-    $stmt = $conn->prepare("SELECT id, pet_name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo FROM pets WHERE id = :id");
+    $stmt = $conn->prepare("SELECT id, pet_name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo ,user_id FROM pets WHERE id = :id AND status = 'available' ");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $pet = $stmt->fetch(PDO::FETCH_ASSOC);

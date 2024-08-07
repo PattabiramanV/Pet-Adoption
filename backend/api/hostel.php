@@ -17,11 +17,11 @@ switch ($method) {
   case 'GET':
     if (isset($_GET['hosid'])) {
       $userId = $_GET['hosid'];
-      $data = $hostel->getData( $query,$userId);
+      $data = $hostel->getData($query, $userId);
       echo json_encode($data);
     } else {
       $query = "SELECT * FROM pet_hostels";
-      $all_Data = $hostel->getData( $query);
+      $all_Data = $hostel->getData($query);
       echo json_encode($all_Data);
     }
     break;
@@ -31,12 +31,12 @@ switch ($method) {
       $hosId = $_GET['hosid'];
       $bookHostel = $hostel->bookHostel($hosId, $data, $user_id);
       echo json_encode($bookHostel);
-       // getDataForEmail
-    $all_Data = $hostel->getDataForEmail($hosId);
+      // getDataForEmail
+      $all_Data = $hostel->getDataForEmail($hosId);
 
-   
 
-      emailSendFun( $all_Data); // Ensure this function is defined
+
+      emailSendFun($all_Data); // Ensure this function is defined
     } else {
       $storeData = $hostel->createData($data);
       echo json_encode($storeData);
@@ -85,36 +85,37 @@ require '../vendor/autoload.php';
 
 
 
-   function emailSendFun($data){
+function emailSendFun($data)
+{
 
-   
- 
-   
-        // $data=
-        $mail = new PHPMailer(true);
 
-        try {
 
-          $toUser=$data['email'];
-            //Server settings
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
-            $mail->SMTPAuth = true;
-            $mail->Username = 'furryfriens123@gmail.com'; // SMTP username
-            $mail->Password = 'rtcgadrtpxgbepdd'; // SMTP password (replace with the actual password)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587; // TCP port to connect to
-    
-            // Set the sender's address
-            $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
-    
-            // Add a recipient
-            $mail->addAddress("$toUser", 'Pattabi');
-    
-            // Email content
-            $mail->isHTML(true);
-            $mail->Subject = 'Hostel Booking Confirmation';
-            $mail->Body = "
+
+  // $data=
+  $mail = new PHPMailer(true);
+
+  try {
+
+    $toUser = $data['email'];
+    //Server settings
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+    $mail->SMTPAuth = true;
+    $mail->Username = 'furryfriens123@gmail.com'; // SMTP username
+    $mail->Password = 'rtcgadrtpxgbepdd'; // SMTP password (replace with the actual password)
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587; // TCP port to connect to
+
+    // Set the sender's address
+    $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
+
+    // Add a recipient
+    $mail->addAddress("$toUser", 'Pattabi');
+
+    // Email content
+    $mail->isHTML(true);
+    $mail->Subject = 'Hostel Booking Confirmation';
+    $mail->Body = "
             <!DOCTYPE html>
             <html>
             <head>
@@ -185,27 +186,22 @@ require '../vendor/autoload.php';
             </body>
             </html>
             ";
-            
-            $mail->AltBody = "Dear Pattabi,\n\nYour booking at Doggy yogi has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
-            
-            // // Send the email
-            $mail->send();
-            
-        } catch (Exception $e) {
-            echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
-       
 
+    $mail->AltBody = "Dear Pattabi,\n\nYour booking at Doggy yogi has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
 
-     }
-
-    }
+    // // Send the email
+    $mail->send();
+  } catch (Exception $e) {
+    echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
+  }
+}
 
 
 
 
 
 
-    // // Allow from any origin (CORS)
+// // Allow from any origin (CORS)
 
 // // header("Access-Control-Allow-Headers:  application/json");
 
@@ -229,23 +225,9 @@ require '../vendor/autoload.php';
 //     $userName = $data['name'];   // Recipient's name
 //     $hostelName = $data['hostel']; // Hostel name
 
-    
+
 
 
 // } else {
 //     echo json_encode(['message' => 'Invalid request method']);
 // }
-
-
-
-?>
-
-
-
-
-
-
-
-
-
-

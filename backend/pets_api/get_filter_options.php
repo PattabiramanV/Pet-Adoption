@@ -6,13 +6,13 @@ include_once '../config/database.php';
 
 try {
     // Fetch distinct ages
-    $ageQuery = "SELECT DISTINCT age FROM pets ORDER BY age ASC";
+    $ageQuery = "SELECT DISTINCT age FROM pets where status = 'available'    ORDER BY age ASC";
     $ageStmt = $conn->prepare($ageQuery);
     $ageStmt->execute();
     $ages = $ageStmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
     // Fetch distinct breeds
-    $breedQuery = "SELECT DISTINCT breeds FROM pets ORDER BY breeds ASC";
+    $breedQuery = "SELECT DISTINCT breeds FROM pets where status = 'available'  ORDER BY breeds ASC";
     $breedStmt = $conn->prepare($breedQuery);
     $breedStmt->execute();
     $breeds = $breedStmt->fetchAll(PDO::FETCH_COLUMN, 0);

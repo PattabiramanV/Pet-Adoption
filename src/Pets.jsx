@@ -6,6 +6,8 @@ import Header from './components/Siteframe/Header';
 import Footer from './components/Siteframe/Footer';
 import ViewMore from './components/pets/morebutton/button';
 import CardView from './components/pets/card/card';
+import BreadcrumbComponent from './components/breedcrumbs'
+
 
 const Pets = () => {
 const [pets, setPets] = useState([]);
@@ -30,6 +32,8 @@ const [pets, setPets] = useState([]);
   return (
     <>
       <Header />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pets',href: '/pets' }]} />
+      
       <Image />
       <AdoptText />
        <CardView pets={pets} />
