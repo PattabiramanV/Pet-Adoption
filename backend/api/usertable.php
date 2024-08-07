@@ -25,7 +25,9 @@ try {
                 pet_grooming_users.pet_type AS pet_type, 
                 pet_grooming_users.pet_gender AS pet_gender, 
                 pet_grooming_users.pet_age AS pet_age,
-                pet_grooming_users.what_you_need_for_your_pet AS need_for_pet
+                pet_grooming_users.what_you_need_for_your_pet AS need_for_pet,
+                pet_grooming_users.status,
+                pet_grooming_users.id
             FROM 
                 vetneries 
             JOIN 

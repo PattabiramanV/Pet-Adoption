@@ -10,8 +10,15 @@ import './doctorpage.css';
 
 const DoctorList = () => {
   return (
+<<<<<<< HEAD
     <>
  
+=======
+
+  <>
+ 
+
+>>>>>>> Ahalya-Vetnarian
    <div className="list-Doctor">
 
 <div className="div_add_your_doctor_profile_main">
@@ -25,7 +32,11 @@ const DoctorList = () => {
 
         <Doctorcard />
     </div>
+<<<<<<< HEAD
     </>
+=======
+  </>
+>>>>>>> Ahalya-Vetnarian
   )
 }
 

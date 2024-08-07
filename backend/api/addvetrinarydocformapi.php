@@ -1,12 +1,53 @@
 <?php
 
-require('../config/config.php');
+require '../config/config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
+
+require '../vendor/autoload.php';
+
+// Load environment variables from .env file
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
+$dotenv->load();
 
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $user_id = authenticate(); // Ensure this function is correctly defined
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+
+    $status = $_GET['value'];
+    $userId = $_GET['id'];
+
+    global $conn;
+    $query = "UPDATE pet_grooming_users SET status = :status WHERE id = :user_id";
+    
+    try {
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT); // Assuming id is an integer
+        $stmt->execute();
+
+        // Check if the update was successful
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(array("message" => "User status updated successfully."));
+        } else {
+            echo json_encode(array("message" => "No user found with the provided ID."));
+        }
+    } catch (Exception $e) {
+        echo json_encode(array("message" => "An error occurred while updating user status.", "error" => $e->getMessage()));
+        http_response_code(500); // Internal Server Error
+    }
+
+}
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for empty fields
@@ -44,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Image handling
     $imagePath = null;
+    echo json_encode($_FILES);
     if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['profile_img']['tmp_name'];
         $fileName = basename($_FILES['profile_img']['name']);
@@ -102,12 +144,143 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             echo json_encode(array("message" => "Doctor registered successfully."));
+            updateUserToDoctor($user_id);
+
+            emailSendFun($docemail, $doctorName);
         } else {
             $errorInfo = $stmt->errorInfo();
             echo json_encode(array("message" => "Unable to register doctor.", "error" => $errorInfo));
+       emailSendFun($docemail, $doctorName);
         }
     } catch (Exception $e) {
         echo json_encode(array("message" => "An error occurred.", "error" => $e->getMessage()));
+        emailSendFun($docemail, $doctorName);
+    }
+
+
+    
+}
+
+// Update user to doctor
+function updateUserToDoctor($user_id) {
+    global $conn;
+    $query = "UPDATE users SET is_doctor = 'doctor' WHERE id = :user_id";
+    try {
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+    } catch (Exception $e) {
+        echo json_encode(array("message" => "An error occurred while updating user to doctor.", "error" => $e->getMessage()));
+    }
+}
+
+
+
+// email sending.......
+function emailSendFun($toUserEmail, $doctorName) {
+    $mail = new PHPMailer(true);
+
+    try {
+        // SMTP server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+        $mail->SMTPAuth = true;
+        $mail->Username = 'furryfriens123@gmail.com'; // SMTP username
+        $mail->Password = 'rtcgadrtpxgbepdd'; // SMTP password (replace with the actual password)
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587; // TCP port to connect to
+
+        // Set the sender's address
+        $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
+
+        // Add a recipient
+        $mail->addAddress("$toUserEmail", "$doctorName");
+        
+        $header = file_get_contents('../mailtemplate/header.html');
+        $footer = file_get_contents('../mailtemplate/footer.html');
+
+
+        // Email content
+        $mail->isHTML(true);
+        require ('../../backend/mailtemplate/header.html');
+
+        $mail->Subject = 'Grooming Service Booking Confirmation';
+        $mail->Body =$header. "
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    color: #333;
+                    background-color: #f4f4f4;
+                    margin: 0;
+                    padding: 0;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                }
+                .header h1 {
+                    margin: 0;
+                    color: #4a90e2;
+                }
+                .content {
+                    padding: 20px;
+                }
+                .footer {
+                    text-align: center;
+                    padding: 10px;
+                    border-top: 2px solid #e4e4e4;
+                    font-size: 14px;
+                    color: #888;
+                }
+                .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    margin-top: 20px;
+                    background-color: #4a90e2;
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+                .button:hover {
+                    background-color: #357abd;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <h1>Your Doctor profile added to this website Confirmation</h1>
+                </div>
+                <div class='content'>
+                    <p>Dear User,</p>
+                    <p> <strong>{$doctorName}</strong>,Your profile has been confirmed.</p>
+                    <p>Thank you for choosing us!</p>
+                   
+                </div>
+               
+            </div>
+        </body>
+        </html>
+        " . $footer;
+
+        // $mail->AltBody = "Dear User,\n\nYour booking with {$doctorName} has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
+
+        // Debugging output
+        $mail->SMTPDebug = 2; // Enable verbose debug output
+        $mail->Debugoutput = 'html';
+
+        // Send the email
+        $mail->send();
+
+        echo json_encode(['message' => "Email sent successfully."]);
+    } catch (Exception $e) {
+        echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
     }
 }
 ?>
