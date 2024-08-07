@@ -13,6 +13,7 @@ import Lostlistallpage from "./components/lostlistmainpage";
 import Mylostpostlist from "./components/mypetlost";
 import Checkboxlostpets from "./components/checkboxpost";
 import Lostpostusertable from "./components/lostpostusertable";
+import EditUserForm from './components/edituserform';
 
 import Pets from './Pets';
 import AllPetList from './AllPetList';
@@ -39,6 +40,7 @@ function RouterPage() {
         <Route path="/lostingusertable" element={<PrivateRoute><Lostpostusertable /></PrivateRoute>} />
         <Route path="/checkboxpage" element={<Checkboxlostpets />} />
         <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+        <Route path="/editform" element={<EditUserForm />} /> 
 
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />

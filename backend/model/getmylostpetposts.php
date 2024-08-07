@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-// $user_id = authenticate(); // Retrieve the authenticated user ID
-$user_id = 2; // Retrieve the authenticated user ID
+$user_id = authenticate(); // Retrieve the authenticated user ID
+// $user_id = 2; // Retrieve the authenticated user ID
 
 
 if ($user_id === null) {

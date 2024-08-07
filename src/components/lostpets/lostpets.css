@@ -179,3 +179,6 @@ button.hi {
   text-align: center;
 }
 
+
+.usertsble,tr,th,td{border:.5px solid #ccc}
+
