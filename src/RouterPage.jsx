@@ -42,6 +42,12 @@ import UserPets from './components/petfilter/petDetailInfo/userpetslist';
 import AdoptionRequests from './components/petfilter/petDetailInfo/petowneradoptionRequests';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
+import NormalUserforHos from "./components/NormalUserforHos";
+import HostelUserTable from "./components/HostelUserTable"
+// import Adoption from './components/petfilter/petsForms/adaption';
+// import SideBar from './components/PetFilter/sideBar/SideBar';
+import AddHosPage from './components/AddHosPage';
+import HosDetailPage from "./components/HosDetailPage";
 
 function RouterPage() {
   return (
@@ -97,7 +103,14 @@ function RouterPage() {
         {/* <Route path="/salelist" element={<UserPetsForSale />}  /> */}
                  <Route path="/userpets" element={<UserPets />}  />
                                   <Route path="/request" element={<AdoptionRequests />}  />
+        {/* <Route path="/PetGroomingform" element={<GroomingForm />} /> */}
+        <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} />
+        <Route path="/normaluserforhos" element={<NormalUserforHos/>} />
+        <Route path="/hostelusertable" element={<HostelUserTable/>} />
+        <Route path="/addhostel" element={<AddHosPage/>} />
+        <Route path="/hosdetailpage" element={<HosDetailPage/>} />
 
+        
       </Routes>
     </Router>
  

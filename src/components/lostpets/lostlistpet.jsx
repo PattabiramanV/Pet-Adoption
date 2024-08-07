@@ -43,7 +43,7 @@ const LostListPet = () => {
           </div>
           <div className="pet-details">
             <div className="div_name">
-              <h2 className="pet-name">{pet.name}</h2>
+              <h2 className="pet-name">{pet.name}</h2> 
             </div>
             <div className="div_location">
               <p className="pet-location">

@@ -1,4 +1,5 @@
 <?php
+
 // require '../config/config.php';
 // use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
