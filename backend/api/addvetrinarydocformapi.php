@@ -17,6 +17,38 @@ ini_set('display_errors', 1);
 
 $user_id = authenticate(); // Ensure this function is correctly defined
 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+
+    $status = $_GET['value'];
+    $userId = $_GET['id'];
+
+    global $conn;
+    $query = "UPDATE pet_grooming_users SET status = :status WHERE id = :user_id";
+    
+    try {
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT); // Assuming id is an integer
+        $stmt->execute();
+
+        // Check if the update was successful
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(array("message" => "User status updated successfully."));
+        } else {
+            echo json_encode(array("message" => "No user found with the provided ID."));
+        }
+    } catch (Exception $e) {
+        echo json_encode(array("message" => "An error occurred while updating user status.", "error" => $e->getMessage()));
+        http_response_code(500); // Internal Server Error
+    }
+
+}
+
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for empty fields
     if (empty($_POST['name']) || empty($_POST['education']) || empty($_POST['phone']) 
@@ -118,9 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $errorInfo = $stmt->errorInfo();
             echo json_encode(array("message" => "Unable to register doctor.", "error" => $errorInfo));
+       emailSendFun($docemail, $doctorName);
         }
     } catch (Exception $e) {
         echo json_encode(array("message" => "An error occurred.", "error" => $e->getMessage()));
+        emailSendFun($docemail, $doctorName);
     }
 
 
@@ -162,13 +196,16 @@ function emailSendFun($toUserEmail, $doctorName) {
         // Add a recipient
         $mail->addAddress("$toUserEmail", "$doctorName");
         
-
+        $header = file_get_contents('../mailtemplate/header.html');
+        $footer = file_get_contents('../mailtemplate/footer.html');
 
 
         // Email content
         $mail->isHTML(true);
+        require ('../../backend/mailtemplate/header.html');
+
         $mail->Subject = 'Grooming Service Booking Confirmation';
-        $mail->Body = "
+        $mail->Body =$header. "
         <!DOCTYPE html>
         <html>
         <head>
@@ -224,15 +261,13 @@ function emailSendFun($toUserEmail, $doctorName) {
                     <p>Dear User,</p>
                     <p> <strong>{$doctorName}</strong>,Your profile has been confirmed.</p>
                     <p>Thank you for choosing us!</p>
-                    // <a href='#' class='button'>View Your Booking</a>
+                   
                 </div>
-                <div class='footer'>
-                    <p>&copy; 2024 Furry Friends. All rights reserved.</p>
-                </div>
+               
             </div>
         </body>
         </html>
-        ";
+        " . $footer;
 
         // $mail->AltBody = "Dear User,\n\nYour booking with {$doctorName} has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
 

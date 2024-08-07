@@ -4,9 +4,14 @@ import './doctorpage.css';
 
 const DoctorList = () => {
   return (
+
+  <>
+ 
+
    <div className="list-Doctor">
         <Doctorcard />
     </div>
+  </>
   )
 }
 

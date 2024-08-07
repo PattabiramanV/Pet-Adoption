@@ -18,9 +18,13 @@ try {
                 pet_grooming_users.pet_gender,
                 pet_grooming_users.pet_age,
                 pet_grooming_users.city,
+                pet_grooming_users.id,
+
                 pet_grooming_users.what_you_need_for_your_pet,
-                vetneries.name AS doctor_name,
-                vetneries.address AS doctor_address
+                      pet_grooming_users.status
+               
+          
+
             FROM 
                 pet_grooming_users
             JOIN 

@@ -28,14 +28,7 @@ const DoctorMoreInfo = () => {
         <p className="doctorAddress"><strong>Address:</strong> {doctor.address}</p>
         <p className="doctorAddress"><strong>City:</strong> {doctor.city}</p>
         <p className="doctorAddress"><strong>State:</strong> {doctor.state}</p>
-        <p className="doctorContact"><strong>Contact No:</strong> {doctor.phone}</p>
-        
-    
-      
-        
-        
-        
-       
+        <p className="doctorContact"><strong>Contact No:</strong> {doctor.phone}</p>       
         <p className="doctorHomeVisiting"><strong>Home Visiting Available:</strong> {doctor.home_visiting_available ? 'Yes' : 'No'}</p>
         <p className="doctorExperience"><strong>Experience:</strong> {doctor.experience} years</p>
 

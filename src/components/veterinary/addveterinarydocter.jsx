@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { notification } from 'antd';
+import Loader from '../Loader/Loader';
 import './normaltable.css';
 
 function AddVeterinaryDoctor() {
@@ -16,12 +18,12 @@ function AddVeterinaryDoctor() {
         description: "",
         email: "",
         city: "",
-        
         doctor_registerno: "",
         profile_img: null,
     });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleFieldsChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -50,10 +52,10 @@ function AddVeterinaryDoctor() {
         console.log("Validation Errors:", errors);
         return errors;
     };
-    
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const formErrors = validateForm();
         if (Object.keys(formErrors).length === 0) {
             const formData = new FormData();
@@ -63,49 +65,58 @@ function AddVeterinaryDoctor() {
                 formData.append(key, doctorData[key]);
             }
 
-            axios.post(
-                "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
-                formData,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data"
-                    },
-                }
-            )
-                .then((res) => {
-                    alert("Form submitted successfully!");
-                    setError(null);
-                    console.log(res.data);
-                    setDoctorData({
-                        name: "",
-                        education: "",
-                        have_a_clinic: "",
-                        specialist: "",
-                        available_timing: "",
-                        phone: "",
-                        home_visiting_available: "",
-                        experience: "",
-                        city: "",
-                        state: "",
-                        address: "",                 
-                        description: "",
-                        email: "",
-                        doctor_registerno: "",
-                        profile_img: null,
-                    });
-                    
-                })
-                .catch((err) => {
-                    setError("Failed to submit the form. Please try again.");
-                    setSuccess(null);
+            try {
+                const res = await axios.post(
+                    "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
+                    formData,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "multipart/form-data"
+                        },
+                    }
+                );
+                notification.success({
+                    message: 'Form Submitted Successfully!',
+                    description: 'Your doctor profile has been submitted successfully.',
                 });
+                setError(null);
+                setDoctorData({
+                    name: "",
+                    education: "",
+                    have_a_clinic: "",
+                    specialist: "",
+                    available_timing: "",
+                    phone: "",
+                    home_visiting_available: "",
+                    experience: "",
+                    city: "",
+                    address: "",                 
+                    description: "",
+                    email: "",
+                    doctor_registerno: "",
+                    profile_img: null,
+                });
+            } catch (err) {
+                notification.error({
+                    message: 'Failed to Submit the Form',
+                    description: 'Please try again later.',
+                });
+                setSuccess(null);
+            } finally {
+                setLoading(false);
+            }
         } else {
-            setError('Please fix the errors above.');
+            notification.error({
+                message: 'Please Fix the Errors Above',
+                description: 'Ensure all fields are filled out correctly.',
+            });
             setSuccess(null);
+            setLoading(false);
         }
     };
 
+    if (loading) return <Loader />;
     return ( 
         
         <div className="custom-div">
