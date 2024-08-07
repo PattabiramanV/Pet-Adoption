@@ -46,52 +46,52 @@ const Sale = () => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
+    const reader = new FileReader();
+    const token = localStorage.getItem("token");
+    reader.readAsDataURL(formData.profilePic);
+    reader.onload = async () => {
+        const base64Photo = reader.result.split(",")[1];
 
-        const reader = new FileReader();
-        const token = localStorage.getItem('token');
-        reader.readAsDataURL(formData.profilePic);
-        reader.onload = async () => {
-            const base64Photo = reader.result.split(",")[1];
-            const dataToSend = {
+        try {
+            const response = await axios.post('http://localhost/petadoption/backend/pets_api/addPet.php', {
                 ...formData,
                 profilePic: base64Photo
-            };
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-            try {
-                const response = await axios.post('http://localhost/petadoption/backend/pets_api/addPet.php', dataToSend, {
-                    headers: { Authorization: `Bearer ${token}` }
+            alert(response.data.message);
+            if (response.data.success) {
+                setFormData({
+                    petName: '',
+                    petcategory: '',
+                    city: '',
+                    location: '',
+                    petDescription: '',
+                    breed: '',
+                    gender: '',
+                    age: '',
+                    size: '',
+                    price: '',
+                    color: '',
+                    address: '',
+                    profilePic: null
                 });
-                alert(response.data.message);
-                if (response.data.success) {
-                    setFormData({
-                        petName: '',
-                        petcategory: '',
-                        city: '',
-                        location: '',
-                        petDescription: '',
-                        breed: '',
-                        gender: '',
-                        age: '',
-                        size: '',
-                        price: '',
-                        color: '',
-                        address: '',
-                        profilePic: null
-                    });
-                }
-            } catch (error) {
-                console.error('There was an error!', error);
             }
-        };
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
     };
+};
+
 
     return (
         <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
-            <h2 className="text-2xl font-bold mb-6 text-green-800">Rehome Your Pet</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center text-green-800">Rehome Your Pet</h2>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>

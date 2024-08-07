@@ -8,11 +8,13 @@
 }
 
 .container {
-        display: grid;
+         display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 3%;
-    padding: 58px 35px;
+    padding: 1px 14px;
     justify-items: center;
+    padding-top: 17px;
+    padding-left: 15px;
 
 }
 
@@ -108,11 +110,12 @@
 }
 
 .buttons-card {
-  position: relative;
-  top: 48px;
+      position: relative;
+    top: 48px;
+    left: 63px;
 }
 
-.buttons-card .more {
+.buttons-card .mores {
 border: 1px solid #675BC8;
     color: #675BC8;
     width: 52%;
@@ -124,7 +127,11 @@ border: 1px solid #675BC8;
     justify-content: center;
     align-items: center;
 }
+.mores:hover {
+background-color: #696299; /* DarkSlateBlue */
+color: white ;
 
+}
 .more a {
   color: inherit;
   text-decoration: none;
@@ -140,5 +147,4 @@ border: 1px solid #675BC8;
 }
 .right {
     position: relative;
-    /* left: 8px; */
 }

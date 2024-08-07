@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from '../../Loader/Loader';
 import './adoptedpets.css';
+import Footer from '../../Siteframe/Footer';
+import Header from '../../Siteframe/Header';
+
 
 const AdoptedPets = () => {
   const [adoptedPets, setAdoptedPets] = useState([]);
@@ -47,6 +50,8 @@ const AdoptedPets = () => {
   }
 
   return (
+    <>
+    <Header />
     <div className="adopted-pets-table">
       <h2>Adopted Pets</h2>
       {adoptedPets.length > 0 ? (
@@ -83,7 +88,9 @@ const AdoptedPets = () => {
                   )}
                 </td>
                 <td>{pet.adoption_time}</td>
-                <td>{pet.status === 'accepted' ? 'Request Accepted' : 'Request Rejected'}</td>
+                <td className={pet.status === 'accepted' ? 'status-accepted' : 'status-rejected'}>
+                  {pet.status === 'accepted' ? ' Accepted' : ' Rejected'}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -92,6 +99,8 @@ const AdoptedPets = () => {
         <div>No adopted pets found.</div>
       )}
     </div>
+    <Footer/>
+     </>
   );
 };
 

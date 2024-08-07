@@ -75,11 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
     <body>
         <div class='container'>
-            <div class='header'>
-                <h1>Pet Adoption Request</h1>
-            </div>
             <div class='content'>
-                <h3>Pet Adoption Request</h3>
+                <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+                <h1 style='font-size: 24px; font-weight: bold;'>Adoption request</h1>
+            </div>
                 <p><strong>Name:</strong> $userName</p>
                 <p><strong>Contact:</strong> $userContact</p>
                 <p><strong>Gender:</strong> $gender</p>

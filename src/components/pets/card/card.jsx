@@ -27,8 +27,8 @@ function PetDetails({ id, name, city, description, profile, breed, gender, age, 
         </div>
       </div>
       <p className="description">{description.slice(0, 55)}...</p>
-      <div className="buttons-card more-info">
-        <Link to={`/petDetails/${id}`} className="more">More info</Link>
+      <div className="buttons-card">
+        <Link to={`/petDetails/${id}`} className="mores">More info</Link>
       </div>
     </div>
   );

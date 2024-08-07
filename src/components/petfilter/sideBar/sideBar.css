@@ -1,7 +1,14 @@
 .filterSearch {
+    padding: 30px;
+    background-color: #ffff;
+}
+body{
+  overflow-x: hidden;
+}
+.pet-details_card{
+    background-color: #ffff;
+    width: 100%;
 
-    padding-left: 39px;
-    padding-top: 52px;
 }
 
 .filter {
@@ -29,6 +36,7 @@
     font-size: 16px;
     font-weight: 500;
 }
+
 
 .locationData{
     width: 288px;
@@ -92,10 +100,13 @@
 } 
 
 .filter-filterpet{
-          display: flex;
+               display: flex;
     width: 100%;
     height: auto;
-        margin-bottom: 138px;
+    justify-content: space-between;
+    padding: 12px;
+    gap: 19px;
+    background-color: #EFF0F4;
 }
 .filter-filterpet .list-pet {
     left: 7px;
@@ -105,16 +116,12 @@
     position: relative;
     padding-bottom: 66px;
 } 
-.filter-filterpet {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
 
-.filterSearch {
+
+/* .filterSearch {
   flex: 1; 
   margin-right: 20px; 
-}
+} */
 
 .pet-form {
   display: flex;

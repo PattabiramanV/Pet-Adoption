@@ -218,10 +218,7 @@ const handleAdoptNow = async () => {
 
   return (
     <div className="pet-info-page">
-      <div className="welcome-user">
-        <h2>Hi human!</h2>
-      </div>
-      <div className="pet-image-name-info">
+     <div className="pet-image-name-info">
         <div className="pet-image-info">
           {pet.photo ? (
             <img src={`data:image/jpeg;base64,${pet.photo}`} className="pet-details-img" alt={pet.pet_name} />

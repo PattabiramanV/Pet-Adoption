@@ -162,7 +162,7 @@ const PetForm = () => {
         </form>
       </div>
 
-      <div className="pet-details">
+      <div className="pet-details_card">
         {loading ? (
           <Loader />
         ) : (

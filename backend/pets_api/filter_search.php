@@ -73,7 +73,6 @@ try {
 
     $stmt = $conn->prepare($query);
 
-    // Bind parameters
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);
     }
@@ -102,10 +101,7 @@ try {
                 "size" => $row['size'],
                 "color" => $row['color'],
                 "photo" => base64_encode($row['photo']),
-                "photo1" => base64_encode($row['photo1']),
-                "photo2" => base64_encode($row['photo2']),
-                "photo3" => base64_encode($row['photo3']),
-                "photo4" => base64_encode($row['photo4'])
+               
             );
 
             array_push($pets_arr["records"], $pet_item);

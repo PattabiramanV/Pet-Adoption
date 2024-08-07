@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './adoptedpets.css';
+import Header from '../../Siteframe/Header';
+import Footer from '../../Siteframe/Footer';
 
 const AdoptionRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -15,7 +18,7 @@ const AdoptionRequests = () => {
   const handleAccept = (requestId) => {
     axios.post('http://localhost/petadoption/backend/pets_api/accept_adoption_request.php', { requestId })
       .then(() => {
-        alert('Request accepted and other users notified.');
+        // alert('Request accepted and other users notified.');
         setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
       })
       .catch(error => console.error('Error accepting request:', error));
@@ -31,9 +34,11 @@ const AdoptionRequests = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="adopted-pets-table">
       <h1>Adoption Requests</h1>
-      <table>
+      <table className="adoption">
         <thead>
           <tr>
             <th>Pet Name</th>
@@ -52,8 +57,11 @@ const AdoptionRequests = () => {
                 <td>{request.address}</td>
                 <td>{request.adoption_time}</td>
                 <td>
-                  <button onClick={() => handleAccept(request.request_id)}>Accept</button>
-                  <button onClick={() => handleReject(request.request_id)}>Reject</button>
+                  <div className="requestbutton">
+                     <button className='accept ' onClick={() => handleAccept(request.request_id)}>Accept</button>
+                  <button className='reject ' onClick={() => handleReject(request.request_id)}>Reject</button>
+                  </div>
+                 
                 </td>
               </tr>
             ))
@@ -63,6 +71,8 @@ const AdoptionRequests = () => {
         </tbody>
       </table>
     </div>
+    <Footer />
+     </>
   );
 };
 

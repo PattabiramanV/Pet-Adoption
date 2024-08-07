@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './userpetslist.css';
 import Loader from '../../Loader/Loader';
+import Header from '../../Siteframe/Header'
+import Footer from '../../Siteframe/Footer';
 
 const UserPets = () => {
   const [userPets, setUserPets] = useState([]);
@@ -77,6 +79,7 @@ const UserPets = () => {
 
   return (
     <>
+    <Header />
       <div className="userpets">
         <div className="userDescription">
           <div className="userpet">
@@ -140,6 +143,7 @@ const UserPets = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
