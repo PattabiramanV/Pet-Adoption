@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, notification } from "antd";
 import Logo from "../../assets/Logo.png";
-import ProfileLogo from "../../assets/profile_icon_1.png";
+// import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -105,27 +105,6 @@ const Header = () => {
           </div>
 
           <nav className="nav-links">
-            {/* <div
-              className="user-profile"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <span>Features</span>
-              {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Reuniting lost pets
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Pet Grooming
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Pet Hostel
-                  </Link>
-                </div>
-              )}
-            </div> */}
-
 {/* Pet-Spotlight */}
             <div
               className="user-profile Pet-Spotlight"
@@ -303,7 +282,7 @@ const Header = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <img
-                  src={profile.avatar || ProfileLogo}
+                  src={profile.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   alt="User"
                   className="profile-image"
                 />

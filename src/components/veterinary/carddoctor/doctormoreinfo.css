@@ -187,14 +187,13 @@
   max-width: 300px;
   border-radius: 10px;
 } */
-
 .doctor-info {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 7px;
+  line-height: 25px;
 }
-
 .doctor-info h2, 
 .doctor-info p {
   margin: 0;
@@ -237,13 +236,30 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .div-name-doctormoreinfo {
   display: flex;
-  justify-content: center;
+  justify-content:flex-start;
   align-items: center;
   font-size: x-large;
   font-weight: bolder;
   text-transform: uppercase;
+}
+.div_left_doctor {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.div_right_doctor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.div-description-doctormoreinfo.dot {
+  display: flow;
 }

@@ -1,15 +1,19 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"; // Import navigate from react-router-dom
 import "./Petcard.css"; // Import your CSS file
 
-
-
-
 const PetCard = ({ pet }) => {
+  const navigate = useNavigate(); // Initialize navigate
 
-  const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
-  console.log(pet.location);
+  const handleNavigation = () => {
+    navigate('/LostListPet', { state: { pet } });
+  };
+
+  // Construct the image source correctly
+  const imageSrc = pet.photo ? `data:image/jpeg;base64,${pet.photo}` : '';
+
   return (
     <div className="pet-card">
       <div className="pet-card-header">
@@ -35,23 +39,21 @@ const PetCard = ({ pet }) => {
                 <strong>Gender:</strong> {pet.gender}
               </p>
             </div>
-  
           </div>
           <div className="pet_right_de">
             <p>
-            <strong>PetType:</strong> {pet.pet_type}
-
+              <strong>Pet Type:</strong> {pet.pet_type}
             </p>
           </div>
         </div>
         <div className="type">
-              <p>
-              <strong>Lost Date:</strong> {pet.lost_date}
-              </p>
-            </div>
+          <p>
+            <strong>Lost Date:</strong> {pet.lost_date}
+          </p>
+        </div>
 
         <div className="btn">
-          <button className="more-info-btn">More Info</button>
+          <button className="more-info-btn" onClick={handleNavigation}>More Info</button>
         </div>
       </div>
     </div>
