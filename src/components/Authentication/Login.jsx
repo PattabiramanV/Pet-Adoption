@@ -96,6 +96,10 @@ const Login = () => {
                 name="password"
                 rules={[
                   { required: true, message: "Please input your Password!" },
+                  {
+                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message: "Please Enter Valid Password",
+                  },
                 ]}
               >
                 <Input.Password

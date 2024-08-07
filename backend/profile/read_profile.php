@@ -1,5 +1,6 @@
 <?php
-// read_items.php
+// read_profile.php
+header("Content-type:application/json");
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -14,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
     
 $user_id = authenticate(); // Retrieve the authenticated user ID
+// $user_id = 2; // Retrieve the authenticated user ID
 
-$query = "SELECT id,  username, email, phone, gender, state, city , avatar , address FROM users WHERE id = :user_id";
+$query = "SELECT username, email, phone, gender, state, city , avatar ,address,hostel_user_type ,doctor_user_type  FROM users WHERE id = :user_id";
+// $query = "SELECT * FROM users WHERE id = :user_id";
+
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
