@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     
 $user_id = authenticate(); // Retrieve the authenticated user ID
 
-$query = "SELECT username, email, phone, gender, state, city , avatar FROM users WHERE id = :user_id";
+$query = "SELECT id,  username, email, phone, gender, state, city , avatar , address FROM users WHERE id = :user_id";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
