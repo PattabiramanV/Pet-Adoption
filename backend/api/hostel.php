@@ -135,7 +135,7 @@
 //             echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
        
 
-    $mail->AltBody = "Dear Pattabi,\n\nYour booking at Doggy yogi has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
+    // $mail->AltBody = "Dear Pattabi,\n\nYour booking at Doggy yogi has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
 
 //      }
 
@@ -176,6 +176,7 @@
 // } else {
 //     echo json_encode(['message' => 'Invalid request method']);
 // }
+
 
 
 

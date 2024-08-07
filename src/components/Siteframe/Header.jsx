@@ -203,19 +203,19 @@ const Header = () => {
               <span>Pet Oasis</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
+                  <Link className="menu" to="/pethostel">
                    Pet Hostel List
                   </Link>
-                  <Link className="menu" to="/PetGrooming">
+                  <Link className="menu" to="/addhostel">
                   Hostel Add
                   </Link>
-                  <Link className="menu" to="/pethostel">
+                  <Link className="menu" to="/hostelusertable">
                   Hostel Owner Record
                   </Link>
-                  <Link className="menu" to="/PetGrooming">
+                  <Link className="menu" to="/BookHos">
                   Hostel Booking
                   </Link>
-                  <Link className="menu" to="/pethostel">
+                  <Link className="menu" to="/normaluserforhos">
                   Client Info
                   </Link>
                 </div>
