@@ -9,7 +9,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  padding :40px 0;
+  padding :50px 0;
 }
 
 .pet-detail-container {
@@ -135,3 +135,6 @@
 .pet_left_de, .pet_right_de {
   width: 50%;
   }
+
+
+

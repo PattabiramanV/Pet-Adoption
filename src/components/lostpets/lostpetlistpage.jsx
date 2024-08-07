@@ -37,9 +37,12 @@ const LostListMain = () => {
     return <div>Error: {error}</div>;
   }
 
+  // Filter pets with status "pending"
+  const filteredPets = pets.filter((pet) => pet.status === "pending");
+
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = pets.slice(indexOfFirstPet, indexOfLastPet);
+  const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
     <div className="pet-list">
@@ -54,7 +57,7 @@ const LostListMain = () => {
           className="pagination"
           current={currentPage}
           pageSize={petsPerPage}
-          total={pets.length}
+          total={filteredPets.length}
           onChange={(page) => setCurrentPage(page)}
         />
       </div>

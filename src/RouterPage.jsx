@@ -12,6 +12,9 @@ import LostingpetAdd  from "./components/lostpetformpage";
 import LostList from './components/lostlistpets';
 import Lostlistallpage from "./components/lostlistmainpage";
 import Mylostpostlist from "./components/mypetlost";
+import Checkboxlostpets from "./components/checkboxpost";
+import Lostpostusertable from "./components/lostpostusertable";
+import EditUserForm from './components/edituserform';
 
 import Pets from './Pets';
 import AllPetList from './AllPetList';
@@ -49,13 +52,18 @@ function RouterPage() {
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
-        <Route path="/lostingpet" element={<LostingpetAdd />} />
-        <Route path="/LostListPet" element={<LostList />} />
-        <Route path="/mypetlostpost" element={<Mylostpostlist />} />
+        <Route path="/lostingpet" element={<PrivateRoute><LostingpetAdd /></PrivateRoute>} />
+        <Route path="/LostListPet" element={<PrivateRoute><LostList /></PrivateRoute>} />
+        <Route path="/mypetlostpost" element={<PrivateRoute><Mylostpostlist /></PrivateRoute>} />
+        <Route path="/lostingusertable" element={<PrivateRoute><Lostpostusertable /></PrivateRoute>} />
+        <Route path="/checkboxpage" element={<Checkboxlostpets />} />
+        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+        <Route path="/editform" element={<EditUserForm />} /> 
+
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
-        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+
 
 
 
