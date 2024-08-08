@@ -24,9 +24,9 @@ function Searching_Lost_and_Found_Pets() {
   return (
     <>
       <Header />
-      <div className="Breadcrumbs">
+   
       <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting',href: '/findpet' },]} />
-      </div>
+    
       {/* <Link to=> */}
         {/* <button>Normal User</button> */}
       {/* </Link> */}
