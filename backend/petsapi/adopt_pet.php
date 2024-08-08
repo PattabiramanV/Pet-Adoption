@@ -26,6 +26,8 @@ if (empty($pet_id) || empty($user_id)) {
 try {
     $conn->beginTransaction();
 
+
+     
     // Insert adoption event
     $query = "INSERT INTO adoption_events (pet_id, user_id, adoption_time" . 
             ($address ? ", address" : "") . 

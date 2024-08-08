@@ -106,7 +106,7 @@ if ($data) {
                 $mail->Body    = $message;
                 
                 $mail->send();
-                echo json_encode(["message" => "Pet data inserted and email sent successfully"]);
+                // echo json_encode(["message" => "Pet data inserted and email sent successfully"]);
             } catch (Exception $e) {
                 echo json_encode(["message" => "Pet data inserted, but could not send email. Mailer Error: {$mail->ErrorInfo}"]);
             }

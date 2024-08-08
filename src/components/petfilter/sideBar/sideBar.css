@@ -1,127 +1,138 @@
 .filterSearch {
-    padding: 30px;
-    background-color: #ffff;
+  padding: 30px;
+  background-color: #fff;
+  width: 25%; 
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-body{
+
+body {
   overflow-x: hidden;
 }
-.pet-details_card{
-    background-color: #ffff;
-    width: 100%;
 
+.pet-details_card {
+  background-color: #fff;
+  margin-bottom: 15%;
+  width: 80%; 
+ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  overflow: hidden;
+}
+
+.pets_details {
+  margin-bottom: 14%;
 }
 
 .filter {
-    background-color: #fcfcfc;
-    border-bottom: 1px solid #CBCBCB;
-    width: 288px;
-    height: 40px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #CBCBCB;
+  width: 288px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .filter_image img {
-    width: 124px;
-    height: 124px;
+  width: 124px;
+  height: 124px;
 }
 
 .filterLocation {
-    padding-top: 16px;
-    width: 288px;
-    height: 40px;
+  padding-top: 16px;
+  width: 288px;
+  height: 40px;
 }
 
 .filterLocation p {
-    font-size: 16px;
-    font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-
-.locationData{
-    width: 288px;
-    Height:62px;
-    border-radius: 8px;
-    border:1px solid #DFDFDF;
-    padding-bottom: 1%;
-    position: relative;
-    top: 8px;
-
+.locationData {
+  width: 288px;
+  height: 62px;
+  border-radius: 8px;
+  border: 1px solid #DFDFDF;
+  padding-bottom: 1%;
+  position: relative;
+  top: 8px;
 }
 
 .locationData .code {
-    color: #606060;
-    font-size: 12px;
-    font-weight: 500;
-        position: relative;
-    top: 5px;
+  color: #606060;
+  font-size: 12px;
+  font-weight: 500;
+  position: relative;
+  top: 5px;
 }
-.locationData p{
-    padding-left: 4%;
-}
-.locationData .address{
-      position: relative;
-    top: 11px;
 
+.locationData p {
+  padding-left: 4%;
 }
-.currentl{
-       width: 188px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 11%;
-    position: relative;
-    top: 84px;
+
+.locationData .address {
+  position: relative;
+  top: 11px;
 }
-.currentl .ltext{
-    font-size:12px;
-    font-weight: 500;
-    color: #0A453A;
+
+.currentl {
+  width: 188px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11%;
+  position: relative;
+  top: 84px;
 }
+
+.currentl .ltext {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0A453A;
+}
+
 .slidecontainer {
   width: 100%;
 }
 
 .slider {
-    -webkit-appearance: none;
-    width: 288px;
-    height: 10px;
-    border-radius: 5px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+  -webkit-appearance: none;
+  width: 288px;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }
 
 .slider:hover {
   opacity: 1;
-} 
-
-.filter-filterpet{
-               display: flex;
-    width: 100%;
-    height: auto;
-    justify-content: space-between;
-    padding: 12px;
-    gap: 19px;
-    background-color: #EFF0F4;
 }
-.filter-filterpet .list-pet {
-    left: 7px;
-    display: flex;
+
+.filter-filterpet {
+  display: flex;
+  justify-content: space-between; /* Space out filter and pet details */
+  padding: 12px;
+  background-color: #EFF0F4;
+  gap: 1%;
+}
+
+.list-pet {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  align-items: center;
+  padding-bottom: 66px;
+}
+
+.pet-details_card .pagination {
+     display: flex;
     justify-content: center;
-    align-items: center;
     position: relative;
-    padding-bottom: 66px;
-} 
-
-
-/* .filterSearch {
-  flex: 1; 
-  margin-right: 20px; 
-} */
+    top: 109px; 
+}
 
 .pet-form {
   display: flex;
@@ -144,31 +155,25 @@ body{
 
 .pet-form button {
   padding: 10px;
-  color: #675BC8 ;
+  color: #675BC8;
   border: 1px solid #675BC8;
   border-radius: 4px;
   cursor: pointer;
 }
 
-
-.petnot{
+.petnot {
   text-align: center;
-}
-.list-pet {
-  flex: 2; 
-  display: flex;
-  flex-direction: column;
 }
 
 .error-alert {
-  text-align: center; 
-  margin: 20px auto; 
-  width: 80%; 
-  max-width: 600px; 
+  text-align: center;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
 }
 
 .ant-alert-error {
-  background-color: #f8d7da; 
-  border-color: #f5c6cb; 
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
   color: #721c24;
 }

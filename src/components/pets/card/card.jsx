@@ -11,6 +11,7 @@ function PetDetails({ id, name, city, description, profile, breed, gender, age, 
         className="img"
         alt={name}
       />
+      <div className="commonData">
       <h3 className="name">{name}</h3>
       <h3 className="loca">
         <img className="location" src="https://img.icons8.com/material-outlined/24/000000/marker.png" alt="marker"/>
@@ -26,9 +27,10 @@ function PetDetails({ id, name, city, description, profile, breed, gender, age, 
           <p>Size: <span className="rightSide">{size}</span></p>
         </div>
       </div>
-      <p className="description">{description.slice(0, 55)}...</p>
+      <p className="description">{description.slice(0, 50)}...</p>
       <div className="buttons-card">
         <Link to={`/petDetails/${id}`} className="mores">More info</Link>
+      </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import AdoptedPets from './adoptedpets.jsx';
 
 function Adoptedlits() {
   return (
-    <div className="App">
+    <div className="adoptedpetslist">
       <AdoptedPets />
     </div>
   );

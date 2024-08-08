@@ -27,7 +27,6 @@ import Adddoctorform from './components/veterinary/doctoraddform';
 import GroomingPage  from './components/veterinary/petgromming';
 import Info from './components/petfilter/petDetailInfo/Info';
 import Sale from './components/petfilter/petsForms/sale';
-import Test from './components/text';
 import PetForm from './AllPetList';
 import Adoptedlits from './components/petfilter/petDetailInfo/adoptedlists';
 // import UserPetsForSale from './components/petfilter/petDetailInfo/usersale';
@@ -72,7 +71,6 @@ function RouterPage() {
          <Route path="/sale" element={<Sale />} />
          {/* <Route path="/adopte" element={<Adoption />} /> */}
          <Route path="/adopte" element={<PetForm />} />
-         <Route path="/test" element={<Test />} />
          {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
                   {/* <Route path="/test" element={<Test />} /> */}
         <Route path="/Veterinary" element={<Veterinarian />} />

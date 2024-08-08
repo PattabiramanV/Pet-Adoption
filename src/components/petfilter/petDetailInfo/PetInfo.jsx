@@ -6,6 +6,7 @@ import axios from 'axios';
 import './PetInfo.css';
 import { getCode } from 'country-list';
 import Loader from '../../Loader/Loader';
+import { notification } from 'antd';
 
 const PetDetailsRoute = () => {
  const { id } = useParams();
@@ -23,7 +24,7 @@ const PetDetailsRoute = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost/petadoption/backend/pets_api/get_pet_details.php`, {
+        const response = await axios.get(`http://localhost/petadoption/backend/petsapi/get_pet_details.php`, {
           params: { id },
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -55,7 +56,7 @@ const PetDetailsRoute = () => {
         const response = await axios.get("http://localhost/petadoption/backend/profile/read_profile.php", {
           headers: {
             'Authorization': `Bearer ${token}`,
-          },
+          }, 
         });
         setUserProfile(response.data);
       } catch (error) {
@@ -143,7 +144,7 @@ const handleAdoptNow = async () => {
     }
 
     try {
-      const ownerResponse = await axios.get("http://localhost/petadoption/backend/pets_api/pet_owner.php", {
+      const ownerResponse = await axios.get("http://localhost/petadoption/backend/petsapi/pet_owner.php", {
         params: { id: pet.user_id },
       });
       const userEmail = ownerResponse.data.email;
@@ -157,7 +158,7 @@ const handleAdoptNow = async () => {
 
       let addressData = addressResult.value;
 
-      const emailResponse = await axios.post('http://localhost/petadoption/backend/pets_api/send_email.php',
+      const emailResponse = await axios.post('http://localhost/petadoption/backend/petsapi/send_email.php',
         new URLSearchParams({
           email: userEmail,
           userName: userProfile.username,
@@ -175,10 +176,13 @@ const handleAdoptNow = async () => {
       );
 
       if (emailResponse.data.success) {
-        Swal.fire('Adoption process started', 'Your pet adoption process has started.', 'success');
+            notification.success({
+                message: 'Request successfully send to the owner',
+                description: 'Early owner check your request,please be patient',
 
+            });   
         try {
-          const updateResponse = await axios.post('http://localhost/petadoption/backend/pets_api/adopt_pet.php',
+          const updateResponse = await axios.post('http://localhost/petadoption/backend/petsapi/adopt_pet.php',
             new URLSearchParams({
               id: pet.id,
               user_id: userProfile.id,  
@@ -240,7 +244,7 @@ const handleAdoptNow = async () => {
         </div>
       </div>
       <div className="slider-content">
-        <div className="slider-info">
+        <div className="Infos">
           {pet.photo ? (
             <img src={`data:image/jpeg;base64,${pet.photo}`} className="slider-img" alt={pet.pet_name} />
           ) : (
@@ -268,7 +272,7 @@ const handleAdoptNow = async () => {
               <p>Price: <span>${pet.price}</span></p>
             </div>
             <div className="buttons adoptNow">
-              <button className="adopt" onClick={handleAdoptNow}>Adopt {pet.pet_name}</button>
+              <button className="adopt" onClick={handleAdoptNow}>Adopt Now</button>
             </div>
           </div>
         </div>

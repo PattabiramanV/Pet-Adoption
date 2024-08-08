@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { notification } from 'antd';
+
 
 const Sale = () => {
     const [formData, setFormData] = useState({
@@ -57,14 +59,17 @@ const handleSubmit = async (e) => {
         const base64Photo = reader.result.split(",")[1];
 
         try {
-            const response = await axios.post('http://localhost/petadoption/backend/pets_api/addPet.php', {
+            const response = await axios.post('http://localhost/petadoption/backend/petsapi/addPet.php', {
                 ...formData,
                 profilePic: base64Photo
             }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            alert(response.data.message);
+             notification.success({
+                message: 'Successfully Form submitte',
+                
+            });   
             if (response.data.success) {
                 setFormData({
                     petName: '',

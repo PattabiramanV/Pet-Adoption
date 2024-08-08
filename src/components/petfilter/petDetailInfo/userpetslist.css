@@ -97,3 +97,13 @@
   background-color: #d3d3d3; 
   border: 1px solid #a0a0a0; 
 }
+.widthBalance{
+    width: 100%;
+    height: 224vh;
+}
+
+.widthBalance .pagination {
+
+    display: flex;
+    justify-content: center;
+}

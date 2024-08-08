@@ -1,6 +1,8 @@
 .adopted-pets-table {
   padding: 20px;
   margin: 20px;
+      width: 100%;
+    height: auto ;
 }
 
 .adopted-pets-table h2 {
@@ -96,3 +98,4 @@
 .status-rejected {
   color: red;
 }
+

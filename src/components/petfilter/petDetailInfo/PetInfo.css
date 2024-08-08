@@ -32,11 +32,7 @@ html, body {
   color: #0A453A;
 }
 
-.welcome-user {
-  font-size: 24px;
-  font-weight: 500;
-  color: #202020;
-}
+
 
 .flag .map {
   width: 12px;
@@ -81,8 +77,9 @@ html, body {
 .info-description {
   display: flex;
   flex-direction: column;
-  gap: 7%;
-  padding-left: 3%;
+  gap: 5px;
+    position: relative;
+    left: 170px;
 }
 
 .info-description p {
@@ -189,15 +186,14 @@ html, body {
   font-weight: 500;
 }
 
-.slider-info img {
-  width: 100%;
+.Infos img {
+  width: 139%;
   max-width: 593px;
   height: 400px;
 }
 
-.slider-info {
+.Infos{
   width: 100%;
-  border: 1px solid #8c8b8b;
 }
 .price-info {
   display: flex;
@@ -217,69 +213,7 @@ html, body {
   color: green;
 }
 
-/* Modal overlay */
-.overlay {
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-/* Modal content */
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 500px;
-}
-
-/* Close button */
-.modal-close {
-  background-color: #f00;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-/* Confirm button */
-.modal-confirm {
-  background-color: #0f0;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
 .adopt{
   text-transform: capitalize;
 }
-            /* $params[':size'] = $_GET['size'];
-        }
-        if (!empty($_GET['breed'])) {
-            $query .= " AND breed = :breed";
-            $params[':breeds'] = $_GET['breed'];
-        }
-        if (!empty($_GET['age'])) {
-            $query .= " AND age = :age";
-            $params[':age'] = $_GET['age'];
-        }
-        if (!empty($_GET['color'])) {
-            $query .= " AND color = :color";
-            $params[':color'] = $_GET['color'];
-        }
-    }
-
-    $stmt = $conn->prepare($query);
-    $stmt->execute($params);
-    $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    echo json_encode($pets);
-} catch (PDOException $e) {
-    echo json_encode(['error' => $e->getMessage()]);
-} */

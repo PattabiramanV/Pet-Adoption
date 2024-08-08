@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
-import { Table, Spin, Alert } from 'antd';
+import { Pagination, Spin, Alert } from 'antd';
 import Loader from '../../Loader/Loader';
 
 const PetForm = () => {
@@ -25,13 +25,15 @@ const PetForm = () => {
   const [pets, setPets] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const petsPerPage = 9;
 
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
         const [petResponse, filterOptionsResponse] = await Promise.all([
-          axios.get('http://localhost/petadoption/backend/pets_api/get_all_pets.php'),
-          axios.get('http://localhost/petadoption/backend/pets_api/get_filter_options.php')
+          axios.get('http://localhost/petadoption/backend/petsapi/get_all_pets.php'),
+          axios.get('http://localhost/petadoption/backend/petsapi/get_filter_options.php')
         ]);
 
         setPets(Array.isArray(petResponse.data) ? petResponse.data : []);
@@ -63,7 +65,7 @@ const PetForm = () => {
   const filterPets = async () => {
     try {
       const queryParams = new URLSearchParams(formData).toString();
-      const response = await axios.get(`http://localhost/petadoption/backend/pets_api/filter_search.php?${queryParams}`);
+      const response = await axios.get(`http://localhost/petadoption/backend/petsapi/filter_search.php?${queryParams}`);
       const result = response.data;
 
       if (result.status === 'success') {
@@ -71,13 +73,8 @@ const PetForm = () => {
         setError('');
       } else {
         setPets([]);
-        const noMatchFilters = result.noMatchFilters;
+       
         let errorMessage = 'No matching pets found.';
-
-        if (Object.keys(noMatchFilters).length > 0) {
-          errorMessage += ' Filters with no matching pets: ' + Object.keys(noMatchFilters).join(', ');
-        }
-
         setError(errorMessage);
       }
     } catch (error) {
@@ -90,6 +87,10 @@ const PetForm = () => {
     e.preventDefault();
     filterPets();
   };
+
+  const indexOfLastPet = currentPage * petsPerPage;
+  const indexOfFirstPet = indexOfLastPet - petsPerPage;
+  const currentPets = pets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
     <div className="filter-filterpet">
@@ -158,20 +159,29 @@ const PetForm = () => {
               ))}
             </select>
           </label>
-         
         </form>
       </div>
 
       <div className="pet-details_card">
-        {loading ? (
+       <div className="pets_details">
+           {loading ? (
           <Loader />
         ) : (
           <>
             {error && <Alert message={error} type="error" className="error-alert" />}
-            <CardView pets={pets} />
+            <CardView pets={currentPets} />
+            <Pagination
+              className="pagination"
+              current={currentPage}
+              pageSize={petsPerPage}
+              total={pets.length}
+              onChange={(page) => setCurrentPage(page)}
+            />
           </>
         )}
-      </div>        
+       </div>
+      
+      </div>
     </div>
   );
 };

@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './userpetslist.css';
 import Loader from '../../Loader/Loader';
-import Header from '../../Siteframe/Header'
+import Header from '../../Siteframe/Header';
 import Footer from '../../Siteframe/Footer';
+import { Pagination } from 'antd'; 
 
 const UserPets = () => {
   const [userPets, setUserPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const petsPerPage = 5;
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -22,8 +25,7 @@ const UserPets = () => {
         });
         const userProfileData = profileResponse.data;
 
-        // Fetch pets data matching user ID
-        const petsResponse = await axios.get(`http://localhost/petadoption/backend/pets_api/get_pets_by_user.php?id=${userProfileData.id}`);
+        const petsResponse = await axios.get(`http://localhost/petadoption/backend/petsapi/get_pets_by_user.php?id=${userProfileData.id}`);
         setUserPets(petsResponse.data);
       } catch (err) {
         setError(err.message);
@@ -49,7 +51,7 @@ const UserPets = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost/petadoption/backend/pets_api/delete_pet.php?id=${petId}`);
+        const response = await axios.delete(`http://localhost/petadoption/backend/petsapi/delete_pet.php?id=${petId}`);
         if (response.data.success) {
           Swal.fire(
             'Deleted!',
@@ -74,12 +76,16 @@ const UserPets = () => {
     }
   };
 
+  const indexOfLastPet = currentPage * petsPerPage;
+  const indexOfFirstPet = indexOfLastPet - petsPerPage;
+  const currentPets = userPets.slice(indexOfFirstPet, indexOfLastPet);
+
   if (loading) return <p><Loader /></p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-    <Header />
+      <Header />
       <div className="userpets">
         <div className="userDescription">
           <div className="userpet">
@@ -90,9 +96,9 @@ const UserPets = () => {
           </div>
         </div>
 
-        <div className="adopted-pets-table">
+        <div className="adopted-pets-table withBalance">
           <h2>My Pets</h2>
-          {userPets.length === 0 ? (
+          {currentPets.length === 0 ? (
             <p>No pets found.</p>
           ) : (
             <table>
@@ -110,7 +116,7 @@ const UserPets = () => {
                 </tr>
               </thead>
               <tbody>
-                {userPets.map(pet => (
+                {currentPets.map(pet => (
                   <tr key={pet.id} className={pet.status === 'adopted' ? 'disabled-row' : ''}>
                     <td>{pet.id}</td>
                     <td>
@@ -141,6 +147,13 @@ const UserPets = () => {
               </tbody>
             </table>
           )}
+          <Pagination
+            className="pagination"
+            current={currentPage}
+            pageSize={petsPerPage}
+            total={userPets.length}
+            onChange={(page) => setCurrentPage(page)}
+          />
         </div>
       </div>
       <Footer />
@@ -149,3 +162,4 @@ const UserPets = () => {
 };
 
 export default UserPets;
+  
