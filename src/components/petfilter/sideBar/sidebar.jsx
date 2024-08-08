@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
+import { Table, Spin, Alert } from 'antd';
+import Loader from '../../Loader/Loader';
 
 const PetForm = () => {
   const [petTypes] = useState(['cat', 'dog']);
   const [sizes] = useState(['Small', 'Medium', 'Large']);
-  const [breeds] = useState(['pug', 'golden', 'lab', 'rottie']);
-  const [ages] = useState([2, 3, 4, 5, 7, 8, 9]);
+  const [breeds, setBreeds] = useState([]);
+  const [ages, setAges] = useState([]);
   const [colors] = useState(['Brown', 'Black', 'White']);
   const [genders] = useState(['Male', 'Female']);
-
+  
   const [formData, setFormData] = useState({
     petType: '',
     searchLocation: '',
@@ -22,20 +24,33 @@ const PetForm = () => {
   });
   const [pets, setPets] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPets = async () => {
+    const fetchInitialData = async () => {
       try {
-        const response = await axios.get('http://localhost/petadoption/Backend/api/get_all_pets.php');
-        setPets(Array.isArray(response.data) ? response.data : []);
+        const [petResponse, filterOptionsResponse] = await Promise.all([
+          axios.get('http://localhost/petadoption/backend/pets_api/get_all_pets.php'),
+          axios.get('http://localhost/petadoption/backend/pets_api/get_filter_options.php')
+        ]);
+
+        setPets(Array.isArray(petResponse.data) ? petResponse.data : []);
+        setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
+        setBreeds(Array.isArray(filterOptionsResponse.data.breeds) ? filterOptionsResponse.data.breeds : []);
       } catch (error) {
-        console.error('Error fetching pet data:', error);
-        setError('Failed to fetch initial pet data.');
+        console.error('Error fetching initial data:', error);
+        setError('Failed to fetch initial data.');
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchPets();
+    fetchInitialData();
   }, []);
+
+  useEffect(() => {
+    filterPets();
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,27 +60,35 @@ const PetForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const queryParams = new URLSearchParams(formData).toString();
-
+  const filterPets = async () => {
     try {
-      const response = await axios.get(`http://localhost/petadoption/Backend/api/filter_search.php?${queryParams}`);
-      if (Array.isArray(response.data)) {
-        if (response.data.length === 0) {
-          setError('No matching pets found.');
-        } else {
-          setPets(response.data);
-          setError('');
-        }
+      const queryParams = new URLSearchParams(formData).toString();
+      const response = await axios.get(`http://localhost/petadoption/backend/pets_api/filter_search.php?${queryParams}`);
+      const result = response.data;
+
+      if (result.status === 'success') {
+        setPets(result.data.length > 0 ? result.data : []);
+        setError('');
       } else {
         setPets([]);
-        setError('No matching pets found.');
+        const noMatchFilters = result.noMatchFilters;
+        let errorMessage = 'No matching pets found.';
+
+        if (Object.keys(noMatchFilters).length > 0) {
+          errorMessage += ' Filters with no matching pets: ' + Object.keys(noMatchFilters).join(', ');
+        }
+
+        setError(errorMessage);
       }
     } catch (error) {
-      console.error('Error fetching pet data:', error);
-      setError('Failed to fetch pet data.');
+      setPets([]);
+      setError('Pet not available');
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    filterPets();
   };
 
   return (
@@ -135,13 +158,20 @@ const PetForm = () => {
               ))}
             </select>
           </label>
-          <button type="submit" className='more'>Search</button>
+         
         </form>
       </div>
-      <div className="list-pet">
-        {error && <p className="error-message">{error}</p>}
-        <CardView pets={pets} />
-      </div>
+
+      <div className="pet-details">
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {error && <Alert message={error} type="error" className="error-alert" />}
+            <CardView pets={pets} />
+          </>
+        )}
+      </div>        
     </div>
   );
 };

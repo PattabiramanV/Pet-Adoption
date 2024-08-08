@@ -62,7 +62,7 @@ const Sale = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost/petadoption/Backend/api/addPet.php', dataToSend, {
+                const response = await axios.post('http://localhost/petadoption/backend/pets_api/addPet.php', dataToSend, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert(response.data.message);

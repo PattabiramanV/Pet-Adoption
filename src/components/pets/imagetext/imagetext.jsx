@@ -16,7 +16,7 @@ const Image = () => {
           through pet adoption.
         </p>
         <div className="buttons">
-          <a href="#">
+          <a href="adopte">
             <button className="adopt">Adopt now</button>
           </a>
           <a href="sale">

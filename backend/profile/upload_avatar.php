@@ -3,9 +3,6 @@ require '../config/config.php'; // Ensure this path is correct
 
 // Handle preflight requests (CORS)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization');
     http_response_code(204); // No Content
     exit;
 }
@@ -52,8 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $current_avatar = $stmt->fetchColumn();
 
-        // Delete the current avatar file if it exists
-        if ($current_avatar && file_exists($upload_dir . $current_avatar)) {
+        // Default avatar filename (replace with your actual default avatar filename)
+        $default_avatar = 'defult.png';
+
+        // Delete the current avatar file if it exists and is not the default avatar
+        if ($current_avatar && $current_avatar !== $default_avatar && file_exists($upload_dir . $current_avatar)) {
             unlink($upload_dir . $current_avatar);
         }
 

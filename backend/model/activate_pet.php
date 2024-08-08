@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pet_id = $data['id'] ?? null;
 
     if ($pet_id) {
-        $query = "UPDATE pets SET status = 'active' WHERE id = ?";
+        $query = "UPDATE pet_losting_details SET status = 'active' WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('i', $pet_id);
 

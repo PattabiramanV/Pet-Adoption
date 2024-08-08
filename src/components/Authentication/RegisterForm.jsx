@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Divider, Typography, message } from "antd";
+import { Form, Input, Button, Divider, Typography, message, notification } from "antd";
 import {
   UserOutlined,
   MailOutlined,
@@ -19,12 +19,30 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const openNotification = (type, message) => {
+    notification[type]({
+      message: message,
+    });
+  };
+
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
 
     setLoading(true);
 
     try {
+      // Regex for password validation
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      
+      if (!passwordRegex.test(values.password)) {
+        openNotification(
+          "error",
+          "Password must be at least 8 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+        );
+        setLoading(false);
+        return;
+      }
+
       const response = await axios.post(
         `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}register.php`,
         values,
@@ -116,10 +134,6 @@ const RegisterForm = () => {
                   name="password"
                   rules={[
                     { required: true, message: "Please input your password!" },
-                    {
-                      min: 6,
-                      message: "Password must be at least 6 characters!",
-                    },
                   ]}
                 >
                   <Input.Password

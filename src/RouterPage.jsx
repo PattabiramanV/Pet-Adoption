@@ -12,6 +12,9 @@ import LostingpetAdd  from "./components/lostpetformpage";
 import LostList from './components/lostlistpets';
 import Lostlistallpage from "./components/lostlistmainpage";
 import Mylostpostlist from "./components/mypetlost";
+import Checkboxlostpets from "./components/checkboxpost";
+import Lostpostusertable from "./components/lostpostusertable";
+import EditUserForm from './components/edituserform';
 
 import Pets from './Pets';
 import AllPetList from './AllPetList';
@@ -32,9 +35,19 @@ import Userpersonaltable from './components/veterinary/groomingusertable';
 import Doctorpersonaltable from './components/veterinary/docterpersonalpage';
 // import GroomingForm from './components/veterinary/grommingform';
 import Test from './components/text';
+import PetForm from './AllPetList';
+import Adoptedlits from './components/petfilter/petDetailInfo/adoptedlists';
+// import UserPetsForSale from './components/petfilter/petDetailInfo/usersale';
+import UserPets from './components/petfilter/petDetailInfo/userpetslist';
+import AdoptionRequests from './components/petfilter/petDetailInfo/petowneradoptionRequests';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
+import NormalUserforHos from "./components/NormalUserforHos";
+import HostelUserTable from "./components/HostelUserTable"
+// import Adoption from './components/petfilter/petsForms/adaption';
 // import SideBar from './components/PetFilter/sideBar/SideBar';
+import AddHosPage from './components/AddHosPage';
+import HosDetailPage from "./components/HosDetailPage";
 
 function RouterPage() {
   return (
@@ -45,13 +58,18 @@ function RouterPage() {
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
-        <Route path="/lostingpet" element={<LostingpetAdd />} />
-        <Route path="/LostListPet" element={<LostList />} />
-        <Route path="/mypetlostpost" element={<Mylostpostlist />} />
+        <Route path="/lostingpet" element={<PrivateRoute><LostingpetAdd /></PrivateRoute>} />
+        <Route path="/LostListPet" element={<PrivateRoute><LostList /></PrivateRoute>} />
+        <Route path="/mypetlostpost" element={<PrivateRoute><Mylostpostlist /></PrivateRoute>} />
+        <Route path="/lostingusertable" element={<PrivateRoute><Lostpostusertable /></PrivateRoute>} />
+        <Route path="/checkboxpage" element={<Checkboxlostpets />} />
+        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+        <Route path="/editform" element={<EditUserForm />} /> 
+
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
-        <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+
 
 
 
@@ -74,12 +92,25 @@ function RouterPage() {
          <Route path="/petDetails/:id"  element={<Info />} />
          <Route path="/sale" element={<Sale />} />
          {/* <Route path="/adopte" element={<Adoption />} /> */}
+         <Route path="/adopte" element={<PetForm />} />
+         <Route path="/test" element={<Test />} />
          {/* <Route path="/salesubmitted" element={<SideBar />} /> */}
-                  <Route path="/test" element={<Test />} />
+                  {/* <Route path="/test" element={<Test />} /> */}
         <Route path="/Veterinary" element={<Veterinarian />} />
+        <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} /> 
+        <Route path="/adoptelist" element={<Adoptedlits />}  />
+        {/* <Route path="/salelist" element={<UserPetsForSale />}  /> */}
+                 <Route path="/userpets" element={<UserPets />}  />
+                                  <Route path="/request" element={<AdoptionRequests />}  />
         {/* <Route path="/PetGroomingform" element={<GroomingForm />} /> */}
         <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} />
+        <Route path="/normaluserforhos" element={<NormalUserforHos/>} />
+        <Route path="/hostelusertable" element={<HostelUserTable/>} />
+        <Route path="/addhostel" element={<AddHosPage/>} />
+        <Route path="/hosdetailpage" element={<HosDetailPage/>} />
 
+        
       </Routes>
     </Router>
  
