@@ -81,7 +81,7 @@ const Hosteldetails = () => {
               onClick={() => handleClear(params.row)} 
               className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
             >
-              Clear
+              Cancel
             </button>
           </div>
         ) : (
