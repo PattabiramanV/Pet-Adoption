@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../lostlistpet.css";
 
+
 const LostListPet = () => {
   const navigate = useNavigate();
   const location = useLocation();

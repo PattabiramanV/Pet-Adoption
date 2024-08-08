@@ -1,17 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import "../lostpets.css";      
 
 const PetCard = ({ pet }) => {
-  const navigate = useNavigate();
-  
-  const handleNavigation = () => {
-    navigate('/checkboxpage', { state: { pet } });
-  };
-
   const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
+  
   return (
     <div className="pet-card">
       <div className="pet-card-header">
@@ -40,9 +35,11 @@ const PetCard = ({ pet }) => {
             </p>
           </div>
         </div>
-        <p><strong>LostDate:</strong> {pet.lost_date}</p>
+        <p><strong>Lost Date:</strong> {pet.lost_date}</p>
         
-        <button className="more" onClick={handleNavigation}>See more</button>
+        <Link to={{ pathname: '/checkboxpage', state: { pet } }}>
+          <button className="more">See more</button>
+        </Link>
       </div>
     </div>
   );

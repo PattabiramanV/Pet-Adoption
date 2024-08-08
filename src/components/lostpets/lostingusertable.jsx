@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spin, Alert, Modal } from 'antd';
+import { Table, Spin, Alert, Modal, Checkbox } from 'antd';
 import EditForm from './editform'; // Ensure EditForm component is correctly imported
-
-
 
 const Lostusertable = () => {
     const [userData, setUserData] = useState([]);
@@ -21,7 +19,7 @@ const Lostusertable = () => {
                 }
             });
 
-            console.log('Response data:', response.data);  // Log the response data for debugging
+            console.log('Response data:', response.data); // Log the response data for debugging
 
             // Ensure response data is an array
             if (Array.isArray(response.data)) {
@@ -31,28 +29,39 @@ const Lostusertable = () => {
                 setError("Invalid data format received from the server.");
             }
         } catch (error) {
-            console.error('Fetch error:', error);  // Log any fetch errors for debugging
+            console.error('Fetch error:', error); // Log any fetch errors for debugging
             setError("An error occurred while fetching data.");
         } finally {
             setLoading(false);
         }
     };
 
-   
     useEffect(() => {
         fetchData();
     }, []);
 
     const showModal = (record) => {
-      
         setEditRecord(record);
         setIsModalVisible(true);
-        // fetchData();
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
         setEditRecord(null);
+    };
+
+    const handleStatusChange = async (record) => {
+        const updatedStatus = record.status === 'completed' ? 'pending' : 'completed';
+        try {
+            await axios.post('http://localhost/petadoption/backend/model/updateStatus.php', {
+                user_id: record.user_id,
+                status: updatedStatus
+            });
+            fetchData(); // Refresh data after updating status
+        } catch (error) {
+            console.error('Status update error:', error); // Log any status update errors for debugging
+            setError("An error occurred while updating status.");
+        }
     };
 
     const columns = [
@@ -65,7 +74,7 @@ const Lostusertable = () => {
             )
         },
         {
-            title: 'name',
+            title: 'Name',
             dataIndex: 'name',
             key: 'name'
         },
@@ -117,14 +126,18 @@ const Lostusertable = () => {
             )
         },
         {
-            title:'status',
-            key:'status',
-            render: (record) => {
-                return record.status === 'completed'? <span style={{ color: 'green' }}>Completed</span> : <span style={{ color:'red' }}>Pending</span>
-            }  // Add conditional rendering for status coloring (green for completed, red for incomplete)
+            title: 'Status',
+            key: 'status',
+            render: (record) => (
+                <Checkbox 
+                    checked={record.status === 'completed'} 
+                    onChange={() => handleStatusChange(record)}
+                >
+                    {record.status === 'completed' ? 'Completed' : 'Pending'}
+                </Checkbox>
+            ) // Add a checkbox for status with conditional rendering
         }
-
-    ];  
+    ];
 
     if (loading) return <Spin size="large" />;
     if (error) return <Alert message="Error" description={error} type="error" showIcon />;
@@ -132,10 +145,10 @@ const Lostusertable = () => {
     return (
         <div>
             <h1 style={{ textAlign: 'center', color: 'purple' }}>Lost Pet Details</h1>
-            <Table dataSource={userData} columns={columns} rowKey="user_id" className='usertsble'/>
-            <Modal 
-                title="Edit Pet Details" 
-                visible={isModalVisible} 
+            <Table dataSource={userData} columns={columns} rowKey="user_id" className='usertsble' />
+            <Modal
+                title="Edit Pet Details"
+                visible={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
             >
@@ -146,3 +159,8 @@ const Lostusertable = () => {
 };
 
 export default Lostusertable;
+
+
+
+
+

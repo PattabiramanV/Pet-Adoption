@@ -33,7 +33,7 @@ print_r($data);
                 pet_type = :pet_type, 
                 age = :age, 
                 gender = :gender, 
-                contact_no = :contactNo, 
+                contact_no = :contactNo,
                 lost_date = :lostDate, 
                 address = :address, 
                 location = :location, 

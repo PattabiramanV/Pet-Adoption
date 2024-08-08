@@ -10,9 +10,7 @@ function Lostpostusertable() {
     return (
         <>
             <Header />
-            <div className="Breadcrumbs">
             <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'LostUsersTable', href: '/lostingusertable' }]} /> 
-            </div>
             <LostUsersTable /> 
             <Footer />
         </>

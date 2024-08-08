@@ -9,9 +9,7 @@ function lostlistmainpage() {
   return (
     <>
       <Header />
-      <div className="Breadcrumbs">
       <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'FoundPetList', href: '/mypetlostpost' }]} />
-      </div>
       <MyLostPostPet/>
       <Footer />
     </>

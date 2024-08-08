@@ -1,11 +1,9 @@
 .form-wrapper {
-    max-width: 600px;
-    height: auto; 
-    margin: 0 auto;
     padding: 20px;
-    border: 1px solid #f0f0f0;
+    background: #fff;
     border-radius: 8px;
-    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
 }
 
 .form-container {
@@ -13,58 +11,8 @@
     flex-direction: column;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.left-column,
-.right-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.ant-form-item {
-    margin-bottom: 12px; 
-}
-
-.ant-form-item-label > label {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.ant-form-item-control-input > input,
-.ant-form-item-control-input > .ant-picker {
-    height: 36px; 
-    padding: 6px 10px;
-    font-size: 14px;
-}
-
-.ant-form-item-control-input > .ant-picker {
-    width: 100%;
-}
-
-.ant-form-item-control-input > textarea {
-    height: auto;
-    padding: 6px 10px; 
-    font-size: 14px;
-}
-
-.submit-button {
-    display: flex;
-    justify-content: center;
-    margin-left: 100px;
-}
-
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .submit-button {
-        justify-content: center;
-    }
+.updatebtn {
+    text-align: center;
 }
 
 .ant-modal-header {
@@ -73,24 +21,19 @@
     margin-left: 200px;
     font-size: 20px;
 }
-.ant-modal-title{
+
+
+.ant-input {
+    height: 40px;
+    align-items: center;
+
+}
+
+.ant-modal .ant-modal-title {
+    margin: 0;
+    font-weight: 600;
     font-size: 20px;
-}
-
-.ant-modal-content {
-    width: 120%;
-    height: 480px;
-}
-
-.parentInput{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
- 
-}
-
-
-
-
-
-
+    line-height: 1.5;
+    word-wrap: break-word;
+    color: blueviolet;
+ }
