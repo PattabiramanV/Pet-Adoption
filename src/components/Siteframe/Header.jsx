@@ -57,6 +57,18 @@ const Header = () => {
     // console.log(response.data.user_type);
   };
 
+
+  const closeProfile = async () => {
+    setProfileOpen(false);
+    console.log("Modal closed, fetching profile data...");
+
+    // Ensure the state has updated before fetching again
+
+ fetchProfile();
+
+
+  };
+
   const handleMouseEnter = () => {
     setDropdownOpen(true);
   };
@@ -70,9 +82,11 @@ const Header = () => {
     setDropdownOpen(false);
   };
 
-  const closeProfile = () => {
-    setProfileOpen(false);
-  };
+  // const closeProfile = () => {
+  //   setProfileOpen(false);
+
+ 
+  // };
 
   const openSignup = () => {
     navigate("/signup");
@@ -282,7 +296,7 @@ const Header = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <img
-                  src={profile.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
+                  src={profile?.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   alt="User"
                   className="profile-image"
                 />

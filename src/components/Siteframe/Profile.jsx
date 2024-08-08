@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Space, Form, Select, notification } from "antd";
+import { Input, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
-import Loader from "../Loader/Loader";  // Import the Loader component
+import Loader from "../Loader/Loader";
 
 const { Option } = Select;
 
@@ -12,32 +12,32 @@ const Profile = ({ setProfileOpen }) => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState('');
   const [avatarFile, setAvatarFile] = useState(null);
-  const [loading, setLoading] = useState(false);  // Add loading state
+  const [loading, setLoading] = useState(false);
+
+  const fetchProfile = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setProfile(response.data);
+      form.setFieldsValue(response.data);
+      setImageUrl(response.data.avatar || '');
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      notification.error({ message: 'Error fetching profile', description: error.message });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
-      setLoading(true);  // Show loader
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setProfile(response.data);
-        form.setFieldsValue(response.data);
-        setImageUrl(response.data.avatar || '');
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        notification.error({ message: 'Error fetching profile', description: error.message });
-      } finally {
-        setLoading(false);  // Hide loader
-      }
-    };
-
     fetchProfile();
   }, [form]);
 
@@ -47,8 +47,12 @@ const Profile = ({ setProfileOpen }) => {
 
   const handleSaveClick = async (values) => {
     const token = localStorage.getItem('token');
-    setLoading(true);  // Show loader
+    setLoading(true);
     try {
+      if (avatarFile) {
+        const avatarUrl = await handleImageUpload(avatarFile);
+        values.avatar = avatarUrl;
+      }
       await axios.post(
         `${import.meta.env.VITE_PROFILE_BASE_URL}update_profile.php`,
         values,
@@ -56,20 +60,17 @@ const Profile = ({ setProfileOpen }) => {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      setProfile(values);
       setIsEditing(false);
       notification.success({ message: 'Profile updated successfully' });
-
-      if (avatarFile) {
-        await handleImageUpload(avatarFile);
-      }
+      setProfile((prevProfile) => ({ ...prevProfile, ...values }));
+      setAvatarFile(null);
     } catch (error) {
       notification.error({
         message: 'Error updating profile',
         description: error.response ? error.response.data.message : error.message,
       });
     } finally {
-      setLoading(false);  // Hide loader
+      setLoading(false);
     }
   };
 
@@ -84,7 +85,7 @@ const Profile = ({ setProfileOpen }) => {
     const formData = new FormData();
     formData.append('avatar', file);
 
-    setLoading(true);  // Show loader
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_PROFILE_BASE_URL}upload_avatar.php`,
@@ -98,16 +99,16 @@ const Profile = ({ setProfileOpen }) => {
       );
 
       if (response.data.url) {
-        setImageUrl(response.data.url);
-        setProfile((prevProfile) => ({ ...prevProfile, avatar: response.data.url }));
-        form.setFieldsValue({ avatar: response.data.url });
+        return response.data.url;
       } else {
         notification.error({ message: 'Error uploading image', description: 'No URL returned from the server.' });
+        return null;
       }
     } catch (error) {
       notification.error({ message: 'Upload failed', description: error.response ? error.response.data.message : error.message });
+      return null;
     } finally {
-      setLoading(false);  // Hide loader
+      setLoading(false);
     }
   };
 
@@ -122,7 +123,7 @@ const Profile = ({ setProfileOpen }) => {
   if (loading) {
     return (
       <div className="loading-container">
-        <Loader /> {/* Use your custom loader component */}
+        <Loader />
       </div>
     );
   }
@@ -133,9 +134,35 @@ const Profile = ({ setProfileOpen }) => {
         <div className="profile-header">
           <div className="profile-avatar">
             {isEditing ? (
-              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <div className="div_upload">
+
+              <div className="upload-area">
+                <input type="file" accept="image/*" onChange={handleFileChange} id="file-input" />
+                <label htmlFor="file-input" className="upload-label">
+                  {imageUrl ? <img src={imageUrl} alt="Profile Avatar" /> : "Click or Drag to Upload"}
+                </label>
+                </div>
+                <div className="divdiv_useand_email">
+                {/* {isEditing ? <InputreadOnly  /> : <p className="profile-text profil_name_and_email">{profile.username}</p>}
+                {isEditing ? <Input readOnly /> : <p className="profile-text email_text profil_name_and_email">{profile.email}</p>} */}
+
+                           <h1 className=" profil_name_and_email">{profile.username}</h1>
+                          <h2 className="profil_name_and_email"> {profile.email}</h2> 
+                          </div>  
+                  
+                          </div>
             ) : (
+              <div className="div_profile_imag">
+    
+              <div className="div_useand_email">
               <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
+
+              </div>
+                        <div className="divdiv_useand_email">
+                          <h1 className=" profil_name_and_email">{profile.username}</h1>
+                          <h2 className="profil_name_and_email"> {profile.email}</h2>
+                          </div>  
+              </div>
             )}
           </div>
         </div>
@@ -146,25 +173,39 @@ const Profile = ({ setProfileOpen }) => {
             onFinish={handleSaveClick}
             initialValues={profile}
             hideRequiredMark={!isEditing}
+            className="profile-form"
+            style={{
+              margin:"0"
+            }}
           >
-            <div className="profile-row">
-              <div className="profile-column">
-                <Form.Item label="Username" name="username">
-                  {isEditing ? <Input readOnly /> : <p className="profile-text">{profile.username} </p>}
+            <div className="profile-row "  style={{display:'none'}}>
+              <div className="profile-column " style={{display:'none'}}>
+                <Form.Item label="Username" name="username" style={{ margin: '0' }}>
+                  {isEditing ? <Input readOnly  /> : <p className="profile-text">{profile.username}</p>}
                 </Form.Item>
               </div>
               <div className="profile-column">
-                <Form.Item label="Email" name="email">
+                <Form.Item label="Email" name="email" style={{ margin: '0' }}>
                   {isEditing ? <Input readOnly /> : <p className="profile-text email_text">{profile.email}</p>}
                 </Form.Item>
               </div>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="Gender" name="gender">
+                <Form.Item label="Gender" name="gender" style={{ margin: '0' }}>
                   {isEditing ? (
-                    
-                    <Select>
+                    <Select
+                      className="gen"
+                      style={{
+                        width: '100%',
+                        margin: '8px 0',
+                        display: 'inline-block',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        height: '3.5em',
+                        boxSizing: 'border-box',
+                      }}
+                    >
                       <Option value="Male">Male</Option>
                       <Option value="Female">Female</Option>
                       <Option value="Other">Other</Option>
@@ -175,42 +216,38 @@ const Profile = ({ setProfileOpen }) => {
                 </Form.Item>
               </div>
               <div className="profile-column">
-                <Form.Item label="Phone" name="phone">
+                <Form.Item label="Phone" name="phone" style={{ margin: '0' }}>
                   {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
                 </Form.Item>
               </div>
             </div>
-            <div className="profile-row">
-              <div className="profile-column">
-                <Form.Item label="Address" name="address">
-                  {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
-                </Form.Item>
-              </div>
+            <div className="profile-row full-width">
+              <Form.Item label="Address" name="address" style={{ margin: '0' }}>
+                {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
+              </Form.Item>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="City" name="city">
+                <Form.Item label="City" name="city" style={{ margin: '0' }}>
                   {isEditing ? <Input /> : <p className="profile-text">{profile.city}</p>}
                 </Form.Item>
               </div>
               <div className="profile-column">
-                <Form.Item label="State" name="state">
+                <Form.Item label="State" name="state" style={{ margin: '0' }}>
                   {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
                 </Form.Item>
               </div>
             </div>
-            <Form.Item>
-              <div className="div_main_for_edit">
-                {isEditing ? (
-                  <div className="div_profile_edit">
-                    <button onClick={handleCancelClick} className="cancel-button-profile profile">Cancel</button>
-                    <button type="submit" className="save-button-profile profile">Save</button>
-                  </div>
-                ) : (
-                  <button onClick={handleEditClick} className="edit-button profile">Edit</button>
-                )}
-              </div>
-            </Form.Item>
+            <div className="div_main_for_edit">
+              {isEditing ? (
+                <div className="div_profile_edit">
+                  <button type="button" onClick={handleCancelClick} className="cancel-button-profile">Cancel</button>
+                  <button type="submit" className="save-button-profile">Save</button>
+                </div>
+              ) : (
+                <button type="button" onClick={handleEditClick} className="edit-button">Edit</button>
+              )}
+            </div>
           </Form>
         </div>
       </div>
