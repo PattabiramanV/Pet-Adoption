@@ -62,7 +62,7 @@ const LostPetForm = () => {
                 };
 
                 try {
-                    const response = await axios.post('http://localhost/petadoption/Backend/model/lostingpet.php', dataToSend, {
+                    const response = await axios.post('http://localhost/petadoption/backend/model/lostingpet.php', dataToSend, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     alert(response.data.message);
@@ -77,7 +77,7 @@ const LostPetForm = () => {
             };
 
             try {
-                const response = await axios.post('http://localhost/petadoption/Backend/model/lostingpet.php', dataToSend, {
+                const response = await axios.post('http://localhost/petadoption/backend/model/lostingpet.php', dataToSend, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert(response.data.message);
@@ -88,8 +88,13 @@ const LostPetForm = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
-            <h2 className="text-2xl font-bold mb-6 text-green-800">Add Lost Pets</h2>
+        <div
+            className="max-w-4xl mx-auto p-8 mb-5 mt-5 rounded-[10px]"
+            style={{
+                boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+            }}
+        >
+            <h2 className="text-2xl font-bold mb-6 text-green-800 text-center">Add Lost Pets</h2>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -106,7 +111,7 @@ const LostPetForm = () => {
                         {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petType">Pet Type</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petType">Pet Type<span>*</span></label>
                         <input
                             name="petType"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.petType ? 'border-red-500' : ''}`}
@@ -147,7 +152,7 @@ const LostPetForm = () => {
                         {errors.gender && <p className="text-red-500 text-xs italic">{errors.gender}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contactNo">Contact No</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contactNo">Contact No<span>*</span></label>
                         <input
                             name="contactNo"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 ${errors.contactNo ? 'border-red-500' : ''}`}
@@ -172,7 +177,7 @@ const LostPetForm = () => {
                         {errors.lostDate && <p className="text-red-500 text-xs italic">{errors.lostDate}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">Photo</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">Photo<span>*</span></label>
                         <input
                             name="photo"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 ${errors.photo ? 'border-red-500' : ''}`}
@@ -223,11 +228,14 @@ const LostPetForm = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <button className="w-auto px-4 text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>
+                    <button className="px-4 py-2 rounded-md cursor-pointer text-center w-small mt-2 text-base border border-purple-600 bg-white text-purple-600 hover:bg-purple-600 hover:text-white">Submit</button>
                 </div>
             </form>
         </div>
     );
-};
+    
+
+}
+    
 
 export default LostPetForm;

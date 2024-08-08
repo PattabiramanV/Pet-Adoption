@@ -1,0 +1,119 @@
+/* Container Styles */
+.doctor-page-container {
+    margin-top: 20px;
+}
+
+/* DataGrid Cell Styles */
+.MuiDataGrid-root .MuiDataGrid-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+}
+
+/* DataGrid Row Styles */
+.MuiDataGrid-row {
+    background-color: #f9f9f9;
+}
+
+.MuiDataGrid-row:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+/* DataGrid Column Header Styles */
+.MuiDataGrid-root .MuiDataGrid-columnHeader {
+    /* background-color: #ffffff; */
+    color: #675bc8;
+    border-bottom: 2px solid #ddd;
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgba(204, 200, 200, 0.158);
+
+}
+
+/* DataGrid Column Header Title Styles */
+.MuiDataGrid-columnHeaderTitle {
+    color: #675bc8;
+}
+
+/* DataGrid Cell Styles */
+.MuiDataGrid-root .MuiDataGrid-cell {
+    background-color: #fff;
+    padding: 10px;
+}
+
+
+
+/* DataGrid Column Separator */
+.MuiDataGrid-columnSeparator.MuiDataGrid-columnSeparator--resizable.MuiDataGrid-columnSeparator--sideRight {
+    visibility: visible;
+    color: grey;
+}
+
+/* Typography Styles */
+.MuiTypography-root {
+    color: #675bc8;
+}
+
+/* Button Styles */
+.MuiButton-root {
+    background-color: #675bc8;
+    color: #fff;
+}
+
+/* Search Box Styles */
+.div_search_doctor {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.TextField-root {
+    width: 300px;
+}
+
+/* Header Styles */
+.div_reacod_name {
+    text-align: center;
+    font-size: 32px;
+    color: #4B0082;
+}
+
+.div_reacod_name_span {
+    color: #6A5ACD;
+}
+
+span.div_reacod_name_span {
+    color: #6A5ACD;
+}
+
+/* Expanded Row Styles */
+.expanded-row {
+    background-color: #f5f5f5;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+}
+.div_reacod_name {
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}.div_table_for_doct {
+    padding: 2em 0;
+}
+.MuiDataGrid-virtualScroller.css-1793420-MuiDataGrid-virtualScroller {
+    background: aliceblue;
+}
+
+/* .MuiDataGrid-cell.MuiDataGrid-cell--textLeft:nth-child(even) {
+    background-color: #685bc81a;
+} */
+/* .MuiDataGrid-cell.MuiDataGrid-cell--textLeft {
+    background-color: #14131610;
+}.MuiDataGrid-row :nth-child(even) {
+    background-color: #16131310;
+} */

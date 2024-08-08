@@ -43,7 +43,7 @@ const LostListPet = () => {
           </div>
           <div className="pet-details">
             <div className="div_name">
-              <h2 className="pet-name">{pet.name}</h2>
+              <h2 className="pet-name">{pet.name}</h2> 
             </div>
             <div className="div_location">
               <p className="pet-location">
@@ -73,9 +73,9 @@ const LostListPet = () => {
             </div>
             <div className="btn_for_message">
               <button className="add-to-cart">Contact Owner</button>
-              <button className="back-button" onClick={() => navigate("/lostpetlisting")}>
+              <button className="back-button" onClick={() => navigate("/lostpetlisting")}> 
                 Go Back
-              </button>
+               </button>
             </div>
           </div>
         </div>
@@ -85,3 +85,15 @@ const LostListPet = () => {
 };
 
 export default LostListPet;
+
+
+
+
+
+
+
+
+
+
+
+

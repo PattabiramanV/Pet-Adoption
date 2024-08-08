@@ -4,10 +4,11 @@ require '../config/config.php';
 // require '../middleware/authentication.php';
 
 header('Content-Type: application/json');
-$user_id = authenticate();
-// $user_id = 2;
+// $user_id = authenticate();
+$user_id = 4;
 
 // Define the base URL for the images
+
 $image_base_url = 'http://localhost/petadoption/backend/images/';
 
 try {
@@ -53,4 +54,7 @@ try {
 } catch (Exception $e) {
     echo json_encode(["message" => $e->getMessage()]);
 }
+
+
+
 ?>
