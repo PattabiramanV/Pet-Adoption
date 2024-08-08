@@ -164,11 +164,6 @@
 
 
 
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from "../components/Siteframe/Footer";
@@ -193,7 +188,12 @@ const Hosteldetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       // Ensure each data item has an id
-      const dataWithId = response.data.map((item, index) => ({ ...item, id: item.id || index }));
+      // const dataWithId = response.data.map((item, index) => ({ ...item, id: item.id || index }));
+      const dataWithId = response.data.map((item, index) => ({
+        ...item,
+        id: item.id || index,  // Existing logic for `id`
+        sno: index + 1         // Adding S.No starting from 1
+      }));
       setHostelBookUser(dataWithId);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -208,6 +208,14 @@ const Hosteldetails = () => {
   }, []);
 
   const columns = [
+    {
+      field: 'sno',
+      headerName: 'S.No',
+      width: 80,
+      renderCell: (params) => params.rowIndex + 1, // Adding 1 to start numbering from 1
+    },
+  
+
     {
       field: 'avatar',
       headerName: 'Profile',
