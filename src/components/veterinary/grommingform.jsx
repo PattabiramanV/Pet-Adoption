@@ -31,7 +31,7 @@ function GroomingPetsForm({ initialService }) {
     const [loading, setLoading] = useState(false); // Add loading state
 
     useEffect(() => {
-        axios.get('http://localhost/petadoption/backend/api/retrivevetrinarydocinfoapi.php')
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/retrivevetrinarydocinfoapi.php`)
             .then(response => {
                 setDoctors(response.data);
             })
@@ -122,7 +122,7 @@ function GroomingPetsForm({ initialService }) {
       
             
             const res = await axios.post(
-                "http://localhost/petadoption/backend/api/groomingformapi.php",
+                `${import.meta.env.VITE_API_BASE_URL}/api/groomingformapi.php`,
                 formData, {
                     headers: {
                         "Authorization": `Bearer ${token}`,

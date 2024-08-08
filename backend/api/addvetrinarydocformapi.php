@@ -202,7 +202,7 @@ function emailSendFun($toUserEmail, $doctorName) {
 
         // Email content
         $mail->isHTML(true);
-        require ('../../backend/mailtemplate/header.html');
+       
 
         $mail->Subject = 'Grooming Service Booking Confirmation';
         $mail->Body =$header. "

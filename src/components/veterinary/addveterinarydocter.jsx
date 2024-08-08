@@ -67,7 +67,7 @@ function AddVeterinaryDoctor() {
 
             try {
                 const res = await axios.post(
-                    "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
+                    `${VITE_PROFILE_BASE_URL}/api/addvetrinarydocformapi.php`,
                     formData,
                     {
                         headers: {
@@ -77,9 +77,10 @@ function AddVeterinaryDoctor() {
                     }
                 );
                 notification.success({
-                    message: 'Form Submitted Successfully!',
+                    message: 'Doctor Profile Added Successfully!',
                     description: 'Your doctor profile has been submitted successfully.',
                 });
+                
                 setError(null);
                 setDoctorData({
                     name: "",

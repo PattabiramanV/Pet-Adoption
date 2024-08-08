@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Input, Alert } from 'antd';
-import { notification } from 'antd';
+import { Table, Input, notification } from 'antd';
 import Loader from '../Loader/Loader';
 import './normaltable.css';
 
@@ -11,12 +10,12 @@ const Doctorpersonalpage = () => {
     const [doctorData, setDoctorData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const token = localStorage.getItem('token');
+
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost/petadoption/backend/api/doctortable.php', {
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/doctortable.php`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -25,13 +24,15 @@ const Doctorpersonalpage = () => {
             setDoctorData(data);
             setFilteredData(data);
         } catch (error) {
-            setError("An error occurred while fetching data.");
+            notification.error({
+                message: 'An Error Occurred',
+                description: 'There was an error while fetching the data. Please try again.',
+            });
         } finally {
             setLoading(false);
         }
     };
 
-   
     useEffect(() => {
         fetchData();
     }, []);
@@ -47,6 +48,63 @@ const Doctorpersonalpage = () => {
                 )
             );
             setFilteredData(filtered);
+        }
+    };
+
+    const handleAccept = async (data) => {
+        try {
+            setLoading(true);
+            const response = await axios.put(
+                `${import.meta.env.VITE_API_BASE_URL}/api/addvetrinarydocformapi.php?id=${data.id}&value=Accepted`,
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 200) {
+                notification.success({
+                    message: 'Appointment Accepted',
+                    description: 'Your grooming appointment has been successfully accepted by the doctor.',
+                });
+
+                // Send email notification to the user
+                await sendEmail(data);
+
+                fetchData(); // Refresh the data after acceptance
+            }
+        } catch (error) {
+            console.error("There was an error submitting the form!", error.response || error.message);
+            notification.error({
+                message: 'Request Submission Failed',
+                description: 'There was an error submitting your request. Please try again.',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const sendEmail = async (data) => {
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/api/doctoracceptedmail.php`,
+                {
+                    email: data.grooming_user_email,
+                    doctorName: data.grooming_user_name
+                },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+
+            if (response.status === 200) {
+                notification.success({
+                    message: 'Email Sent',
+                    description: 'An email notification has been sent to the user.',
+                });
+            }
+        } catch (error) {
+            console.error("There was an error sending the email!", error.response || error.message);
+            notification.error({
+                message: 'Email Sending Failed',
+                description: 'There was an error sending the email notification. Please try again.',
+            });
         }
     };
 
@@ -97,77 +155,27 @@ const Doctorpersonalpage = () => {
             dataIndex: 'what_you_need_for_your_pet',
             key: 'what_you_need_for_your_pet'
         },
-       
         {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status,record) => (
+            render: (status, record) => (
                 status === 'Pending' ? (
-                  <button 
-                  onClick={() => handleAccept(record)} 
-                  className="bg-green-500 text-white px-4 py-2 rounded"
-              >
-                  Accept
-              </button>
-      
+                    <button 
+                        onClick={() => handleAccept(record)} 
+                        className="bg-green-500 text-white px-4 py-2 rounded"
+                    >
+                        Accept
+                    </button>
                 ) : (
                     status
                 )
             )
         }
-      
     ];
 
-
-
-    const handleAccept = async(data) => {
-
-        try {
-console.log(data);
-
-
-          setLoading(true);
-      
-          const response = await axios.put(
-            `${import.meta.env.VITE_API_BASE_URL}/api/addvetrinarydocformapi.php?id=${data.id}&value=Accepted`,
-            {}, // Pass an empty object for the request body
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-        
-          console.log(response.data);
-          if (response.status === 200) {
-            notification.success({
-                message: 'Doctor Accepted Your Appointment',
-                description: 'Your grooming appointment has been successfully accepted by the doctor.',
-            });
-            // message.success("Hostel Accepted successfully");
-      
-            fetchData();
-            // alert("Successfully added your request!");
-            // navigate('/success'); // Uncomment this if you have a success page
-          }
-
-        
-        } catch (error) {
-          console.error("There was an error submitting the form!", error.response || error.message);
-       
-          notification.error({
-            message: 'Request Submission Failed',
-            description: 'There was an error submitting your request. Please try again.',
-        });
-          //   alert("There was an error submitting the form. Please try again.");
-        } finally {
-          setLoading(false); // Set loading to false after response is received
-        }
-      
-      };
-
-
-
     if (loading) return <Loader />;
-    if (error) return <Alert message="Error" description={error} type="error" showIcon />;
-
+    
     return (
         <div>
             <h1>Client Information Overview</h1>
@@ -175,12 +183,11 @@ console.log(data);
                 placeholder="Search..."
                 onSearch={handleSearch}
                 onChange={(e) => handleSearch(e.target.value)}
-                style={{ marginBottom: '16px', width:'30%'}}
+                style={{ marginBottom: '16px', width: '30%' }}
                 enterButton
                 allowClear
             />
-            <Table dataSource={filteredData} columns={columns} rowKey="doctor_name" className="tabless" />
-
+            <Table dataSource={filteredData} columns={columns} rowKey="id" className="tabless" />
         </div>
     );
 };

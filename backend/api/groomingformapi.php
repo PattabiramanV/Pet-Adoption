@@ -483,9 +483,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['name']) || empty($_POST['contact']) || empty($_POST['email']) 
     || empty($_POST['petType']) || empty($_POST['petGender']) || empty($_POST['petAge']) 
     || empty($_POST['selectdoctorname']) || empty($_POST['doctorAddress']) || empty($_FILES['petimage'])
-    || empty($_POST['city']) || empty($_POST['needForPet'])) {
+    || empty($_POST['city']) || empty($_POST['needForPet']) || empty($_POST['appointmentDate'])) {
         echo json_encode(array("message" => "Please fill all the fields and upload an image."));
-        die();
+        
     }
 
     // Extract and sanitize data
@@ -502,7 +502,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $doctorName = htmlspecialchars(strip_tags($_POST['selectdoctorname']));
     $doctorAddress = htmlspecialchars(strip_tags($_POST['doctorAddress']));
     $service = htmlspecialchars(strip_tags($_POST['sevice']));
-    $appoinmentDate = htmlspecialchars(strip_tags($_POST['appoinmentDate']));
+    $appoinmentDate = htmlspecialchars(strip_tags($_POST['appointmentDate']));
 
     // Retrieve doctor_id based on doctor_name
     $doctorQuery = "SELECT id, email,phone FROM vetneries WHERE name = :doctorName";
@@ -558,7 +558,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare SQL query
     $query = "INSERT INTO pet_grooming_users (name, phone, email, pet_type, pet_gender, pet_age, city, what_you_need_for_your_pet, user_id, doctor_id, doctor_address, pet_img ,service_type,appoinment_date) 
-              VALUES (:username, :userContact, :email, :petType, :petGender, :petAge, :city, :needForYou, :user_id, :doctorID, :doctorAddress, :imagePath ,:sevice, :appoinmentDate)";
+              VALUES (:username, :userContact, :email, :petType, :petGender, :petAge, :city, :needForYou, :user_id, :doctorID, :doctorAddress, :imagePath ,:sevice, :appointmentDate)";
 
     $stmt = $conn->prepare($query);
 
@@ -575,7 +575,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':doctorAddress', $doctorAddress);
     $stmt->bindParam(':imagePath', $imagePath);
     $stmt->bindParam(':sevice', $service);
-    $stmt->bindParam(':appoinment_date', $appoinmentDate);
+    $stmt->bindParam(':appointmentDate', $appoinmentDate);
     try {
         if ($stmt->execute()) {
             echo json_encode(array("message" => "User registered successfully."));
@@ -613,9 +613,7 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
             <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
                 <h1 style='font-size: 24px; font-weight: bold;'>New Booking Notification</h1>
             </div>
-            <div>
-             <p></p>
-            </div>
+            
             <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
                 <p>Dear {$username},</p>
                 <p>You booking doctor was<strong>{$doctorName}</strong>.</p>
@@ -659,20 +657,12 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
 
         // Email content for the doctor
         $doctorBody = $header.'
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; margin: 0; padding: 0; }
-                .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 5px; }
-                .content { padding: 20px; }
-                .button { display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #4a90e2; color: #fff; text-decoration: none; border-radius: 5px; }
-                .button:hover { background-color: #357abd; }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                
+        
+
+           <div style="padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;">
+                <h1 style="font-size: 24px; font-weight: bold;">Grooming Service Booking Confirmation</h1>
+            </div>
+           
                 <div class="content">
                     <p>Dear Dr. ' . htmlspecialchars($doctorName) . ',</p>
                     <p>You have a new grooming booking request.</p>
@@ -691,8 +681,8 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
                 </div>
               
             </div>
-        </body>
-        </html>'.$footer;
+        
+        '.$footer;
 
         // Send the email to the user
         $mail->addAddress($toUserEmail, htmlspecialchars($username));

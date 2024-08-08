@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Alert, Input } from 'antd';
-import { notification } from 'antd';
+import { Table, Alert, Input, notification } from 'antd';
 import Loader from '../Loader/Loader';
 import './normaltable.css';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const { Search } = Input;
 
@@ -13,11 +11,11 @@ const DoctorInfo = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+
     const fetchData = async () => {
-           
         try {
-            const response = await axios.get('http://localhost/petadoption/backend/api/usertable.php', {
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/usertable.php`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -32,7 +30,6 @@ const DoctorInfo = () => {
         }
     };
 
-   
     useEffect(() => {
         fetchData();
     }, []);
@@ -51,8 +48,64 @@ const DoctorInfo = () => {
         }
     };
 
- 
-      
+    const handleClear = async (data) => {
+        setLoading(true);
+
+        try {
+            const response = await axios.put(
+                `${import.meta.env.VITE_API_BASE_URL}/api/addvetrinarydocformapi.php?id=${data.id}&value=Cancelled`,
+                {}, // Pass an empty object for the request body
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 200) {
+                // Send email notification to the doctor
+                await sendEmailNotification(data);
+
+                fetchData(); // Refresh the data
+
+                notification.success({
+                    message: 'Grooming Service Canceled',
+                    description: 'Your grooming service request has been canceled.',
+                });
+            }
+        } catch (error) {
+            console.error("There was an error submitting the form!", error.response || error.message);
+            notification.error({
+                message: 'Request Submission Failed',
+                description: 'There was an error submitting your request. Please try again.',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const sendEmailNotification = async (data) => {
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/api/canceldmail.php`,
+                {
+                    email: data.doctor_email,
+                    doctorName: data.doctor_name
+                },
+                { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
+            );
+
+            if (response.status === 200) {
+                notification.success({
+                    message: 'Your appointment has been canceled successfully',
+                    description: 'An email notification has been sent to the doctor.',
+                });
+            }
+        } catch (error) {
+            console.error("There was an error sending the email!", error.response || error.message);
+            notification.error({
+                message: 'Email Sending Failed',
+                description: 'There was an error sending the email notification. Please try again.',
+            });
+        }
+    };
+
     const columns = [
         {
             title: 'Profile',
@@ -99,82 +152,23 @@ const DoctorInfo = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status,record) => (
-              status === 'Pending' || status ==='Accepted' ? (
-                
-                <div className='flex items-center gap-2'>
-                  <p>{  status}</p>
-                  <button 
-                      onClick={() => handleClear(record)} 
-                      className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
-                  >
-                      Clear
-                  </button>
-                  </div>
-              ) : (
-                  status
-              )
-          )
+            render: (status, record) => (
+                status === 'Pending' || status === 'Accepted' ? (
+                    <div className='flex items-center gap-2'>
+                        <p>{status}</p>
+                        <button 
+                            onClick={() => handleClear(record)} 
+                            className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+                        >
+                            Clear
+                        </button>
+                    </div>
+                ) : (
+                    status
+                )
+            )
         }
     ];
-
-
-    const handleClear = async (data) => {
-        setLoading(true);
-        
-        try {
-        //  console.log(data.checkin_date);
-         
-              
-        //   const givenDateString = data.checkin_date;
-      
-        //   const givenDate = new Date(givenDateString);
-      
-        //   const currentDate = new Date();
-          
-        //   if (currentDate > givenDate) {
-        //  return   message.success("The current date is greater than the given date.");
-      
-        //       // alert("The current date is greater than the given date.");
-        //   }
-      
-      
-       
-          const response = await axios.put(
-            `${import.meta.env.VITE_API_BASE_URL}/api/addvetrinarydocformapi.php?id=${data.id}&value=Cancelled`,
-            {}, // Pass an empty object for the request body
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-        
-          console.log(response.data);
-          if (response.status === 200) {
-      
-            // message.success("Hostel deleted successfully");
-            fetchData();
-          
-            notification.success({
-                message: 'Request Submitted Successfully!',
-                description: 'Your grooming request has been successfully submitted.',
-            });
-            // alert("Successfully added your request!");
-            // navigate('/success'); // Uncomment this if you have a success page
-          }
-        
-        } catch (error) {
-          console.error("There was an error submitting the form!", error.response || error.message);
-         
-          notification.error({
-            message: 'Request Submission Failed',
-            description: 'There was an error submitting your request. Please try again.',
-        });
-        //   alert("There was an error submitting the form. Please try again.");
-        } finally {
-          setLoading(false); // Set loading to false after response is received
-        }
-        
-      
-      };
-
 
     if (loading) return <Loader />;
     if (error) return <Alert message="Error" description={error} type="error" showIcon />;
@@ -186,7 +180,7 @@ const DoctorInfo = () => {
                 placeholder="Search..."
                 onSearch={handleSearch}
                 onChange={(e) => handleSearch(e.target.value)}
-                style={{ marginBottom: '16px', width:'30%'}}
+                style={{ marginBottom: '16px', width: '30%' }}
                 enterButton
                 allowClear
             />
