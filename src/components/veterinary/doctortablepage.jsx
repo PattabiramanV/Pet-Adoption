@@ -1,95 +1,166 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Alert, Spin } from 'antd';
+import { Table, Input, Alert, notification } from 'antd';
 import Loader from '../Loader/Loader';
-const Doctorpersonalpage = () => {
-    const [doctorData, setDoctorData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+import './normaltable.css';
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let token = localStorage.getItem('token');
-           
-            try {
-                const response = await axios.get('http://localhost/petadoption/backend/api/doctortable.php', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                setDoctorData(response.data);
-            } catch (error) {
-                setError("An error occurred while fetching data.");
-            } finally {
-                setLoading(false);
-            }
-        };
+const { Search } = Input;
+
+const Doctorpersonalpage = () => {
+  const [doctorData, setDoctorData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem('token');
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost/petadoption/backend/api/doctortable.php', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = Array.isArray(response.data) ? response.data : [];
+      setDoctorData(data);
+      setFilteredData(data);
+    } catch (error) {
+      setError('An error occurred while fetching data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSearch = (value) => {
+    if (!value) {
+      setFilteredData(doctorData);
+    } else {
+      const lowercasedValue = value.toLowerCase();
+      const filtered = doctorData.filter((doctor) =>
+        Object.values(doctor).some(
+          (val) => typeof val === 'string' && val.toLowerCase().includes(lowercasedValue)
+        )
+      );
+      setFilteredData(filtered);
+    }
+  };
+
+  const handleAccept = async (data) => {
+    try {
+      setLoading(true);
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/addvetrinarydocformapi.php?id=${data.id}&value=Accepted`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 200) {
+        notification.success({
+          message: 'Doctor Accepted Your Appointment',
+          description: 'Your grooming appointment has been successfully accepted by the doctor.',
+        });
 
         fetchData();
-    }, []);
+      }
+    } catch (error) {
+      notification.error({
+        message: 'Request Submission Failed',
+        description: 'There was an error submitting your request. Please try again.',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const columns = [
-        {
-            title: 'User Name',
-            dataIndex: 'grooming_user_name',
-            key: 'grooming_user_name'
-        },
-        {
-            title: 'Phone',
-            dataIndex: 'grooming_user_phone',
-            key: 'grooming_user_phone'
-        },
-        {
-            title: 'Email',
-            dataIndex: 'grooming_user_email',
-            key: 'grooming_user_email'
-        },
-        {
-            title: 'Pet Type',
-            dataIndex: 'pet_type',
-            key: 'pet_type'
-        },
-        {
-            title: 'Pet Gender',
-            dataIndex: 'pet_gender',
-            key: 'pet_gender'
-        },
-        {
-            title: 'Pet Age',
-            dataIndex: 'pet_age',
-            key: 'pet_age'
-        },
-        {
-            title: 'City',
-            dataIndex: 'city',
-            key: 'city'
-        },
-        {
-            title: 'Needs',
-            dataIndex: 'what_you_need_for_your_pet',
-            key: 'what_you_need_for_your_pet'
-        },
-        {
-            title: 'Doctor Name',
-            dataIndex: 'doctor_name',
-            key: 'doctor_name'
-        },
-        {
-            title: 'Doctor Address',
-            dataIndex: 'doctor_address',
-            key: 'doctor_address'
-        }
-    ];
+  const columns = [
+    {
+      title: 'Profile',
+      dataIndex: 'users_profile',
+      key: 'users_profile',
+      render: (text) => <img src={text} alt="Profile" style={{ width: '50px', height: '50px' }} />,
+    },
+    {
+      title: 'User Name',
+      dataIndex: 'grooming_user_name',
+      key: 'grooming_user_name',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'grooming_user_phone',
+      key: 'grooming_user_phone',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'grooming_user_email',
+      key: 'grooming_user_email',
+    },
+    {
+      title: 'Pet Type',
+      dataIndex: 'pet_type',
+      key: 'pet_type',
+    },
+    {
+      title: 'Pet Gender',
+      dataIndex: 'pet_gender',
+      key: 'pet_gender',
+    },
+    {
+      title: 'Pet Age',
+      dataIndex: 'pet_age',
+      key: 'pet_age',
+    },
+    {
+      title: 'City',
+      dataIndex: 'city',
+      key: 'city',
+    },
+    {
+      title: 'Needs',
+      dataIndex: 'what_you_need_for_your_pet',
+      key: 'what_you_need_for_your_pet',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status, record) =>
+        status === 'Pending' ? (
+          <button
+            onClick={() => handleAccept(record)}
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Accept
+          </button>
+        ) : (
+          status
+        ),
+    },
+  ];
 
-    if (loading) return <Loader />
-    if (error) return <Alert message="Error" description={error} type="error" showIcon />;
+  if (loading) return <Loader />;
+  if (error) return <Alert message="Error" description={error} type="error" showIcon />;
 
-    return (
-        <div>
-            <h1>Doctor Information</h1>
-            <Table dataSource={doctorData} columns={columns} rowKey="doctor_name" />
-        </div>
-    );
+  return (
+    <div>
+      <h1>Client Information Overview</h1>
+      <Search
+        placeholder="Search..."
+        onSearch={handleSearch}
+        onChange={(e) => handleSearch(e.target.value)}
+        style={{ marginBottom: '16px', width: '30%' }}
+        enterButton
+        allowClear
+      />
+      <Table dataSource={filteredData} columns={columns} rowKey="grooming_user_name" className="tabless" />
+    </div>
+  );
 };
 
 export default Doctorpersonalpage;

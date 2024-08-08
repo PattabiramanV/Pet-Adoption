@@ -34,7 +34,6 @@
 //        // getDataForEmail
 //     $all_Data = $hostel->getDataForEmail($hosId);
 
-   
 
 //       emailSendFun( $all_Data); // Ensure this function is defined
 //     } else {
@@ -136,6 +135,7 @@
 //             echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
        
 
+    // $mail->AltBody = "Dear Pattabi,\n\nYour booking at Doggy yogi has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
 
 //      }
 
@@ -146,7 +146,7 @@
 
 
 
-    // // Allow from any origin (CORS)
+// // Allow from any origin (CORS)
 
 // // header("Access-Control-Allow-Headers:  application/json");
 
@@ -170,12 +170,13 @@
 //     $userName = $data['name'];   // Recipient's name
 //     $hostelName = $data['hostel']; // Hostel name
 
-    
+
 
 
 // } else {
 //     echo json_encode(['message' => 'Invalid request method']);
 // }
+
 
 
 
@@ -435,7 +436,6 @@ function emailSendFun($data) {
 
 
 ?>
-
 
 
 

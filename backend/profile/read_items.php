@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
     
-$user_id = authenticate(); // Retrieve the authenticated user ID
+// $user_id = authenticate(); // Retrieve the authenticated user ID
+$user_id = 2; // Retrieve the authenticated user ID
 
 // $query = "SELECT username, email, phone, gender, state, city , avatar FROM users WHERE id = :user_id";
 $query = "SELECT * FROM users WHERE id = :user_id";

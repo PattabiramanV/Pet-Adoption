@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useLocation, useNavigate,Link } from "react-router-dom";
 import axios from 'axios';
-import Addform from './AddPetForHos';
+import Addform from './addhostel/AddPetForHos';
 import HostelCard from './HosCard';
 import Loader from '../Loader/Loader'; // Import your Loader component
 

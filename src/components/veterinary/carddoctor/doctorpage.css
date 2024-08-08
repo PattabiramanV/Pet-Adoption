@@ -15,7 +15,7 @@
   align-items: center;
   gap: 20px;
   padding: 15px;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 
 .Doccard-container {
@@ -37,11 +37,12 @@
 .Doccard-container h3, .Doccard-container p {
   text-align: left;
   margin: 10px;
+  
 }
 
 .Doccard-container .doctorImg {
   width: 50%;
-  height: 170px;
+  height: 150px;
   border-radius: 50%;
   margin: 10px auto;
   display: block;
@@ -62,16 +63,19 @@
 .Doccard-container .Docdetails p {
   line-height: 1.5;
   font-weight: 500;
+  /* font-size: 14px; */
 }
 
 .Doccard-container .docname {
   text-align: center;
-  color: #675BC8;
+  color: white;
+  color:#4B0082;
 }
 
 .Doccard-container .buttons-card .morebutton {
-  border: 1px solid #675BC8;
-  color: #675BC8;
+  border: 1px solid#4B0082;
+  color: #f6f5fc;
+  background-color: #4B0082;
   width: 80%;
   font-weight: 500;
   height: 44px;
@@ -84,8 +88,8 @@
 }
 
 .Doccard-container .buttons-card .morebutton:hover {
-  background-color: #675BC8;
-  color: white;
+  background-color:  #4B0082;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
 }
 
@@ -108,7 +112,8 @@
 
 .Doccard-container .docname span, .doctorcontact span, .address span {
   color: #09090a;
-  font-weight: bolder;
+  font-size: 17px;
+  /* font-weight:bolder; */
 }
 
 .doctorcontact {
@@ -117,13 +122,22 @@
 }
 
 .list-Doctor {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  
   align-items: center;
-  flex-wrap: wrap;
- 
- 
+  flex-wrap: wrap; */
+  margin-top: 40px;
+  display: grid;
+  justify-content: center;
+  column-gap: 5px;
+  grid-template-columns: auto auto auto;
+
 }
+
+.Doccard-container .Docdetails span{
+  font-weight: bolder;
+}
+
 
 
 

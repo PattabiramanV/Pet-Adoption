@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { notification } from 'antd';
+import Loader from '../Loader/Loader';
+import './normaltable.css';
 
 function AddVeterinaryDoctor() {
     const [doctorData, setDoctorData] = useState({
@@ -15,12 +18,12 @@ function AddVeterinaryDoctor() {
         description: "",
         email: "",
         city: "",
-        
         doctor_registerno: "",
         profile_img: null,
     });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleFieldsChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -49,10 +52,10 @@ function AddVeterinaryDoctor() {
         console.log("Validation Errors:", errors);
         return errors;
     };
-    
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const formErrors = validateForm();
         if (Object.keys(formErrors).length === 0) {
             const formData = new FormData();
@@ -62,52 +65,62 @@ function AddVeterinaryDoctor() {
                 formData.append(key, doctorData[key]);
             }
 
-            axios.post(
-                "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
-                formData,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data"
-                    },
-                }
-            )
-                .then((res) => {
-                    alert("Form submitted successfully!");
-                    setError(null);
-                    setDoctorData({
-                        name: "",
-                        education: "",
-                        have_a_clinic: "",
-                        specialist: "",
-                        available_timing: "",
-                        phone: "",
-                        home_visiting_available: "",
-                        experience: "",
-                        city: "",
-                        state: "",
-                        address: "",                 
-                        description: "",
-                        email: "",
-                        doctor_registerno: "",
-                        profile_img: null,
-                    });
-                    
-                })
-                .catch((err) => {
-                    setError("Failed to submit the form. Please try again.");
-                    setSuccess(null);
+            try {
+                const res = await axios.post(
+                    "http://localhost/petadoption/backend/api/addvetrinarydocformapi.php",
+                    formData,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "multipart/form-data"
+                        },
+                    }
+                );
+                notification.success({
+                    message: 'Form Submitted Successfully!',
+                    description: 'Your doctor profile has been submitted successfully.',
                 });
+                setError(null);
+                setDoctorData({
+                    name: "",
+                    education: "",
+                    have_a_clinic: "",
+                    specialist: "",
+                    available_timing: "",
+                    phone: "",
+                    home_visiting_available: "",
+                    experience: "",
+                    city: "",
+                    address: "",                 
+                    description: "",
+                    email: "",
+                    doctor_registerno: "",
+                    profile_img: null,
+                });
+            } catch (err) {
+                notification.error({
+                    message: 'Failed to Submit the Form',
+                    description: 'Please try again later.',
+                });
+                setSuccess(null);
+            } finally {
+                setLoading(false);
+            }
         } else {
-            setError('Please fix the errors above.');
+            notification.error({
+                message: 'Please Fix the Errors Above',
+                description: 'Ensure all fields are filled out correctly.',
+            });
             setSuccess(null);
+            setLoading(false);
         }
     };
 
+    if (loading) return <Loader />;
     return ( 
         
-        <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
-            <h2 className="text-2xl font-bold mb-6 text-green-800">Add Veterinary Doctor Information</h2>
+        <div className="custom-div">
+            <h2 className="text-2xl font-bold mb-6 text-green-800 text-center">Add Veterinary Doctor Information</h2>
             {success && <p className="text-green-600">{success}</p>}
             {error && <p className="text-red-600">{error}</p>}
             <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -127,7 +140,7 @@ function AddVeterinaryDoctor() {
                         {error && !doctorData.name && <p className="text-red-600 text-sm">Doctor name is required</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="education">Education</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="education">Education<span>*</span></label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.education ? 'border-red-500' : ''}`}
                             id="education"
@@ -141,7 +154,7 @@ function AddVeterinaryDoctor() {
                         {error && !doctorData.education && <p className="text-red-600 text-sm">Education is required</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">Contact No</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">Contact No<span>*</span></label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && (!doctorData.phone || doctorData.phone.length < 10) ? 'border-red-500' : ''}`}
                             id="phone"
@@ -168,8 +181,24 @@ function AddVeterinaryDoctor() {
                         />
                         {error && !doctorData.experience && <p className="text-red-600 text-sm">Experience is required</p>}
                     </div>
+                    
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="experience">Available Timing<span>*</span></label>
+                        <input
+                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.available_timing ? 'border-red-500' : ''}`}
+                            id="available_timing"
+                            type="text"
+                            name="available_timing"
+                            value={doctorData.available_timing}
+                            onChange={handleFieldsChange}
+                            placeholder="available_timing"
+                            // required
+                        />
+                        {error && !doctorData.experience && <p className="text-red-600 text-sm">Available timing is required</p>}
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email<span>*</span></label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && (!doctorData.email || !/\S+@\S+\.\S+/.test(doctorData.email)) ? 'border-red-500' : ''}`}
                             id="email"
@@ -232,7 +261,7 @@ function AddVeterinaryDoctor() {
 
                  
                     <div>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">city</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">city<span>*</span></label>
                             <input
                                 className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.city ? 'border-red-500' : ''}`}
                                 id="city"
@@ -246,7 +275,7 @@ function AddVeterinaryDoctor() {
                             {error && !doctorData.city && <p className="text-red-600 text-sm">city</p>}
                             </div>
                                 <div>
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">state</label>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">state<span>*</span></label>
                                     <input
                                         className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.state ? 'border-red-500' : ''}`}
                                         id="state"
@@ -262,7 +291,7 @@ function AddVeterinaryDoctor() {
                         
                             <div>
                                
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">address</label>      
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">address<span>*</span></label>      
                                 <textarea
                                     className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.address ? 'border-red-500' : ''}`}
                                     id="address"
@@ -281,7 +310,7 @@ function AddVeterinaryDoctor() {
 
 
 
-                    <div>
+                    
                         
                     <div className="sm:col-span-2">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Tell us about yourself</label>
@@ -297,7 +326,8 @@ function AddVeterinaryDoctor() {
                         ></textarea>
                         {error && !doctorData.description && <p className="text-red-600 text-sm">Description is required</p>}
                     </div>
-                    <div>
+                   <div className='flex gap-20'>
+                   <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="doctor_registerno">Doctor Register Number</label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error && !doctorData.doctor_registerno ? 'border-red-500' : ''}`}
@@ -323,9 +353,10 @@ function AddVeterinaryDoctor() {
                         />
                         {error && !doctorData.profile_img && <p className="text-red-600 text-sm">Profile image is required</p>}
                     </div>
-                </div>
+                   </div>
+                
                 <div>
-                    <button className="w-full text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>
+                    <button className="custom-button" type="submit">Submit</button>
                 </div>
             </form>
         </div>
