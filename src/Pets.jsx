@@ -6,7 +6,7 @@ import Header from './components/Siteframe/Header';
 import Footer from './components/Siteframe/Footer';
 import ViewMore from './components/pets/morebutton/button';
 import CardView from './components/pets/card/card';
-import BreadcrumbComponent from './components/breedcrumbs'
+import BreadcrumbComponent from './components/commoncomponent/Breadcrumb'
 
 
 const Pets = () => {

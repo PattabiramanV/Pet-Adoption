@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
 import LostUsersTable from './lostpets/lostingusertable'
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
 
 

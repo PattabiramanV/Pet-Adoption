@@ -1,17 +1,23 @@
+
+
 .Breadcrumbs {
+  
   background-color: blueviolet;
+ 
+
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
-  height: 40px;
   margin-left: 100px;
   flex-wrap: wrap;
   list-style: none;
   color: white;
   font-size: 15px;
-  background-color: blueviolet;
+  height: 40px;
+  /* background-color: blueviolet; */
+
 }
 
 .breadcrumb-item {
@@ -42,5 +48,5 @@
 .breadcrumb-icon {
   margin: 0 8px;
   color: white; 
-  height: 14px;
+  font-size: 14px;
 }

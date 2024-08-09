@@ -95,3 +95,11 @@ p {
     height: 24px;
     color: rgba(10, 69, 58, 1);
 }
+
+
+.rightTwoCardParent h2{
+    /* height: 480px; */
+    color: rgba(12, 12, 12, 1);
+    font-weight: 500;
+    /* margin-top: 36px; */
+}

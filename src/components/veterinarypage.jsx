@@ -4,9 +4,9 @@ import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
 
 import DoctorList from "./veterinary/carddoctor/doctormainpage";
-import BreadcrumbComponent from '../components/breadcriums';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
-import './breadcrums.css';
+// import './breadcrums.css';
 
 
 

@@ -386,6 +386,7 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Loader from '../../Loader/Loader'; // Import the Loader component
 import { Form, Input, Button, Typography, Divider, message,notification } from "antd";
+import './bookhostel.css';
 
 function BookHos() {
   const navigate = useNavigate();
@@ -651,7 +652,7 @@ console.log(formData);
             <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about your pet.</p>
 
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <div>
                   <label htmlFor="checkin" className="block text-gray-700">Check-In Date <span className='star'>*</span></label>
                   <input

@@ -1,7 +1,7 @@
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import Lostpetsform from "./lostpets/lostpetsform";
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
 
 

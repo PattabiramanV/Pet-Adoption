@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import Alllostlist from "./lostpets/lostpetlistpage";
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
 
 const Lostlistmainpage = () => {

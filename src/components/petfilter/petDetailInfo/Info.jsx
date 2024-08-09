@@ -1,5 +1,5 @@
 import Footer from "../../Siteframe/Footer"
-import BreadcrumbComponent from '../../breedcrumbs'
+import BreadcrumbComponent from '../../commoncomponent/Breadcrumb'
 import Header from "../../Siteframe/Header"
 import CardView from "./PetInfo"
 

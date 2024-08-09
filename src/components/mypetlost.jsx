@@ -1,7 +1,7 @@
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import MyLostPostPet from "./lostpets/mypetlist/mylostpetlist";
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
 
 

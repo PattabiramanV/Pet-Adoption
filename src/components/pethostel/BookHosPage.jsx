@@ -3,7 +3,6 @@ import Footer from "../Siteframe/Footer";
 import Header from "../Siteframe/Header";
 import BookHosForm from "./bookhostel/BookHos";
 import BreadcrumbComponent from '../commoncomponent/Breadcrumb'; // Adjust the path as necessary
-import './bookhostel/bookhostel.css';
 
 const BookHosPage =()=>{
 

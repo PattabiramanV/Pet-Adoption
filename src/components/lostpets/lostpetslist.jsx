@@ -36,6 +36,7 @@ const PetList = () => {
   }
 
   return (
+    
     <div className="pet-list">
       <h1 className="pet-list-name">Posting a Lost Pets</h1>
       <div className="pet-list-container">

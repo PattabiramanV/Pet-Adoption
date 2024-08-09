@@ -1,0 +1,68 @@
+.table-container {
+    overflow-x: auto;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+  }
+  
+  .custom-table thead {
+    background-color: #f3f4f6;
+  }
+  
+  .custom-table tr:hover {
+    background-color: #f9fafb;
+  }
+  
+  .status-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .status-delivered {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .status-process {
+    background-color: #fef9c3;
+    color: #854d0e;
+  }
+  
+  .status-canceled {
+    background-color: #fde2e2;
+    color: #b91c1c;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+  }
+  
+  .edit-btn:hover {
+    color: #3b82f6;
+  }
+  
+  .delete-btn:hover {
+    color: #ef4444;
+  }
+  

@@ -5,7 +5,7 @@ import Footer from './Siteframe/Footer';
 import Reuniting_pets from './reunitingpets/reuniting';
 import Lost_pets from './lostpets/lostpetslist';
 import Mypost from './lostpets/mypetlist/mylostpetposts';
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 import { Link } from'react-router-dom'; // Import Link for navigation
 
 function Searching_Lost_and_Found_Pets() {
