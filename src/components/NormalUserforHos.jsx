@@ -156,90 +156,106 @@
 
 
 
-// export default Hosteldetails;
-import Footer from "../components/Siteframe/Footer";
-import Header from "../components/Siteframe/Header";
-import React from 'react';
-import './Table.css';
+// // export default Hosteldetails;
+// import Footer from "../components/Siteframe/Footer";
+// import Header from "../components/Siteframe/Header";
+// import React from 'react';
+// import './Table.css';
 
-const Table = () => {
-  const data = [
-    { id: '#20462', product: 'Hat', customer: 'Matt Dickerson', date: '13/05/2022', amount: '$4.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
-    { id: '#18933', product: 'Laptop', customer: 'Wiktoria', date: '22/05/2022', amount: '$8.95', paymentMode: 'Cash on Delivery', status: 'Delivered' },
-    { id: '#45169', product: 'Phone', customer: 'Trixie Byrd', date: '15/06/2022', amount: '$1,149.95', paymentMode: 'Cash on Delivery', status: 'Process' },
-    { id: '#34304', product: 'Bag', customer: 'Brad Mason', date: '06/09/2022', amount: '$899.95', paymentMode: 'Transfer Bank', status: 'Process' },
-    { id: '#17188', product: 'Headset', customer: 'Sanderson', date: '25/09/2022', amount: '$22.95', paymentMode: 'Cash on Delivery', status: 'Canceled' },
-    { id: '#73003', product: 'Mouse', customer: 'Jun Redfern', date: '04/10/2022', amount: '$54.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
-    { id: '#58825', product: 'Clock', customer: 'Miriam Kidd', date: '17/10/2022', amount: '$174.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
-    { id: '#44122', product: 'T-shirt', customer: 'Dominic', date: '24/10/2022', amount: '$249.95', paymentMode: 'Cash on Delivery', status: 'Delivered' },
-    { id: '#89094', product: 'Monitor', customer: 'Shanice', date: '01/11/2022', amount: '$899.95', paymentMode: 'Transfer Bank', status: 'Canceled' },
-    { id: '#85252', product: 'Keyboard', customer: 'Poppy-Rose', date: '22/11/2022', amount: '$6.94', paymentMode: 'Transfer Bank', status: 'Process' },
-    { id: '#85252', product: 'Keyboard', customer: 'Poppy-Rose', date: '22/11/2022', amount: '$6.94', paymentMode: 'Transfer Bank', status: 'Process' },
+// const Table = () => {
+//   const data = [
+//     { id: '#20462', product: 'Hat', customer: 'Matt Dickerson,1/25middle steeet', date: '13/05/2022', amount: '$4.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
+//     { id: '#18933', product: 'Laptop', customer: 'Wiktoria', date: '22/05/2022', amount: '$8.95', paymentMode: 'Cash on Delivery', status: 'Delivered' },
+//     { id: '#45169', product: 'Phone', customer: 'Trixie Byrd', date: '15/06/2022', amount: '$1,149.95', paymentMode: 'Cash on Delivery', status: 'Process' },
+//     { id: '#34304', product: 'Bag', customer: 'Brad Mason', date: '06/09/2022', amount: '$899.95', paymentMode: 'Transfer Bank', status: 'Process' },
+//     { id: '#17188', product: 'Headset', customer: 'Sanderson', date: '25/09/2022', amount: '$22.95', paymentMode: 'Cash on Delivery', status: 'Canceled' },
+//     { id: '#73003', product: 'Mouse', customer: 'Jun Redfern', date: '04/10/2022', amount: '$54.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
+//     { id: '#58825', product: 'Clock', customer: 'Miriam Kidd', date: '17/10/2022', amount: '$174.95', paymentMode: 'Transfer Bank', status: 'Delivered' },
+//     { id: '#44122', product: 'T-shirt', customer: 'Dominic', date: '24/10/2022', amount: '$249.95', paymentMode: 'Cash on Delivery', status: 'Delivered' },
+//     { id: '#89094', product: 'Monitor', customer: 'Shanice', date: '01/11/2022', amount: '$899.95', paymentMode: 'Transfer Bank', status: 'Canceled' },
+//     { id: '#85252', product: 'Keyboard', customer: 'Poppy-Rose', date: '22/11/2022', amount: '$6.94', paymentMode: 'Transfer Bank', status: 'Process' },
+//     { id: '#85252', product: 'Keyboard', customer: 'Poppy-Rose', date: '22/11/2022', amount: '$6.94', paymentMode: 'Transfer Bank', status: 'Process' },
+//     { id: '#85252', product: 'Keyboard', customer: 'Poppy-Rose', date: '22/11/2022', amount: '$6.94', paymentMode: 'Transfer Bank', status: 'Process' },
+
     
 
-  ];
+//   ];
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'Delivered':
-        return 'status-delivered';
-      case 'Process':
-        return 'status-process';
-      case 'Canceled':
-        return 'status-canceled';
-      default:
-        return '';
-    }
-  };
+//   const getStatusClass = (status) => {
+//     switch (status) {
+//       case 'Delivered':
+//         return 'status-delivered';
+//       case 'Process':
+//         return 'status-process';
+//       case 'Canceled':
+//         return 'status-canceled';
+//       default:
+//         return '';
+//     }
+//   };
 
-  return (
-    <>
-    <Header></Header>
-    <div className="table-container mt-10 mb-10">
-      <table className="custom-table">
-        <thead>
-          <tr>
-          <th>S.No:</th>
+//   return (
+//     <>
+//     <Header></Header>
+//     <div className="table-container mt-10 mb-10">
+//       <table className="custom-table">
+//         <thead>
+//           <tr>
+//           <th>S.No:</th>
 
-            <th>Tracking ID</th>
-            <th>Product</th>
-            <th>Customer</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Payment Mode</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.id}</td>
-              <td>{item.product}</td>
-              <td>{item.customer}</td>
-              <td>{item.date}</td>
-              <td>{item.amount}</td>
-              <td>{item.paymentMode}</td>
-              <td>
-                <span className={`status-label ${getStatusClass(item.status)}`}>
-                  {item.status}
-                </span>
-              </td>
-              <td className="action-buttons">
-                <button className="edit-btn">✏️</button>
-                <button className="delete-btn">🗑️</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    <Footer></Footer>
-  </>
-  );
-};
+//             <th>Tracking ID</th>
+//             <th>Product</th>
+//             <th>Customer</th>
+//             <th>Date</th>
+//             <th>Amount</th>
+//             <th>Payment Mode</th>
+//             <th>Status</th>
+//             <th>Action</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {data.map((item, index) => (
+//             <tr key={index}>
+//               <td>{item.id}</td>
+//               <td>{item.product}</td>
+//               <td>{item.customer}</td>
+//               <td>{item.date}</td>
+//               <td>{item.amount}</td>
+//               <td>{item.paymentMode}</td>
+//               <td>
+//                 <span className={`status-label ${getStatusClass(item.status)}`}>
+//                   {item.status}
+//                 </span>
+//               </td>
+//               <td className="action-buttons">
+//                 <button className="edit-btn">✏️</button>
+//                 <button className="delete-btn">🗑️</button>
+//               </td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//     <Footer></Footer>
+//   </>
+//   );
+// };
 
-export default Table;
+// export default Table;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -460,24 +476,6 @@ export default Table;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ----------------------------chat gpt 
 
 
@@ -607,3 +605,146 @@ export default Table;
 // };
 
 // export default Table;
+
+
+
+
+
+
+
+
+
+
+///////////////.Final............................//
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import GenericTable from './commoncomponent/datatable/DataTable'; // Ensure correct path
+import Loader from '../components/Loader/Loader'; // Import the Loader component
+import { Alert } from "antd";
+
+const Hosteldetails = () => {
+  const [hostelBookUser, setHostelBookUser] = useState([]);
+  const token = localStorage.getItem("token"); // Replace with your actual token
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchUserData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostelbook.php?endpoint=normal_user`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setHostelBookUser(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      setError('Error fetching user data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const columns = [
+    {
+      title: 'Profile',
+      dataIndex: 'photos',
+      key: 'photos',
+      render: (text) => (
+        <img
+          src={text ? `../../backend/profile/uploads/${text}` : "https://via.placeholder.com/150"}
+          alt="Profile"
+          style={{ width: '50px', height: '50px' }}
+        />
+      )
+    },
+    {
+      title: 'Hostel name',
+      dataIndex: 'name',
+      key: 'name'
+    },
+    {
+      title: 'contact',
+      dataIndex: 'contact',
+      key: 'contact'
+    },
+    {
+      title: 'State',
+      dataIndex: 'state',
+      key: 'state'
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+      key: 'phone'
+    },
+    {
+      title: 'Hostel',
+      dataIndex: 'name',
+      key: 'name'
+    },
+    {
+      title: 'Price/Day',
+      dataIndex: 'price_per_day',
+      key: 'price_per_day'
+    },
+    {
+      title: 'Booking Date',
+      dataIndex: 'created_at',
+      key: 'created_at'
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status, record) => (
+        status === 'Pending' ? (
+          <button 
+            onClick={() => handleAccept(record)} 
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Accept
+          </button>
+        ) : (
+          status
+        )
+      )
+    }
+  ];
+
+  const actionButtons = (item) => (
+    <>
+      <button className="edit-btn" onClick={() => handleEdit(item)}>✏️</button>
+      <button className="delete-btn" onClick={() => handleDelete(item)}>🗑️</button>
+    </>
+  );
+
+  const handleEdit = (item) => {
+    console.log('Edit', item);
+  };
+
+  const handleDelete = (item) => {
+    console.log('Delete', item);
+  };
+
+  const handleAccept = (item) => {
+    console.log('Accept', item);
+  };
+
+  if (loading) return <Loader />;
+  if (error) return <Alert message={error} type="error" />;
+console.log(hostelBookUser);
+  return (
+    <GenericTable
+      columns={columns}
+      data={hostelBookUser}
+      actionButtons={actionButtons}
+    />
+  );
+};
+
+export default Hosteldetails;
