@@ -195,32 +195,33 @@ const Header = () => {
             </div>
 
             {/* Pet-Oasis */}
-                       <div
-              className="user-profile Pet-Oasis"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <span>Pet Oasis</span>
-              {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/pethostel">
-                   Pet Hostel List
-                  </Link>
-                  <Link className="menu" to="/addhostel">
-                  Hostel Add
-                  </Link>
-                  <Link className="menu" to="/hostelusertable">
-                  Hostel Owner Record
-                  </Link>
-                  <Link className="menu" to="/BookHos">
-                  Hostel Booking
-                  </Link>
-                  <Link className="menu" to="/normaluserforhos">
-                  Client Info
-                  </Link>
-                </div>
-              )}
-            </div>
+            <div
+  className="user-profile Pet-Oasis"
+  onMouseEnter={handleMouseEnter}
+  onMouseLeave={handleMouseLeave}
+>
+  <span>Pet Oasis</span>
+  {isDropdownOpen && (
+    <div className="dropdown-menu dropdown-menu-Features">
+      <Link className="menu" to="/pethostel">
+        Hostel Listings
+      </Link>
+      <Link className="menu" to="/addhostel">
+        Register Hostel
+      </Link>
+      <Link className="menu" to="/hostelusertable">
+        Owner Details
+      </Link>
+      <Link className="menu" to="/BookHos">
+        Manage Reservations
+      </Link>
+      <Link className="menu" to="/normaluserforhos">
+        Client Profiles
+      </Link>
+    </div>
+  )}
+</div>
+
             {/* <Link to="/Veterinary">Veterinarians</Link>
             <Link to="/add-pets">Add Pets</Link>
             <Link to="/pets">Pets</Link> */}

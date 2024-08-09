@@ -6,7 +6,7 @@ import CommonTable from "./commoncomponent/datatable/DataTable";
 import text from "../assets/Cat_login.png";
 import Loader from '../components/Loader/Loader'; // Import the Loader component
 import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary
-import { message } from "antd";
+import { message,notification } from "antd";
 
 const Hosteldetails = () => {
   const [hostelBookUser, setHostelBookUser] = useState([]);
@@ -106,7 +106,13 @@ const Hosteldetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
-        message.success("Hostel deleted successfully");
+        notification.error({
+          message: 'Booking Cancelled',
+          description: 'You have successfully cancelled your hostel booking.',
+        });
+        
+       
+        // message.success("Hostel deleted successfully");
         fetchUserData();
       }
     } catch (error) {

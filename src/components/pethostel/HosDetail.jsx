@@ -23,7 +23,7 @@ const HostelDetails = () => {
         try {
           setLoading(true)
           const response = await axios.get(
-            `http://localhost/petadoption/backend/api/hostel.php?hosid=${hosId}`
+            `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${hosId}`
             ,
             { headers: { Authorization: `Bearer ${token}` } }
           );

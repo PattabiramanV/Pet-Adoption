@@ -385,7 +385,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Loader from '../../Loader/Loader'; // Import the Loader component
-import { Form, Input, Button, Typography, Divider, message } from "antd";
+import { Form, Input, Button, Typography, Divider, message,notification } from "antd";
 
 function BookHos() {
   const navigate = useNavigate();
@@ -430,7 +430,7 @@ function BookHos() {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost/petadoption/backend/profile/read_items.php`,
+        `${import.meta.env.VITE_API_BASE_URL}/profile/read_items.php`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCurrentUser(response.data);
@@ -443,7 +443,7 @@ function BookHos() {
   const getAllHosFun = async () => {
     try {
       const response = await axios.get(
-        `http://localhost/petadoption/backend/api/hostel.php`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setHostels(response.data);
@@ -540,7 +540,12 @@ function BookHos() {
 
       console.log('Response:', response.data);
      if(response.status==200){
-      message.success('Hostel Booking Sucessfull');
+      notification.success({
+        message: 'Form Submitted Successfully!',
+        description: 'Hostel Booking Sucessfull.',
+      });
+      
+      // message.success('Hostel Booking Sucessfull');
       navigate('/pethostel')
      }
     } catch (error) {
@@ -549,6 +554,11 @@ function BookHos() {
     } finally {
       setLoading(false); // Set loading to false after response is received
     }
+  }
+  else {
+    setTimeout(() => {
+   setErrors({});
+    }, 4000); // 60000 milliseconds = 1 minute
   }
 
   };

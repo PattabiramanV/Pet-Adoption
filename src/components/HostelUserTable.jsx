@@ -170,7 +170,7 @@ import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
 import CommonTable from "../components/commoncomponent/datatable/DataTable"; // Corrected path
 import Loader from '../components/Loader/Loader';
-import { message } from "antd";
+import { message,notification } from "antd";
 import BreadcrumbComponent from './commoncomponent/Breadcrumb';
 
 const Hosteldetails = () => {
@@ -264,7 +264,11 @@ const Hosteldetails = () => {
       );
 
       if (response.status === 200) {
-        message.success("Hostel Accepted successfully");
+        notification.success({
+          message: 'Request Accepted',
+          description: 'The booking request has been accepted successfully.',
+        });
+        // message.success("Hostel Accepted successfully");
         fetchUserData();
       }
     } catch (error) {

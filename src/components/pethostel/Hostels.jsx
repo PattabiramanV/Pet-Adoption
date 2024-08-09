@@ -20,7 +20,7 @@ const Hostels = () => {
         const token = localStorage.getItem('token');
 
         const response = await axios.get(
-          'http://localhost/petadoption/backend/api/hostel.php',
+          `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setData(response.data);
@@ -41,7 +41,7 @@ const Hostels = () => {
 
   try {
     const response = await axios.get(
-      `http://localhost/petadoption/backend/profile/read_items.php`,
+      `${import.meta.env.VITE_API_BASE_URL}/profile/read_items.php`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     // setCurrentUser(response.data);
@@ -58,7 +58,7 @@ const Hostels = () => {
 
   try {
     const response = await axios.get(
-      `http://localhost/petadoption/backend/api/hostelbook.php?endpoint=hostel_user`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/hostelbook.php?endpoint=hostel_user`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     // setCurrentUser(response.data);
@@ -92,11 +92,7 @@ const Hostels = () => {
 
  }
 
-      const addHostelFun=()=>{
-
      
-    
-       }
 
        if(loading) return <Loader></Loader>;
   return (
@@ -139,7 +135,7 @@ const Hostels = () => {
   </div> */}
 
         
-<div  style={{ width: '90%',margin:"0 auto",marginTop:"10px" }}  className="mt-4 flex justify-end " >
+{/* <div  style={{ width: '90%',margin:"0 auto",marginTop:"10px" }}  className="mt-4 flex justify-end " >
       <Link
         to="/addhostel"
         onClick={addHostelFun}
@@ -150,7 +146,7 @@ const Hostels = () => {
 
         Add Hostel
       </Link>
-    </div>
+    </div> */}
 
       
 
