@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Input, Form, Select, notification } from "antd";
+import { Form, notification, Select } from "antd";
+import { TextField, FormControl, InputLabel } from '@mui/material';
 import axios from "axios";
 import "./Profile.css";
 import Loader from "../Loader/Loader";
@@ -39,7 +40,7 @@ const Profile = ({ setProfileOpen }) => {
 
   useEffect(() => {
     fetchProfile();
-  }, [form]);
+  }, []);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -135,33 +136,18 @@ const Profile = ({ setProfileOpen }) => {
           <div className="profile-avatar">
             {isEditing ? (
               <div className="div_upload">
-
-              <div className="upload-area">
-                <input type="file" accept="image/*" onChange={handleFileChange} id="file-input" />
-                <label htmlFor="file-input" className="upload-label">
-                  {imageUrl ? <img src={imageUrl} alt="Profile Avatar" /> : "Click or Drag to Upload"}
-                </label>
+                <div className="upload-area">
+                  <input type="file" accept="image/*" onChange={handleFileChange} id="file-input" />
+                  <label htmlFor="file-input" className="upload-label">
+                    {imageUrl ? <img src={imageUrl} alt="Profile Avatar" /> : "Click or Drag to Upload"}
+                  </label>
                 </div>
-                <div className="divdiv_useand_email">
-                {/* {isEditing ? <InputreadOnly  /> : <p className="profile-text profil_name_and_email">{profile.username}</p>}
-                {isEditing ? <Input readOnly /> : <p className="profile-text email_text profil_name_and_email">{profile.email}</p>} */}
-
-                           <h1 className=" profil_name_and_email">{profile.username}</h1>
-                          <h2 className="profil_name_and_email"> {profile.email}</h2> 
-                          </div>  
-                  
-                          </div>
+              </div>
             ) : (
               <div className="div_profile_imag">
-    
-              <div className="div_useand_email">
-              <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
-
-              </div>
-                        <div className="divdiv_useand_email">
-                          <h1 className=" profil_name_and_email">{profile.username}</h1>
-                          <h2 className="profil_name_and_email"> {profile.email}</h2>
-                          </div>  
+                <div className="div_useand_email">
+                  <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
+                </div>
               </div>
             )}
           </div>
@@ -174,67 +160,120 @@ const Profile = ({ setProfileOpen }) => {
             initialValues={profile}
             hideRequiredMark={!isEditing}
             className="profile-form"
-            style={{
-              margin:"0"
-            }}
+            style={{ margin: "0" }}
           >
-            <div className="profile-row "  style={{display:'none'}}>
-              <div className="profile-column " style={{display:'none'}}>
-                <Form.Item label="Username" name="username" style={{ margin: '0' }}>
-                  {isEditing ? <Input readOnly  /> : <p className="profile-text">{profile.username}</p>}
-                </Form.Item>
-              </div>
-              <div className="profile-column">
-                <Form.Item label="Email" name="email" style={{ margin: '0' }}>
-                  {isEditing ? <Input readOnly /> : <p className="profile-text email_text">{profile.email}</p>}
-                </Form.Item>
-              </div>
-            </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="Gender" name="gender" style={{ margin: '0' }}>
+                <Form.Item name="username">
                   {isEditing ? (
-                    <Select
-                      className="gen"
-                      style={{
-                        width: '100%',
-                        margin: '8px 0',
-                        display: 'inline-block',
-                        border: '1px solid #ccc',
-                        borderRadius: '4px',
-                        height: '3.5em',
-                        boxSizing: 'border-box',
-                      }}
-                    >
-                      <Option value="Male">Male</Option>
-                      <Option value="Female">Female</Option>
-                      <Option value="Other">Other</Option>
-                    </Select>
+                    <TextField disabled name="username" label="Username" variant="outlined" fullWidth style={{ margin: '0' }} />
                   ) : (
-                    <p className="profile-text">{profile.gender}</p>
+                    <div className="div_profil">
+                      <span className="div_profil_span" >Username</span>
+                                          <p className="profile-text">{profile.username}</p>
+
+                    </div>
                   )}
                 </Form.Item>
               </div>
               <div className="profile-column">
-                <Form.Item label="Phone" name="phone" style={{ margin: '0' }}>
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
+                <Form.Item name="email">
+                  {isEditing ? (
+                    <TextField disabled name="email" label="Email" variant="outlined" fullWidth style={{ margin: '0' }} />
+                  ) : (
+                    <div className="div_profil">
+                      <span className="div_profil_span" >Email</span>
+                                         <p className="profile-text email_text">{profile.email}</p>
+ 
+                    </div>
+                  )}
+                </Form.Item>
+              </div>
+            </div>
+            <div className="profile-row">
+              <div className={`profile-column ${isEditing ? 'gender_profile' : ''}`}>
+                <Form.Item  name="gender"  label={isEditing ? "Gender" : ""} style={{ paddingBottom: '0'  }}
+                >
+                  {isEditing ? (
+                    <FormControl  fullWidth variant="outlined" style={{ margin: '0' }}>
+                      {/* <InputLabel id="gender-label">Gender</InputLabel> */}
+                      <Select
+                        id="gender"
+                        // labelId="gender-label"
+                        placeholder="Gender"
+                        name="gender"
+                        style={{height: "3em"}}
+                      
+                        value={form.getFieldValue('gender') || ''}
+                        onChange={(value) => form.setFieldsValue({ gender: value })}
+                      >
+                        <Option value="Male">Male</Option>
+                        <Option value="Female">Female</Option>
+                        <Option value="Other">Other</Option>
+                      </Select>
+                    </FormControl>
+                  ) : (
+                    <div className="div_profil">
+                      <span className="div_profil_span" >Gender</span>
+                                          <p className="profile-text">{profile.gender}</p>
+
+                    </div>
+                  )}
+                </Form.Item>
+              </div>
+              <div className="profile-column">
+                <Form.Item name="phone">
+                  {isEditing ? (
+                    <TextField name="phone" label="Phone" variant="outlined" fullWidth style={{ margin: '0' }} />
+                  ) : (
+                    <div className="div_profil">
+                      <span className="div_profil_span" >Phone</span>
+                                          <p className="profile-text">{profile.phone}</p>
+
+                    </div>
+                  )}
                 </Form.Item>
               </div>
             </div>
             <div className="profile-row full-width">
-              <Form.Item label="Address" name="address" style={{ margin: '0' }}>
-                {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
+              <Form.Item name="address">
+                {isEditing ? (
+                  <TextField name="address" label="Address" variant="outlined" fullWidth multiline rows={2} style={{ margin: '0' }} />
+                ) : (
+                         <div className="div_profil">
+                          <span className="div_profil_span" >Address</span>
+                                        <p className="address-text" > {profile.address}</p>
+
+                    </div>
+                )}
               </Form.Item>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="City" name="city" style={{ margin: '0' }}>
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.city}</p>}
+                <Form.Item name="city">
+                  {isEditing ? (
+                    <TextField name="city" label="City" variant="outlined" fullWidth style={{ margin: '0' }} />
+                  ) : (
+                    
+                    <div className="div_profil">
+                      <span className="div_profil_span" >City</span>
+                                          <p className="profile-text">{profile.city}</p>
+
+                    </div>
+                  )}
                 </Form.Item>
               </div>
               <div className="profile-column">
-                <Form.Item label="State" name="state" style={{ margin: '0' }}>
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
+                <Form.Item name="state">
+                  {isEditing ? (
+                    <TextField name="state" label="State" variant="outlined" fullWidth style={{ margin: '0' }} />
+                  ) : (
+                    <div className="div_profil">
+                      <span className="div_profil_span" >State</span>
+                                          <p className="profile-text">{profile.state}</p>
+
+                    </div>
+                  )}
                 </Form.Item>
               </div>
             </div>

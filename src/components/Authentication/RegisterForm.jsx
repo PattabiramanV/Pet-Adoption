@@ -4,14 +4,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader"; // Import the Loader component
 import Login_logo from "../../assets/Sign up-pana.png";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import UserOutlined from "@ant-design/icons/UserOutlined";
-import MailOutlined from "@ant-design/icons/MailOutlined";
-import LockOutlined from "@ant-design/icons/LockOutlined";
+import { TextField, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff ,Email} from '@mui/icons-material';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+
 import "./RegisterForm.css";
 
 const { Text, Link } = Typography;
@@ -119,11 +115,13 @@ const RegisterForm = () => {
                     <TextField
                       fullWidth
                       label="Username"
+                      className="input-field" // Add class for input box styling
+
                       variant="outlined"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <UserOutlined />
+                            <AccountBoxIcon />
                           </InputAdornment>
                         ),
                       }}
@@ -146,11 +144,12 @@ const RegisterForm = () => {
                       fullWidth
                       label="Email"
                       variant="outlined"
+                      className="input-field" // Add class for input box styling
                       type="email"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <MailOutlined />
+                            <Email />
                           </InputAdornment>
                         ),
                       }}
@@ -172,6 +171,7 @@ const RegisterForm = () => {
                       fullWidth
                       label="Password"
                       variant="outlined"
+                      className="input-field" // Add class for input box styling
                       type={showPassword ? "text" : "password"}
                       InputProps={{
                         endAdornment: (
@@ -180,7 +180,7 @@ const RegisterForm = () => {
                               onClick={handleClickShowPassword}
                               edge="end"
                             >
-                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                              {showPassword ? <Visibility /> :  <VisibilityOff />}
                             </IconButton>
                           </InputAdornment>
                         ),

@@ -109,6 +109,7 @@ const Login = () => {
                         </InputAdornment>
                       ),
                     }}
+                    
                   />
                 </Form.Item>
 
@@ -124,6 +125,7 @@ const Login = () => {
                 >
                   <TextField
                     label="Password"
+                    
                     type={showPassword ? "text" : "password"}
                     fullWidth
                     variant="outlined"
@@ -135,7 +137,7 @@ const Login = () => {
                             onClick={handleClickShowPassword}
                             edge="end"
                           >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                            {showPassword ? <Visibility /> :  <VisibilityOff />}
                           </IconButton>
                         </InputAdornment>
                       ),

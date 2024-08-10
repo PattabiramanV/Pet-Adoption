@@ -90,3 +90,14 @@
   justify-content: center;
   align-items: center;
 }
+
+
+
+.input-field {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

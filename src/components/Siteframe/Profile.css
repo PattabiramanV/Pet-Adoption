@@ -28,15 +28,18 @@
   border-radius: 50%;
   object-fit: cover;
 } */
-
+.div_useand_email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .profile-avatar img {
-  width: 200px;
-  height: 120px;
-  border-radius: 5px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   -o-object-fit: cover;
   object-fit: cover;
 }
-
 .upload-area {
   position: relative;
   cursor: pointer;
@@ -80,13 +83,11 @@
   gap: 4em;
 }
 .upload-label img {
-
-
-width: 200px;
-height: 120px;
-border-radius: 5px;
--o-object-fit: cover;
-object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 .profile-details {
   width: 100%;
@@ -145,7 +146,7 @@ object-fit: cover;
   display: flex;
   gap: 10px;
 }
-
+/* 
 
 input#username,input#email,input#phone,textarea#address,input#city ,input#state,#gender{
   width: 100%;
@@ -155,8 +156,8 @@ input#username,input#email,input#phone,textarea#address,input#city ,input#state,
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-#username,#email,#phone,#address,#city ,#state,#gender{
+} */
+/* #username,#email,#phone,#address,#city ,#state,#gender{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -164,7 +165,7 @@ input#username,input#email,input#phone,textarea#address,input#city ,input#state,
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
+} */
 p#address {
   max-height: 6em;
   overflow-y: scroll;
@@ -266,3 +267,39 @@ p#address {
 /* .ant-form-item.css-dev-only-do-not-override-1pg9a38 {
   margin: 0;
 } */
+
+.profile-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profile-column.gender_profile {
+  margin-top: -1em;
+}
+
+.profile-text{
+  width: 100%;
+  padding: 12px 20px;
+  /* margin: 8px 0; */
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.address-text{
+  width: 100%;
+  padding: 12px 20px;
+  height: 5em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+span.div_profil_span {
+  font-size: medium;
+  font-family: 'Inter';
+  font-weight: bolder;
+}
