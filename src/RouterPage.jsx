@@ -42,13 +42,13 @@ import UserPets from './components/petfilter/petDetailInfo/userpetslist';
 import AdoptionRequests from './components/petfilter/petDetailInfo/petowneradoptionRequests';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
-import NormalUserforHos from "./components/NormalUserforHos";
-import HostelUserTable from "./components/HostelUserTable"
+import NormalUserforHos from "./components/pethostel/datatable/NormalUserforHos";
+import HostelUserTable from "./components/pethostel/datatable/HostelUserTable"
 // import Adoption from './components/petfilter/petsForms/adaption';
 // import SideBar from './components/PetFilter/sideBar/SideBar';
 import AddHosPage from './components/AddHosPage';
 import HosDetailPage from "./components/HosDetailPage";
-
+import HostelDataTable from './components/pethostel/datatable/request';
 function RouterPage() {
   return (
           <Router>
@@ -109,7 +109,7 @@ function RouterPage() {
         <Route path="/hostelusertable" element={<HostelUserTable/>} />
         <Route path="/addhostel" element={<AddHosPage/>} />
         <Route path="/hosdetailpage" element={<HosDetailPage/>} />
-
+        <Route path="/hosteldeteils/*" element={<HostelDataTable />} />
         
       </Routes>
     </Router>

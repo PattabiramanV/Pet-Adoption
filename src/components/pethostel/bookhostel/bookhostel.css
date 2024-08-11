@@ -19,7 +19,7 @@
 }  
 .petParentDiv input{
     text-transform: capitalize;
-    background-color: rgba(237, 237, 237, 0.24);
+    background-color: rgba(237, 237, 237, 0.678);
 
 }
 
@@ -101,5 +101,6 @@ p {
     /* height: 480px; */
     color: rgba(12, 12, 12, 1);
     font-weight: 500;
+    font-size: 22px;
     /* margin-top: 36px; */
 }

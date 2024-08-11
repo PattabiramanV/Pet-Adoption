@@ -49,7 +49,9 @@ hostel_bookings.id
     hostel_bookings.craeted_at,
     hostel_bookings.status,
     hostel_bookings.id  ,
-    hostel_bookings.checkin_date   
+    hostel_bookings.checkin_date,
+    hostel_bookings.checkout_date
+
 FROM 
     pet_hostels 
 JOIN 

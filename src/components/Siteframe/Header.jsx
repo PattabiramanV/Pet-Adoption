@@ -215,7 +215,7 @@ const Header = () => {
       <Link className="menu" to="/BookHos">
         Manage Reservations
       </Link>
-      <Link className="menu" to="/normaluserforhos">
+      <Link className="menu" to="/hosteldeteils/">
         Client Profiles
       </Link>
     </div>
