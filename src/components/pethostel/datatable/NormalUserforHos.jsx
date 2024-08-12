@@ -687,15 +687,15 @@ const Table = () => {
   }
 
   const tableHeaders = [
-    'S.No:', 'Name', 'Address', 'Phone', 'Booking Date', 'Check-in/out', 'Status', 'Action'
+    'S.No', 'Name', 'Address', 'Phone', 'Booking Date', 'Check-in/out', 'Status', 'Action'
   ];
 
   const tableBody = currentData.map((item, index) => [
     (currentPage - 1) * recordsPerPage + index + 1,
-    <div className='profileName'>
-      <img src={`../../backend/hostel/hostelimg/${item.photos}`} alt="" className='profileImg' />
+   
+      // <img src={`../../backend/hostel/hostelimg/${item.photos}`} alt="" className='profileImg' />,
       <span>{item.name}</span>
-    </div>,
+   ,
     item.address,
     item.contact,
     item.craeted_at,
@@ -712,8 +712,16 @@ const Table = () => {
 
   return (
     <>
-     
+      <h1 style={{
+  fontSize: '26px',
+  color: 'rgba(12, 12, 12, 1)',
+  fontWeight: 700,
+  textAlign: 'center',
+  marginTop: '27px',
+  textTransform:'uppercase'
+}}>Booked Hostel Details</h1>
       <div className="table-container mt-10 mb-10">
+        
         <div className="search-container">
           {searchTerm === '' && (
             <FontAwesomeIcon icon={faSearch} className="search-icon" />

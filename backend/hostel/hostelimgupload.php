@@ -4,6 +4,7 @@ require '../config/config.php';
 require '../api/hostelcrud.php';
 require '../vendor/autoload.php';
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
@@ -29,17 +30,18 @@ $errors = validateFormData($name, $contact, $price_per_day, $available_time, $ad
 if (!empty($errors)) {
     respondWithError($errors);
 }
-
-$uploaded_files = handleFileUploads($photos);
-
+$uploaded_files = handleFileUploads($photos,$user_id);
+// exit;
 if (!empty($errors)) {
     respondWithError($errors);
 }
 
 try {
+// print_r($uploaded_files);
     insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files);
-    updateUserType($db, $user_id);
-    emailSendFun($name);
+    // updateUserType($db, $user_id);
+
+    // emailSendFun($name);
 } catch (Exception $e) {
     respondWithError(['message' => 'Failed to insert data', 'error' => $e->getMessage()]);
 }
@@ -65,10 +67,15 @@ function respondWithError($errors)
     exit;
 }
 
-function handleFileUploads($photos)
+function handleFileUploads($photos, $user_id)
 {
     $uploaded_files = [];
-    $upload_directory = './hostelimg/';
+    $upload_directory = "./hostelimg/$user_id/";
+
+    // Create user directory if it doesn't exist
+    if (!is_dir($upload_directory)) {
+        mkdir($upload_directory, 0755, true);
+    }
 
     foreach ($photos['name'] as $key => $value) {
         if ($photos['error'][$key] === UPLOAD_ERR_OK) {
@@ -77,33 +84,40 @@ function handleFileUploads($photos)
             $file_path = $upload_directory . $file_name;
 
             if (move_uploaded_file($tmp_name, $file_path)) {
+                // Add the full file path to the array of uploaded files
                 $uploaded_files[] = $file_name;
             } else {
-                $errors['photos'] = "Failed to upload some files";
+                $errors['photos'][] = "Failed to upload file: $file_name";
             }
         } else {
-            $errors['photos'] = "Error occurred during file upload";
+            $errors['photos'][] = "Error occurred during file upload: $file_name";
         }
     }
 
+    // Return the array of uploaded file paths
     return $uploaded_files;
 }
 
+
+
 function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files)
 {
+    $image_paths_json = json_encode($uploaded_files);
     global $user_id;
     $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos,user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     $stmt = $db->conn->prepare($query);
 
-    $photos_list = implode(',', $uploaded_files);
-    $stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $photos_list,$user_id]);
+    // $photos_list = implode(',', $uploaded_files);
+    print_r ($photos_list);
+// return;
+    $stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json,$user_id]);
 
     echo json_encode(['status' => 'success', 'message' => 'Data successfully inserted']);
 }
 
 function updateUserType($db, $user_id)
 {
-    $sql = "UPDATE users SET user_type='hostel_user' WHERE id = ?";
+    $sql = "UPDATE users SET 	hostel_user_type='hostel_user' WHERE id = ?";
     $updateUserType = $db->conn->prepare($sql);
     $updateUserType->execute([$user_id]);
 }

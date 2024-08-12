@@ -383,7 +383,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation,useParams } from 'react-router-dom';
 import Loader from '../../Loader/Loader'; // Import the Loader component
 import { Form, Input, Button, Typography, Divider, message,notification } from "antd";
 import './bookhostel.css';
@@ -395,9 +395,9 @@ function BookHos() {
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
   const [hostels, setHostels] = useState([]);
-  const queryParams = new URLSearchParams(location.search);
-  const hostelId = queryParams.get('id');
+ 
   const [errors, setErrors] = useState({});
+  const hostelId = useParams().id;
 
   const [selectedHostel, setSelectedHostel] = useState({
     id: '',

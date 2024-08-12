@@ -11,7 +11,14 @@ function PetHostelPage() {
   return (
     <>
       <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' }]} />
+      {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' }]} /> */}
+      <BreadcrumbComponent 
+  items={[
+    { title: 'Home', href: '/' }, 
+    { title: 'Pet Hostels', href: '/pethostel' }
+  ]} 
+/>
+
       <Hostels />
       {/* <Hostels hostel={data[1]}/>
       <Hostels hostel={data[2]}/> */}

@@ -469,7 +469,8 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 import CommonTable from '../../commoncomponent/datatable/DataTable'; // Import the CommonTable component
 import ReactPaginate from 'react-paginate';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 const Hosteldetails = () => {
   const [hostelBookUser, setHostelBookUser] = useState([]);
@@ -575,15 +576,15 @@ const Hosteldetails = () => {
   };
 
   const tableHeaders = [
-    'S.No', 'Name', 'City', 'State','Phone','Booking Date', 'Status', 'Action'
+    'S.No', 'Profile','Name', 'City', 'State','Phone','Booking Date', 'Status', 'Action'
   ];
 
   const tableBody = currentData.map((item, index) => [
     (currentPage - 1) * recordsPerPage + index + 1,
-    <div className='profileName'>
-      <img src={`../../backend/profile/uploads/${item.avatar}`} alt="" className='profileImg' />
-      <span>{item.username}</span>
-    </div>,
+    // <div className='profileName'>
+      <img src={`../../backend/profile/uploads/${item.avatar}`} alt="" className='profileImg' />,
+      <span>{item.username}</span>,
+    // </div>,
     item.city,
     item.state,
     item.phone,
@@ -592,20 +593,29 @@ const Hosteldetails = () => {
     <span className={`status-label ${getStatusClass(item.status)}`}>
       {item.status}
     </span>,
-    <Tooltip title="Accept" placement="top">
-      <button className="" onClick={() => handleAccept(item)} style={{color:'gray'}}> 
-      <FontAwesomeIcon icon={faEye} />
 
-      </button>
-    </Tooltip>
+   <Tooltip title="Accept" placement="top">
+     <button className="" onClick={() => handleAccept(item)} style={{ color: 'gray' }}>
+       <FontAwesomeIcon icon={faCheck} />
+     </button>
+   </Tooltip>
   ]);
 
   return (
     <>
  {loading && <Loader/>}
-
+ <h1 style={{
+  fontSize: '26px',
+  color: 'rgba(12, 12, 12, 1)',
+  fontWeight: 700,
+  textAlign: 'center',
+  marginTop: '27px',
+  textTransform:'uppercase'
+}}>User Booking Details</h1>
    
-      <div className="table-container mt-10 mb-10">
+      <div className="table-container mt-2 mb-10">
+      
+
         <div className="search-container">
           {searchTerm === '' && (
             <FontAwesomeIcon icon={faSearch} className="search-icon" />

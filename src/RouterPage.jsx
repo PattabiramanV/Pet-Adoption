@@ -68,7 +68,7 @@ function RouterPage() {
 
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
-        <Route path="/bookHos" element={<BookHosPage />} />
+        <Route path="/pethostel/booking/:id" element={<BookHosPage />} />
 
 
 
@@ -108,7 +108,9 @@ function RouterPage() {
         <Route path="/normaluserforhos" element={<NormalUserforHos/>} />
         <Route path="/hostelusertable" element={<HostelUserTable/>} />
         <Route path="/addhostel" element={<AddHosPage/>} />
-        <Route path="/hosdetailpage" element={<HosDetailPage/>} />
+        <Route path="/pethostel/details/:id" element={<HosDetailPage/>} />
+       
+
         <Route path="/hosteldeteils/*" element={<HostelDataTable />} />
         
       </Routes>

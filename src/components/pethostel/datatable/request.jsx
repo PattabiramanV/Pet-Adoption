@@ -45,7 +45,7 @@ const handleTabClick = (tab) => {
     className={`toggle-button ${activeTab === 'request' ? 'active' : ''}`}
     onClick={() => handleTabClick('request')}
   >
-    Request
+    Hostel Request
   </div>
 </Link>
 

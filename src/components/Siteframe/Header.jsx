@@ -212,7 +212,7 @@ const Header = () => {
       <Link className="menu" to="/hostelusertable">
         Owner Details
       </Link>
-      <Link className="menu" to="/BookHos">
+      <Link className="menu" to="pethostel/booking">
         Manage Reservations
       </Link>
       <Link className="menu" to="/hosteldeteils/">

@@ -150,8 +150,8 @@ function HostelCard({ hostel, active }) {
        <span>{hostel.contact}</span>
       </div>
           <div className="time">
-                  <p className="">Price/day:</p>
-                  <span className="">{hostel.price_per_day}</span>
+                  <p className="">Price/Day:</p>
+                  <span className="">&#8377;{hostel.price_per_day}</span>
 
       </div>
     </div>
@@ -176,8 +176,9 @@ function HostelCard({ hostel, active }) {
   </div>
   </div>
   <div className="hosbuttons-card">
-    <Link to={`/hosdetailpage?id=${hostel.id}`} className="mores">More info</Link>
-  </div>
+  <Link to={`/pethostel/details/${hostel.id}`} className="mores">More Info</Link>
+</div>
+
   </div>
 </div>
   );

@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate,Link } from "react-router-dom";
+import { useLocation, useNavigate,Link,useParams } from "react-router-dom";
 
 // import imageSrc from "../../../backend/hostel/hostelimg/"
 import Loader from '../Loader/Loader'; // Import the Loader component
@@ -9,10 +9,11 @@ import { Form, Input, Button, Typography, Divider, message } from "antd";
 import './HostelDetail.css';
 const HostelDetails = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(false); // Loading state
   const [pet, setPet] = useState(null);
-  const hosId=location.search.split("=")[1];
+
+  const hosId = useParams().id;
+  console.log(hosId);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const HostelDetails = () => {
             </div>
 
             <div className="btn_for_message felx justify-start items-end ">
-              <Link to={`/BookHos?id=${hosId}`} className="add-to-cart">Book Now</Link>
+              <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Book Now</Link>
               {/* <button className="back-button" onClick={() => navigate("/lostpetlisting")}>
                 Go Back
               </button> */}

@@ -25,26 +25,31 @@ function AddPetHos() {
 
   const [errors, setErrors] = useState({});
   const onChangeFun = (e) => {
-    const { name, value, type, files } = e.target;
-
+    const { name, type, files } = e.target;
+  
     if (type === 'file') {
       // Use Array.from to convert FileList to an array
       setFormData(prevFormData => ({
         ...prevFormData,
-        [name]: Array.from(files) // Handle multiple file uploads
+        [name]: prevFormData[name] 
+          ? [...prevFormData[name], ...Array.from(files)] // Append new files to the existing array
+          : Array.from(files) // Initialize with new files if none exist
       }));
     } else {
       setFormData(prevFormData => ({
         ...prevFormData,
-        [name]: value
+        [name]: e.target.value
       }));
     }
-
+  
     setErrors(prevErrors => ({
       ...prevErrors,
       [name]: ''
     }));
   };
+  
+
+  console.log(formData);
 
   const validateForm = () => {
     let formErrors = {};
@@ -129,17 +134,17 @@ function AddPetHos() {
           });
           // message.success("hostel added sucessfully");
 
-          setFormData({
+          // setFormData({
 
-            name: '',
-            contact: '',
-            price_per_day: '',
-            available_time: '',
-            address: '',
-            description: '',
-            photos: []
-          });
-          navigate("/pethostel")
+          //   name: '',
+          //   contact: '',
+          //   price_per_day: '',
+          //   available_time: '',
+          //   address: '',
+          //   description: '',
+          //   photos: []
+          // });
+          // navigate("/pethostel")
  // Clear the file input field
  if (fileInputRef.current) {
   fileInputRef.current.value = '';
@@ -163,142 +168,143 @@ function AddPetHos() {
     
   };
   
-                                                                                                                                                                  return (
-                                                                                                                                                                    <>
-                                                                                                                                                                      {loading && <Loader />}
-                                                                                                                                                                      <h2 className="addHostelTitle">
-                                                                                                                                                                          Need pet hostel services? We're here to take care of your pet!
-                                                                                                                                                                        </h2>
-                                                                                                                                                                      <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
-                                                                                                                                                                        
 
-                                                                                                                                                                        <form onSubmit={formSubmitFun}>
+  return (
+    <>
+      {loading && <Loader />}
+      <h2 className="addHostelTitle">
+          Need pet hostel services? We're here to take care of your pet!
+        </h2>
+      <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
+        
 
-                                                                                                                                                                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                                                                                                                                                                            <div>
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                                                                                                                                                                                Name <span className="star">*</span>
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <input
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="name"
-                                                                                                                                                                                name="name"
-                                                                                                                                                                                value={formData.name}
-                                                                                                                                                                                type="text"
-                                                                                                                                                                                placeholder="Name"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              />
-                                                                                                                                                                              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-                                                                                                                                                                            </div>
+        <form onSubmit={formSubmitFun}>
 
-                                                                                                                                                                            <div>
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">
-                                                                                                                                                                                Contact No <span className="star">*</span>
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <input
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="contact"
-                                                                                                                                                                                name="contact"
-                                                                                                                                                                                value={formData.contact}
-                                                                                                                                                                                type="number" // Changed to text to handle non-numeric inputs
-                                                                                                                                                                                placeholder="Contact no"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              />
-                                                                                                                                                                              {errors.contact && <p className="text-red-500 text-xs mt-1">{errors.contact}</p>}
-                                                                                                                                                                            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                Name <span className="star">*</span>
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="name"
+                name="name"
+                value={formData.name}
+                type="text"
+                placeholder="Name"
+                onChange={onChangeFun}
+              />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            </div>
 
-                                                                                                                                                                            <div>
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price_per_day">
-                                                                                                                                                                                Price per day <span className="star">*</span>
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <input
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="price_per_day"
-                                                                                                                                                                                name="price_per_day"
-                                                                                                                                                                                value={formData.price_per_day}
-                                                                                                                                                                                type="number"
-                                                                                                                                                                                placeholder="Price per day"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              />
-                                                                                                                                                                              {errors.price_per_day && <p className="text-red-500 text-xs mt-1">{errors.price_per_day}</p>}
-                                                                                                                                                                            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">
+                Contact No <span className="star">*</span>
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="contact"
+                name="contact"
+                value={formData.contact}
+                type="number" // Changed to text to handle non-numeric inputs
+                placeholder="Contact no"
+                onChange={onChangeFun}
+              />
+              {errors.contact && <p className="text-red-500 text-xs mt-1">{errors.contact}</p>}
+            </div>
 
-                                                                                                                                                                            <div>
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="available_time">
-                                                                                                                                                                                Available time
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <input
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="available_time"
-                                                                                                                                                                                name="available_time"
-                                                                                                                                                                                value={formData.available_time}
-                                                                                                                                                                                type="time"
-                                                                                                                                                                                placeholder="Available time"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              />
-                                                                                                                                                                              {errors.available_time && <p className="text-red-500 text-xs mt-1">{errors.available_time}</p>}
-                                                                                                                                                                            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price_per_day">
+                Price per day <span className="star">*</span>
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="price_per_day"
+                name="price_per_day"
+                value={formData.price_per_day}
+                type="number"
+                placeholder="Price per day"
+                onChange={onChangeFun}
+              />
+              {errors.price_per_day && <p className="text-red-500 text-xs mt-1">{errors.price_per_day}</p>}
+            </div>
 
-                                                                                                                                                                            <div className="sm:col-span-2">
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
-                                                                                                                                                                                Address <span className="star">*</span>
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <textarea
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="address"
-                                                                                                                                                                                name="address"
-                                                                                                                                                                                value={formData.address}
-                                                                                                                                                                                rows="4"
-                                                                                                                                                                                placeholder=" Address"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              ></textarea>
-                                                                                                                                                                              {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
-                                                                                                                                                                            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="available_time">
+                Available time
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="available_time"
+                name="available_time"
+                value={formData.available_time}
+                type="time"
+                placeholder="Available time"
+                onChange={onChangeFun}
+              />
+              {errors.available_time && <p className="text-red-500 text-xs mt-1">{errors.available_time}</p>}
+            </div>
 
-                                                                                                                                                                            <div className="sm:col-span-2">
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-                                                                                                                                                                                Description
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <textarea
-                                                                                                                                                                                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                                                                                                                                                                                id="description"
-                                                                                                                                                                                name="description"
-                                                                                                                                                                                value={formData.description}
-                                                                                                                                                                                rows="4"
-                                                                                                                                                                                placeholder="Description"
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              ></textarea>
-                                                                                                                                                                              {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
-                                                                                                                                                                            </div>
-                                                                                                                                                                            
-                                                                                                                                                                            <div className="sm:col-span-2">
-                                                                                                                                                                              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photos">
-                                                                                                                                                                                Upload Photos <span className="star">*</span>
-                                                                                                                                                                              </label>
-                                                                                                                                                                              <input
-                                                                                                                                                                                className="fileInput"
-                                                                                                                                                                                id="photos"
-                                                                                                                                                                                name="photos"
-                                                                                                                                                                                type="file"
-                                                                                                                                                                                multiple // Allow multiple file uploads
-                                                                                                                                                                                onChange={onChangeFun}
-                                                                                                                                                                              />
-                                                                                                                                                                              {errors.photos && <p className="text-red-500 text-xs mt-1">{errors.photos}</p>}
-                                                                                                                                                                            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+                Address <span className="star">*</span>
+              </label>
+              <textarea
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="address"
+                name="address"
+                value={formData.address}
+                rows="4"
+                placeholder=" Address"
+                onChange={onChangeFun}
+              ></textarea>
+              {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
+            </div>
 
-                                                                                                                                                                          </div>
+            <div className="sm:col-span-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                Description
+              </label>
+              <textarea
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="description"
+                name="description"
+                value={formData.description}
+                rows="4"
+                placeholder="Description"
+                onChange={onChangeFun}
+              ></textarea>
+              {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+            </div>
+            
+            <div className="sm:col-span-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photos">
+                Upload Photos <span className="star">*</span>
+              </label>
+              <input
+                className="fileInput"
+                id="photos"
+                name="photos"
+                type="file"
+                multiple // Allow multiple file uploads
+                onChange={onChangeFun}
+              />
+              {errors.photos && <p className="text-red-500 text-xs mt-1">{errors.photos}</p>}
+            </div>
+
+          </div>
 
 
-                                                                                                                                                                        <div className="text-center">
-                                                                                                                                                                          <button className=" border border-transparent " type="submit">
-                                                                                                                                                                        Submit
-                                                                                                                                                                            </button>
-                                                                                                                                                                            </div>
+        <div className="text-center">
+          <button className=" border border-transparent " type="submit">
+        Submit
+            </button>
+            </div>
 
-                                                                                                                                                                        </form>
-                                                                                                                                                                      </div>
-                                                                                                                                                                    </>
-                                                                                                                                                                  );
+        </form>
+      </div>
+    </>
+  );
 }
 
 export default AddPetHos;

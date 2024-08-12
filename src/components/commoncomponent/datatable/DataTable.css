@@ -18,6 +18,7 @@
     
     .custom-table th, .custom-table td {
       padding: 12px;
+      text-transform: capitalize;
       /* border: 1px solid #e5e7eb; */
       /* text-align: center; */
     }
