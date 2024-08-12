@@ -35,13 +35,14 @@
     justify-content: center;
     align-items: center;
   }
-  .pet-details {
+  /* .hosright-details {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-  }
+    gap: 14px;
+  } */
   .main-pet-image {
     width: 90%;
     max-width: 600px; 
@@ -121,13 +122,13 @@
     align-items: center;
     color: #675bc8;
   }
-  .pet-details {
+  .hosright-details {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    gap: 5px;
+    gap: 14px;
   }
   
   
@@ -157,6 +158,12 @@ strong{
         font-size: 24px;
         color: rgba(12, 12, 12, 1);
         font-weight: 500;
-        margin-top: 36px;
+        /* margin-top: 36px; */
     
+}
+
+.hos_description {
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
 }

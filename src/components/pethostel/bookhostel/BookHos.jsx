@@ -789,15 +789,16 @@ console.log(formData);
           </div>
 
       <div className="w-full md:w-1/3 p-4 rightTwoCardParent ">
+      {selectedHostel.id  && (
   <div className="mb-4 p-4 bg-blue-50  rounded-lg">
   <h2 className="text-2xl font-bold text-blue-400 mb-4">Your Selected Hostel</h2>
 
     <p className="text-lg  text-gray-700 mb-2"><strong>Name:</strong> {selectedHostel.name}</p>
-    <p className="text-lg text-gray-700 mb-2"><strong>Address:</strong> {selectedHostel.address}</p>
+    <p className="text-lg text-gray-700 mb-2 h-12"><strong>Address:</strong> {selectedHostel.address}</p>
     <p className="text-lg text-gray-700 mb-2"><strong>Phone:</strong> {selectedHostel.phone}</p>
     <p className="text-lg text-gray-700 mb-4"><strong>Price per Day:</strong> ₹{selectedHostel.price}</p>
   </div>
-
+      )}
   {formData.checkin && formData.checkout && (
     <>
   <hr className='font-semibold'></hr>

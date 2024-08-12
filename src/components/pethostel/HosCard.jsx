@@ -150,8 +150,8 @@ function HostelCard({ hostel, active }) {
        <span>{hostel.contact}</span>
       </div>
           <div className="time">
-                  <p className="">Time:</p>
-                  <span className="">{hostel.available_time}</span>
+                  <p className="">Price/day:</p>
+                  <span className="">{hostel.price_per_day}</span>
 
       </div>
     </div>

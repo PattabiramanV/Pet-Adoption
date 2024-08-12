@@ -104,3 +104,13 @@ p {
     font-size: 22px;
     /* margin-top: 36px; */
 }
+
+select {
+  appearance: none; 
+  -moz-appearance: none; 
+  -webkit-appearance: none;
+  background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE0LjUgNy41TDEwIDEyTDUuNSA3LjUiIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4KPC9zdmc+Cg==') no-repeat right 10px center;
+  background-color: white;
+  background-size: 12px; 
+  padding-right: 30px; 
+}

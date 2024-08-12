@@ -41,7 +41,7 @@ const HostelDetails = () => {
   }, [location.state]);
 
   if (!pet) {
-    return <p>Loading pet details...</p>;
+    return <Loader></Loader>;
   }
 
 //   console.log(pet);
@@ -64,7 +64,7 @@ const HostelDetails = () => {
             <img src={`../../../backend/hostel/hostelimg/${pet.photos}`} alt={pet.name} className="main-pet-image" />
           </div>
 
-          <div className="pet-details ">
+          <div className="hosright-details ">
 
             <div className="div_name">
               <h2 className="pet-name hosName " style={{color:'black',fontSize:'30px'}}>{pet.name}</h2> 
@@ -94,7 +94,7 @@ const HostelDetails = () => {
                <span> {pet.contact}</span>
                 </div>
                 {/* <p><strong>Address:</strong> {pet.address}</p> */}
-            <div className="div_description grid gap-2 " style={{}}>
+            <div className="hos_description  " style={{}}>
               <strong className='' style={{fontSize:'24px'}}>Description:</strong>
               <p className="pet-description p-2 tex-xm " style={{lineHeight:'22px',fontSize:'14px',color: 'grey',fontWeight:'500'}}>
                {pet.description}

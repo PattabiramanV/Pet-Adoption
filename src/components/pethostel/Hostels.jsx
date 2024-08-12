@@ -150,8 +150,15 @@ const Hostels = () => {
 
       
 
-      <h1 className="text-3xl text-center mt-5">Book The Best Hostel Service For Your Pet</h1>
-      <div className="flex flex-wrap justify-center space-x-4 mt-16 gap-x-2 gap-y-6 pb-8">
+      <h1 className="text-3xl text-center mt-5"style={{
+  fontSize: '32px',
+  color: 'rgba(12, 12, 12, 1)',
+  fontWeight: 500,
+  textAlign: 'center',
+  marginTop: '36px',
+}}
+>Book The Best Hostel Service For Your Pet</h1>
+      <div className="flex flex-wrap justify-center space-x-4 mt-10 gap-x-2 gap-y-6 pb-8">
       {/* <HostelCard hostel={data[0]}/>
       <HostelCard hostel={data[1]}/>
       <HostelCard hostel={data[2]}/> */}
