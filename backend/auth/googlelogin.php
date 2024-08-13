@@ -71,6 +71,7 @@ try {
         // User exists, generate JWT
         $jwt = generateJWT($row['id']);
         echo json_encode([
+            
             "message" => "Login successful.",
             "jwt" => $jwt
         ]);
