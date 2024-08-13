@@ -1,23 +1,20 @@
 <?php
 
 require '../vendor/autoload.php'; // Google API client library
-require '../config/config.php';  
+require '../config/config.php';  // Include your config file for database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-
 // Database configuration
 use Google\Client as GoogleClient;
 
-$googleClientId = '611093167877-hoigrr8d8srrv5lr2ho26aaafddpsla3.apps.googleusercontent.com';
-$googleClientSecret = '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';
-$googleRedirectUri = 'http://localhost:3000';
+$googleClientId = getenv('GOOGLE_CLIENT_ID');
+$googleClientSecret = getenv('GOOGLE_CLIENT_SECRET');
+$googleRedirectUri = getenv('GOOGLE_REDIRECT_URI');
+
 
 // Initialize Google client
 $client = new GoogleClient();
@@ -44,6 +41,12 @@ $token = $data['key'];
 try {
     // Verify the ID token using Google's API
     $payload = $client->verifyIdToken($token);
+
+    if (!$payload) {
+        echo json_encode(['message' => 'Invalid token']);
+        http_response_code(400);
+        exit();
+    }
 
     // Extract Google ID, email, and name from the payload
     $googleId = $payload['sub'] ?? null;

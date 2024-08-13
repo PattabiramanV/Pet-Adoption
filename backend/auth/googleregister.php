@@ -131,9 +131,10 @@ require '../config/database.php'; // Database configuration
 use Google\Client as GoogleClient;
 use Google\Service\Oauth2 as GoogleOauth2;
 
-$googleClientId = '611093167877-hoigrr8d8srrv5lr2ho26aaafddpsla3.apps.googleusercontent.com';
-$googleClientSecret = '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';
-$googleRedirectUri = 'http://localhost:3000';
+$googleClientId = getenv('GOOGLE_CLIENT_ID');
+$googleClientSecret = getenv('GOOGLE_CLIENT_SECRET');
+$googleRedirectUri = getenv('GOOGLE_REDIRECT_URI');
+
 
 // Initialize Google client
 $client = new GoogleClient();
