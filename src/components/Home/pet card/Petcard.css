@@ -49,21 +49,21 @@
   font-family: 'Arial', sans-serif;
 }
 
-.more-info-btn {
+.more-info-btns {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   width: 100%;
-  margin-top: 10px;
-  font-size: 16px;
+  margin-top: 20px;
+    font-size: 16px;
   border: 1px solid #675bc8;
   background-color: #fff;
   color: #675bc8;
   font-family: 'Arial', sans-serif;
 }
 
-.more-info-btn:hover {
+.more-info-btns:hover {
   background-color: #696299; /* DarkSlateBlue */
   color: white;
 }
@@ -151,4 +151,65 @@ width: 100%;
 }
 .pet-card-info {
   gap: 0;
+}
+
+/* card cont */
+
+span.span_color {
+  background: #ccc5ff;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.pet-card-location {
+  color: #0A453A;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.pet-card-locations {
+  color: #0A453A;
+  font-size: 14px;
+  margin: 5px 0;
+  font-size: 20px;
+}
+.names {
+  color: #2E256F;
+  text-align: left;
+  font-weight: 700;
+  font-size: 18px;
+  padding-top: 5%;
+  width: auto;
+}
+
+
+.type {
+  DISPLAY: flex;
+  JUSTIFY-CONTENT: flex-start;
+  ALIGN-ITEMS: center;
+  GAP: 3PX;
+}
+.Gender {
+  DISPLAY: flex;
+  JUSTIFY-CONTENT: flex-start;
+  ALIGN-ITEMS: center;
+  GAP: 3PX;
+}
+.pet_right_de {
+  DISPLAY: flex;
+  JUSTIFY-CONTENT: flex-start;
+  ALIGN-ITEMS: center;
+  GAP: 4PX;
+}
+span.span_color {
+  font-size: small;
+}
+span.span_color {
+  background: #ccc5ff;
+  display: inline-block;
+  border: 3px solid #ccc;
+  border-radius: 2px;
+  box-sizing: border-box;
 }

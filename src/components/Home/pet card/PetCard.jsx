@@ -22,11 +22,11 @@ const PetCard = ({ pet }) => {
 
       <div className="pet-card-body">
         <div className="pet-name">
-          <div className="name">
+          <div className="names">
             <h2 className="pet-card-name">{pet.name}</h2>
           </div>
           <div className="location">
-            <p className="pet-card-location">
+            <p className="pet-card-locations">
               <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.location}
             </p>
           </div>
@@ -36,24 +36,28 @@ const PetCard = ({ pet }) => {
           <div className="pet_left_de">
             <div className="Gender">
               <p>
-                <strong>Gender:</strong> {pet.gender}
+                <strong>Gender:</strong>  
               </p>
+              <span className="span_color"> {pet.gender}</span>
             </div>
           </div>
           <div className="pet_right_de">
             <p>
-              <strong>Pet Type:</strong> {pet.pet_type}
+              <strong>Pet Type:</strong> 
             </p>
+            <span  className="span_color"> {pet.pet_type} </span> 
           </div>
         </div>
         <div className="type">
           <p>
-            <strong>Lost Date:</strong> {pet.lost_date}
+            <strong>Lost Date:</strong>
+           
           </p>
+          <span  className="span_color"> {pet.lost_date}</span>
         </div>
 
         <div className="btn">
-          <button className="more-info-btn" onClick={handleNavigation}>More Info</button>
+          <button className="more-info-btns" onClick={handleNavigation}>More Info</button>
         </div>
       </div>
     </div>

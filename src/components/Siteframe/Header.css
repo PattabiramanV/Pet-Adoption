@@ -41,7 +41,7 @@ a{
   }
   
   .nav-links a {
-    margin: 0 10px;
+    /* margin: 0 10px; */
     text-decoration: none;
     color: var(--main-color);
   }
@@ -94,6 +94,7 @@ a{
   .dropdown-menu a {
     display: block;
     padding: 10px 20px;
+    
     text-decoration: none;
     color: var(--main-color);
     white-space: nowrap;
@@ -122,7 +123,7 @@ nav.nav-links {
 
 .dropdown-menu.dropdown-menu-Features {
   width: fit-content;
-  padding: 10px;
+  /* padding: 10px; */
   z-index: 10;
 }
 

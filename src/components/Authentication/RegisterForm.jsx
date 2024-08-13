@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Form, Divider, Typography, message, notification } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader/Loader"; // Import the Loader component
+import Loader from "../Loader/Loader";
 import Login_logo from "../../assets/Sign up-pana.png";
-import { TextField, InputAdornment, IconButton } from '@mui/material';
-import { Visibility, VisibilityOff ,Email} from '@mui/icons-material';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff, Email } from "@mui/icons-material";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import { GoogleOutlined } from "@ant-design/icons";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 import "./RegisterForm.css";
 
@@ -29,7 +31,7 @@ const RegisterForm = () => {
     setLoading(true);
 
     try {
-      // Regex for password validation
+      // Password validation
       const passwordRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -42,10 +44,10 @@ const RegisterForm = () => {
         return;
       }
 
+      // API request to register user
       const response = await axios.post(
         `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}register.php`,
-        values,
-        {}
+        values
       );
 
       if (response.status === 201) {
@@ -70,40 +72,65 @@ const RegisterForm = () => {
     navigate("/login");
   };
 
-  const handleHomepage = () => {
-    navigate("/");
-  };
-
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleGoogleLoginSuccess = async (response) => {
+    const { credential } = response;
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}googleregister.php`,
+        { key: credential }
+      );
+
+      if (res.status === 200) {
+        message.success(res.data.message);
+        navigate("/login");
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      if (error.response?.status === 400) {
+        message.error("Email already registered.");
+      } else {
+        message.error("An error occurred while trying to login with Google.");
+      }
+    }
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+
+    navigate("/signup");
+    console.error("Google login failed: ", error);
+    message.error("Google login failed. Please try again.");
   };
 
   return (
     <section className="Register_section">
       <div className="div_register_main">
-
         <div className="div_register_image">
           <img src={Login_logo} alt="Login illustration" />
         </div>
-        
+
         <div className="div_main_form">
-          <div className="heading_name">
+          <div className="heading_name_reg">
             <h1 className="heading_name_h1">Welcome</h1>
             <span className="heading_name_span">To FurryFriends</span>
           </div>
           <Form
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             name="register"
             initialValues={{ remember: true }}
             onFinish={onFinish}
             layout="vertical"
           >
             <div className="min_reg_sub">
-              
               <div className="div_user_email_password_regester">
                 <div className="div_user_reg">
                   <Form.Item
-                    style={{ width: '70%' }}
+                    style={{ width: "70%" }}
                     name="username"
                     rules={[
                       {
@@ -115,8 +142,7 @@ const RegisterForm = () => {
                     <TextField
                       fullWidth
                       label="Username"
-                      className="input-field" // Add class for input box styling
-
+                      className="input-field"
                       variant="outlined"
                       InputProps={{
                         endAdornment: (
@@ -130,7 +156,7 @@ const RegisterForm = () => {
                 </div>
                 <div className="div_email_reg">
                   <Form.Item
-                    style={{ width: '70%' }}
+                    style={{ width: "70%" }}
                     name="email"
                     rules={[
                       { required: true, message: "Please input your email!" },
@@ -144,7 +170,7 @@ const RegisterForm = () => {
                       fullWidth
                       label="Email"
                       variant="outlined"
-                      className="input-field" // Add class for input box styling
+                      className="input-field"
                       type="email"
                       InputProps={{
                         endAdornment: (
@@ -158,7 +184,7 @@ const RegisterForm = () => {
                 </div>
                 <div className="div_password_reg">
                   <Form.Item
-                    style={{ width: '70%' }}
+                    style={{ width: "70%" }}
                     name="password"
                     rules={[
                       {
@@ -171,7 +197,7 @@ const RegisterForm = () => {
                       fullWidth
                       label="Password"
                       variant="outlined"
-                      className="input-field" // Add class for input box styling
+                      className="input-field"
                       type={showPassword ? "text" : "password"}
                       InputProps={{
                         endAdornment: (
@@ -180,7 +206,11 @@ const RegisterForm = () => {
                               onClick={handleClickShowPassword}
                               edge="end"
                             >
-                              {showPassword ? <Visibility /> :  <VisibilityOff />}
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         ),
@@ -190,8 +220,7 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div className="div_button_reg">
-                <Form.Item                     style={{ width: '70%' }}
-                >
+                <Form.Item style={{ width: "70%" }}>
                   <div className="div_button_reg_sub">
                     <div className="div_reg_btn">
                       <button
@@ -199,16 +228,38 @@ const RegisterForm = () => {
                         className="register-form-button"
                         disabled={loading}
                       >
-                        Create Account
+                        {loading ? "Creating Account..." : "Create Account"}
                       </button>
                     </div>
                     <div className="div_diver_reg">
-                      <Divider  style={{  borderColor: 'black' , width:'20em'}}>Or Sign in</Divider>
+                      <Divider style={{ borderColor: "black", width: "20em" }}>
+                        Or Sign in
+                      </Divider>
+                    </div>
+                    <div className="google-login-button">
+                      <GoogleOAuthProvider
+                        clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+                      >
+                        <GoogleLogin
+                          onSuccess={handleGoogleLoginSuccess}
+                          onFailure={handleGoogleLoginFailure}
+                          render={(renderProps) => (
+                            <button
+                              type="button"
+                              onClick={renderProps.onClick}
+                              disabled={renderProps.disabled}
+                              className="google-login-btn"
+                            >
+                              <GoogleOutlined /> Login with Google
+                            </button>
+                          )}
+                        />
+                      </GoogleOAuthProvider>
                     </div>
                     <div className="div_link_reg">
                       <Text className="sign-up-link">
-                        Already have an account{" "}
-                        <Link onClick={handleSignInClick}>Sign in</Link>
+                        Already have an account
+                        <Link onClick={handleSignInClick}> Sign in</Link>
                       </Text>
                     </div>
                   </div>
@@ -217,7 +268,7 @@ const RegisterForm = () => {
             </div>
           </Form>
         </div>
-        {loading && <Loader />} {/* Use the Loader component */}
+        {loading && <Loader />}
       </div>
     </section>
   );
