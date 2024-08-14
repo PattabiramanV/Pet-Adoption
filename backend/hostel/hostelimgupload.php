@@ -63,8 +63,9 @@ function validateFormData($name, $contact, $price_per_day, $available_time, $add
 
 function respondWithError($errors)
 {
-    echo json_encode(['status' => 'error', 'errors' => $errors]);
+    echo json_encode(['status' => 'error', 'message' => 'Please enter all data', 'errors' => $errors]);
     exit;
+
 }
 
 function handleFileUploads($photos, $user_id)
@@ -102,34 +103,54 @@ function handleFileUploads($photos, $user_id)
 
 function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files)
 {
-    $image_paths_json = json_encode($uploaded_files);
-    global $user_id;
-    $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos,user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
-    $stmt = $db->conn->prepare($query);
+    try {
+        $image_paths_json = json_encode($uploaded_files);
+        global $user_id;
+        $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $db->conn->prepare($query);
 
-    // $photos_list = implode(',', $uploaded_files);
-    print_r ($photos_list);
-// return;
-    $stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json,$user_id]);
+        if ($stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json, $user_id])) {
+            // echo json_encode(['status' => 'success', 'message' => 'Hostel successfully added']);
+    updateUserType($db, $user_id);
 
-    echo json_encode(['status' => 'success', 'message' => 'Data successfully inserted']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to add hostel. Please try again later.']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['status' => 'error', 'message' => 'An unexpected error occurred: ' . $e->getMessage()]);
+    }
 }
+
 
 function updateUserType($db, $user_id)
 {
-    $sql = "UPDATE users SET 	hostel_user_type='hostel_user' WHERE id = ?";
+    global $name;
+    $sql = "UPDATE users SET hostel_user_type = 'hostel_user' WHERE id = ?";
     $updateUserType = $db->conn->prepare($sql);
-    $updateUserType->execute([$user_id]);
+
+    try {
+        if ($updateUserType->execute([$user_id])) {
+            // echo json_encode(['status' => 'success', 'message' => 'User type successfully updated.']);
+    emailSendFun($name);
+
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update user type. Please try again later.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+    }
 }
 
 function emailSendFun($hostelName)
 {
     global $hostel, $user_id;
 
+    // Fetch user data
     $query = "SELECT * FROM users WHERE id = :id";
     $params = [':id' => $user_id];
     $userData = $hostel->getData($query, $params);
 
+    // Email configuration
     $emailConfig = [
         'Host' => $_ENV['SMTP_HOST'],
         'SMTPAuth' => $_ENV['SMTP_AUTH'] === 'true',
@@ -141,9 +162,11 @@ function emailSendFun($hostelName)
         'FromName' => $_ENV['SMTP_FROM_NAME'],
     ];
 
+    // Load email templates
     $header = file_get_contents('../mailtemplate/header.html');
     $footer = file_get_contents('../mailtemplate/footer.html');
 
+    // Prepare recipient data
     $bookingUserEmail = $userData[0]['email'];
     $bookingUsername = $userData[0]['username'];
 
@@ -163,6 +186,11 @@ function emailSendFun($hostelName)
         ]
     ];
 
+  
+    $status = 'success';
+    $message = 'Hostel has been successfully added and the confirmation email has been sent.';
+
+
     foreach ($recipients as $recipient) {
         $mail = new PHPMailer(true);
 
@@ -179,13 +207,17 @@ function emailSendFun($hostelName)
             $mail->addAddress($recipient['email'], $recipient['name']);
 
             $mail->isHTML(true);
-            $mail->Subject = 'Hostel added Confirmation';
+            $mail->Subject = 'Hostel Added Confirmation';
             $mail->Body = $recipient['body'];
             $mail->AltBody = $recipient['altBody'];
 
             $mail->send();
         } catch (Exception $e) {
-            echo json_encode(['message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 'trace' => $e->getTraceAsString()]);
+            $status = 'error';
+            $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}.";
+            // You may want to log the error or handle it further here
         }
     }
+
+    echo json_encode(['status' => $status, 'message' => $message]);
 }

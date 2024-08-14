@@ -57,7 +57,7 @@ function AddPetHos() {
 
     if (!formData.name) {
       formErrors.name = "Name is required";
-      valid = false;
+      // valid = false;
     }
     if (!formData.contact || formData.contact.length<10) {
 
@@ -127,10 +127,10 @@ function AddPetHos() {
         // if (loading) { <Loader />}
 
         console.log(response.data);
-        if (response.status === 200) {
+        if (response.data.status === 'success') {
           notification.success({
-            message: 'Form Submitted Successfully!',
-            description: 'hostel added sucessfully.',
+              message: 'Form Submitted Successfully!',
+              description: response.data.message || 'Hostel added successfully.',
           });
           // message.success("hostel added sucessfully");
 
@@ -149,13 +149,28 @@ function AddPetHos() {
  if (fileInputRef.current) {
   fileInputRef.current.value = '';
 }
-          // alert("Successfully added your request!");
-          // navigate('/success'); // Uncomment this if you have a success page
+            // navigate('/success'); // Uncomment this if you have a success page
         }
+
+        else {
+          // Show error notification
+          setErrors(response.data.errors )
+          notification.error({
+              message: 'Submission Failed',
+              description: response.data.message || 'An unexpected error occurred.',
+          });
+          // throw new Error(response.data.message || 'An unexpected error occurred.');
+      }
+
   
+
       } catch (error) {
-        console.error("There was an error submitting the form!", error.response || error.message);
-        alert("There was an error submitting the form. Please try again.");
+        notification.error({
+          message: 'Error Submitting Form',
+          description: error.response?.data.message || error.message || 'There was an error submitting the form.',
+      });
+        // console.error("There was an error submitting the form!", error.response || error.message);
+        // alert("There was an error submitting the form. Please try again.");
       }finally {
         setLoading(false); // Set loading to false after response is received
       }

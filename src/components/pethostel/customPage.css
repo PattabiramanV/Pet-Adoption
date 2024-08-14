@@ -1,0 +1,37 @@
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 17px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.slider-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.slick-list {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+}
+
+
+/* Apply opacity to all thumbnails */
+.slick-thumb a img {
+    opacity: 0.5; /* Set opacity for all thumbnails */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  /* Remove opacity for the active thumbnail */
+  .slick-thumb .slick-active img {
+    opacity: 1; /* Full opacity for the active thumbnail */
+  }
+  

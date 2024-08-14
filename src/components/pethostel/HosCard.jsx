@@ -106,26 +106,61 @@ import { useNavigate,Link } from "react-router-dom";
 // import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { IoLocationOutline } from "react-icons/io5";
 import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
-import { HeartFilled } from "@ant-design/icons";
+import { HeartFilled, JavaScriptOutlined } from "@ant-design/icons";
 import './hostelCard.css'
+import { useState,useEffect } from "react";
 function HostelCard({ hostel, active }) {
-  console.log(hostel);
+  // console.log(hostel);
   const navigate = useNavigate();
+const [images, setImages] = useState([]);
 
-  
 
+     
+      // const dataImg = JSON.parse(hostel.photos);
+      
+      // // Check if the parsed data is an array
+      // if (Array.isArray(dataImg)) {
+      //   setImages(dataImg[0]);
+      // }
+// const dataImg=JSON.parse(hostel.photos)
+// console.log(dataImg[0]);
+
+useEffect(() => {
+  // Normalize the photos data
+  let imageArray = [];
+  try {
+    if (typeof hostel.photos === 'string') {
+      const parsed = JSON.parse(hostel.photos);
+      if (Array.isArray(parsed)) {
+        imageArray = parsed;
+      } else {
+        imageArray[0] = [hostel.photos];
+      }
+    } else if (Array.isArray(hostel.photos)) {
+      imageArray = hostel.photos;
+    }
+  } catch (error) {
+    console.error('Error parsing photos:', error);
+  }
+  setImages(imageArray);
+}, [hostel.photos]);
+console.log(images);
   return (
 
     
    
 <div className="Hostelcard-container  ">
 <div className="hoscardimg">
-  <img
-    src={`../../../backend/hostel/hostelimg/${hostel.photos}`}
-    className="img"
-    alt={name}
-  />
-</div>
+        {/* {images.length > 0 ? ( */}
+          <img
+            src={`../../../backend/hostel/hostelimg/2/${images[0]}`}
+            className="img"
+            alt="Hostel"
+          />
+        {/* ) : ( */}
+          {/* <p>No image available</p> */}
+        {/* )} */}
+      </div>
   
   <div className="commonData">
   <div className="locationdescript">
