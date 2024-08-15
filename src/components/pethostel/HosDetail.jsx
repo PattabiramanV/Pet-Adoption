@@ -151,17 +151,19 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams,Link } from "react-router-dom";
 import Loader from '../Loader/Loader'; // Import the Loader component
-import CustomPaging from './CustomPaging';
+import CustomPaging from '../commoncomponent/custompage/CustomPaging';
 import './HostelDetail.css';
-
+import ReviewForm from '../commoncomponent/rating/Review';
+import { notification } from 'antd';
+import  StarRating from  '../commoncomponent/rating/StarRating';
 const HostelDetails = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Corrected useLocation() hook usage
   const [loading, setLoading] = useState(false); // Loading state
   const [pet, setPet] = useState(null);
-
   const hosId = useParams().id;
   const token = localStorage.getItem('token');
+  // const [rating, setRating] = useState(3); 
 
   useEffect(() => {
     if (location.state && location.state.pet) {
@@ -175,6 +177,7 @@ const HostelDetails = () => {
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setPet(response.data[0]);
+
         } catch (error) {
           console.error("Failed to fetch pet details:", error);
         } finally {
@@ -185,13 +188,11 @@ const HostelDetails = () => {
     }
   }, [location.state, hosId, token]);
 
+  console.log(pet);
   if (loading) {
     return <Loader />;
   }
 
-  if (!pet) {
-    return <div>No data available</div>;
-  }
 
   // Parse the image filenames from the pet object
   let parsed = [];
@@ -204,7 +205,67 @@ const HostelDetails = () => {
   const baseUrl = '../../../backend/hostel/hostelimg/2/'; // Adjust base URL if necessary
   const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
 console.log(imageUrls);
+
+
+// Example function for handling review submission
+const handleReviewSubmit = async (reviewData) => {
+  try {
+    const token = localStorage.getItem('token');
+    
+    // Prepare the data for submission
+    const data = {
+      ...reviewData,
+      hostel_id: hosId // Assuming you have a hostel ID to send
+    };
+
+    // Make the API request
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php`, // Adjust the URL as needed
+      JSON.stringify(data),
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        
+        }
+      }
+    );
+    console.log(response.data.status);
+
+    // // Handle the response
+    // const parseData=JSON.parse(response.data);
+    // console.log(parseData);
+    if (response.data.status == 'success') {
+      console.log(response.data);
+      notification.success({
+        message: 'Review Submitted Successfully!',
+        description: response.data.message || 'Your review has been submitted.',
+      });
+      // You can also clear the form or navigate as needed
+      // e.g., setReviewData({ review: '', rating: 0 });
+    } else {
+      // Show error notification
+      notification.error({
+        message: 'Submission Failed',
+        description: response.data.message || 'An unexpected error occurred.',
+      });
+    }
+  } catch (error) {
+    // Handle any errors that occur during the request
+    notification.error({
+      message: 'Error Submitting Review',
+      description: error.response?.data.message || error.message || 'There was an error submitting the review.',
+    });
+  }
+};
+
+
+
+
   return (
+    <>
+      <div className="btn_for_message flex justify-end items-end ">
+        <ReviewForm onSubmit={handleReviewSubmit} />
+      </div>  
     <section className="pet-detail-page">
       <div className="pet-detail-container-main">
         <div className="pet-detail-container">
@@ -215,32 +276,40 @@ console.log(imageUrls);
           <div className="hosright-details">
             <div className="div_name">
               <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
-                {pet.name}
+                {pet?.hostel_name}
               </h2>
             </div>
+
+            <div className="div_name">
+              <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+              <StarRating rating={Math.floor(pet?.average_rating)} readOnly={true}  />
+
+              </h2>
+            </div>
+
             <div className="div_location w-full flex items-center gap-16">
               <strong>Location:</strong>
-              <span> {pet.address}</span>
+              <span> {pet?.hostel_address}</span>
             </div>
 
             <div className="flex items-center gap-14">
               <strong>Price/Day:</strong>
-              <span>&#8377;{pet.price_per_day}</span>
+              <span>&#8377;{pet?.price_per_day}</span>
             </div>
 
             <div className="flex items-center gap-16" style={{ textTransform: 'capitalize' }}>
               <strong>Facilities:</strong>
-              <span>{pet.facilities}</span>
+              <span>{pet?.facilities}</span>
             </div>
 
             <div className="flex items-center gap-11">
               <strong>Contact No:</strong>
-              <span> {pet.contact}</span>
+              <span> {pet?.contact}</span>
             </div>
             <div className="hos_description">
               <strong className="" style={{ fontSize: '24px' }}>Description:</strong>
               <p className="pet-description p-2 tex-xm" style={{ lineHeight: '22px', fontSize: '14px', color: 'grey', fontWeight: '500' }}>
-                {pet.description}
+                {pet?.description}
               </p>
             </div>
 
@@ -251,6 +320,7 @@ console.log(imageUrls);
         </div>
       </div>
     </section>
+    </>
   );
 };
 

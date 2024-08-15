@@ -22,11 +22,11 @@ function AddPetHos() {
     description: '',
     photos: [] // Changed to an array to support multiple files
   });
-
+  
   const [errors, setErrors] = useState({});
   const onChangeFun = (e) => {
     const { name, type, files } = e.target;
-  
+  console.log(name);
     if (type === 'file') {
       // Use Array.from to convert FileList to an array
       setFormData(prevFormData => ({

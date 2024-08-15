@@ -2,7 +2,7 @@
     position: relative;
     display: inline-block;
     width: 40px;
-    height: 17px;
+    height: 80%;
     margin: 0 5px;
     padding: 0;
     cursor: pointer;
@@ -35,3 +35,23 @@
     opacity: 1; /* Full opacity for the active thumbnail */
   }
   
+  .slick-dots {
+    position: absolute;
+    bottom: -65px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    gap: 19px;
+}
+
+.slick-slide img {
+    display: block;
+    width: 400px;
+    height: 392px;
+    border-radius: 16px;
+}

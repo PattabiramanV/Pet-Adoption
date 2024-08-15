@@ -24,13 +24,16 @@ $available_time = $_POST['available_time'] ?? '';
 $address = $_POST['address'] ?? '';
 $description = $_POST['description'] ?? '';
 $photos = $_FILES['photos'] ?? null;
-
+print_r($photos);
+    exit;
 $errors = validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $photos);
 
 if (!empty($errors)) {
     respondWithError($errors);
 }
+
 $uploaded_files = handleFileUploads($photos,$user_id);
+
 // exit;
 if (!empty($errors)) {
     respondWithError($errors);
@@ -68,8 +71,10 @@ function respondWithError($errors)
 
 }
 
+
 function handleFileUploads($photos, $user_id)
 {
+    
     $uploaded_files = [];
     $upload_directory = "./hostelimg/$user_id/";
 
