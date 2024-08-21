@@ -31,13 +31,16 @@ function Home() {
       <Header />
       <Section />
       <PeacefulCoexistence />
+      <Adoptioncard />
+      <Doctorcard />
+
       <Petcard />
       <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
         <button className="more hi" onClick={handleNavigation}>See more</button>
       </div>
-      <Doctorcard />
+      {/* <Doctorcard /> */}
       {/* <Hostal_card /> */}
-      <Adoptioncard />
+      {/* <Adoptioncard /> */}
       <Footer />
     </>
   );

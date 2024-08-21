@@ -198,7 +198,7 @@ const Profile = ({ setProfileOpen }) => {
             className="profile-form"
             style={{ margin: "0" }}
           >
-            <div className="profile-row">
+            <div className="profile-row mor">
               <div className="profile-column">
                 <Form.Item name="username">
                   {isEditing ? (
@@ -299,7 +299,7 @@ const Profile = ({ setProfileOpen }) => {
                 </Form.Item>
               </div>
             </div>
-            <div className="profile-row full-width">
+            <div className="profile-row full-width mor ">
               <Form.Item name="address">
                 {isEditing ? (
                   <TextField
@@ -319,7 +319,7 @@ const Profile = ({ setProfileOpen }) => {
                 )}
               </Form.Item>
             </div>
-            <div className="profile-row">
+            <div className="profile-row mor">
               <div className="profile-column">
                 <Form.Item name="city">
                   {isEditing ? (

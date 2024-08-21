@@ -4,9 +4,9 @@ import { Visibility, VisibilityOff, Email } from "@mui/icons-material";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader/Loader"; 
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; 
-import { GoogleOutlined } from "@ant-design/icons"; 
+import Loader from "../Loader/Loader";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { GoogleOutlined } from "@ant-design/icons";
 
 import LoginLogo1 from "../../assets/Tablet login-pana.png";
 import "./Login.css";
@@ -15,14 +15,14 @@ const { Title, Text, Link } = Typography;
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const onFinish = async (values) => {
     setLoading(true);
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
 
     try {
       const response = await axios.post(
@@ -37,8 +37,6 @@ const Login = () => {
 
       if (response.status === 200) {
         message.success(response.data.message);
-
-        
         localStorage.setItem("token", response.data.jwt);
         navigate("/");
       } else {
@@ -63,64 +61,58 @@ const Login = () => {
     navigate("/reset");
   };
 
-
   const handleGoogleLoginSuccess = async (response) => {
     const { credential } = response;
 
     try {
-        const res = await axios.post(
-            `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}googlelogin.php`,
-            { key: credential }
-        );
+      const res = await axios.post(
+        `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}google.php`,
+        { key: credential }
+      );
 
-        console.log('Server Response:', res);
+      if (res.status === 200) {
+        const { jwt, message: successMessage } = res.data;
 
-        if (res.status === 200) {
-            const { jwt, message: successMessage } = res.data;
-
-            if (jwt) {
-                localStorage.setItem('token', jwt);
-                message.success(successMessage);
-                navigate("/");  // Uncomment to redirect user after login\n
-            } else {
-                console.error("JWT token is missing:", res.data);
-                message.error("Login failed. JWT token is missing.");
-            }
+        if (jwt) {
+          localStorage.setItem("token", jwt);
+          message.success(successMessage);
+          navigate("/");
         } else {
-            message.error(res.data.message);
+          message.error("Login failed. JWT token is missing.");
         }
+      } else {
+        message.error(res.data.message);
+      }
     } catch (error) {
-        if (error.response) {
-            switch (error.response.status) {
-                case 400:
-                    message.error("Email already registered.");
-                    break;
-                case 401:
-                    message.error("Unauthorized access. Please try again.");
-                    break;
-                case 500:
-                    message.error("Server error. Please try later.");
-                    break;
-                default:
-                    message.error("An unexpected error occurred.");
-                    break;
-            }
-        } else {
-            message.error("Network error. Please check your connection.");
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            message.error("Email already registered.");
+            break;
+          case 401:
+            message.error("Unauthorized access. Please try again.");
+            break;
+          case 500:
+            message.error("Server error. Please try later.");
+            break;
+          default:
+            message.error("An unexpected error occurred.");
+            break;
         }
+      } else {
+        message.error("Network error. Please check your connection.");
+      }
     }
-};
+  };
 
-
-  
   const handleGoogleLoginFailure = (error) => {
-    navigate("/signup");
+    message.error("Google login failed. Please try again.");
     console.error("Google login failed: ", error);
-    message.error("Google login failed. Please try again.");  };
+  };
 
   return (
     <section className="login-section">
-      {loading && <Loader />} 
+      {loading && <Loader />}
       <div className="login-main">
         <div className="login-image">
           <div className="login-img">
@@ -156,7 +148,7 @@ const Login = () => {
                     label="Email"
                     fullWidth
                     variant="outlined"
-                    className="input-field" 
+                    className="input-field"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -213,10 +205,7 @@ const Login = () => {
                 </div>
 
                 <div className="login_btn_div">
-                  <button
-                    type="submit"
-                    className="login-button"
-                  >
+                  <button type="submit" className="login-button">
                     Log In
                   </button>
                 </div>
@@ -225,36 +214,33 @@ const Login = () => {
               <Form.Item style={{ width: "100%" }}>
                 <div className="div_sign_link">
                   <Divider style={{ borderColor: "black" }}>Or Sign Up</Divider>
-                  </div>
+                </div>
 
+                <div className="google-login-button">
+                  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+                    <GoogleLogin
+                      onSuccess={handleGoogleLoginSuccess}
+                      onFailure={handleGoogleLoginFailure}
+                      render={(renderProps) => (
+                        <button
+                          type="button"
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          className="google-login-btn"
+                        >
+                          <GoogleOutlined /> Sign in with Google
+                        </button>
+                      )}
+                    />
+                  </GoogleOAuthProvider>
+                </div>
 
-                  <div className="google-login-button">
-                    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-                      <GoogleLogin
-                        onSuccess={handleGoogleLoginSuccess}
-                        onFailure={handleGoogleLoginFailure}
-                        render={(renderProps) => (
-                          <button
-                            type="button"
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            className="google-login-btn"
-                          >
-                            <GoogleOutlined /> Sign in with Google
-                          </button>
-                        )}
-                      />
-                    </GoogleOAuthProvider>
-                  </div>
-
-                  <div className="div_text_login">
-                    <Text className="sign-up-link" style={{ margin: "0" }}>
-                      Don't have an account?{" "}
-                      <Link onClick={handleSignInClick}>Sign up</Link>
-                    </Text>
-                  </div>
-
- 
+                <div className="div_text_login">
+                  <Text className="sign-up-link" style={{ margin: "0" }}>
+                    Don't have an account?{" "}
+                    <Link onClick={handleSignInClick}>Sign up</Link>
+                  </Text>
+                </div>
               </Form.Item>
             </div>
           </Form>

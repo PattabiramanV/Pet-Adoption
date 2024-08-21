@@ -7,8 +7,8 @@ import Login_logo from "../../assets/Sign up-pana.png";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff, Email } from "@mui/icons-material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import { GoogleOutlined } from "@ant-design/icons";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+// import { GoogleOutlined } from "@ant-design/icons";
+// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 import "./RegisterForm.css";
 
@@ -76,36 +76,36 @@ const RegisterForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleGoogleLoginSuccess = async (response) => {
-    const { credential } = response;
+  // const handleGoogleLoginSuccess = async (response) => {
+  //   const { credential } = response;
 
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}googleregister.php`,
-        { key: credential }
-      );
+  //   try {
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_AUTHENTICATION_BASE_URL}googleregister.php`,
+  //       { key: credential }
+  //     );
 
-      if (res.status === 200) {
-        message.success(res.data.message);
-        navigate("/login");
-      } else {
-        message.error(res.data.message);
-      }
-    } catch (error) {
-      if (error.response?.status === 400) {
-        message.error("Email already registered.");
-      } else {
-        message.error("An error occurred while trying to login with Google.");
-      }
-    }
-  };
+  //     if (res.status === 200) {
+  //       message.success(res.data.message);
+  //       navigate("/login");
+  //     } else {
+  //       message.error(res.data.message);
+  //     }
+  //   } catch (error) {
+  //     if (error.response?.status === 400) {
+  //       message.error("Email already registered.");
+  //     } else {
+  //       message.error("An error occurred while trying to login with Google.");
+  //     }
+  //   }
+  // };
 
-  const handleGoogleLoginFailure = (error) => {
+  // const handleGoogleLoginFailure = (error) => {
 
-    navigate("/signup");
-    console.error("Google login failed: ", error);
-    message.error("Google login failed. Please try again.");
-  };
+  //   navigate("/signup");
+  //   console.error("Google login failed: ", error);
+  //   message.error("Google login failed. Please try again.");
+  // };
 
   return (
     <section className="Register_section">
@@ -236,7 +236,7 @@ const RegisterForm = () => {
                         Or Sign in
                       </Divider>
                     </div>
-                    <div className="google-login-button">
+                    {/* <div className="google-login-button">
                       <GoogleOAuthProvider
                         clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
                       >
@@ -255,7 +255,7 @@ const RegisterForm = () => {
                           )}
                         />
                       </GoogleOAuthProvider>
-                    </div>
+                    </div> */}
                     <div className="div_link_reg">
                       <Text className="sign-up-link">
                         Already have an account

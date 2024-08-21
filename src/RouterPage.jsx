@@ -32,6 +32,10 @@ import Userpersonaltable from './components/veterinary/groomingusertable';
 import Doctorpersonaltable from './components/veterinary/docterpersonalpage';
 // import GroomingForm from './components/veterinary/grommingform';
 import Test from './components/text';
+// import Map from './components/Map/map';
+import Map from './components/Location';
+
+
 
 // import Adoption from './components/petfilter/petsForms/adaption';
 // import SideBar from './components/PetFilter/sideBar/SideBar';
@@ -52,6 +56,8 @@ function RouterPage() {
         <Route path="/petList" element={<AllPetList />} />
         <Route path="/bookHos" element={<BookHosPage />} />
         <Route path="/lostpetlisting" element={<Lostlistallpage />} />
+        <Route path="/map" element={<Map />} />
+
 
 
 

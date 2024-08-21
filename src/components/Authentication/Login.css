@@ -183,3 +183,11 @@
 .google-login-btn svg {
   margin-right: 8px;
 } */
+.google-login-btn .user-info {
+  display: none !important;
+}
+
+/* Ensure the button text is visible */
+.google-login-btn {
+  color: #fff; /* or any color that suits your theme */
+}

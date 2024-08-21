@@ -213,3 +213,55 @@
  .breed span {
    padding-left: 5px;
  }
+
+
+ .pet-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.gender {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+
+.ages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.pet-card-locations {
+  color: #337739;
+  font-size: large;
+}
+
+span.span-color {
+  width: auto;
+  height: auto;
+  background: #EAE8F7;
+  padding: 3px;
+  border-radius: 7px;
+  font-size: small;
+}
+
+
+.pet-name {
+  font-size: 1.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.names {
+  color: #2E256F;
+  text-align: left;
+  font-weight: 700;
+  font-size: 18px;
+  width: auto;
+}
