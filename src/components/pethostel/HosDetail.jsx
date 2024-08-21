@@ -158,6 +158,7 @@ import { notification } from 'antd';
 import  StarRating from  '../commoncomponent/rating/StarRating';
 import ReviewCard from '../commoncomponent/rating/ReviewCard'
 import Tabs from '../commoncomponent/tabs/Tabs';
+import SimilarHos from './SimilarHos';
 const HostelDetails = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Corrected useLocation() hook usage
@@ -345,7 +346,7 @@ const handleReviewSubmit = async (reviewData) => {
 
 )}
 
-
+{/* <SimilarHos hostels={pet}/> */}
     </>
   );
 };
