@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PetCard from './foundpetpostscard';
-
+import Loader from '../../Loader/Loader';
 const Mylostpetposts = () => {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ const Mylostpetposts = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost/petadoption/backend/model/getlostingpet.php');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -29,7 +29,7 @@ const Mylostpetposts = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   if (error) {

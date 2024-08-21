@@ -8,7 +8,7 @@ const PetCard = ({ pet }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate('/checkboxpage', { state: { pet } });
+    navigate('/petdetails', { state: { pet } });
   };
 
   const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
@@ -31,25 +31,23 @@ const PetCard = ({ pet }) => {
         </div>
 
         <div className="pet-card-info">
-          <div className="pet_left_de">
-            <p>
-              <strong>Gender:</strong> {pet.gender}
-            </p>
-          </div>
-          <div className="pet_right_de">
-            <p>
-              <strong>Pet:</strong> {pet.pet_type}
-            </p>
-          </div>
+          <p><strong> Gender:</strong><span id="inputcolor">{pet.gender}</span> </p>
+          <p><strong>Pettype:</strong><span id="inputcolor">{pet.pet_type}</span></p>
+          <p className="pet_title"><strong>LostDate:</strong><span id="inputcolor"> {pet.lost_date}</span></p>
          </div>
-        <p><strong>LostDate:</strong> {pet.lost_date}</p>
-        <button className="more" onClick={handleNavigation}>See more</button>
-      </div>
+         <div>
+        <button className="more" onClick={handleNavigation}>More Info</button>
+        </div>
+        </div>
     </div>
   );
 };
 
 export default PetCard;
+
+
+
+
 
 
 

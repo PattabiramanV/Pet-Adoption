@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { notification, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import Loader from '../Loader/Loader';
+import './lostlistpet.css';
 
 const LostPetForm = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const LostPetForm = () => {
         location: ''
     });
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -56,7 +58,7 @@ const LostPetForm = () => {
 
         const sendRequest = async (dataToSend) => {
             try {
-                const response = await axios.post('http://localhost/petadoption/backend/model/lostingpet.php', dataToSend, {
+                const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/model/lostingpet.php`, dataToSend, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 notification.success({
@@ -104,13 +106,14 @@ const LostPetForm = () => {
             await sendRequest(dataToSend);
         }
     };
+    if(loading) {
+        return <Loader/>;
+    }
 
     return (
         <div
-            className="max-w-4xl mx-auto p-8 mb-5 mt-5 rounded-[10px]"
-            style={{
-                boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-            }}
+            className="lostpetform  max-w-4xl mx-auto p-8 mb-5 mt-5 rounded-[10px]"
+           
         >
             <h2 className="text-2xl font-bold mb-6 text-violet-800 text-center">Add Lost Pets</h2>
             <form onSubmit={handleSubmit}>
@@ -219,18 +222,6 @@ const LostPetForm = () => {
                         {errors.address && <p className="text-red-500 text-xs ">{errors.address}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description</label>
-                        <textarea
-                            name="description"
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.description ? 'border-red-500' : ''}`}
-                            id="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Description"
-                        />
-                        {errors.description && <p className="text-red-500 text-xs ">{errors.description}</p>}
-                    </div>
-                    <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location</label>
                         <input
                             name="location"
@@ -242,24 +233,33 @@ const LostPetForm = () => {
                             placeholder="Location"
                         />
                         {errors.location && <p className="text-red-500 text-xs ">{errors.location}</p>}
-                    </div>
+                    </div>     
                 </div>
+                <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description</label>
+                        <textarea
+                            name="description"
+                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.description ? 'border-red-500' : ''}`}
+                            id="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Description"
+                        />
+                        {errors.description && <p className="text-red-500 text-xs ">{errors.description}</p>}
+                    </div>
 
-                <Button
-    type="primary"
-    htmlType="sumbit"
-    className="w-[30%] h-[40px]"
-    size="small"
-    justifycontent="center"
->
-    Submit
-</Button>
+               <button className='lostformsubmitbtn'>Submit</button>
             </form>
         </div>
     );
 };
 
 export default LostPetForm;
+
+
+
+
+
 
 
 

@@ -1,0 +1,167 @@
+.filterSearch {
+
+    padding-left: 39px;
+    padding-top: 52px;
+}
+
+.filter {
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #CBCBCB;
+    width: 288px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter_image img {
+    width: 124px;
+    height: 124px;
+}
+
+.filterLocation {
+    padding-top: 16px;
+    width: 288px;
+    height: 40px;
+}
+
+.filterLocation p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.locationData{
+    width: 288px;
+    Height:62px;
+    border-radius: 8px;
+    border:1px solid #DFDFDF;
+    padding-bottom: 1%;
+    position: relative;
+    top: 8px;
+
+}
+
+.locationData .code {
+    color: #606060;
+    font-size: 12px;
+    font-weight: 500;
+        position: relative;
+    top: 5px;
+}
+.locationData p{
+    padding-left: 4%;
+}
+.locationData .address{
+      position: relative;
+    top: 11px;
+
+}
+.currentl{
+       width: 188px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11%;
+    position: relative;
+    top: 84px;
+}
+.currentl .ltext{
+    font-size:12px;
+    font-weight: 500;
+    color: #0A453A;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 288px;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+} 
+
+.filter-filterpet{
+          display: flex;
+    width: 100%;
+    height: auto;
+        margin-bottom: 138px;
+}
+.filter-filterpet .list-pet {
+    left: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-bottom: 66px;
+} 
+.filter-filterpet {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.filterSearch {
+  flex: 1; 
+  margin-right: 20px; 
+}
+
+.pet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pet-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.pet-form select,
+.pet-form input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pet-form button {
+  padding: 10px;
+  color: #675BC8 ;
+  border: 1px solid #675BC8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.petnot{
+  text-align: center;
+}
+.list-pet {
+  flex: 2; 
+  display: flex;
+  flex-direction: column;
+}
+
+.error-alert {
+  text-align: center; 
+  margin: 20px auto; 
+  width: 80%; 
+  max-width: 600px; 
+}
+
+.ant-alert-error {
+  background-color: #f8d7da; 
+  border-color: #f5c6cb; 
+  color: #721c24;
+}

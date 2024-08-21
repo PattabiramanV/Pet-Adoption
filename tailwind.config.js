@@ -1,21 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        customPurple: '#2E256F',
-        customGreen: '#00FF00', 
-        lightPurpule:'#675BC8'
+        customblue: '#675bc8',
       },
-
     },
   },
   plugins: [],
 }
-
-
-

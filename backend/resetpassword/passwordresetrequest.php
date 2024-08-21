@@ -16,6 +16,16 @@ require '../vendor/autoload.php'; // Load Composer's autoloader
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// env file add 
+
+use Dotenv\Dotenv;
+
+// Load the .env file
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents("php://input"));
 
@@ -50,21 +60,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 try {
                     // Server settings
                     $mail->isSMTP();                                            // Send using SMTP
-                    $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                    $mail->Username   = 'furryfriens123@gmail.com';             // SMTP username
-                    $mail->Password   = 'rtcgadrtpxgbepdd';                     // SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           // Enable TLS encryption
-                    $mail->Port       = 587;                                    // TCP port to connect to
+                    $mail->Host       = $_ENV['SMTP_HOST'];
+                    $mail->SMTPAuth   = $_ENV['SMTP_AUTH'];
+                    $mail->Username   = $_ENV['SMTP_USERNAME'];
+                    $mail->Password   = $_ENV['SMTP_PASSWORD'];
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = $_ENV['SMTP_PORT'];
 
                     // Recipients
-                    $mail->setFrom('furryfriens123@gmail.com', 'Furry Friends');    // Your email address
+                    $mail->setFrom($_ENV['SMTP_FROM_ADDRESS'], $_ENV['SMTP_FROM_NAME']);
                     $mail->addAddress($email);                                  // Add a recipient
 
+                    $header = file_get_contents('../mailtemplate/header.html');
+                    $footer = file_get_contents('../mailtemplate/footer.html');
+
+
                     // Content
-                    $mail->isHTML(true);                                        // Set email format to HTML
+                    $mail->isHTML(true);                                       
                     $mail->Subject = 'Your OTP Code';
-                    $mail->Body    = "Your OTP code is: <strong>$otp</strong>";
+                    $mail->Body = $header . '
+                          <div class="content">
+                             <p>Hi there,</p>
+                               <p>Your OTP code is:</p>
+                                  <div class="otp">' . $otp . '</div>
+                                 <p>Use this code to complete your password reset request. The OTP will expire in 15 minutes.</p>
+                                     </div>
+                                     ' . $footer;
+
+                    // Plain text alternative body
+                    $mail->AltBody = "Your OTP code is: $otp";
                     $mail->AltBody = "Your OTP code is: $otp";
 
                     $mail->send();

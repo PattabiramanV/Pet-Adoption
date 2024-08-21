@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Input, Space, Form, Select, notification } from "antd";
 import axios from "axios";
 import "./Profile.css";
+import Loader from "../Loader/Loader";  // Import the Loader component
 
 const { Option } = Select;
 
@@ -11,6 +12,7 @@ const Profile = ({ setProfileOpen }) => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState('');
   const [avatarFile, setAvatarFile] = useState(null);
+  const [loading, setLoading] = useState(false);  // Add loading state
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,8 +22,9 @@ const Profile = ({ setProfileOpen }) => {
         return;
       }
 
+      setLoading(true);  // Show loader
       try {
-        const response = await axios.get('http://localhost/petadoption/backend/profile/read_profile.php', {
+        const response = await axios.get(`${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
@@ -30,6 +33,8 @@ const Profile = ({ setProfileOpen }) => {
       } catch (error) {
         console.error('Error fetching profile:', error);
         notification.error({ message: 'Error fetching profile', description: error.message });
+      } finally {
+        setLoading(false);  // Hide loader
       }
     };
 
@@ -42,9 +47,10 @@ const Profile = ({ setProfileOpen }) => {
 
   const handleSaveClick = async (values) => {
     const token = localStorage.getItem('token');
+    setLoading(true);  // Show loader
     try {
       await axios.post(
-        'http://localhost/petadoption/backend/profile/update_profile.php',
+        `${import.meta.env.VITE_PROFILE_BASE_URL}update_profile.php`,
         values,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -62,6 +68,8 @@ const Profile = ({ setProfileOpen }) => {
         message: 'Error updating profile',
         description: error.response ? error.response.data.message : error.message,
       });
+    } finally {
+      setLoading(false);  // Hide loader
     }
   };
 
@@ -76,9 +84,10 @@ const Profile = ({ setProfileOpen }) => {
     const formData = new FormData();
     formData.append('avatar', file);
 
+    setLoading(true);  // Show loader
     try {
       const response = await axios.post(
-        'http://localhost/petadoption/backend/profile/upload_avatar.php',
+        `${import.meta.env.VITE_PROFILE_BASE_URL}upload_avatar.php`,
         formData,
         {
           headers: {
@@ -97,6 +106,8 @@ const Profile = ({ setProfileOpen }) => {
       }
     } catch (error) {
       notification.error({ message: 'Upload failed', description: error.response ? error.response.data.message : error.message });
+    } finally {
+      setLoading(false);  // Hide loader
     }
   };
 
@@ -108,6 +119,14 @@ const Profile = ({ setProfileOpen }) => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <Loader /> {/* Use your custom loader component */}
+      </div>
+    );
+  }
+
   return (
     <section className="profile-page">
       <div className="profile-container">
@@ -116,12 +135,8 @@ const Profile = ({ setProfileOpen }) => {
             {isEditing ? (
               <input type="file" accept="image/*" onChange={handleFileChange} />
             ) : (
-              <img src={imageUrl || "https://via.placeholder.com/150"} alt="Profile Avatar" />
+              <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
             )}
-          </div>
-          <div className="profile-info">
-            <h2>{profile.username}</h2>
-            <p>{profile.email}</p>
           </div>
         </div>
         <div className="profile-details">
@@ -135,24 +150,20 @@ const Profile = ({ setProfileOpen }) => {
             <div className="profile-row">
               <div className="profile-column">
                 <Form.Item label="Username" name="username">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.username}</p>}
+                  {isEditing ? <Input readOnly /> : <p className="profile-text">{profile.username} </p>}
                 </Form.Item>
               </div>
               <div className="profile-column">
                 <Form.Item label="Email" name="email">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.email}</p>}
+                  {isEditing ? <Input readOnly /> : <p className="profile-text email_text">{profile.email}</p>}
                 </Form.Item>
               </div>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="Phone" name="phone">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
-                </Form.Item>
-              </div>
-              <div className="profile-column">
                 <Form.Item label="Gender" name="gender">
                   {isEditing ? (
+                    
                     <Select>
                       <Option value="Male">Male</Option>
                       <Option value="Female">Female</Option>
@@ -163,28 +174,42 @@ const Profile = ({ setProfileOpen }) => {
                   )}
                 </Form.Item>
               </div>
+              <div className="profile-column">
+                <Form.Item label="Phone" name="phone">
+                  {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
+                </Form.Item>
+              </div>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="State" name="state">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
+                <Form.Item label="Address" name="address">
+                  {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
                 </Form.Item>
               </div>
+            </div>
+            <div className="profile-row">
               <div className="profile-column">
                 <Form.Item label="City" name="city">
                   {isEditing ? <Input /> : <p className="profile-text">{profile.city}</p>}
                 </Form.Item>
               </div>
+              <div className="profile-column">
+                <Form.Item label="State" name="state">
+                  {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
+                </Form.Item>
+              </div>
             </div>
             <Form.Item>
-              {isEditing ? (
-                <Space>
-                  <Button type="primary" htmlType="submit">Save</Button>
-                  <Button onClick={handleCancelClick}>Cancel</Button>
-                </Space>
-              ) : (
-                <Button onClick={handleEditClick}>Edit</Button>
-              )}
+              <div className="div_main_for_edit">
+                {isEditing ? (
+                  <div className="div_profile_edit">
+                    <button onClick={handleCancelClick} className="cancel-button-profile profile">Cancel</button>
+                    <button type="submit" className="save-button-profile profile">Save</button>
+                  </div>
+                ) : (
+                  <button onClick={handleEditClick} className="edit-button profile">Edit</button>
+                )}
+              </div>
             </Form.Item>
           </Form>
         </div>

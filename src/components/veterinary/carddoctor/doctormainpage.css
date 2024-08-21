@@ -1,0 +1,35 @@
+.Add-Your-Doctor-Profile {
+    padding: 8px 16px; /* Reduced padding */
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 20%;
+    margin-top: 8px; /* Reduced margin */
+    font-size: 14px; /* Reduced font size */
+    border: 1px solid #675bc8;
+    background-color: #fff;
+    color: #675bc8;
+    font-family: 'Arial', sans-serif;
+  }
+
+.Add-Your-Doctor-Profile:hover {
+    background-color: #696299; /* DarkSlateBlue */
+    color: white;
+  
+}
+
+
+.div_Add-Your-Doctor-Profile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1em;
+}
+.div_add_your_doctor_profile_main {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

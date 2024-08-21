@@ -53,6 +53,9 @@ section.landing_page_1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Inter', sans-serif; /* Correct font-family */
+    font-weight: 400; /* Correct font-weight */
+    font-size: 18px; 
 }
 
 img.dogCat {

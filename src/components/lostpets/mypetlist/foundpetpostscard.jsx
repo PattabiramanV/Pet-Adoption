@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import "../lostpets.css";      
 
 const PetCard = ({ pet }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleNavigation = () => {
+    navigate('/petdetails', { state: { pet } });
+  };
+  
   const imageSrc = `data:image/jpeg;base64,${pet.photo}`;
   
   return (
@@ -23,25 +29,16 @@ const PetCard = ({ pet }) => {
           </p>
         </div>
 
-        <div className="pet-card-info">
-          <div className="pet_left_de">
-            <p>
-              <strong>Gender:</strong> {pet.gender}
-            </p>
+          <div className="pet-card-info">
+            <p><strong>Gender:</strong><span id="inputscolors">{pet.gender}</span></p>
+            <p><strong> Pettype:</strong><span id="inputscolors">{pet.pet_type}</span> </p>
+            <p><strong>Lost Date:</strong><span id="inputscolors">{pet.lost_date}</span></p>
           </div>
-          <div className="pet_right_de">
-            <p>
-              <strong>Pet:</strong> {pet.pet_type}
-            </p>
-          </div>
+        <div>
+            <button className="more" onClick={handleNavigation}>More Info</button>
+            </div>
+            </div>
         </div>
-        <p><strong>Lost Date:</strong> {pet.lost_date}</p>
-        
-        <Link to={{ pathname: '/checkboxpage', state: { pet } }}>
-          <button className="more">See more</button>
-        </Link>
-      </div>
-    </div>
   );
 };
 

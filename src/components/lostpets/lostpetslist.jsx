@@ -1,5 +1,6 @@
 // PetList.jsx
 import React, { useEffect, useState } from 'react';
+import Loader from '../Loader/Loader';
 import PetCard from './lostpets';
 
 const PetList = () => {
@@ -10,7 +11,7 @@ const PetList = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost/petadoption/backend/model/getlostingpet.php');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -28,7 +29,7 @@ const PetList = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   if (error) {
