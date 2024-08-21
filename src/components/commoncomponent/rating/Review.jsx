@@ -53,9 +53,9 @@ const ReviewForm = ({ onSubmit }) => {
   };
 
   return (
-    <button onClick={handleReviewSubmit} className="add-review-button">
+    <a onClick={handleReviewSubmit} className="cursor-pointer">
       Add Review
-    </button>
+    </a>
   );
 };
 

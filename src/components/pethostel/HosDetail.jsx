@@ -156,6 +156,8 @@ import './HostelDetail.css';
 import ReviewForm from '../commoncomponent/rating/Review';
 import { notification } from 'antd';
 import  StarRating from  '../commoncomponent/rating/StarRating';
+import ReviewCard from '../commoncomponent/rating/ReviewCard'
+import Tabs from '../commoncomponent/tabs/Tabs';
 const HostelDetails = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Corrected useLocation() hook usage
@@ -163,20 +165,26 @@ const HostelDetails = () => {
   const [pet, setPet] = useState(null);
   const hosId = useParams().id;
   const token = localStorage.getItem('token');
+  const [reviews, setReviews] = useState(null);
+  // console.log(hosId);
   // const [rating, setRating] = useState(3); 
 
   useEffect(() => {
-    if (location.state && location.state.pet) {
-      setPet(location.state.pet);
-    } else {
+    // if (location.state && location.state.pet) {
+    //   setPet(location.state.pet);
+    // } else {
       const fetchPetDetails = async () => {
         try {
+         
           setLoading(true);
           const response = await axios.get(
             `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${hosId}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
+          
+          // console.log(response.data);
           setPet(response.data[0]);
+          setReviews(response.data);
 
         } catch (error) {
           console.error("Failed to fetch pet details:", error);
@@ -185,10 +193,11 @@ const HostelDetails = () => {
         }
       };
       fetchPetDetails();
-    }
-  }, [location.state, hosId, token]);
+    // }
+  }, []);
 
   console.log(pet);
+  console.log(reviews);
   if (loading) {
     return <Loader />;
   }
@@ -229,9 +238,10 @@ const handleReviewSubmit = async (reviewData) => {
         }
       }
     );
+    
     console.log(response.data.status);
 
-    // // Handle the response
+    // Handle the response
     // const parseData=JSON.parse(response.data);
     // console.log(parseData);
     if (response.data.status == 'success') {
@@ -263,10 +273,10 @@ const handleReviewSubmit = async (reviewData) => {
 
   return (
     <>
-      <div className="btn_for_message flex justify-end items-end ">
+      {/* <div className="btn_for_message flex justify-end items-end p-2 ">
         <ReviewForm onSubmit={handleReviewSubmit} />
-      </div>  
-    <section className="pet-detail-page">
+      </div>   */}
+    <section className="pet-detail-page flex ">
       <div className="pet-detail-container-main">
         <div className="pet-detail-container">
           <div className="pet-images">
@@ -274,17 +284,21 @@ const handleReviewSubmit = async (reviewData) => {
           </div>
 
           <div className="hosright-details">
+            <div className='w-full grid  gap-8'>
             <div className="div_name">
               <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
                 {pet?.hostel_name}
               </h2>
             </div>
 
-            <div className="div_name">
-              <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+            <div className="div_name flex gap-8">
+              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+
+              </h2> */}
               <StarRating rating={Math.floor(pet?.average_rating)} readOnly={true}  />
 
-              </h2>
+              <ReviewForm onSubmit={handleReviewSubmit} />
+
             </div>
 
             <div className="div_location w-full flex items-center gap-16">
@@ -306,20 +320,32 @@ const handleReviewSubmit = async (reviewData) => {
               <strong>Contact No:</strong>
               <span> {pet?.contact}</span>
             </div>
-            <div className="hos_description">
+            {/* <div className="hos_description">
               <strong className="" style={{ fontSize: '24px' }}>Description:</strong>
               <p className="pet-description p-2 tex-xm" style={{ lineHeight: '22px', fontSize: '14px', color: 'grey', fontWeight: '500' }}>
                 {pet?.description}
               </p>
-            </div>
-
+            </div> */}
+</div>
+                <div className='w-full ' style={{position:'relative',bottom:'-52px'}}>
             <div className="btn_for_message flex justify-start items-end">
               <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Book Now</Link>
             </div>
+            </div>
+
           </div>
         </div>
       </div>
     </section>
+
+{/* <ReviewCard></ReviewCard> */}
+{reviews && (
+
+<Tabs hostelReviews={reviews}   />
+
+)}
+
+
     </>
   );
 };

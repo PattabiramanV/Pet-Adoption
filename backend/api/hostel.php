@@ -208,6 +208,7 @@ switch ($method) {
     users.id AS user_id,
     users.username AS user_name,
     users.phone AS user_phone,
+     users.avatar ,
     hostel_ratings.rating AS user_rating,
     hostel_ratings.comments,
     AVG(hostel_ratings.rating) OVER (PARTITION BY hostel_ratings.hos_id) AS average_rating,
