@@ -27,7 +27,6 @@ import Mylostpostlist from "./components/mypetlost";
 import Checkboxlostpets from "./components/checkboxpost";
 import Lostpostusertable from "./components/lostpostusertable";
 import EditUserForm from './components/edituserform';
-import Locationpage from './components/locationpage';
 
 // pommikan----------------------------------
 
@@ -61,7 +60,7 @@ function RouterPage() {
         <Route path="/petdetails" element={<PrivateRoute><Checkboxlostpets /></PrivateRoute>} />
         <Route path="/lostpetlisting" element={<PrivateRoute><Lostlistallpage /></PrivateRoute>} />
         <Route path="/editform" element={<PrivateRoute><EditUserForm /></PrivateRoute>} /> 
-        <Route path="/loctionforallpets" element={<PrivateRoute><Locationpage /></PrivateRoute>} />
+        {/* <Route path="/loctionforallpets" element={<PrivateRoute><Locationpage /></PrivateRoute>} /> */}
 
 {/* pommika -----------------------*/}
 
