@@ -13,7 +13,7 @@ const EditForm = ({ record, onClose, onUpdate }) => {
         gender: record.gender,
         age: record.age,
         address: record.address,
-        lost_date: moment(record.lost_date).format('YYYY-MM-DD'),
+        lost_date: moment(record.lostDate).format('YYYY-MM-DD'),
         location: record.location,
         description: record.description,
         contact_no: record.contact_no,

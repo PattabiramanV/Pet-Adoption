@@ -38,6 +38,7 @@
     "react-paginate": "^8.2.0",
     "react-router-dom": "^6.24.1",
     "react-spinners": "^0.14.1",
+    "sharethis-reactjs": "^1.6.0",
     "sweetalert2": "^11.12.3"
   },
   "devDependencies": {

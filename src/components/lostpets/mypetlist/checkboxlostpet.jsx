@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { message, Spin } from "antd";
+import { message } from "antd";
 import Loader from '../../Loader/Loader';
+import { InlineShareButtons } from 'sharethis-reactjs';
+
 import "../lostlistpet.css";
 
 const LostListPet = () => {
@@ -11,14 +13,12 @@ const LostListPet = () => {
   const location = useLocation();
   const [pet, setPet] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
 
-  // Fetch the current user ID and pet details from the backend
   useEffect(() => {
     const fetchData = async () => {
       let token = localStorage.getItem('token');
       try {
-        // Fetch current user ID
         const userResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/lostinguserstable.php`, {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -26,22 +26,17 @@ const LostListPet = () => {
         });
 
         const userData = await userResponse.json();
-        console.log('User ID Response data:', userData);
-
         if (Array.isArray(userData) && userData.length > 0 && userData[0].user_id) {
           setCurrentUserId(userData[0].user_id);
         } else {
           throw new Error("Invalid data format received from the server.");
         }
 
-        // Fetch pet details
         if (location.state && location.state.pet) {
-          console.log("Location state pet data:", location.state.pet);
           setPet(location.state.pet);
         } else {
           const petResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
           const petData = await petResponse.json();
-          console.log("Fetched Pet Data:", petData);
           setPet(petData);
         }
       } catch (error) {
@@ -61,12 +56,11 @@ const LostListPet = () => {
     fetchData();
   }, [location.state]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
 
   if (!pet || currentUserId === null) return <p>Failed to load pet details.</p>;
 
   const imageSrc = pet.photo ? `data:image/jpeg;base64,${pet.photo}` : '';
-
   const isUserOwner = String(currentUserId) === String(pet.user_id);
 
   const updateStatus = async () => {
@@ -75,7 +69,6 @@ const LostListPet = () => {
         pet_id: pet.id,
         status: 'completed'
       };
-      console.log('Sending request with body:', requestBody);
 
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/statuspost.php`, {
         method: 'POST',
@@ -87,12 +80,10 @@ const LostListPet = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Error response:', errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
-      console.log('Update Status Response:', result);
       if (result.success) {
         setPet((prevPet) => ({ ...prevPet, status: 'completed' }));
         message.success({
@@ -132,7 +123,7 @@ const LostListPet = () => {
             </div>
             <div className="div_location">
               <p className="pet-location">
-                <i className="fas fa-map-marker-alt"></i><strong><FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.location}</strong>
+                <FontAwesomeIcon icon={faMapMarkerAlt} /> <strong>{pet.location}</strong>
               </p>
             </div>
             <p><strong>Gender:</strong> {pet.gender}</p>
@@ -146,9 +137,6 @@ const LostListPet = () => {
                 <strong>Description: </strong>{pet.description}
               </p>
             </div>
-            <div className="div_user_id">
-              <p className="pet-user-id"></p>
-            </div>
             <div className="btn_for_message">
               {isUserOwner ? (
                 <>
@@ -161,12 +149,28 @@ const LostListPet = () => {
                     />
                     {pet.status === 'completed' ? 'Completed' : 'Pending'}
                   </label>
+                    <InlineShareButtons
+                      config={{
+                        alignment: 'center',
+                        color: 'social',
+                        enabled: true,
+                        font_size: 16,
+                        language: 'en',
+                        networks: ['whatsapp', 'facebook', 'twitter', 'email'],
+                        padding: 12,
+                        radius: 50,
+                        show_total: false,
+                        size: 40,
+                      }}
+                    />
                 </>
               ) : (
                 <>
                   <div className="add-to-cart">
-                    <a className="lostpetowner_contact" href= {'tel:${lostpetowner.phone}'}>
-                    <button>Contact Owner</button></a></div>
+                    <a className="lostpetowner_contact" href={'tel:${lostpetowner.phone}'}>
+                      <button>Contact Owner</button>
+                    </a>
+                  </div>
                   <button className="goback-button" onClick={() => navigate("/mypetlostpost")}>
                     Go Back
                   </button>
