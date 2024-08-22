@@ -32,7 +32,7 @@
   border-radius: 4px;
 }
 
-.breadcrumb a:hover {
+.breadcrumb a:react-tabhover {
   color: rgb(118, 250, 228);
 }
 

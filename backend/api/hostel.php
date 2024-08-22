@@ -197,14 +197,39 @@ $user_id = authenticate();
 $hostel = new Hostel();
 
 $data = json_decode(file_get_contents("php://input"), true);
-
+$data['userId']=$user_id;
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
         if (isset($_GET['hosid'])) {
             $userId = $_GET['hosid'];
-            $query = "SELECT * FROM pet_hostels WHERE id = :hosid";
+            $query = "SELECT 
+    users.id AS user_id,
+    users.username AS user_name,
+    users.phone AS user_phone,
+     users.avatar ,
+    hostel_ratings.rating AS user_rating,
+    hostel_ratings.comments,
+    AVG(hostel_ratings.rating) OVER (PARTITION BY hostel_ratings.hos_id) AS average_rating,
+    pet_hostels.id AS hostel_id,
+    pet_hostels.name AS hostel_name,
+    pet_hostels.address AS hostel_address,
+    pet_hostels.price_per_day,
+    pet_hostels.description,
+    pet_hostels.facilities,
+    pet_hostels.contact,
+    pet_hostels.photos,
+    pet_hostels.available_time
+FROM 
+    hostel_ratings
+JOIN 
+    users ON users.id = hostel_ratings.user_id
+JOIN 
+    pet_hostels ON pet_hostels.id = hostel_ratings.hos_id
+WHERE 
+    hostel_ratings.hos_id =:hosid";
+
             $params=[':hosid'=>$_GET['hosid']];
             $data = $hostel->getData($query,  $params);
             echo json_encode($data);
@@ -232,8 +257,15 @@ switch ($method) {
 
             emailSendFun($all_Data);
             
-        } else {
-            $storeData = $hostel->createData($data);
+        }  else {
+            
+            // print_r($data);
+            // exit;
+            $sql = "INSERT INTO hostel_ratings (
+               	hos_id , user_id,rating,comments
+            ) VALUES (:hostel_id ,:userId,:rating,:review)";
+    
+            $storeData = $hostel->createData($data,$sql);
             echo json_encode($storeData);
             
         }
@@ -436,7 +468,6 @@ function emailSendFun($data) {
 
 
 ?>
-
 
 
 

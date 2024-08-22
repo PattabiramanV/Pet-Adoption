@@ -30,6 +30,19 @@ import EditUserForm from './components/edituserform';
 
 // pommikan----------------------------------
 
+// hostall------
+
+import AddHosPage from './components/AddHosPage';
+import HosDetailPage from "./components/HosDetailPage";
+import HostelDataTable from './components/pethostel/datatable/request';
+import BookHosPage from './components/pethostel/BookHosPage';
+import PetHostels from './components/PetHostel';
+import NormalUserforHos from "./components/pethostel/datatable/NormalUserforHos";
+import HostelUserTable from "./components/pethostel/datatable/HostelUserTable"
+
+// hostall------
+
+
 
 function RouterPage() {
   return (
@@ -60,13 +73,27 @@ function RouterPage() {
         <Route path="/petdetails" element={<PrivateRoute><Checkboxlostpets /></PrivateRoute>} />
         <Route path="/lostpetlisting" element={<PrivateRoute><Lostlistallpage /></PrivateRoute>} />
         <Route path="/editform" element={<PrivateRoute><EditUserForm /></PrivateRoute>} /> 
-        {/* <Route path="/loctionforallpets" element={<PrivateRoute><Locationpage /></PrivateRoute>} /> */}
 
 {/* pommika -----------------------*/}
 
 
 
+    {/* hostall-------------- */}
+        <Route path="/normaluserforhos" element={<NormalUserforHos/>} />
+        <Route path="/hostelusertable" element={<HostelUserTable/>} />
+        <Route path="/addhostel" element={<AddHosPage/>} />
+        <Route path="/pethostel/details/:id" element={<HosDetailPage/>} />
+        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
+        <Route path="/pethostel/booking/:id" element={<BookHosPage />} />
+        <Route path="/hosteldeteils/*" element={<HostelDataTable />} />
+
         
+    {/* hostall-------------- */}
+
+
+
+
+    
       </Routes>
     </Router>
  

@@ -95,3 +95,9 @@ h2.title_icon {
 .ant-card-body {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
+
+.pesacefull {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}

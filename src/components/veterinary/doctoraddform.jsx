@@ -3,7 +3,11 @@ import React from 'react';
 import Footer from "../Siteframe/Footer";
 import Header from "../Siteframe/Header";
 import AddVeterinaryDocter from "../veterinary/addveterinarydocter";
+<<<<<<< HEAD
 import BreadcrumbComponent from '../../components/commoncomponent/Breadcrumb';
+=======
+import BreadcrumbComponent from '../commoncomponent/Breadcrumb';
+>>>>>>> Pattabi-pethostel
 // import '../breadcrums.css';
 
 

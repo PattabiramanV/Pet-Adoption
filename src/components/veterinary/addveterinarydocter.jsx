@@ -4,6 +4,7 @@ import { notification } from 'antd';
 import Loader from '../Loader/Loader';
 import './normaltable.css';
 
+
 function AddVeterinaryDoctor() {
     const [doctorData, setDoctorData] = useState({
         name: "",

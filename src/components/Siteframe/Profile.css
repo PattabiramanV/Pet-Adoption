@@ -315,7 +315,9 @@ span.div_profil_span {
   align-items: center;
 }
 
-
+p.profile-text {
+  height: 50px;
+}
 
 /* 
 .ant-modal .ant-modal-content {
