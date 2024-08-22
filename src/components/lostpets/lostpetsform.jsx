@@ -34,7 +34,11 @@ const LostPetForm = () => {
         if (!formData.petType) validationErrors.petType = 'Pet type is required';
         if (!formData.age || formData.age <= 0) validationErrors.age = 'Age must be a positive number';
         if (!formData.gender) validationErrors.gender = 'Gender is required';
-        if (!formData.contactNo || formData.contactNo.length < 10) validationErrors.contactNo = 'Contact number required';
+        if (!formData.contactNo) {
+            validationErrors.contactNo = 'Contact number is required';
+        } else if (!/^\d{10}$/.test(formData.contactNo)) {
+            validationErrors.contactNo = 'Contact number must be exactly 10 digits';
+        }
         if (!formData.lostDate) validationErrors.lostDate = 'Lost date is required';
         if (formData.photo && !formData.photo.type.startsWith('image/')) validationErrors.photo = 'Invalid photo format';
         if (!formData.address) validationErrors.address = 'Address is required';

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { message } from 'antd';
 import axios from 'axios';
@@ -7,13 +6,13 @@ import './editform.css';
 
 const EditForm = ({ record, onClose, onUpdate }) => {
     const [formData, setFormData] = useState({
-        id: record.id, // Change from user_id to id
+        id: record.id, 
         name: record.name,
         pet_type: record.pet_type,
         gender: record.gender,
         age: record.age,
         address: record.address,
-        lost_date: moment(record.lostDate).format('YYYY-MM-DD'),
+        lost_date: moment(record.lost_date).format('YYYY-MM-DD'),
         location: record.location,
         description: record.description,
         contact_no: record.contact_no,
@@ -43,23 +42,41 @@ const EditForm = ({ record, onClose, onUpdate }) => {
     const handleStatusChange = (e) => {
         setStatusChecked(e.target.checked);
     };
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name) newErrors.name = 'Pet Name is required';
+        if (!formData.pet_type) newErrors.pet_type = 'Pet Type is required';
+        if (!formData.gender) newErrors.gender = 'Pet Gender is required';
+        if (!formData.age) newErrors.age = 'Age is required';
+        if (!formData.contact_no) newErrors.contact_no = 'Contact No is required';
+        if (!formData.lost_date) newErrors.lost_date = 'Lost Date is required';
+        if (!formData.location) newErrors.location = 'Location is required';
+        if (!formData.address) newErrors.address = 'Address is required';
+        if (!formData.description) newErrors.description = 'Description is required';
+        
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0; // Valid if no errors
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return; // Prevent submission if validation fails
+
         const updatedFormData = {
             ...formData,
             status: statusChecked ? 'completed' : 'pending',
         };
 
-        setLoading(true); // Set loading to true before the request
+        setLoading(true); 
 
         try {
             const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/model/editform.php`, updatedFormData);
             if (response.data.status === "success") { // Corrected status check
                 message.success('Updated successfully!');
                 console.log(response.data)
-                onUpdate(updatedFormData); // Update the record in parent
-                onClose(); // Close modal
+                onUpdate(updatedFormData); 
+                onClose(); 
             } else {
                 message.error('Failed to update record.');
             }
@@ -144,16 +161,16 @@ const EditForm = ({ record, onClose, onUpdate }) => {
                         {errors.contact_no && <p className="text-red-500 text-xs">{errors.contact_no}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lostDate">Lost Date</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lost_date">Lost Date</label>
                         <input
-                            name="lostDate"
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.lostDate ? 'border-red-500' : ''}`}
-                            id="lostDate"
+                            name="lost_date"
+                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.lost_date ? 'border-red-500' : ''}`}
+                            id="lost_date"
                             type="date"
-                            value={formData.lostDate}
+                            value={formData.lost_date}
                             onChange={handleChange}
                         />
-                        {errors.lostDate && <p className="text-red-500 text-xs">{errors.lostDate}</p>}
+                        {errors.lost_date && <p className="text-red-500 text-xs">{errors.lost_date}</p>}
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location</label>
@@ -185,7 +202,7 @@ const EditForm = ({ record, onClose, onUpdate }) => {
                     <input
                         name="address"
                         className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.address ? 'border-red-500' : ''}`}
-                        id="address"
+                        id="addresses"
                         type="text"
                         value={formData.address}
                         onChange={handleChange}
@@ -221,3 +238,7 @@ const EditForm = ({ record, onClose, onUpdate }) => {
 };
 
 export default EditForm;
+
+
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
-import Locationpage from "../components/Map/map";
+import Locationpage from "../components/Map1/map";
 import BreadcrumbComponent from '../components/commoncomponent/Breadcrumb';
 
 
