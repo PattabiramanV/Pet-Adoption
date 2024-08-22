@@ -21,11 +21,12 @@ $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 try {
     $stmt->execute();
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($pets as &$pet) {
-        $pet['photo'] = base64_encode($pet['photo']);
-    }
+    // foreach ($pets as &$pet) {
+    //     $pet['photo'] = base64_encode($pet['photo']);
+    // }
     echo json_encode($pets);
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Query failed: ' . $e->getMessage()]);
 }
 ?>
+

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
-import { Pagination, Spin, Alert } from 'antd';
+import { Pagination, Alert } from 'antd';
 import Loader from '../../Loader/Loader';
 
 const PetForm = () => {
@@ -29,12 +29,16 @@ const PetForm = () => {
   const petsPerPage = 9;
 
   useEffect(() => {
+
     const fetchInitialData = async () => {
+    // alert("pppp");
+
       try {
         const [petResponse, filterOptionsResponse] = await Promise.all([
-          axios.get('http://localhost/petadoption/backend/petsapi/get_all_pets.php'),
-          axios.get('http://localhost/petadoption/backend/petsapi/get_filter_options.php')
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_all_pets.php`),
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_filter_options.php`)
         ]);
+console.log(petResponse.data);
 
         setPets(Array.isArray(petResponse.data) ? petResponse.data : []);
         setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
@@ -65,7 +69,7 @@ const PetForm = () => {
   const filterPets = async () => {
     try {
       const queryParams = new URLSearchParams(formData).toString();
-      const response = await axios.get(`http://localhost/petadoption/backend/petsapi/filter_search.php?${queryParams}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
       const result = response.data;
 
       if (result.status === 'success') {
@@ -73,9 +77,7 @@ const PetForm = () => {
         setError('');
       } else {
         setPets([]);
-       
-        let errorMessage = 'No matching pets found.';
-        setError(errorMessage);
+        setError('No matching pets found.');
       }
     } catch (error) {
       setPets([]);
@@ -83,19 +85,29 @@ const PetForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     filterPets();
   };
+console.log(pets);
 
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = pets.slice(indexOfFirstPet, indexOfLastPet);
+  const currentPets = pets.slice(indexOfFirstPet, indexOfFirstPet + petsPerPage);
 
   return (
     <div className="filter-filterpet">
       <div className="filterSearch">
         <form className="pet-form" onSubmit={handleSubmit}>
+         <label>
+            Search Location:
+            <input
+              type="text"
+              name="searchLocation"
+              value={formData.searchLocation}
+              onChange={handleChange}
+            />
+          </label>
           <label>
             Pet Type:
             <select name="petType" value={formData.petType} onChange={handleChange}>
@@ -105,15 +117,7 @@ const PetForm = () => {
               ))}
             </select>
           </label>
-          <label>
-            Search Location:
-            <input
-              type="text"
-              name="searchLocation"
-              value={formData.searchLocation}
-              onChange={handleChange}
-            />
-          </label>
+         
           <label>
             Size:
             <select name="size" value={formData.size} onChange={handleChange}>
@@ -163,24 +167,25 @@ const PetForm = () => {
       </div>
 
       <div className="pet-details_card">
-       <div className="pets_details">
-           {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {error && <Alert message={error} type="error" className="error-alert" />}
-            <CardView pets={currentPets} />
-            <Pagination
-              className="pagination"
-              current={currentPage}
-              pageSize={petsPerPage}
-              total={pets.length}
-              onChange={(page) => setCurrentPage(page)}
-            />
-          </>
-        )}
-       </div>
-      
+        <div className="pets_details">
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {error && <Alert message={error} type="error" className="error-alert" />}
+              <CardView pets={currentPets} />
+              {pets.length > petsPerPage && (
+                <Pagination
+                  className="pagination"
+                  current={currentPage}
+                  pageSize={petsPerPage}
+                  total={pets.length}
+                  onChange={(page) => setCurrentPage(page)}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,19 +1,409 @@
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { useLocation } from 'react-router-dom';
+// import Loader from '../Loader/Loader'; // Import the Loader component
+// import { Form, Input, Button, Typography, Divider, message } from "antd";
+
+// function BookHos() {
+//   const [loading, setLoading] = useState(false); // Loading state
+//   const token = localStorage.getItem('token');
+//   const location = useLocation();
+//   const [currentUser, setCurrentUser] = useState({});
+//   const [hostels, setHostels] = useState([]);
+//   const queryParams = new URLSearchParams(location.search);
+//   const hostelId = queryParams.get('id');
+//   const [selectedHostel, setSelectedHostel] = useState({
+//     id: '',
+//     name: '',
+//     address: '',
+//     phone: '',
+//     price: ''
+//   });
+
+//   const [formData, setFormData] = useState({
+//     serviceType: "",
+//     petType: "",
+//     breedType: "",
+//     petName: "",
+//     age: null,
+//     gender: "",
+//     expectations: "",
+//     parentName: "",
+//     parentPhone: "",
+//     parentState: "",
+//     parentCity: ""
+//   });
+
+//   useEffect(() => {
+//     fetchUserData();
+//     getAllHosFun();
+//   }, []);
+
+//   const fetchUserData = async () => {
+//     try {
+//       const response = await axios.get(
+//         `http://localhost/petadoption/backend/profile/read_items.php`,
+//         { headers: { Authorization: `Bearer ${token}` } }
+//       );
+//       setCurrentUser(response.data);
+
+//     } catch (error) {
+//       console.error('Error fetching user data:', error);
+//     }
+//   };
+
+//   const getAllHosFun = async () => {
+//     try {
+//       const response = await axios.get(
+//         `http://localhost/petadoption/backend/api/hostel.php`,
+//         { headers: { Authorization: `Bearer ${token}` } }
+//       );
+//       setHostels(response.data);
+
+//       // Automatically select the hostel if hostelId is provided
+//       if (hostelId) {
+//         const selected = response.data.find(hostel => String(hostel.id) === String(hostelId));
+//         if (selected) {
+//           setSelectedHostel(prevState => ({
+//             id: selected.id,
+//             name: selected.name,
+//             address: selected.address,
+//             phone: selected.contact,
+//             price: selected.price_per_day
+//           }));
+//           setFormData(prevState => ({
+//             ...prevState,
+//             hostelId: selected.id
+//           }));
+//         }
+//       }
+//     } catch (error) {
+//       console.error('Error fetching hostel data:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     setFormData((prevState) => ({
+//       ...prevState,
+//       parentName: currentUser.username || "",
+//       parentState: currentUser.state || "",
+//       parentCity: currentUser.city || "",
+//       parentPhone: currentUser.phone || ""
+//     }));
+//   }, [currentUser]);
+
+//   const handleChange = (e) => {
+//     const { id, value } = e.target;
+//     setFormData((prevState) => ({
+//       ...prevState,
+//       [id]: value,
+//     }));
+//   };
+
+//   const handleHostelChange = (e) => {
+//     const selectedId = e.target.value;
+//     const selected = hostels.find(hostel => String(hostel.id) === String(selectedId));
+//     if (selected) {
+//       setSelectedHostel({
+//         id: selected.id,
+//         name: selected.name,
+//         address: selected.address,
+//         phone: selected.contact,
+//         price: selected.price_per_day
+//       });
+//     }
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true); // Set loading to true when submitting
+
+//     const updatedData = { ...formData, hostelId: selectedHostel.id };
+
+//     try {
+//       const response = await axios.post(
+//         `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${selectedHostel.id}`,
+//         JSON.stringify(updatedData),
+//         { headers: { Authorization: `Bearer ${token}` } }
+//       );
+
+//       console.log('Response:', response.data);
+//      if(response.status==200){
+//       message.success('Hostel Booking Sucessfull');
+
+//      }
+//     } catch (error) {
+//       console.error('Error submitting form:', error);
+//       alert('Error submitting the booking. Please try again.');
+//     } finally {
+//       setLoading(false); // Set loading to false after response is received
+//     }
+//   };
+
+//  // Display loader while loading
+
+//   return (
+//     <>
+//       {loading && <Loader />}
+//       <form onSubmit={handleSubmit}>
+//         <div className="flex flex-col md:flex-row p-6 bg-gray-50 w-full">
+//           <div className="w-full md:w-2/3 p-4 bg-slate-100">
+//             <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Details</h2>
+//             <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about your pet.</p>
+
+//             <div className="space-y-4">
+//               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+//                 {/* <div>
+//                   <label htmlFor="serviceType" className="block text-gray-700">Service Type*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="serviceType"
+//                     type="text"
+//                     value={formData.serviceType}
+//                     onChange={handleChange}
+//                   />
+//                 </div> */}
+//           <div>
+//                  <label htmlFor="checkin" className="block text-gray-700">Check-In Date*</label>
+//                  <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="checkin"
+//                     type="date"
+//                     value={formData.checkin}
+//                     onChange={(e) => setFormData({ ...formData, checkin: e.target.value })}
+//                   />
+//                 </div>
+
+//                 <div>
+//                   <label htmlFor="checkout" className="block text-gray-700">Check-Out Date*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="checkout"
+//                     type="date"
+//                     value={formData.checkout}
+//                     onChange={(e) => setFormData({ ...formData, checkout: e.target.value })}
+//                   />
+//                 </div>
+
+//                 <div>
+//                   <label htmlFor="petType" className="block text-gray-700">Pet Type*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="petType"
+//                     type="text"
+//                     value={formData.petType}
+//                     onChange={handleChange}
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="breedType" className="block text-gray-700">Breed Type*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="breedType"
+//                     type="text"
+//                     value={formData.breedType}
+//                     onChange={handleChange}
+//                   />
+//                 </div>
+//                 <div>
+//                   <label  htmlFor="petName" className="block text-gray-700">Pet Name</label>
+//                   <input
+//                     type="text"
+//                     id="petName"
+//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//                     value={formData.petName}
+//                     onChange={handleChange}
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="age" className="block text-gray-700">Age*</label>
+//                   <input
+//                     type="number"
+//                     id="age"
+//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//                     value={formData.age}
+//                     onChange={handleChange}
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="gender" className="block text-gray-700">Gender*</label>
+//                   <select
+//                     id="gender"
+//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//                     value={formData.gender}
+//                     onChange={handleChange}
+//                   > 
+//                     <option value="">Select</option>
+//                     <option value="Male">Male</option>
+//                     <option value="Female">Female</option>
+//                   </select>
+//                 </div>
+//               </div>
+
+//               <div>
+//                 <label htmlFor="hostel" className="block text-gray-700">Select Hostel*</label>
+//                 <select
+//   id="hostel"
+//   className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//   value={selectedHostel.id}
+//   onChange={handleHostelChange}
+// >
+//   {hostels.length > 0 ? (
+//     hostels.map(hostel => (
+//       <option key={hostel.id} value={hostel.id}>
+//         {hostel.name}
+//       </option>
+//     ))
+//   ) : (
+//     ''
+//   )}
+// </select>
+
+//               </div>
+
+//               <div>
+//                 <label htmlFor="expectations" className="block text-gray-700">Address</label>
+//                 <textarea
+//                   id="expectations"
+//                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//                   value={selectedHostel.address}
+//                   onChange={handleChange}
+//                   readOnly
+//                 ></textarea>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="w-full md:w-1/3 p-4">
+//             <div className="bg-white p-4 rounded-md shadow-md">
+//               <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Include 2x Food</button>
+//               <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
+//               <div className="border-t border-gray-300 pt-4">
+//                 <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
+//                 <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ {selectedHostel.price}/-</p>
+//                 <p className="text-gray-600">(Inclusive of all taxes)</p>
+//                 <ul className="mt-4 space-y-2">
+//                   <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>
+//                   <li className="text-gray-600">Daily Photo Updates <span className="text-gray-800 font-semibold">Free</span></li>
+//                   <li className="text-gray-600">24/7 customer support <span className="text-gray-800 font-semibold">Included</span></li>
+//                 </ul>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+
+// {/* 
+//         {selectedHostel && (
+//         <div className="mt-4">
+//           <h3 className="text-lg font-semibold">Selected Hostel Address:</h3>
+//           <p>{selectedHostel.address}</p>
+//         </div>
+        
+//       )} */}
+
+
+
+
+
+
+//         <div className="bg-gray-50">
+//           <div className="w-full md:w-2/3 p-4 bg-slate-100 ml-6">
+//             <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Parent Details</h2>
+//             <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about you.</p>
+
+//             <div className="space-y-4">
+//               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+//                 <div>
+//                   <label htmlFor="parentName" className="block text-gray-700">Name*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="parentName"
+//                     type="text"
+//                     value={formData.parentName}
+//                     onChange={handleChange}
+//                     readOnly
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="parentPhone" className="block text-gray-700">Phone*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="parentPhone"
+//                     type="text"
+//                     value={formData.parentPhone}
+//                     onChange={handleChange}
+//                     readOnly
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="parentState" className="block text-gray-700">State*</label>
+//                   <input
+//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+//                     id="parentState"
+//                     type="text"
+//                     value={formData.parentState}
+//                     onChange={handleChange}
+//                     readOnly
+//                   />
+//                 </div>
+//                 <div>
+//                   <label htmlFor="parentCity" className="block text-gray-700">City</label>
+//                   <input
+//                     type="text"
+//                     id="parentCity"
+//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
+//                     value={formData.parentCity}
+//                     onChange={handleChange}
+//                     readOnly
+//                   />
+//                 </div>
+//               </div>
+//               <button type="submit" className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+//                 Book Now
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </form>
+    
+//     </>
+//   );
+// };
+
+// export default BookHos;
+
+
+
+
+
+//..................................New...................................//
+
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Loader from '../Loader/Loader'; // Import the Loader component
+import { Form, Input, Button, Typography, Divider, message } from "antd";
 
 function BookHos() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Loading state
   const token = localStorage.getItem('token');
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
   const [hostels, setHostels] = useState([]);
   const queryParams = new URLSearchParams(location.search);
   const hostelId = queryParams.get('id');
+  const [errors, setErrors] = useState({});
+
   const [selectedHostel, setSelectedHostel] = useState({
     id: '',
     name: '',
     address: '',
-    phone: ''
+    phone: '',
+    price: ''
   });
 
   const [formData, setFormData] = useState({
@@ -21,19 +411,20 @@ function BookHos() {
     petType: "",
     breedType: "",
     petName: "",
-    age: 0,
+    age: null,
     gender: "",
     expectations: "",
     parentName: "",
     parentPhone: "",
     parentState: "",
-    parentCity: ""
+    parentCity: "",
+    checkin: "",
+    checkout: ""
   });
 
   useEffect(() => {
     fetchUserData();
     getAllHosFun();
-
   }, []);
 
   const fetchUserData = async () => {
@@ -43,6 +434,7 @@ function BookHos() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCurrentUser(response.data);
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -50,7 +442,6 @@ function BookHos() {
 
   const getAllHosFun = async () => {
     try {
-   
       const response = await axios.get(
         `http://localhost/petadoption/backend/api/hostel.php`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -60,22 +451,19 @@ function BookHos() {
       // Automatically select the hostel if hostelId is provided
       if (hostelId) {
         const selected = response.data.find(hostel => String(hostel.id) === String(hostelId));
-        console.log(selected);
         if (selected) {
-     
-          setSelectedHostel(prevState=>({
+          setSelectedHostel(prevState => ({
             id: selected.id,
             name: selected.name,
             address: selected.address,
-            phone: selected.contact
+            phone: selected.contact,
+            price: selected.price_per_day
           }));
           setFormData(prevState => ({
             ...prevState,
             hostelId: selected.id
           }));
         }
-        console.log(selectedHostel);
-
       }
     } catch (error) {
       console.error('Error fetching hostel data:', error);
@@ -98,6 +486,12 @@ function BookHos() {
       ...prevState,
       [id]: value,
     }));
+
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [id]: ''
+    }));
+
   };
 
   const handleHostelChange = (e) => {
@@ -108,50 +502,155 @@ function BookHos() {
         id: selected.id,
         name: selected.name,
         address: selected.address,
-        phone: selected.contact
+        phone: selected.contact,
+        price: selected.price_per_day
       });
-      // setFormData(prevState => ({
-      //   ...prevState,
-      //   hostelId: selected.id
-      // }));
+
+      
     }
-    //  else {
-    //   setSelectedHostel({
-    //     id: '',
-    //     name: '',
-    //     address: '',
-    //     phone: ''
-    //   });
-    // }
-    
-    
   };
-  
+
+  const calculateDaysAndPrice = () => {
+    const checkinDate = new Date(formData.checkin);
+    const checkoutDate = new Date(formData.checkout);
+    const timeDifference = checkoutDate - checkinDate;
+    const days = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    const totalPrice = days * selectedHostel.price;
+    return { days, totalPrice };
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedData = { ...formData, hostelId: selectedHostel.id };
+  
+    if(validateForm()){
+     
+    setLoading(true); // Set loading to true when submitting
 
-    console.log(updatedData);
+    const { days, totalPrice } = calculateDaysAndPrice();
+
+    console.log(days);
+    const updatedData = { ...formData, hostelId: selectedHostel.id,days:days,price:totalPrice};
+
     try {
       const response = await axios.post(
-        `http://localhost/petadoption/backend/api/hostel.php?hosid=${selectedHostel.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${selectedHostel.id}`,
         JSON.stringify(updatedData),
         { headers: { Authorization: `Bearer ${token}` } }
       );
-console.log(response);
+
       console.log('Response:', response.data);
-      alert('Booking successful!');
+     if(response.status==200){
+
+    //   setFormData({
+    //   serviceType: "",
+    //  petType: "",
+    //  breedType: "",
+    // petName: "",
+    // age: null,
+    // gender: "",
+    // expectations: "",
+    // parentName: "",
+    // parentPhone: "",
+    // parentState: "",
+    // parentCity: "",
+    // checkin: "",
+    // checkout: ""
+    //   })
+      message.success('Hostel Booking Sucessfull');
+      navigate('/pethostel')
+     }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Error submitting the booking. Please try again.');
+    } finally {
+      setLoading(false); // Set loading to false after response is received
     }
+  }
+
   };
 
+  const currentDayShowFun = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+  
+    const todayFormatted = `${yyyy}-${mm}-${dd}`;
+  
+    // Calculate the next day
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + 1);
+    const nextYyyy = nextDay.getFullYear();
+    const nextMm = String(nextDay.getMonth() + 1).padStart(2, '0');
+    const nextDd = String(nextDay.getDate()).padStart(2, '0');
+  
+    const nextDayFormatted = `${nextYyyy}-${nextMm}-${nextDd}`;
+  
+    return {
+      today: todayFormatted,
+      nextDay: nextDayFormatted
+    };
+  };
+  
+  // Example usage:
+  const dates = currentDayShowFun();
+
+
+  //............................Validation............................//
+
+  const validateForm = () => {
+    let formErrors = {};
+    let valid = true;
+console.log(formData);
+    if (!formData.checkin) {
+     
+      formErrors.checkin = "checkin date is required";
+      valid = false;
+    }
+   
+   
+    if (!formData.checkout) {
+      formErrors.checkout = "checkout adte is required";
+      valid = false;
+    }
+    if (!formData.petType) {
+      formErrors.petType = "Pettype is required";
+      valid = false;
+    }
+    if (!formData.breedType) {
+      formErrors.breedType = "breedType is required";
+      valid = false;
+    }
+    if (!formData.petName) {
+      formErrors.petName = " petName is required";
+      valid = false;
+    }
+    if (!formData.age) {
+      formErrors.age = "age is required";
+      valid = false;
+    }
+    if (!formData.expectations) {
+      formErrors.expectations = "expectations is required";
+      valid = false;
+    }
+    setErrors(formErrors);
+    return valid;
+  };
+
+  const getNextDay = (dateStr) => {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().split('T')[0];
+  };
+  
+ 
+ // Display loader while loading
 
   return (
     <>
+      {loading && <Loader />}
       <form onSubmit={handleSubmit}>
+
         <div className="flex flex-col md:flex-row p-6 bg-gray-50 w-full">
           <div className="w-full md:w-2/3 p-4 bg-slate-100">
             <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Details</h2>
@@ -160,15 +659,33 @@ console.log(response);
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                 <div>
-                  <label htmlFor="serviceType" className="block text-gray-700">Service Type*</label>
+                  <label htmlFor="checkin" className="block text-gray-700">Check-In Date*</label>
                   <input
                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                    id="serviceType"
-                    type="text"
-                    value={formData.serviceType}
+                    id="checkin"
+                    type="date"
+                    min={dates.today}
+                    value={formData.checkin}
                     onChange={handleChange}
                   />
+                {errors.checkin && <p className="text-red-500 text-xs mt-1">{errors.checkin}</p>}
+
                 </div>
+
+                <div>
+                  <label htmlFor="checkout" className="block text-gray-700">Check-Out Date*</label>
+                  <input
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                    id="checkout"
+                    type="date"
+                    min={formData.checkin==''?dates.nextDay:getNextDay(formData.checkin)}
+                    value={formData.checkout}
+                    onChange={handleChange}
+                  />
+                {errors.checkout && <p className="text-red-500 text-xs mt-1">{errors.checkout}</p>}
+
+                </div>
+
                 <div>
                   <label htmlFor="petType" className="block text-gray-700">Pet Type*</label>
                   <input
@@ -178,6 +695,8 @@ console.log(response);
                     value={formData.petType}
                     onChange={handleChange}
                   />
+                {errors.petType && <p className="text-red-500 text-xs mt-1">{errors.petType}</p>}
+                  
                 </div>
                 <div>
                   <label htmlFor="breedType" className="block text-gray-700">Breed Type*</label>
@@ -188,6 +707,8 @@ console.log(response);
                     value={formData.breedType}
                     onChange={handleChange}
                   />
+                {errors.breedType && <p className="text-red-500 text-xs mt-1">{errors.breedType}</p>}
+
                 </div>
                 <div>
                   <label  htmlFor="petName" className="block text-gray-700">Pet Name</label>
@@ -198,6 +719,8 @@ console.log(response);
                     value={formData.petName}
                     onChange={handleChange}
                   />
+                {errors.petName && <p className="text-red-500 text-xs mt-1">{errors.petName}</p>}
+
                 </div>
                 <div>
                   <label htmlFor="age" className="block text-gray-700">Age*</label>
@@ -208,8 +731,10 @@ console.log(response);
                     value={formData.age}
                     onChange={handleChange}
                   />
+                {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
+
                 </div>
-                <div>
+                {/* <div>
                   <label htmlFor="gender" className="block text-gray-700">Gender*</label>
                   <select
                     id="gender"
@@ -221,75 +746,70 @@ console.log(response);
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <div>
                 <label htmlFor="hostel" className="block text-gray-700">Select Hostel*</label>
                 <select
-  id="hostel"
-  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-  value={selectedHostel.id}
-  onChange={handleHostelChange}
->
-  {hostels.length > 0 ? (
-    hostels.map(hostel => (
-      <option key={hostel.id} value={hostel.id}>
-        {hostel.name}
-      </option>
-    ))
-  ) : (
-    ''
-  )}
-</select>
-
+                  id="hostel"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  onChange={handleHostelChange}
+                  value={selectedHostel.id}
+                >
+                  <option value="">Select a Hostel</option>
+                  {hostels.map(hostel => (
+                    <option key={hostel.id} value={hostel.id}>{hostel.name}</option>
+                  ))}
+                </select>
               </div>
 
               <div>
-                <label htmlFor="expectations" className="block text-gray-700">Address</label>
+                <label htmlFor="expectations" className="block text-gray-700">Expectations</label>
                 <textarea
                   id="expectations"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={selectedHostel.address}
+                  value={formData.expectations}
                   onChange={handleChange}
-                  readOnly
-                ></textarea>
+                />
+                {errors.expectations && <p className="text-red-500 text-xs mt-1">{errors.expectations}</p>}
+
               </div>
             </div>
-          </div>
-
-          <div className="w-full md:w-1/3 p-4">
-            <div className="bg-white p-4 rounded-md shadow-md">
-              <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Include 2x Food</button>
-              <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
-              <div className="border-t border-gray-300 pt-4">
-                <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
-                <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>
-                <p className="text-gray-600">(Inclusive of all taxes)</p>
-                <ul className="mt-4 space-y-2">
-                  <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>
-                  <li className="text-gray-600">Daily Photo Updates <span className="text-gray-800 font-semibold">Free</span></li>
-                  <li className="text-gray-600">24/7 customer support <span className="text-gray-800 font-semibold">Included</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
 {/* 
-        {selectedHostel && (
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold">Selected Hostel Address:</h3>
-          <p>{selectedHostel.address}</p>
+            <div className="mt-4">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </div> */}
+          </div>
+
+          <div className="w-full md:w-1/3 p-4 bg-white shadow-lg rounded-lg border border-gray-300">
+  <h2 className="text-2xl font-bold text-blue-600 mb-4">Your Selected Hostel</h2>
+  <div className="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+    <p className="text-lg font-semibold text-gray-800 mb-2"><strong>Name:</strong> {selectedHostel.name}</p>
+    <p className="text-lg text-gray-700 mb-2"><strong>Address:</strong> {selectedHostel.address}</p>
+    <p className="text-lg text-gray-700 mb-2"><strong>Phone:</strong> {selectedHostel.phone}</p>
+    <p className="text-lg text-gray-700 mb-4"><strong>Price per Day:</strong> ₹{selectedHostel.price}</p>
+  </div>
+
+  {formData.checkin && formData.checkout && (
+    <div className="mt-4 p-4 bg-blue-50 border-t-4 border-blue-500 rounded-lg">
+      <h2 className="text-xl font-bold text-blue-600 mb-2">Booking Summary</h2>
+      <p className="text-lg text-gray-800 mb-2"><strong>Check-in Date:</strong> {formData.checkin}</p>
+      <p className="text-lg text-gray-800 mb-2"><strong>Check-out Date:</strong> {formData.checkout}</p>
+      <p className="text-lg font-semibold text-gray-800 mb-2"><strong>Total Days:</strong> {calculateDaysAndPrice().days}</p>
+      <p className="text-lg font-bold text-gray-800"><strong>Total Price:</strong> ₹{calculateDaysAndPrice().totalPrice}</p>
+    </div>
+  )}
+</div>
+
         </div>
-        
-      )} */}
-
-
-
-
-
 
         <div className="bg-gray-50">
           <div className="w-full md:w-2/3 p-4 bg-slate-100 ml-6">
@@ -343,17 +863,16 @@ console.log(response);
                   />
                 </div>
               </div>
-              <button type="submit" className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              <button type="submit" className="w-full bg-slate-600 rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                 Book Now
               </button>
-            </div>
-          </div>
-        </div>
+            </div>     
+              </div>
+       </div>
       </form>
-      
     </>
   );
-};
+}
 
 export default BookHos;
 
@@ -368,43 +887,11 @@ export default BookHos;
 
 
 
-// import React from 'react';
-// import axios from 'axios';
 
-// function BookHos() {
-//   const handleBooking = async () => {
-//     const bookingDetails = {
-//       email: 'pattabikrv2002@gmail.com',
-//       name: 'Pattabi RAman V',
-//       hostel: 'Doggy Yogi',
-//     };
 
-//     try {
-//       const response = await axios.post('http://localhost/petadoption/Backend/controller/send_email.php', bookingDetails, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
 
-     
-//       if (response.status === 200) {
-//         alert("Hostel booking sucessfully!!!");
-//       } else {
-//         console.error(response.data.message);
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   };
 
-//   return (
-//     <div>
-//       <button className='bg-red-400' onClick={handleBooking}>Book Hostel</button>
-//     </div>
-//   ); 
-// }
 
-// export default BookHos;
 
 
 
@@ -413,492 +900,6 @@ export default BookHos;
 
 
 
-
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import BookHosPage from './BookHosPage';
-
-// const BookHos = () => {
-//   const location = useLocation();
-//   const [hostel, setHostel] = useState({}); // Assuming this gets populated with API data
-//   const queryParams = new URLSearchParams(location.search);
-//   let hostelId = queryParams.get('id');
-
-//   const [formData, setFormData] = useState({
-//     parentEmail: ""
-//   });
-
-//   useEffect(() => {
-//     // Assuming setHostel is called with the hostel data somewhere in your code
-//     // For example purposes, we'll set the hostel state directly here
-//     setHostel({ parentEmail: "example@example.com" });
-    
-//     // Initialize formData with hostel data when hostel state is updated
-//     if (hostel.parentEmail) {
-//       setFormData(prevState => ({
-//         ...prevState,
-//         parentEmail: hostel.parentEmail
-//       }));
-//     }
-//   }, [hostel]);
-
-//   const handleInputChange = (event) => {
-//     const { name, value } = event.target;
-//     setFormData(prevState => ({
-//       ...prevState,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     // Handle form submission
-//     console.log('Form Data:', formData);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div>
-//         <label>Email</label>
-//         <input 
-//           type="email" 
-//           name="parentEmail" 
-//           value={formData.parentEmail} 
-//           onChange={handleInputChange} 
-//         />
-//       </div>
-//       <button type="submit">Submit</button>
-//     </form>
-//   );
-// };
-
-// export default BookHos;
-
-
-//......................................................................
-
-// import React, { useState } from 'react';
-// // import './CrudExample.css'; // Import Tailwind CSS if using a separate file
-
-// const BookHos = () => {
-//   const [items, setItems] = useState([]);
-//   const [newItem, setNewItem] = useState('');
-//   const [editIndex, setEditIndex] = useState(null);
-//   const [editItem, setEditItem] = useState('');
-
-//   const handleAddItem = () => {
-//     if (newItem.trim()) {
-//       setItems([...items, newItem]);
-//       setNewItem('');
-//     }
-//   };
-
-//   const handleEditItem = (index) => {
-//     setEditIndex(index);
-//     setEditItem(items[index]);
-//   };
-
-//   const handleUpdateItem = () => {
-//     if (editItem.trim()) {
-//       const updatedItems = items.map((item, index) =>
-//         index === editIndex ? editItem : item
-//       );
-//       setItems(updatedItems);
-//       setEditIndex(null);
-//       setEditItem('');
-//     }
-//   };
-
-//   const handleDeleteItem = (index) => {
-//     const filteredItems = items.filter((_, i) => i !== index);
-//     setItems(filteredItems);
-//   };
-
-//   return (
-//     <div className="max-w-lg mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
-//       <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">CRUD Example</h1>
-
-//       {/* Create */}
-//       <div className="flex gap-2 mb-6">
-//         <input
-//           type="text"
-//           value={newItem}
-//           onChange={(e) => setNewItem(e.target.value)}
-//           className="flex-1 p-2 border border-gray-300 rounded-md text-lg"
-//           placeholder="Add new item"
-//         />
-//         <button
-//           onClick={handleAddItem}
-//           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-//         >
-//           Add Item
-//         </button>
-//       </div>
-
-//       {/* Read */}
-//       <ul className="list-none p-0">
-//         {items.map((item, index) => (
-//           <li key={index} className="flex justify-between items-center p-2 border-b border-gray-300">
-//             {item}
-//             <div className="flex gap-2">
-//               <button
-//                 onClick={() => handleEditItem(index)}
-//                 className="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
-//               >
-//                 Edit
-//               </button>
-//               <button
-//                 onClick={() => handleDeleteItem(index)}
-//                 className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </li>
-//         ))}
-//       </ul>
-
-//       {/* Update */}
-//       {editIndex !== null && (
-//         <div className="flex gap-2 mt-6">
-//           <input
-//             type="text"
-//             value={editItem}
-//             onChange={(e) => setEditItem(e.target.value)}
-//             className="flex-1 p-2 border border-gray-300 rounded-md text-lg"
-//             placeholder="Update item"
-//           />
-//           <button
-//             onClick={handleUpdateItem}
-//             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-//           >
-//             Update Item
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default BookHos;
-
-
-
-
-
-
-////.....////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from "react";
-// import { useLocation } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { Input, Select, Form, Button } from "antd";
-
-// const { Option } = Select;
-// const { TextArea } = Input;
-
-// function BookHos() {
-//   const location = useLocation();
-//   const [hostel, setHostel] = useState(null);
-//   const queryParams = new URLSearchParams(location.search);
-//   let hostelId = queryParams.get("id");
-//   const [formData, setFormData] = useState({
-//     serviceType: "",
-//     petType: "",
-//     breedType: "",
-//     petName: "",
-//     age: "",
-//     gender: "",
-//     expectations: "",
-//     parentName: "",
-//     parentPhone: "",
-//     parentState: "",
-//     parentCity: ""
-//   });
-
-//   useEffect(() => {
-//     if (hostelId) {
-//       fetchUserData(hostelId);
-//     }
-//   }, [location]);
-
-//   const fetchUserData = async (hostelId) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await axios.get(
-//         `http://localhost/petadoption/Backend/profile/read_items.php`,
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-//       setHostel(response.data);
-//       console.log(JSON.parse(response.data));
-//     } catch (error) {
-//       console.error("Error fetching hostel data:", error);
-//     }
-//   };
-
-//   const handleChange = (e) => {
-//     const { id, value } = e.target;
-//     setFormData((prevState) => ({
-//       ...prevState,
-//       [id]: value
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const token = localStorage.getItem("token");
-//     console.log(formData);
-//     try {
-//       const response = await axios.post(
-//         `http://localhost/petadoption/Backend/api/hostel.php?hosId=${hostelId}`,
-//         JSON.stringify(formData),
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-
-//       console.log("Response:", response.data);
-//       alert(response.data);
-//     } catch (error) {
-//       console.error("Error submitting form:", error);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div className="flex flex-col md:flex-row p-6 bg-gray-50 w-full">
-//         <div className="w-full md:w-2/3 p-4 bg-slate-100">
-//           <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Details</h2>
-//           <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about your pet.</p>
-
-//           <div className="space-y-4">
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-//               <div>
-//                 <label htmlFor="serviceType" className="block text-gray-700">Service Type*</label>
-//                 <Form.Item
-//                   name="serviceType"
-//                   rules={[{ required: true, message: "Please input service type!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="serviceType"
-//                     value={formData.serviceType}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="petType" className="block text-gray-700">Pet Type*</label>
-//                 <Form.Item
-//                   name="petType"
-//                   rules={[{ required: true, message: "Please input pet type!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="petType"
-//                     value={formData.petType}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="breedType" className="block text-gray-700">Breed Type*</label>
-//                 <Form.Item
-//                   name="breedType"
-//                   rules={[{ required: true, message: "Please input breed type!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="breedType"
-//                     value={formData.breedType}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="petName" className="block text-gray-700">Pet Name</label>
-//                 <Form.Item name="petName">
-//                   <Input
-//                     type="text"
-//                     id="petName"
-//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//                     value={formData.petName}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="age" className="block text-gray-700">Age*</label>
-//                 <Form.Item
-//                   name="age"
-//                   rules={[{ required: true, message: "Please input age!" }]}
-//                 >
-//                   <Input
-//                     type="text"
-//                     id="age"
-//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//                     value={formData.age}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="gender" className="block text-gray-700">Gender*</label>
-//                 <Form.Item
-//                   name="gender"
-//                   rules={[{ required: true, message: "Please select gender!" }]}
-//                 >
-//                   <Select
-//                     id="gender"
-//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//                     value={formData.gender}
-//                     onChange={(value) => handleChange({ target: { id: "gender", value } })}
-//                   >
-//                     <Option value="">Select</Option>
-//                     <Option value="Male">Male</Option>
-//                     <Option value="Female">Female</Option>
-//                   </Select>
-//                 </Form.Item>
-//               </div>
-//             </div>
-//             <div>
-//               <label htmlFor="expectations" className="block text-gray-700">Your Expectations from this Service</label>
-//               <Form.Item name="expectations">
-//                 <TextArea
-//                   id="expectations"
-//                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//                   value={formData.expectations}
-//                   onChange={handleChange}
-//                 ></TextArea>
-//               </Form.Item>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="w-full md:w-1/3 p-4">
-//           <div className="bg-white p-4 rounded-md shadow-md">
-//             <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Include 2x Food</button>
-//             <button type="button" className="bg-gray-200 text-gray-700 px-4 py-2 rounded mb-4">Includes 2x Walk</button>
-//             <div className="border-t border-gray-300 pt-4">
-//               <h3 className="text-xl font-semibold text-gray-800">Price & Inclusions</h3>
-//               <p className="text-teal-600 text-2xl font-bold mt-2">Service Price (per day) ₹ 700/-</p>
-//               <p className="text-gray-600">(Inclusive of all taxes)</p>
-//               <ul className="mt-4 space-y-2">
-//                 <li className="text-gray-600">Premium Insurance <span className="text-gray-800 font-semibold">Free</span></li>
-//                 <li className="text-gray-600">Daily Photo Updates <span className="text-gray-800 font-semibold">Free</span></li>
-//                 <li className="text-gray-600">24/7 customer support <span className="text-gray-800 font-semibold">Included</span></li>
-//               </ul>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="bg-gray-50">
-//         <div className="w-full md:w-2/3 p-4 bg-slate-100 ml-6">
-//           <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add Your Pet Parent Details</h2>
-//           <p className="mb-4 text-gray-600">Please fill in this information. It will help us to know about you.</p>
-
-//           <div className="space-y-4">
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-//               <div>
-//                 <label htmlFor="parentName" className="block text-gray-700">Name*</label>
-//                 <Form.Item
-//                   name="parentName"
-//                   rules={[{ required: true, message: "Please input parent name!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="parentName"
-//                     value={formData.parentName}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="parentPhone" className="block text-gray-700">Phone*</label>
-//                 <Form.Item
-//                   name="parentPhone"
-//                   rules={[{ required: true, message: "Please input parent phone!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="parentPhone"
-//                     value={formData.parentPhone}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="parentState" className="block text-gray-700">State*</label>
-//                 <Form.Item
-//                   name="parentState"
-//                   rules={[{ required: true, message: "Please input parent state!" }]}
-//                 >
-//                   <Input
-//                     className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-//                     id="parentState"
-//                     value={formData.parentState}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//               <div>
-//                 <label htmlFor="parentCity" className="block text-gray-700">City</label>
-//                 <Form.Item name="parentCity">
-//                   <Input
-//                     type="text"
-//                     id="parentCity"
-//                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//                     value={formData.parentCity}
-//                     onChange={handleChange}
-//                   />
-//                 </Form.Item>
-//               </div>
-//             </div>
-//             <Button
-//               type="primary"
-//               htmlType="submit"
-//               className="w-full rounded-md text-white bg-lightPurpule font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-//             >
-//               Book Now
-//             </Button>
-//           </div>
-//         </div>
-//       </div>
-//     </form>
-//   );
-// }
-
-// export default BookHos;
 
 
 

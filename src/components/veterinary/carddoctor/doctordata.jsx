@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Table, Spin, Alert } from 'antd';
+import Loader from '../../Loader/Loader';
 import './doctorpage.css';
 
 const DoctorCard = () => {
@@ -37,7 +39,7 @@ const DoctorCard = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return < Loader/>;
   }
 
   if (error) {
@@ -46,6 +48,7 @@ const DoctorCard = () => {
 
   return (
     <>
+    
       {userData.length > 0 ? (
         userData.map((user) => (
           <div key={user.id} className="doctorContainer">

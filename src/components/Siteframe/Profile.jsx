@@ -69,7 +69,7 @@ const Profile = ({ setProfileOpen }) => {
         description: error.response ? error.response.data.message : error.message,
       });
     } finally {
-      setLoading(false);  // Hide loader
+      setLoading(false);  
     }
   };
 
@@ -135,12 +135,8 @@ const Profile = ({ setProfileOpen }) => {
             {isEditing ? (
               <input type="file" accept="image/*" onChange={handleFileChange} />
             ) : (
-              <img src={imageUrl || "https://via.placeholder.com/150"} alt="Profile Avatar" />
+              <img src={imageUrl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} alt="Profile Avatar" />
             )}
-          </div>
-          <div className="profile-info">
-            <h2>{profile.username}</h2>
-            <p>{profile.email}</p>
           </div>
         </div>
         <div className="profile-details">
@@ -154,24 +150,20 @@ const Profile = ({ setProfileOpen }) => {
             <div className="profile-row">
               <div className="profile-column">
                 <Form.Item label="Username" name="username">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.username}</p>}
+                  {isEditing ? <Input readOnly /> : <p className="profile-text">{profile.username} </p>}
                 </Form.Item>
               </div>
               <div className="profile-column">
                 <Form.Item label="Email" name="email">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.email}</p>}
+                  {isEditing ? <Input readOnly /> : <p className="profile-text email_text">{profile.email}</p>}
                 </Form.Item>
               </div>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="Phone" name="phone">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
-                </Form.Item>
-              </div>
-              <div className="profile-column">
                 <Form.Item label="Gender" name="gender">
                   {isEditing ? (
+                    
                     <Select>
                       <Option value="Male">Male</Option>
                       <Option value="Female">Female</Option>
@@ -182,28 +174,42 @@ const Profile = ({ setProfileOpen }) => {
                   )}
                 </Form.Item>
               </div>
+              <div className="profile-column">
+                <Form.Item label="Phone" name="phone">
+                  {isEditing ? <Input /> : <p className="profile-text">{profile.phone}</p>}
+                </Form.Item>
+              </div>
             </div>
             <div className="profile-row">
               <div className="profile-column">
-                <Form.Item label="State" name="state">
-                  {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
+                <Form.Item label="Address" name="address">
+                  {isEditing ? <Input.TextArea rows={4} /> : <p className="address-text">{profile.address}</p>}
                 </Form.Item>
               </div>
+            </div>
+            <div className="profile-row">
               <div className="profile-column">
                 <Form.Item label="City" name="city">
                   {isEditing ? <Input /> : <p className="profile-text">{profile.city}</p>}
                 </Form.Item>
               </div>
+              <div className="profile-column">
+                <Form.Item label="State" name="state">
+                  {isEditing ? <Input /> : <p className="profile-text">{profile.state}</p>}
+                </Form.Item>
+              </div>
             </div>
             <Form.Item>
-              {isEditing ? (
-                <Space>
-                  <Button type="primary" htmlType="submit">Save</Button>
-                  <Button onClick={handleCancelClick}>Cancel</Button>
-                </Space>
-              ) : (
-                <Button onClick={handleEditClick}>Edit</Button>
-              )}
+              <div className="div_main_for_edit">
+                {isEditing ? (
+                  <div className="div_profile_edit">
+                    <button onClick={handleCancelClick} className="cancel-button-profile profile">Cancel</button>
+                    <button type="submit" className="save-button-profile profile">Save</button>
+                  </div>
+                ) : (
+                  <button onClick={handleEditClick} className="edit-button profile">Edit</button>
+                )}
+              </div>
             </Form.Item>
           </Form>
         </div>

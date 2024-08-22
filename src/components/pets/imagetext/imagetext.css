@@ -1,7 +1,7 @@
 .img-content {
      position: absolute;
     top: 50%;
-    left: 50%;
+    left: 26%;
     transform: translate(-50%, -50%);
     color: #fff;
     padding: 20px;
@@ -23,6 +23,10 @@
    font-size: 16px;
     line-height: 1.5;
     font-weight: 400;
+        width: 68%;
+    position: relative;
+    left: 173px;
+
 }
 .buttons{
      display: flex;
@@ -40,7 +44,7 @@
 
 
 .parentContainer img {
-    height: 100%;
+    height: 128%;
     width: 100%;
 }
 
@@ -48,7 +52,7 @@
     position: relative;
     text-align: center;
     color: white;
-    height: 72vh; 
+    height: 83vh; 
     overflow: hidden;
     }
 

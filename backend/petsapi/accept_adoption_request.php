@@ -12,10 +12,8 @@ if (isset($data->requestId)) {
     $requestId = $data->requestId;
 
     try {
-        // Start transaction
         $conn->beginTransaction();
 
-        // Update the status of the accepted request
         $update = $conn->prepare("
             UPDATE adoption_events
             SET status = 'accepted'

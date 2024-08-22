@@ -4,7 +4,7 @@ import ProfileGuide from './components/pets/setupprofile/profileguide';
 import Header from './components/Siteframe/Header';
 import Footer from './components/Siteframe/Footer';
 import ViewMore from './components/pets/morebutton/button';
-import BreadcrumbComponent from './components/breedcrumbs'
+import BreadcrumbComponent from './components/commoncomponent/Breadcrumb'
 
 
 const Pets = () => {
@@ -12,10 +12,12 @@ const Pets = () => {
     <>
       <Header />
       <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pets',href: '/pets' }]} />
+      
       <Image />
+        <ProfileGuide />
       <AdoptText />
       <ViewMore />
-      <ProfileGuide />
+    
       <Footer />
     </>
   );

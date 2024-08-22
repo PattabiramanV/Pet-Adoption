@@ -1,0 +1,275 @@
+* {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  
+  .table-container {
+      overflow-x: auto;
+      padding: 2%;
+     
+    }
+    
+    .custom-table {
+      width: 100%;
+      /* border-collapse: collapse; */
+      background-color: white;
+      
+    }
+    
+    .custom-table th, .custom-table td {
+      padding: 12px;
+      /* border: 1px solid #e5e7eb; */
+      /* text-align: center; */
+          width: -8%;
+    }
+    
+    .custom-table thead {
+      background-color: #f3f4f6;
+    }
+    
+    .custom-table tr:hover {
+      background-color: #f9fafb;
+    }
+    
+    .status-label {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .status-delivered {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    
+    .status-process {
+      background-color: #fef9c3;
+      color: #854d0e;
+    }
+    
+    .status-canceled {
+      background-color: #fde2e2;
+      color: #b91c1c;
+    }
+    
+    .action-buttons {
+    
+  
+      /* display: flex; */
+      gap: 8px;
+     /* justify-content: center; */
+    }
+    
+   .delete-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+    }
+    
+    .edit-btn:hover {
+      color: #3b82f6;
+    }
+    
+    .delete-btn:hover {
+      color: #ef4444;
+    }
+    
+  
+    td {
+      font-size: 14px;
+      color: 000000;
+      text-align: center;
+  }
+  
+  th {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: red; /* Icon color */
+    font-size: 1.2em; /* Adjust the size of the icon */
+    transition: color 0.3s ease;
+    
+  }
+  
+  .delete-btn:hover {
+    color: darkred; /* Darker red when hovered */
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* ........................Search................ */
+  
+/* ........................Search................ */
+  
+  .table-container input {
+    border: 1px solid #0000004f;
+    width: 260px;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  
+  .search-container {
+    position: relative;
+    width: 100%;
+        left: 72%;
+    max-width: 300px; /* Adjust the width as needed */
+    /* margin-bottom: 1rem; */
+    padding: 0 2%;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 8px 12px 8px 40px; /* Adjust padding to make room for the icon */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  .search-input::placeholder {
+    width: 100%;
+    padding-left: 26px; /* Adjust padding to make room for the icon */
+    border-radius: 4px;
+    font-size: 14px;
+    /* border: 1px solid #ccc; */
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 40%;
+    left: 35px;
+    transform: translateY(-50%);
+    color: #888; /* Icon color */
+    font-size: 14px;
+  }
+
+  /* ..............Pagination..................... */
+  
+  /* Pagination container */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 24px;
+    height: 100%    ;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* Individual page items */
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  /* Normal page links */
+  .page-link {
+    color: gray;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  
+  
+  /* Next and Previous buttons */
+  .previous-page .page-link,
+  .next-page .page-link {
+    color: #007bff; /* Style for the Next and Previous text */
+    font-weight: bold;
+    
+  }
+  
+  /* Disabled page (optional, if you have disabled states) */
+  .disabled-page .page-link {
+    color: lightgray;
+    cursor: not-allowed;
+    
+  }
+  
+  
+  .active-page .page-link {
+    background-color:rgba(98, 77, 227, 1);
+    color: white;
+    border-radius: 8px;
+   font-weight: 500;
+    height: 31px;
+    width: 31px;
+    display: inline-flex; /* Ensure the element is treated as a flex container */
+    align-items: center;  /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    padding: 0; /* Remove any padding that may affect the size */
+    box-sizing: border-box; /* Include border and padding in width and height */
+    line-height: 1; /* Set line-height to normal to prevent overflow */
+    
+  }
+  
+  a.page-link{
+    background-color:rgba(224, 224, 224, 1);
+    color: rgba(0, 0, 0, 1);
+   font-size: 12px;
+   font-weight: 500;
+   border-radius: 8px;
+    height: 31px;
+    width: 31px;
+    display: inline-flex; /* Ensure the element is treated as a flex container */
+    align-items: center;  /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    padding: 0; /* Remove any padding that may affect the size */
+    box-sizing: border-box; /* Include border and padding in width and height */
+    line-height: 1; /* Set line-height to normal to prevent overflow */
+    
+  }
+  .previous-page a,
+  .next-page a {
+    color: rgba(158, 158, 158, 1);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  
+  
+  
+  .profileName {
+    display: flex;
+    /* width: 120px; */
+    gap: 8px;
+    align-items: center;
+  }
+  img.profileImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+  /* .profileName>*{
+    width: 50%;
+  } */
+  
+  
+  
+  .no-data-row {
+    background-color: #f9fafb; /* Light background for the no data row */
+    color: #6b7280; /* Gray color for the text */
+    text-align: center; /* Center align text */
+    font-size: 16px; /* Adjust font size as needed */
+    padding: 20px; /* Add padding to make the row more spacious */
+    font-weight: bold; /* Make the text bold */
+    border-top: 1px solid #e5e7eb; /* Optional: Add a border on top */
+  }
+  

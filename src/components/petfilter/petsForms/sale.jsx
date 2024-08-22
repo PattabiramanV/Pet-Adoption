@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { notification } from 'antd';
+import Footer from '../../Siteframe/Footer';
+import Header from '../../Siteframe/Header';
+import Loader from '../../Loader/Loader';
+import BreadcrumbComponent from '../../commoncomponent/Breadcrumb'
+import './sale.css'
 
 
 const Sale = () => {
@@ -17,17 +22,33 @@ const Sale = () => {
         price: '',
         color: '',
         address: '',
-        profilePic: null
+        profilePic: []
     });
 
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        setFormData({
+        const { name, value, files,type } = e.target;
+        console.log(type);
+        console.log(name);
+        console.log(files);
+        
+        if(type=='file'){
+            setFormData(prevFormData => ({
+  ...prevFormData,
+  [name]: prevFormData[name] 
+    ? [...prevFormData[name], ...Array.from(files)] 
+    : Array.from(files)
+}));
+        }
+        else {
+
+setFormData({
             ...formData,
             [name]: files ? files[0] : value
         });
+        }
+        
     };
 
     const validateForm = () => {
@@ -52,55 +73,46 @@ const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const reader = new FileReader();
     const token = localStorage.getItem("token");
-    reader.readAsDataURL(formData.profilePic);
-    reader.onload = async () => {
-        const base64Photo = reader.result.split(",")[1];
+    const data = new FormData();
 
-        try {
-            const response = await axios.post('http://localhost/petadoption/backend/petsapi/addPet.php', {
-                ...formData,
-                profilePic: base64Photo
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+console.log(data);
 
-             notification.success({
-                message: 'Successfully Form submitte',
-                
-            });   
-            if (response.data.success) {
-                setFormData({
-                    petName: '',
-                    petcategory: '',
-                    city: '',
-                    location: '',
-                    petDescription: '',
-                    breed: '',
-                    gender: '',
-                    age: '',
-                    size: '',
-                    price: '',
-                    color: '',
-                    address: '',
-                    profilePic: null
-                });
-            }
-        } catch (error) {
-            console.error('There was an error!', error);
+    try {
+       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/addPet.php`, formData, 
+   { headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data' 
+          } }
+    
+);
+
+
+        console.log(response.data);
+
+        if (response.data.success) {
+            console.log('Form submitted successfully');
         }
-    };
+    } catch (error) {
+        console.error('There was an error!', error);
+    }
 };
 
+// };
 
+if (!formData) {
+    return <Loader />;
+  }
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-gray-100 shadow-md mb-5 mt-5">
-            <h2 className="text-2xl font-bold mb-6 text-center text-green-800">Rehome Your Pet</h2>
+        <>
+        <Header />
+           <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Sale',href: '/sale' }]} />
+            <h2 className="addHostelTitle">Rehome Your Pet</h2>
+            <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petName">Pet Name</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petName">Pet Name <span className="star">*</span></label>
                         <input
                             name="petName"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.petName ? 'border-red-500' : ''}`}
@@ -110,10 +122,10 @@ const handleSubmit = async (e) => {
                             onChange={handleChange}
                             placeholder="Pet Name"
                         />
-                        {errors.petName && <p className="text-red-500 text-sm">{errors.petName}</p>}
+                        {errors.petName && <p className="text-red-500 text-xs mt-1">{errors.petName}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petcategory">Pet Category</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petcategory">Pet Category <span className="star">*</span> </label>
                         <input
                             name="petcategory"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.petcategory ? 'border-red-500' : ''}`}
@@ -126,7 +138,7 @@ const handleSubmit = async (e) => {
                         {errors.petcategory && <p className="text-red-500 text-sm">{errors.petcategory}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">City</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">City <span className="star">*</span></label>
                         <input
                             name="city"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.city ? 'border-red-500' : ''}`}
@@ -139,7 +151,7 @@ const handleSubmit = async (e) => {
                         {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location <span className="star">*</span></label>
                         <input
                             name="location"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.location ? 'border-red-500' : ''}`}
@@ -152,7 +164,7 @@ const handleSubmit = async (e) => {
                         {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
                     </div>
                     <div className="sm:col-span-2">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petDescription">Pet Description</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="petDescription">Pet Description <span className="star">*</span> </label>
                         <textarea
                             name="petDescription"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.petDescription ? 'border-red-500' : ''}`}
@@ -165,7 +177,7 @@ const handleSubmit = async (e) => {
                         {errors.petDescription && <p className="text-red-500 text-sm">{errors.petDescription}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="breed">Breed</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="breed">Breed <span className="star">*</span></label>
                         <input
                             name="breed"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.breed ? 'border-red-500' : ''}`}
@@ -178,7 +190,7 @@ const handleSubmit = async (e) => {
                         {errors.breed && <p className="text-red-500 text-sm">{errors.breed}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gender">Gender</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gender">Gender <span className="star">*</span></label>
                         <select
                             name="gender"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.gender ? 'border-red-500' : ''}`}
@@ -193,12 +205,12 @@ const handleSubmit = async (e) => {
                         {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">Age</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">Age <span className="star">*</span></label>
                         <input
                             name="age"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.age ? 'border-red-500' : ''}`}
                             id="age"
-                            type="number"
+                            type="text"
                             value={formData.age}
                             onChange={handleChange}
                             placeholder="Age"
@@ -206,7 +218,7 @@ const handleSubmit = async (e) => {
                         {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="size">Size</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="size">Size <span className="star">*</span></label>
                         <select
                             name="size"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.size ? 'border-red-500' : ''}`}
@@ -222,7 +234,7 @@ const handleSubmit = async (e) => {
                         {errors.size && <p className="text-red-500 text-sm">{errors.size}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">Price</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">Price <span className="star">*</span></label>
                         <input
                             name="price"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.price ? 'border-red-500' : ''}`}
@@ -235,7 +247,7 @@ const handleSubmit = async (e) => {
                         {errors.price && <p className="text-red-500 text-sm">{errors.price}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="color">Color</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="color">Color <span className="star">*</span></label>
                         <select
                             name="color"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.color ? 'border-red-500' : ''}`}
@@ -251,7 +263,7 @@ const handleSubmit = async (e) => {
                         {errors.color && <p className="text-red-500 text-sm">{errors.color}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">Address</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">Address <span className="star">*</span></label>
                         <input
                             name="address"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.address ? 'border-red-500' : ''}`}
@@ -264,23 +276,27 @@ const handleSubmit = async (e) => {
                         {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
                     </div>
                     <div className="sm:col-span-2">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePic">Upload Pet Photos</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePic">Upload Pet Photos <span className="star">*</span></label>
                         <input
                             name="profilePic"
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.profilePic ? 'border-red-500' : ''}`}
+                            className={`w-full px-3 py-2  border rounded-lg shadow-sm focus:outline-none ${errors.profilePic ? 'border-red-500' : ''}`}
                             id="profilePic"
                             type="file"
                             onChange={handleChange}
+                            multiple
                         />
                         {errors.profilePic && <p className="text-red-500 text-sm">{errors.profilePic}</p>}
                     </div>
                     
                 </div>
-                <div className="flex justify-center">
-                    <button className="w-auto px-4 text-white py-2 rounded-lg bg-purple-600" type="submit">Submit</button>
+                <div className="text-center">
+                    <button className="border border-transparent " type="submit">Submit</button>
                 </div>
             </form>
-        </div>
+            </div>
+        <Footer />
+         </>
+
     );
 };
 

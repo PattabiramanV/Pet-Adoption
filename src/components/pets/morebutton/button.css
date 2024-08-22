@@ -11,16 +11,29 @@
    align-items: center;
 }
 .mores-info{
-  display:flex;
-  justify-content: center;
- padding: 2%;
+      display: flex;
+    justify-content: center;
+    padding: 2%;
+    position: relative;
+    top: 58px;
 
 }
-.threeCard{
+.Rehome {
+    margin-bottom: 46px;
+}
+
+.threeCard {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: 75px;
 }
 .overlapcard {
     width: 75%;
+}
+.mores:hover {
+background-color: #696299; 
+color: white ;
+
 }

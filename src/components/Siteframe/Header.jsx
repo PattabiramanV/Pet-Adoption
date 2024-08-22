@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, notification } from "antd";
 import Logo from "../../assets/Logo.png";
-import ProfileLogo from "../../assets/profile_icon_1.png";
+// import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,8 +17,6 @@ const Header = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     fetchProfile();
@@ -45,14 +43,18 @@ const Header = () => {
       } else {
         setProfile(response.data);
         setIsLoggedIn(true);
-        console.log(response.data);
+        console.log("Profile data:", response.data);
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
-      notification.error({ message: 'Error fetching profile', description: error.message });
+      notification.error({
+        message: "Error fetching profile",
+        description: error.message,
+      });
     } finally {
       setLoading(false); // Hide loader
     }
+    // console.log(response.data.user_type);
   };
 
   const handleMouseEnter = () => {
@@ -103,24 +105,145 @@ const Header = () => {
           </div>
 
           <nav className="nav-links">
+{/* Pet-Spotlight */}
             <div
-              className="user-profile"
+              className="user-profile Pet-Spotlight"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Features</span>
+              <span>Pet Spotlight</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">Reuniting lost pets</Link>
-                  <Link className="menu" to="/PetGrooming">Pet Grooming</Link>
-                  <Link className="menu" to="/pethostel">Pet Hostel</Link>
+                  <Link className="menu" to="/findpet">
+                    Add lost pets
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+               Lost pets
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                    Found Pets
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  My Entries
+                  </Link>
                 </div>
               )}
             </div>
-            <Link to="/Veterinary">Veterinarians</Link>
+
+{/* Pet-Expertise */}
+
+            <div
+              className="user-profile Pet-Expertise"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Expertise</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/findpet">
+                  Veterinarians
+                  </Link>
+                  <Link className="menu" to="/PetGrooming">
+                   Add Veterinarians
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                   Apply for Grooming
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Service Records
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Patient Info
+                  </Link>
+                  <Link className="menu" to="/pethostel">
+                  Doctor Registration       
+                              </Link>
+              
+                </div>
+              )}
+            </div>
+
+{/* Pet-Haven */}
+            <div
+              className="user-profile Pet-Haven"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Haven</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/pets">
+                  Home Finder
+                  </Link>
+                  <Link className="menu" to="/sale">
+                    Add Forms Pet
+                  </Link>
+                  <Link className="menu" to="/adopte">
+                  Pet Showcase
+                  </Link>
+                 
+                  <Link className="menu" to="/tables">
+                  My Pet Lists
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Pet-Oasis */}
+                       <div
+              className="user-profile Pet-Oasis"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span>Pet Oasis</span>
+              {isDropdownOpen && (
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/pethostel">
+                   Pet Hostel List
+                  </Link>
+                  <Link className="menu" to="/addhostel">
+                  Hostel Add
+                  </Link>
+                  <Link className="menu" to="/hostelusertable">
+                  Hostel Owner Record
+                  </Link>
+                  <Link className="menu" to="/BookHos">
+                  Hostel Booking
+                  </Link>
+                  <Link className="menu" to="/normaluserforhos">
+                  Client Info
+                  </Link>
+                </div>
+              )}
+            </div>
+            {/* <Link to="/Veterinary">Veterinarians</Link>
             <Link to="/add-pets">Add Pets</Link>
-            <Link to="/pets">Pets</Link>
+            <Link to="/pets">Pets</Link> */}
+
+
+            {/* {(profile && profile.hostel_user_type === "hostel_user") || (profile && profile.doctor_user_type === "doctor") ? (
+  <div
+    className="user-profile"
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <span>More</span>
+    {isDropdownOpen && (
+      <div className="div_user_roll dropdown-menu dropdown-menu-Features">
+        {profile.hostel_user_type === "hostel_user" && (
+          <Link to="/hostel-dashboard">Hostel</Link>
+        )}
+        {profile.doctor_user_type === "doctor" && (
+          <Link to="/doctor-dashboard">Doctor</Link>
+        )}
+      </div>
+    )}
+  </div>
+) : null} */}
+
           </nav>
+
+        
 
           <div className="nav-links_mobile">
             <div
@@ -140,6 +263,10 @@ const Header = () => {
                 </div>
               )}
             </div>
+
+
+
+            
           </div>
 
           {isLoggedIn && profile ? (
@@ -150,15 +277,17 @@ const Header = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <img
-                  src={profile.avatar || ProfileLogo}
+                  src={profile.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   alt="User"
                   className="profile-image"
                 />
-                <span>{profile.username}</span> {/* Display user's name */}
+                <span>{profile.username}</span>
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}>Profile</a>
-                    <a onClick={logout}>Logout</a>
+                    <Link to={`tables`}> My Action</Link>
+
+                    <a onClick={logout}>Logout</a>                   
                   </div>
                 )}
               </div>
@@ -175,12 +304,12 @@ const Header = () => {
 
         <Modal
           title="Profile"
-          style={{ top: 15 }}
+          style={{ top: 10 }}
           open={isProfileOpen}
           onCancel={closeProfile}
           footer={null}
         >
-          <Profile setProfileOpen={setProfileOpen} /> 
+          <Profile setProfileOpen={setProfileOpen} />
         </Modal>
       </div>
     </section>

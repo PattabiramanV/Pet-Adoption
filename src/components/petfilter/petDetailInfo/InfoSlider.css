@@ -1,80 +1,73 @@
-.slick-slider {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-}
-.slider-info {
-    width: 52%;
-    height: auto;
-}
-.slick-slide {
-  float: left;
-  min-height: 1px;
-  display: none;
-}
-
-
-.slick-slide.slick-active {
-  display: block;
-}
-.slider-info img{
-  border-radius: 5px;
-  width: 808px;
-  height: 414px;
-}
-
-
-.slick-dots {
-    position: absolute;
-    left: 156px;
-    width: 46%;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    text-align: center;
-}
 .slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 92px;
+    height: 100%;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+  
 }
-
-.slick-dots li.slick-active button {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-}
-
-/* Styling for dot button */
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  cursor: pointer;
-  color: transparent;
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.slick-slide div {
+.slider-container {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* height: 349px; */
-    /* background-color: #f0f0f0;
-    border: 1px solid #ccc; */
-    border-radius: 5px;
-    /* width: 808px; */
-    
+}
+
+.slick-list {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 570px;
+}
+
+
+/* Apply opacity to all thumbnails */
+.slick-thumb a img {
+    opacity: 0.5;
+        transition: opacity 0.3s ease-in-out;
+    width: 140px;
+    height: 110px;
+    position: relative;
+    right: 33px;
+
+
+}
+  
+  .slick-thumb .slick-active img {
+    opacity: 1;
+  }
+  
+  .slick-dots {
+    position: relative;
+    display: block;
+    top: 0px;
+    display: flex;
+    gap: 24px;    
+    left: 6%;
+}
+
+.slick-slide img {
+    width: 570px;
+    height: 392px;
+    border-radius: 7px;
+}
+
+
+
+
+
+
+
+
+/* Custom styles for slider */
+.slick-dots li {
+    height: 100%;
+    margin: 0 5px;
+}
+
+.relative {
+    position: relative;
+    width: 100%;
 }

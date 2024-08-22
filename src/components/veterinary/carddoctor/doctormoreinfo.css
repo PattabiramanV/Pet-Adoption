@@ -1,57 +1,73 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .doctorMoreInfoContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ 
+  
 }
 
-.docterseconddiv {
-  width: 100%;
+.doctor-details {
+  display: flex;
+  align-items: center;
+  width: 90%;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
+  overflow: hidden;
+  justify-content: center;
 }
 
 .backButton {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #ff5a5f;
-  color: #ffffff;
+  color: #070707;
   border: none;
-  border-radius: 50%;
+  border-radius: 10%;
   width: 30px;
   height: 30px;
   font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
-
+.backButton:hover{
+  background-color: #f2f2f2;
+}
 .doctorpic {
   flex: 1;
   overflow: hidden;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+ 
 }
 
-.doctorImg {
-   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the entire area */
+.doctor-info {
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  flex-direction: column;
 }
 
 .doctorinfo {
   flex:1;
   padding: 20px;
-  /* text-align: left; */
+  border-left: solid 2px #dbdbdb;
 }
 
 .doctorName {
@@ -61,14 +77,15 @@
   margin-bottom: 10px;
 }
 
-.doctorContact,
-.doctorAddress,
-.doctorEducation,
-.doctorDescription,
-.doctorClinic,
-.doctorSpecialisation,
-.doctorHomeVisiting,
-.doctorExperience {
+.doctor-location,
+.doctor-contact,
+.doctor-address,
+.doctor-education,
+.doctor-description,
+.doctor-clinic,
+.doctor-specialisation,
+.doctor-home-visiting,
+.doctor-experience {
   font-size: 16px;
   margin: 5px 0;
 }
@@ -81,9 +98,152 @@
 .doctorSpecialisation strong,
 .doctorHomeVisiting strong,
 .doctorExperience strong {
-  color: #555555;
+  color: #000;
 }
-.doctorDetails{
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.contact-doctor-btn,
+.back-button {
+  background-color: #6a1b9a;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: #ff5a5f;
+} */
+
+
+/* 
+.doctor-more-info-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.doctor-details {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+}
+
+.doctor-pic {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.doctor-info {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.doctor-details, p {
+  text-transform: capitalize;
+}
+
+.button-group-doctormoreinfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.doctor-btn{
+  padding: 8px 16px; 
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 30%;
+  margin-top: 8px;
+  font-size: 14px; 
+  border: 1px solid #675bc8;
+  background-color: #fff;
+  color: #675bc8;
+  font-family: 'Arial', sans-serif;
+}
+
+
+.doctor-btn:hover {
+  background-color: #696299; 
+  color: white;
+} */
+
+
+
+
+
+.doctor-more-info-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.doctor-details {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+  padding: 2em;
+}
+.doctor-pic {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .doctor-img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+} */
+.doctor-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  line-height: 25px;
+}
+.doctor-info h2, 
+.doctor-info p {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.doctor-info p strong {
+  font-weight: bold;
+}
+
+.button-group-doctormoreinfo {
+  width: 100%;
   display: flex;
   justify-content: space-between;
+}
+.doctorName{
+  /* color: #4B0082; */
+  color: #6A5ACD;
 }

@@ -87,6 +87,8 @@
     top: 39px;
 
 }
+
 .profile-guide-container {
-    margin-bottom: 6%;
+    position: relative;
+    top: 83px;
 }

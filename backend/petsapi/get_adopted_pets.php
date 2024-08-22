@@ -22,9 +22,9 @@ try {
         
         $adoptedPets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($adoptedPets as &$pet) {
-            $pet['photo'] = base64_encode($pet['photo']);
-        }
+        // foreach ($adoptedPets as &$pet) {
+        //     $pet['photo'] = base64_encode($pet['photo']);
+        // }
 
         echo json_encode(['success' => true, 'data' => $adoptedPets]);
     } else {

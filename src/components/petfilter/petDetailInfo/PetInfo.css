@@ -6,7 +6,9 @@ html, body {
 .pet-info-page {
   width: 100%;
   height: auto;
-  padding: 13px 30px;
+      position: relative;
+    left: 107px;
+    top: 50px;
 }
 
 .pet-image-name {
@@ -18,6 +20,8 @@ html, body {
   display: flex;
   gap: 13px;
   width: 805px;
+      padding-left: 1%;
+
 }
 
 .pet-image-name-info .pet-image-info img {
@@ -76,10 +80,11 @@ html, body {
 
 .info-description {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+    flex-direction: column;
+    gap: 5px;
     position: relative;
-    left: 170px;
+    left: 18px;
+    top: 16px;
 }
 
 .info-description p {
@@ -117,7 +122,7 @@ html, body {
 .petPerson {
   display: flex;
   justify-content: space-between;
-  margin-top: 51px; 
+  margin-top: 34px; 
   width: 600px;
   height: 89px;
   gap: 24px;
@@ -186,11 +191,11 @@ html, body {
   font-weight: 500;
 }
 
-.Infos img {
+/* .Infos img {
   width: 139%;
-  max-width: 593px;
-  height: 400px;
-}
+  /* max-width: 593px; */
+  /* height: 400px;
+} */ 
 
 .Infos{
   width: 100%;
@@ -213,7 +218,55 @@ html, body {
   color: green;
 }
 
-
+.similar-pets {
+    padding-top: 57px;
+    margin-bottom: 120px;
+}
+.similar-pets h2{
+  font-size: 28px;
+}
 .adopt{
   text-transform: capitalize;
+      position: relative;
+    right: 82px;
+    top: 9px;
+
 }
+.custom-prev-arrow,
+.custom-next-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.custom-prev-arrow {
+  left: -25px; /* Adjust based on your design */
+}
+
+.custom-next-arrow {
+  right: -25px; /* Adjust based on your design */
+}
+
+.custom-prev-arrow img,
+.custom-next-arrow img {
+  width: 30px; /* Adjust the size of the arrow images */
+  height: 30px;
+}
+
+ /* .existingaddress{
+    width: 339px;
+    position: relative;
+    left: 64px;
+}
+input#existingAddress {
+    position: relative;
+    right: 52px;
+}
+.existing{
+     position: relative;
+    right: 52px;
+} */
+
+

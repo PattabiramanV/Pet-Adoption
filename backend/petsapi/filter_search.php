@@ -2,14 +2,11 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Include database connection file
 include_once '../config/database.php';
 
 try {
-    // Start with base query
     $query = "SELECT * FROM pets WHERE 1=1 AND status = 'available' ";
 
-    // Prepare parameters array
     $params = [];
     $filterResults = [
         'petType' => true,

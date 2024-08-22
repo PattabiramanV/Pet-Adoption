@@ -1,6 +1,6 @@
 <?php
 include_once '../config/database.php';
-require '../vendor/autoload.php'; // Ensure PHPMailer is included
+require '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -26,8 +26,6 @@ if (empty($pet_id) || empty($user_id)) {
 try {
     $conn->beginTransaction();
 
-
-     
     // Insert adoption event
     $query = "INSERT INTO adoption_events (pet_id, user_id, adoption_time" . 
             ($address ? ", address" : "") . 
@@ -48,7 +46,7 @@ try {
     if (!$stmt->execute()) {
         throw new Exception('Failed to insert adoption event.');
     }
-    
+
     // Fetch pet and user details
     $queryPet = "SELECT * FROM pets WHERE id = :pet_id";
     $stmtPet = $conn->prepare($queryPet);
@@ -61,6 +59,9 @@ try {
     $stmtUser->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmtUser->execute();
     $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+    $header = file_get_contents('../mailtemplate/header.html');
+    $footer = file_get_contents('../mailtemplate/footer.html');
 
     if (!$pet || !$user) {
         throw new Exception('Failed to fetch pet or user details.');
@@ -75,27 +76,29 @@ try {
         <style>
             body { font-family: inter, sans-serif; background-color: #f9f9f9; }
             .container { padding: 24px; }
-            .header { padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0; }
+            // .header { padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0; }
             .content { padding: 24px; background-color: white; border-radius: 0 0 8px 8px; }
         </style>
-     </head>
-     <body>
+    </head>
+    <body>
+        {$header}
         <div class='container'>
             <div class='header'>
-                <h1>Pet Adoption request</h1>
+                <h1>Pet Adoption Request</h1>
             </div>
             <div class='content'>
                 <p>Dear {$user['username']},</p>
-                <p>Your adoption request for <strong>{$petname}</strong> has been successfully processed.</p>
+                <p>Your adoption request for <strong>{$petName}</strong> has been successfully processed.</p>
                 <p>Pet Details:</p>
                 <ul>
-                    <li>Name: " . htmlspecialchars($pet['pet_name']) ."</li>
+                    <li>Name: " . htmlspecialchars($pet['pet_name']) . "</li>
                     <li>Breed: " . htmlspecialchars($pet['breeds']) . "</li>
                     <li>Age: " . htmlspecialchars($pet['age']) . "</li>
                 </ul>
                 <p>Thank you for using our service!</p>
             </div>
         </div>
+        {$footer}
     </body>
     </html>";
 
@@ -115,7 +118,6 @@ try {
 
         $mail->isHTML(true);
         $mail->Subject = 'Pet Adoption Confirmation';            
-
         $mail->Body    = $message;
         
         $mail->send();

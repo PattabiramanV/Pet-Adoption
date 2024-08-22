@@ -1,21 +1,35 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Section from "./Home/Section";
 import Header from "./Siteframe/Header";
 import Petcard from "./Home/pet card/PetList";
-// import Section1 from "./Home/Section1";
 import Footer from "./Siteframe/Footer";
 import PeacefulCoexistence from './Home/PeacefulCoexistence';
-// import Login from "./Login";
+import { Padding } from '@mui/icons-material';
 
 function Home() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleNavigation = () => {
+    navigate('/lostpetlisting'); // Navigate to the desired route
+  };
+  const divMoreBtnHomeStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: '1em',
+  };
+  
   return (
     <>
       <Header />
       <Section />
-      <Petcard />
-      {/* <Section1 /> */}
       <PeacefulCoexistence />
+      <Petcard />
+      <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
+        <button className="more hi" onClick={handleNavigation}>See more</button>
+      </div>
       <Footer />
-      {/* <Login /> */}
     </>
   );
 }
