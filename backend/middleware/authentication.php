@@ -11,7 +11,8 @@ $key = 'Manoj';
 function generateJWT($user_id) {
     global $key;
     $payload = array(
-        "iss" => "localhost",
+        "iss" => "localhost", 
+        
         "aud" => "localhost",
         "iat" => time(),
         // "exp" => time() + 3600,
