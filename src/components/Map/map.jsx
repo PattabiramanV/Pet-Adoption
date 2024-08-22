@@ -664,10 +664,14 @@ function Map() {
                                         }}
                                     >
                                         <Popup>
-                                            <strong>{location.name}</strong><br />
+                                            {/* <strong>{location.name}</strong><br />
                                             Address: {location.address}<br />
                                             {location.distance && `Distance: ${location.distance.toFixed(2)} km`}<br />
-                                            {location.message}
+                                            {location.message} */}
+        <strong>{location.name}</strong><br />
+        <span className="popup-address">Address: {location.address}</span><br />
+        {location.distance && <span className="popup-distance">Distance: {location.distance.toFixed(2)} km</span>}<br />
+        <span className="popup-message">{location.message}</span>
                                         </Popup>
                                     </Marker>
                                 );
