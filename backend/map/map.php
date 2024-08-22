@@ -218,19 +218,15 @@ try {
 
             $distance = calculateDistance($userLat, $userLng, $location['latitude'], $location['longitude']);
            
-            if ($distance <= 10) { // Adjust the distance threshold as needed
-            
+            if ($distance <= 100) { // If the location is within 100 km
                 $location['distance'] = $distance;
-            
                 $results[] = $location;
-           
-            }
-            else if ($distance <= 200){
+            } else if ($distance <= 200) { // If the location is within 200 km but not within 100 km
                 $location['distance'] = $distance;
-            
-            $location['not'] = "not available";
+                $location['message'] = "No locations available within 100 km.";
                 $results[] = $location;
             }
+            
         }
 
         // Fetch records with null coordinates

@@ -11,10 +11,13 @@
 }
 
 .pet-hostel-finder h1 {
-    color: #000000;
-    font-size: 24px;
     font-weight: 700;
     margin: 10px 0;
+    font-size: 32px;
+    color: #4B0082;
+}
+span.map_name_span {
+    color: #6A5ACD;
 }
 
 /* Suggestions list */
@@ -64,7 +67,7 @@
 .map-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     flex-direction: row;
 }
@@ -73,6 +76,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* height: 570px; */
     /* position: fixed; */
 }
 /* Map and location list containers */
@@ -95,7 +99,7 @@
 }
 
 .location-pagination button {
-    background-color: #007bff;
+    background-color: #4B0082;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -116,7 +120,7 @@
 }
 
 .location-pagination button:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #6A5ACD;
 }
 
 /* Location list styling */
@@ -177,6 +181,11 @@
     color: blueviolet;
     margin-top: auto;
 }
+.no_location_in_100km{
+    font-weight: bold;
+    color: rgb(226, 43, 43);
+    margin-top: auto; 
+}
 .card_list_map {
     display: flex;
     justify-content: center;
@@ -192,15 +201,20 @@ button.map-categary-button{
     margin: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background: #675BC8;
-        color: #ffffff;
+
+        background-color: #ffffff;
+        border-color: #6A5ACD;
+        color: #675BC8;
     cursor: pointer;
     width: 10em;
     transition: background-color 0.3s ease;
 }
-
-.map-category-button:hover {
-    background-color: #d0d0d0;
+button.map-categary-button:hover {
+    background: #675BC8;
+    color: #ffffff;
+    /* background-color: #ffffff;
+    border-color: #6A5ACD;
+    color: black; */
 }
 
 .map-category-button.selected {
@@ -236,6 +250,25 @@ button.map-categary-button{
     /* gap: 5em; */
     /* height: 400px; */
 }
+
+
+
+.error-container {
+    position: absolute;
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    left: 11em;
+}
+
+.error-message {
+    margin: 0;
+    font-size: 16px; /* Adjust font size if needed */
+    font-weight: bold; /* Make the text bold */
+}
+
 /* Responsive design adjustments */
 @media (max-width: 768px) {
     .map-table-container {
