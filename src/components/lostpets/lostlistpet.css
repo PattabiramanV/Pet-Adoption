@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 .pet-detail-page {
   font-family: Arial, sans-serif;
   color: #333;
@@ -9,7 +11,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  padding :40px 0;
+  padding :50px 0;
 }
 
 .pet-detail-container {
@@ -46,11 +48,11 @@
 
 .pet-name {
   font-size: 1.8em;
-
+  color:#2E256F;
 }
 
 .pet-location {
-  color: #666;
+  color: #0A453A;
   font-size: 1.1em;
 }
 
@@ -83,7 +85,7 @@
   color: white ;
 }
 
-.back-button {
+.goback-button {
   display: inline-block;
   border: none;
   border-radius: 5px;
@@ -132,6 +134,109 @@
     align-items: center;
     gap: 2em;
 }
-.pet_left_de, .pet_right_de {
-  width: 50%;
+.pet-card-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
   }
+
+
+  input[type="checkbox"] {
+    margin-right: 10px; 
+    font-family: 'inter';
+  }
+
+
+
+/*  form css  */
+
+
+.lostpetform select {
+
+  background-color: white;
+  border: 1px solid rgba(96, 96, 96, 1);
+
+
+}
+
+*{
+  font-family: 'Inter';
+}
+
+
+.lostpetform  input{
+
+  height: 40px;
+  width: 400px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}  
+.lostpetform  .fileInput{
+
+  height: 40px;
+  width: 400px;
+  border: none;
+}
+
+.lostpetform  input::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.lostpetform  textarea::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 60px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.lostpetform  label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  width: 188px;
+  height: 24px;
+  color: rgba(12, 12, 12, 1);
+}
+
+
+.lostpetform span{
+  
+color: rgba(195, 0, 0, 1);
+margin-left: 5px;
+}
+
+
+.lostpetform textarea {
+  height: 86px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.lostpetform h2  {  
+  font-size: 32px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 500;
+  text-align: center;
+  margin-top: 36px;
+}
+
+
+.lostpetform .lostformsubmitbtn {
+  width: 184px;
+  height: 40px;
+  background-color: rgba(103, 91, 200, 1);
+  border-radius: 8px;
+  padding: 8px, 16px, 8px, 16px;
+  color: rgba(255, 255, 255, 1);
+  size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-left: 40%;
+  margin-top: 10px;
+ 
+}

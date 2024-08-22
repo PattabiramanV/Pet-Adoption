@@ -31,6 +31,7 @@ const PetCard = ({ pet }) => {
             </p>
           </div>
         </div>
+<div className="div_adou">
 
         <div className="pet-card-info">
           <div className="pet-left">
@@ -48,14 +49,15 @@ const PetCard = ({ pet }) => {
         <div className="pet-card-info">
           <div className="pet-left">
             <div className="ages">
-              <p><strong>Age:</strong></p>
-              <span className="span-color">{pet.age}</span>
+              <p><strong>Age:</strong></p> 
+              <span className="span-color">{pet.age} year</span>
             </div>
           </div>
           <div className="pet-right">
             <p><strong>Size:</strong></p>
             <span className="span-color">{pet.size}</span>
           </div>
+        </div>
         </div>
 
         <div className="type">

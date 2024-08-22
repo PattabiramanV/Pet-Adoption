@@ -307,3 +307,18 @@ span.div_profil_span {
  .mor {
   margin-bottom: 0px;
 }
+
+.div_pro {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* 
+.ant-modal .ant-modal-content {
+  width: 100%;
+  height: fit-content;
+} */

@@ -15,49 +15,50 @@ const PetCard = ({ pet }) => {
   const imageSrc = pet.photo ? `data:image/jpeg;base64,${pet.photo}` : '';
 
   return (
-    <div className="pet-card">
-      <div className="pet-card-header">
-        <img src={imageSrc} alt={pet.name} className="pet-card-image" />
+    <div className="landing_pet-card">
+      <div className="landing_pet-card-header">
+        <img src={imageSrc} alt={pet.name} className="landing_pet-card-image" />
       </div>
 
-      <div className="pet-card-body">
-        <div className="pet-name">
-          <div className="names">
-            <h2 className="pet-card-name">{pet.name}</h2>
+      <div className="landing_pet-card-body">
+        <div className="landing_pet-name">
+          <div className="landing_names">
+            <h2 className="landing_pet-card-name">{pet.name}</h2>
           </div>
-          <div className="location">
-            <p className="pet-card-locations">
+          <div className="landing_location">
+            <p className="landing_pet-card-locations">
               <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.location}
             </p>
           </div>
         </div>
+<div className="div_laing_pet_list">
 
-        <div className="pet-card-info">
-          <div className="pet_left_de">
-            <div className="Gender">
+        {/* <div className="landing_pet-card-info"> */}
+          <div className="landing_pet_left_de">
+            <div className="landing_Gender">
               <p>
                 <strong>Gender:</strong>  
               </p>
-              <span className="span_color"> {pet.gender}</span>
+              <span className="landing_span_color"> {pet.gender}</span>
             </div>
           </div>
-          <div className="pet_right_de">
+        {/* </div> */}
+        <div className="landing_pet_right_de">
             <p>
               <strong>Pet Type:</strong> 
             </p>
-            <span  className="span_color"> {pet.pet_type} </span> 
+            <span className="landing_span_color"> {pet.pet_type} </span> 
           </div>
-        </div>
-        <div className="type">
+        <div className="landing_type">
           <p>
             <strong>Lost Date:</strong>
-           
           </p>
-          <span  className="span_color"> {pet.lost_date}</span>
+          <span className="landing_span_color"> {pet.lost_date}</span>
+        </div>
         </div>
 
-        <div className="btn">
-          <button className="more-info-btns" onClick={handleNavigation}>More Info</button>
+        <div className="landing_btn">
+          <button className="landing_more-info-btns" onClick={handleNavigation}>More Info</button>
         </div>
       </div>
     </div>

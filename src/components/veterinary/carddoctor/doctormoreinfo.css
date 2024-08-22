@@ -1,13 +1,22 @@
-/* .doctor-more-info-container {
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.doctorMoreInfoContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  max-width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ 
+  
 }
 
 .doctor-details {
@@ -21,18 +30,29 @@
   justify-content: center;
 }
 
-.doctor-pic {
-
-  width: 100%;
+.backButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #070707;
+  border: none;
+  border-radius: 10%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.doctor-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; 
+.backButton:hover{
+  background-color: #f2f2f2;
+}
+.doctorpic {
+  flex: 1;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+ 
 }
 
 .doctor-info {
@@ -44,8 +64,14 @@
   flex-direction: column;
 }
 
-.doctor-name {
-  font-size: 28px;
+.doctorinfo {
+  flex:1;
+  padding: 20px;
+  border-left: solid 2px #dbdbdb;
+}
+
+.doctorName {
+  font-size: 24px;
   font-weight: bold;
   color: #333333;
   margin-bottom: 10px;
@@ -64,8 +90,15 @@
   margin: 5px 0;
 }
 
-.doctor-info strong {
-  color: #555555;
+.doctorContact strong,
+.doctorAddress strong,
+.doctorEducation strong,
+.doctorDescription strong,
+.doctorClinic strong,
+.doctorSpecialisation strong,
+.doctorHomeVisiting strong,
+.doctorExperience strong {
+  color: #000;
 }
 
 .button-group {
@@ -209,57 +242,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
 }
-
-.doctor-btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  width: 45%;
-  font-size: 14px;
-  border: 1px solid #675bc8;
-  background-color: #fff;
-  color: #675bc8;
-  font-family: 'Arial', sans-serif;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.doctor-btn:hover {
-  background-color: #675bc8;
-  color: white;
-}
-
-.dot {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.div-name-doctormoreinfo {
-  display: flex;
-  justify-content:flex-start;
-  align-items: center;
-  font-size: x-large;
-  font-weight: bolder;
-  text-transform: uppercase;
-}
-.div_left_doctor {
-    width: 50%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.div_right_doctor {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.div-description-doctormoreinfo.dot {
-  display: flow;
+.doctorName{
+  /* color: #4B0082; */
+  color: #6A5ACD;
 }

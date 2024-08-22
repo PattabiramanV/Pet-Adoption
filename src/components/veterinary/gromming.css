@@ -110,7 +110,7 @@
 
 .petsGrooming .bothing {
   width: 100%;
-  height: auto;
+  height: 250px;
   border-radius: 10px 10px 0 0;
 }
 .bothing:hover{
@@ -126,9 +126,9 @@
 }
 
 .petsGrooming .bookingNow button {
-  border: 1px solid #675BC8;
-  background-color: transparent;
-  color: #675BC8;
+  
+  background-color:  #4B0082;
+  color: #f0eff5;
   width: 80%;
   font-weight: 500;
   height: 44px;
@@ -138,17 +138,23 @@
 }
 
 .bookingNow button:hover {
-  background-color: #675BC8;
-  color: #fff;
+  
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .bothingPets h2{
   color:#675BC8;
   text-align: left;
+  /* margin-top: 10px; */
+  
 }
 .bothingPets h3{
   text-align: left;
   padding-top: 2px;
   line-height:normal;
   font-size: small;
+  /* margin-top: 5px; */
+ 
   
 }
+
+

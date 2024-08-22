@@ -390,3 +390,4 @@ const Profile = ({ setProfileOpen }) => {
 };
 
 export default Profile;
+  

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 .pet-list {
   padding: 0 108px;
@@ -9,6 +10,7 @@ border: 1px solid #ddd;
 border-radius: 10px;
 overflow: hidden;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* border: 1px solid #675bc8; */
 margin: 20px;
 max-width: 300px;
 }
@@ -25,32 +27,42 @@ object-fit: cover;
 }
 
 .pet-card-body {
-padding: 20px;
+padding: 15px;
 }
 
 .pet-card-name {
-font-size: 24px;
-color: #4B0082; /* Indigo */
-margin: 0;
+  font-size: 18px;
+  color:#2E256F; /* Indigo */
+  margin: 0;
+  font-family: 'inter';
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .pet-card-location {
-color: #888;
-font-size: 14px;
-margin: 5px 0;
+  color: #0A453A;
+  font-size: 14px;
+  margin: 5px 0;
+  font-family: 'inter';
+  font-weight: 600;
+  text-transform: capitalize;
+
 }
 
 .pet-card-info {
 display: flex;
+flex-direction: column;
+gap:10px;
 justify-content: space-between;
 margin: 10px 0;
 }
 
-.pet_left_de, .pet_right_de {
+/* .pet_left_de, .pet_right_de {
 width: 48%;
-}
+} */
 
 .pet-card-description {
+
 color: #555;
 font-size: 14px;
 margin: 10px 0;
@@ -89,18 +101,19 @@ flex-direction: column;
 .pet-list-name {
 text-align: center;
 font-size: 32px;
-color: #4B0082; /* Indigo */
+color: #2E256F; /* Indigo */
 margin-bottom: 20px;
 }
 
 .pet-list-name span {
-color: #6A5ACD; /* SlateBlue */
+color: #6A5ACD;
 }
 
 .pet-list-container {
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
+margin-bottom: 50px;
 }
 
 .pet-list-container-sub {
@@ -134,24 +147,28 @@ width: 100%;
 }
 
 /* searchinglostandfoundpets butt css */
+
 .div_more_btn {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 60px;
+  height: 48px;
 }
 button.hi {
-  width: 10%;
+  width: 150px;
 }
-/* pagination css */
-
 .pet-list {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
+  margin-top: 40px;
 }
 
 .pet-list-name {
   text-align: center;
-  margin-bottom: 20px;
+  font-family: 'inter';
+  color:#0A453A;
+  font-weight: 500;
 }
 
 .pet-list-container {
@@ -164,7 +181,8 @@ button.hi {
   display: flex;
   flex-wrap: wrap;
   gap: 16px; 
-  justify-content: center;
+  justify-content: flex-start;
+    padding: 0 130px;
 }
 
 .pet-list-container-sub > .pet-card {
@@ -177,3 +195,23 @@ button.hi {
   text-align: center;
 }
 
+
+.usertsble,tr,th,td{border:.5px solid #ccc}
+
+
+span#inputcolor {
+  font-size: 15px;
+   background-color: #EAE8F7;
+   color: #2E256F;
+   padding: 4px 8px;
+   border-radius: 10%;
+}
+
+span#inputscolors{
+  font-size: 15px;
+  width: 100%;
+   background-color: #EAE8F7;
+   color: #2E256F;
+   padding: 4px 8px;
+   border-radius: 10%;
+}

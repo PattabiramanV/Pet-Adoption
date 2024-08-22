@@ -115,19 +115,19 @@ const Header = () => {
               <span>Pet Spotlight</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Add lost pets
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Lost pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Found Pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    My Entries
-                  </Link>
-                </div>
+                <Link className="menu" to="/findpet">
+                  Add lost pets
+                </Link>
+                <Link className="menu" to="/lostingpet">
+             Lost pets
+                </Link>
+                <Link className="menu" to="/mypetlostpost">
+                  Found Pets
+                </Link>
+                <Link className="menu" to="/lostingusertable">
+                My Entries
+                </Link>
+              </div>
               )}
             </div>
 

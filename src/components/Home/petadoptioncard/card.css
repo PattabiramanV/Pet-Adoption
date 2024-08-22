@@ -265,3 +265,24 @@ span.span-color {
   font-size: 18px;
   width: auto;
 }
+
+.div_adou {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pet-list-container_1 {
+  display: flex;
+}
+.ages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.pet-card-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  align-items: flex-start;
+}

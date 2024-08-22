@@ -13,6 +13,8 @@ import Footer from "./Siteframe/Footer";
 import PeacefulCoexistence from './Home/PeacefulCoexistence';
 import { Padding } from '@mui/icons-material';
 
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
+
 function Home() {
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -29,6 +31,7 @@ function Home() {
   return (
     <>
       <Header />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } />
       <Section />
       <PeacefulCoexistence />
       <Adoptioncard />

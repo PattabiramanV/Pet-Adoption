@@ -256,7 +256,9 @@ html, body {
   cursor: pointer;
 }
 
-
+.adopt{
+  text-transform: capitalize;
+}
             /* $params[':size'] = $_GET['size'];
         }
         if (!empty($_GET['breed'])) {

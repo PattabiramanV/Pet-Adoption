@@ -11,6 +11,7 @@ const DoctorMoreInfo = () => {
   }
 
   return (
+    <>
     <div className="doctor-more-info-container">
       <div className="doctor-details">
         <div className="doctor-pic">
@@ -144,6 +145,7 @@ const DoctorMoreInfo = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

@@ -3,7 +3,11 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+<<<<<<< HEAD
         'reference' => 'e1ca419ac14b4cd6a24c81f35511a54e5da484a2',
+=======
+        'reference' => '1e44fb167a304916f58d1868fe290a4d8d9e9496',
+>>>>>>> Poomika-petlost
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +17,11 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+<<<<<<< HEAD
             'reference' => 'e1ca419ac14b4cd6a24c81f35511a54e5da484a2',
+=======
+            'reference' => '1e44fb167a304916f58d1868fe290a4d8d9e9496',
+>>>>>>> Poomika-petlost
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

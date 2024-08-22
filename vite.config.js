@@ -8,6 +8,12 @@ export default defineConfig({
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+    optimizeDeps: {
+    exclude: [
+      'chunk-HKARQHL6.js',
+      'chunk-IE4XGEBL.js'
+    ]
+  },
   theme: {
     extend: {},
   },
