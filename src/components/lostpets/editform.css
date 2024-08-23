@@ -22,10 +22,9 @@ input[type='checkbox'] {
 
 .ant-modal-header {
     display: flex;
-    align-items: center;
-    margin-left: 200px;
-    font-size: 20px;
-}
+    justify-content: center;
+    font-weight: bold; /* Makes the header bold */
+/* } */
 
 
 .lostpetform label {
@@ -36,24 +35,6 @@ input[type='checkbox'] {
     color: rgba(12, 12, 12, 1);
 }
 
-.ant-input {
-    height: 40px;
-    align-items: center;
-
-}
-
-.ant-modal .ant-modal-title {
-    margin: 0;
-    font-weight: 800;
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    margin-left: 50px;
- }
- .ant-modal .ant-modal-content{
-    width: 130%;
-    height: 710px;
- } 
  .form-grid{
     display: flex;
     width:150%;
@@ -105,4 +86,4 @@ margin-top: 10px;
     width: 100%;
 }
 
- */
+

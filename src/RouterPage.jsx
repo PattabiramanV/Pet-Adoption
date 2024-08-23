@@ -65,14 +65,15 @@ function RouterPage() {
 
 {/* pommika -----------------------*/}
 
-        <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
+<Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<PrivateRoute><LostingpetAdd /></PrivateRoute>} />
-        <Route path="/LostListPet" element={<PrivateRoute><LostList /></PrivateRoute>} />
+        <Route path="/LostListPet/:id" element={<PrivateRoute><LostList /></PrivateRoute>} />
         <Route path="/mypetlostpost" element={<PrivateRoute><Mylostpostlist /></PrivateRoute>} />
         <Route path="/lostingusertable" element={<PrivateRoute><Lostpostusertable /></PrivateRoute>} />
         <Route path="/petdetails" element={<PrivateRoute><Checkboxlostpets /></PrivateRoute>} />
         <Route path="/lostpetlisting" element={<PrivateRoute><Lostlistallpage /></PrivateRoute>} />
         <Route path="/editform" element={<PrivateRoute><EditUserForm /></PrivateRoute>} /> 
+        {/* <Route path="/loctionforallpets" element={<PrivateRoute><Locationpage /></PrivateRoute>} /> */}
 
 {/* pommika -----------------------*/}
 
