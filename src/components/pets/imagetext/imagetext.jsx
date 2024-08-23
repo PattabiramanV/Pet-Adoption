@@ -1,10 +1,9 @@
-// import React from 'react';
 import './imagetext.css';
 const Image = () => {
   return (
     <div className="parentContainer">
       <img
-        src="/src/assets/eric-ward-ISg37AI2A-s-unsplash.jpg"
+        src="/src/assets/frame.jpg"
         alt="Landscape"
       />
       <div className="img-content">

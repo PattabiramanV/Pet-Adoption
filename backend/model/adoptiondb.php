@@ -4,7 +4,7 @@ class Pet {
     private $table = 'pets';
 
     public $id;
-    public $pet_name;
+    public $name;
     public $user_id;
     public $description;
     // Add other pet properties here

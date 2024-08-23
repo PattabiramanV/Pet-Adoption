@@ -1,4 +1,4 @@
-.form-wrapper {
+/* .form-wrapper {
     margin: auto;
 }
 
@@ -24,7 +24,7 @@ input[type='checkbox'] {
     display: flex;
     justify-content: center;
     font-weight: bold; /* Makes the header bold */
-}
+/* } */
 
 
 .lostpetform label {
@@ -41,7 +41,6 @@ input[type='checkbox'] {
  }
  
 
- /* edit form css  */
  .popup-form input,#lost_date {
     height: 40px;
     width: 200px;

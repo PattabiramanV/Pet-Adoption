@@ -1,0 +1,150 @@
+.pet-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 300px;
+  background-color: #fff;
+}
+
+.pet-card-image-container {
+  width: 100%;
+  height: 168px; /* Adjusted to match image height */
+}
+
+.pet-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-card-body {
+  padding: 20px;
+}
+
+.pet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pet-name {
+  font-size: 1.8em;
+  color: #2E256F;
+
+}
+
+.pet-location {
+  color: #337739;
+  font-size: large;
+}
+
+.pet-card-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.pet-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Add space between label and value */
+}
+
+.info-value {
+  background: #EAE8F7;
+  padding: 3px 8px;
+  border-radius: 7px;
+  font-size: small;
+  color: #2E256F;
+}
+
+.pet-description {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.more-info-btn {
+  background-color: #675BC8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.more-info-btn:hover {
+  background-color: #4a43b0;
+}
+
+/* Layout for pet info items to match the provided example */
+.pet-card-info .pet-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pet-card-info .pet-info-item p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.pet-card-info .pet-info-item span {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #EAE8F7;
+  border-radius: 7px;
+  font-size: small;
+  color: #2E256F;
+}
+
+
+
+
+
+
+.pet-list-container_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.\32 {
+  display: flex;
+  /* justify-content: flex-start; */
+  gap: 1em;
+}
+
+.pet-card-info .pet-info-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.\31 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+p.pet-location {
+  color: #0A453A;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+h1.pet-list-name {
+  text-align: center;
+  font-size: 32px;
+  color: #4B0082;
+  margin-bottom: 20px;
+}
+
+span.pet-list-name-span {
+  color: #6A5ACD;
+}

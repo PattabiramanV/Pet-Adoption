@@ -1,37 +1,139 @@
-.tabless, .tabless tr, .tabless th, .tabless td {
+/* .tabless, .tabless tr, .tabless th, .tabless td {
     border: .5px solid #ccc;
+} */
+
+*{
+  font-family: Inter;
+}
+.doctertitle {
+  display: flex;
+  justify-content: center;
+  width: 170%;
+  position: relative;
+  left: 183%;
 }
 
 /* grooming form css */
 .custom-div{
-    max-width: 64rem; /* max-w-4xl */
-    margin-left: auto; /* mx-auto */
-    margin-right: auto; /* mx-auto */
-    padding: 2rem; /* p-8 */
-    /* background-color: #f7fafc;  */
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin-bottom: 1.25rem; /* mb-5 */
-    margin-top: 1.25rem; /* mt-5 */
+    max-width: 64rem; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 2rem;
+
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    margin-bottom: 1.25rem; 
+    margin-top: 1.25rem; 
+}
+
+.custom-div .title{
+  font-size: 26px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 36px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 .custom-button {
-    width: 30%; /* w-full */
-    color: #ffffff; /* text-white */
-    padding: 0.5rem 1rem; /* py-2 */
-    border-radius: 0.5rem; /* rounded-lg */
-    background-color: #6b21a8; /* bg-purple-600 */
-    border: none; /* Tailwind has no border utility applied, but it's common for buttons */
-    cursor: pointer; /* Optional: shows a pointer cursor on hover */
-    font-size: 1rem; /* Optional: ensure the font size matches Tailwind default */
-    margin-left: 34%;
-    margin-top: 30px;
+  width: 184px;
+  height: 40px;
+  background-color: rgba(103, 91, 200, 1);
+  border-radius: 8px;
+  padding: 8px, 16px, 8px, 16px;
+  color: rgba(255, 255, 255, 1);
+  size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  cursor: pointer;
+  margin-left: 74%;
   }
-  .custom-button:hover {
-    opacity: 0.9; /* Optional: slight hover effect */
-  }
+ 
   .custom-div span{
-    color: red;
+    color: rgba(195, 0, 0, 1);
+    margin-left: 5px;
   }
+.custom-div input{
+  height: 40px;
+  width: 400px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+.custom-div .fileInput{
+  height: 50px;
+  width: 400px;
+  /* border: none; */
+}
+.custom-div input::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.custom-div textarea::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.custom-div textarea{
+  width: 400px;
+  height: 86px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
 
+.custom-div label{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  width: 188px;
+  height: 24px;
+  color: rgba(12, 12, 12, 1);
+}
+
+.custom-div select{
+  width: 400px;
+  height: 40px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  background-color: white;
+  border-radius: 8px;
+}
+.doctortablename .no-data-container {
+  /* position: absolute; */
+  /* left: 700px; */
+  width: 200%;
+  top: 82%;
+  max-width: 291%;
+  margin-bottom: 1rem;
+  margin-left: 135%;
+  margin-top: 30px;
+}
+.doctortablename .search-containerdoc {
+
+margin-left: 30%;
+}
+/* .doctortablename h1{
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+}
+*/
+
+.doctortablename{
+  
+    position: relative;
+    width: 20%;
+
+} 
+
+.doctertitle h1{
+
+  text-align: center;
+  
+  
+}
 
 
   /* breadcrims style */
@@ -57,4 +159,520 @@ ul.breadcrumb li a {
 ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
+}
+
+
+.custom-button1 {
+  width: 184px;
+  height: 40px;
+  background-color: rgba(103, 91, 200, 1);
+  border-radius: 8px;
+  padding: 8px, 16px, 8px, 16px;
+  color: rgba(255, 255, 255, 1);
+  size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  cursor: pointer;
+  margin-left: 40%;
+  }
+
+/* new table css */
+
+/* 
+.table-container {
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.styled-table thead tr {
+  background-color: #6633ff;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #6633ff;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.status-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clear-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover {
+  background-color: #e60000;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.status.delivered {
+  background-color: #28a745;
+  color: white;
+}
+
+.status.cancelled {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status.process {
+  background-color: #ffc107;
+  color: white;
+}
+
+.status.pending {
+  background-color: #007bff;
+  color: white;
+}
+
+.error-alert {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+} */
+
+
+
+ 
+/*  vetrinary form css */
+
+.vetrinaryform input{
+
+  height: 40px;
+  width: 400px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 5px;
+}  
+.vetrinaryform  .fileInput{
+
+  height: 40px;
+  width: 400px;
+  border: none;
+}
+
+.vetrinaryform input::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.vetrinaryform textarea::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 60px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.vetrinaryform label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  width: 188px;
+  height: 24px;
+  color: rgba(12, 12, 12, 1);
+}
+
+
+/* .vetrinaryform .star{
+  
+color: rgba(195, 0, 0, 1);
+} */
+
+
+.vetrinaryform textarea {
+  height: 86px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.star{
+  color: rgba(195, 0, 0, 1);
+}
+.vetrinaryform h2  {  
+  font-size: 32px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 500;
+  text-align: center;
+  margin-top: 36px;
+  margin-bottom: 30px;
+}
+
+
+.vetrinaryform .submitbtn {
+  width: 184px;
+  height: 40px;
+  background-color: rgba(103, 91, 200, 1);
+  border-radius: 8px;
+  padding: 8px, 16px, 8px, 16px;
+  color: rgba(255, 255, 255, 1);
+  size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+ 
+} 
+
+.vetrinaryform select{
+  border: 1px solid rgba(96, 96, 96, 1);
+  background-color: white;
+}
+
+
+.vetrinaryform .addHostelTitle{
+  font-size: 26px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 36px;
+  text-transform: uppercase
+}
+
+.vetrinaryform .availabletiming{
+  width: 30%;
+}
+
+
+/* //........................CSS for tables ...........................................// */
+
+
+.table-container h1{
+  width: 172%;
+    font-size: 24px;
+  font-weight: 800;
+  margin-left: 35%;
+}
+
+
+.table-container {
+  overflow-x: auto;
+  padding: 2%;
+}
+
+.custom-table .doctortablename{
+  width: 100%;
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.doctortablename{
+  width: 30%;
+}
+.custom-table td {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.custom-table thead {
+  background-color: #f3f4f6;
+}
+
+.custom-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.status-label {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  
+}
+
+.status-delivered {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-process {
+  background-color: #2d46b6; /* Dark blue background */
+  color: #ffffff; /* White text color */
+  padding: 5px 10px; /* Optional: Adds some padding for better spacing */
+  border-radius: 5px; /* Optional: Adds rounded corners */
+  display: inline-block; /* Optional: Makes the element fit its content */
+  font-weight: bold; 
+}
+
+.status-canceled {
+  background-color: #fde2e2;
+  color: #b91c1c;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.edit-btn:hover {
+  color: #f6e33b;
+}
+
+.delete-btn:hover {
+  color: #ef4444;
+}
+
+
+td {
+  font-size: 14px;
+  color: 000000;
+}
+
+th {
+text-align: center;
+font-size: 14px;
+font-weight: bold;
+}
+
+
+.delete-btn {
+background-color: transparent;
+border: none;
+cursor: pointer;
+color: red; /* Icon color */
+font-size: 1.5em; /* Adjust the size of the icon */
+transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+color: darkred; /* Darker red when hovered */
+}
+
+
+.table-container .profile-img{
+  width: 90%;
+  height: 48px;
+}
+
+/* table th style */
+
+.doctortablename {
+  width: 20%; 
+}
+
+/*  search bar and the pagunation style .............................................*/
+
+.table-container input {
+  border: 1px solid #0000004f;
+  width: 260px;
+  padding: 4px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* Adjust the width as needed */
+  margin-bottom: 1rem;
+  margin-left: 78%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 40px; /* Adjust padding to make room for the icon */
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.search-input::placeholder {
+  width: 100%;
+  padding-left: 26px; /* Adjust padding to make room for the icon */
+  border-radius: 4px;
+  font-size: 14px;
+  /* border: 1px solid #ccc; */
+}
+
+.search-icon {
+  position: absolute;
+  top: 40%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888; /* Icon color */
+  font-size: 14px;
+}
+
+/* ..............Pagination..................... */
+
+/* Pagination container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 24px;
+  height: 100%    ;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Individual page items */
+.page-item {
+  margin: 0 5px;
+}
+
+/* Normal page links */
+.page-link {
+  color: gray;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+/* Next and Previous buttons */
+.previous-page .page-link,
+.next-page .page-link {
+  color: #007bff; /* Style for the Next and Previous text */
+  font-weight: bold;
+  
+}
+
+/* Disabled page (optional, if you have disabled states) */
+.disabled-page .page-link {
+  color: lightgray;
+  cursor: not-allowed;
+  
+}
+
+
+.active-page .page-link {
+  background-color:rgba(98, 77, 227, 1);
+  color: white;
+  border-radius: 8px;
+ font-weight: 500;
+  height: 31px;
+  width: 31px;
+  display: inline-flex; /* Ensure the element is treated as a flex container */
+  align-items: center;  /* Center the text vertically */
+  justify-content: center; /* Center the text horizontally */
+  padding: 0; /* Remove any padding that may affect the size */
+  box-sizing: border-box; /* Include border and padding in width and height */
+  line-height: 1; /* Set line-height to normal to prevent overflow */
+  
+}
+
+a.page-link{
+  background-color:rgba(224, 224, 224, 1);
+  color: rgba(0, 0, 0, 1);
+ font-size: 12px;
+ font-weight: 500;
+ border-radius: 8px;
+  height: 31px;
+  width: 31px;
+  display: inline-flex; /* Ensure the element is treated as a flex container */
+  align-items: center;  /* Center the text vertically */
+  justify-content: center; /* Center the text horizontally */
+  padding: 0; /* Remove any padding that may affect the size */
+  box-sizing: border-box; /* Include border and padding in width and height */
+  line-height: 1; /* Set line-height to normal to prevent overflow */
+  
+}
+.previous-page a,
+.next-page a {
+  color: rgba(158, 158, 158, 1);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+
+
+.profileName {
+  display: flex;
+  /* width: 120px; */
+  gap: 8px;
+  align-items: center;
+}
+img.profileImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+/* .profileName>*{
+  width: 50%;
+} */
+
+
+
+.no-data-row {
+  background-color: #f9fafb; /* Light background for the no data row */
+  color: #6b7280; /* Gray color for the text */
+  text-align: center; /* Center align text */
+  font-size: 16px; /* Adjust font size as needed */
+  padding: 20px; /* Add padding to make the row more spacious */
+  font-weight: bold; /* Make the text bold */
+  border-top: 1px solid #e5e7eb; /* Optional: Add a border on top */
+}
+
+.no-data-container{
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  height: 300px;
+  margin-left: 30%;
+
 }

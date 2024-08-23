@@ -1,0 +1,141 @@
+.table-container {
+  overflow-x: auto;
+  padding: 2%;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+.green-icon {
+  color: green;
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
+
+  border: 1px solid #e5e7eb;
+}
+
+.custom-table thead {
+  background-color: #f3f4f6;
+}
+
+.custom-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.status-label {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-adopted {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-available {
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.disabled-row {
+  background-color: #e5e7eb;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.delete-btn, .edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: color 0.3s ease;
+}
+
+.delete-btn {
+  color: red; 
+}
+
+.delete-btn:hover {
+  color: darkred;
+}
+
+.edit-btn {
+  color: #624DE3;
+}
+
+.edit-btn:hover {
+  color: #3b82f6; 
+}
+
+.pet-details-img {
+    min-width: 53px;
+    height: 64px;
+  border-radius: 4px;
+}
+
+.adopted-pets-table h2 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+td {
+  font-size: 14px;
+  color: #000000;
+}
+
+th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status-accepted {
+    color: #70BF74;
+    /* width: 60px; */
+    background-color: #D1EAD2;
+    }
+
+.status-rejected {
+    color: #E68178;
+    background-color: #F5CFCC;
+}
+
+.no-data-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 70px;
+}
+.status-pending {
+color: #ffd078;
+    background-color: #ffe8bc;
+}
+
+.ARbutton button {
+    width: 31px;
+}
+.ARbutton .rejected {
+    width: 20px;
+}
+
+
+.ARbutton {
+    display: flex;
+        justify-content: center;
+
+}

@@ -16,17 +16,17 @@ const DoctorList = () => {
 
    <div className="list-Doctor">
 
-<div className="div_add_your_doctor_profile_main">
-<div className="div_Add-Your-Doctor-Profile"> 
+{/* <div className="div_add_your_doctor_profile_main"> */}
+{/* <div className="div_Add-Your-Doctor-Profile"> 
      <Link to="/doctoraddform" className="Add-Your-Doctor-Profile">
       Add Your Doctor Profile
     </Link>
-     </div>
+     </div> */}
 </div>
 
 
-        <Doctorcard />
-    </div>
+            <Doctorcard />
+    {/* </div> */}
   </>
   )
 }

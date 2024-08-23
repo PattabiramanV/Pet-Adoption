@@ -23,4 +23,3 @@ const BreadcrumbComponent = ({ items }) => (
 );
 
 export default BreadcrumbComponent;
-

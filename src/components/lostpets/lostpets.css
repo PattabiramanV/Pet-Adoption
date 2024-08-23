@@ -176,7 +176,7 @@ button.hi {
   flex-wrap: wrap;
   gap: 16px;
   justify-content: flex-start;
-  padding: 0 130px;
+  padding: -1px 130px;
 }
 
 .lost_pet-list-container-sub > .lost_pet-card {

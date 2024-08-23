@@ -1,0 +1,68 @@
+.doctor-list {
+  padding: 20px 108px;
+  margin: 0 auto;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.doctor-list-name {
+  text-align: center;
+  font-size: 32px;
+  color: #4B0082; /* Indigo */
+  margin-bottom: 20px;
+}
+
+.doctor-list-name span {
+  color: #6A5ACD; /* SlateBlue */
+}
+
+.doctor-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adds space between the cards */
+  justify-content: flex-start; /* Centers the cards */
+  width: 100%;
+}
+
+.doctor-card {
+  flex: 1 1 calc(33.333% - 20px); /* 3 cards per row */
+  max-width: 300px; /* Ensures cards don’t exceed max width */
+  box-sizing: border-box; /* Includes padding and border in width */
+}
+
+@media (max-width: 1200px) {
+  .doctor-card {
+    flex: 1 1 calc(33.333% - 20px); /* Maintain 3 cards per row on screens < 1200px */
+  }
+}
+
+@media (max-width: 800px) {
+  .doctor-card {
+    flex: 1 1 calc(50% - 20px); /* 2 cards per row on screens < 800px */
+  }
+}
+
+@media (max-width: 500px) {
+  .doctor-list {
+    padding: 0 10px;
+  }
+
+  .doctor-card {
+    flex: 1 1 100%; /* 1 card per row on screens < 500px */
+  }
+}
+
+.Gender {
+  width: 20em;
+}
+
+.div_name_location {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
