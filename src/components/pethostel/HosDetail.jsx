@@ -290,34 +290,34 @@ console.log(rating);
       <div className="pet-detail-container-main">
         <div className="pet-detail-container">
           <div className="pet-images">
+            <div>
+            <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px', padding:'16px'}}>
+                {pet?.hostel_name}
+              </h2>
+
+            </div>
             <CustomPaging imageUrls={imageUrls} /> {/* Pass image URLs as props */}
           </div>
 
           <div className="hosright-details">  
-            <div className='w-full grid  gap-8'>
-            <div className="div_name">
+            <div className='w-full grid  gap-4'>
+            {/* <div className="div_name">
               <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
                 {pet?.hostel_name}
               </h2>
-            </div>
+            </div> */}
 
-            <div className="div_name flex gap-8">
-              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+            
 
-              </h2> */}
-              <StarRating rating={2} readOnly={true}  />
-
-              <ReviewForm onSubmit={handleReviewSubmit} />
-
-            </div>
-
-            <div className="div_location w-full flex items-center gap-16">
-              <strong>Location:</strong>
+            <div className="div_location w-full flex items-center gap-6">
+              <strong className='w-30'>Location</strong>
+              <main>:</main>
               <span> {pet?.hostel_address}</span>
             </div>
 
-            <div className="flex items-center gap-14">
-              <strong>Price/Day:</strong>
+            <div className="flex items-center gap-6">
+              <strong className='w-30'>Price/Day</strong>
+              <main>:</main>
               <span>&#8377;{pet?.price_per_day}</span>
             </div>
 
@@ -329,6 +329,16 @@ console.log(rating);
             <div className="flex items-center gap-11">
               <strong>Contact No:</strong>
               <span> {pet?.contact}</span>
+            </div>
+
+            <div className="div_name flex gap-8">
+              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+
+              </h2> */}
+              <StarRating rating={2} readOnly={true}  />
+
+              <ReviewForm onSubmit={handleReviewSubmit} />
+
             </div>
          
 </div>

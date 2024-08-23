@@ -41,10 +41,10 @@
     bottom: -65px;
     display: block;
     width: 100%;
-    padding: 0;
+    padding:0  16px;
     margin: 0;
     list-style: none;
-    text-align: center;
+    text-align: start;
     height: 60px;
     display: flex;
     gap: 19px;

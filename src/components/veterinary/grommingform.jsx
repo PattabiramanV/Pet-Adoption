@@ -88,77 +88,77 @@ function GroomingPetsForm() {
         });
     };
 
-    // const fetchAvailableSlots = (date, doctorId) => {
-    //     if (!date || !doctorId) return;
+    const fetchAvailableSlots = (date, doctorId) => {
+        if (!date || !doctorId) return;
 
-    //     setLoading(true);
-    //     axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
-    //         params: { doctorId, date }
-    //     })
-    //         .then(response => {
-    //             if (response.data.message === "Invalid doctor ID") {
-    //                 notification.error({
-    //                     message: 'Error Fetching Slots',
-    //                     description: 'The selected doctor ID is invalid. Please select a different doctor.',
-    //                 });
-    //                 setDisabledSlots([]);
-    //             } else {
-    //                 const { start_time, end_time } = response.data;
-    //                 if (start_time && end_time) {
-    //                     const availableSlots = generateTimeSlots(start_time, end_time);
-    //                     setTimeSlots(availableSlots);
-    //                 } else {
-    //                     notification.error({
-    //                         message: 'No Availability',
-    //                         description: 'No availability found for the selected doctor.',
-    //                     });
-    //                     setTimeSlots([]);
-    //                 }
-    //             }
-    //         })
-    //         .catch(error => {
-    //             notification.error({
-    //                 message: 'Error Fetching Slots',
-    //                 description: 'There was an error while fetching available slots. Please try again later.',
-    //             });
-    //             setTimeSlots([]);
-    //             setDisabledSlots([]);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // };
+        setLoading(true);
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
+            params: { doctorId, date }
+        })
+            .then(response => {
+                if (response.data.message === "Invalid doctor ID") {
+                    notification.error({
+                        message: 'Error Fetching Slots',
+                        description: 'The selected doctor ID is invalid. Please select a different doctor.',
+                    });
+                    setDisabledSlots([]);
+                } else {
+                    const { start_time, end_time } = response.data;
+                    if (start_time && end_time) {
+                        const availableSlots = generateTimeSlots(start_time, end_time);
+                        setTimeSlots(availableSlots);
+                    } else {
+                        notification.error({
+                            message: 'No Availability',
+                            description: 'No availability found for the selected doctor.',
+                        });
+                        setTimeSlots([]);
+                    }
+                }
+            })
+            .catch(error => {
+                notification.error({
+                    message: 'Error Fetching Slots',
+                    description: 'There was an error while fetching available slots. Please try again later.',
+                });
+                setTimeSlots([]);
+                setDisabledSlots([]);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
 
-    // const fetchBookedSlots = (doctorId, date) => {
-    //     setLoading(true);
-    //     axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/getingslot.php`, {
-    //         params: { doctorId, date }
-    //     })
-    //         .then(response => {
-    //             if (response.data.message === "Invalid doctor ID.") {
-    //                 notification.error({
-    //                     message: 'Error Fetching Slots',
-    //                     description: 'The selected doctor ID is invalid. Please select a different doctor.',
-    //                 });
-    //                 setTimeSlots([]);
-    //                 setDisabledSlots([]);
-    //             } else {
-    //                 const bookedSlots = response.data.bookedSlots;
-    //                 bookedSlots.length !== 0 ? setSelectedSlots(bookedSlots[0]) : setSelectedSlots([]);
-    //                 handleBookedSlots(bookedSlots);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             notification.error({
-    //                 message: 'Error Fetching Slots',
-    //                 description: 'There was an error while fetching booked slots. Please try again later.',
-    //             });
-    //             setDisabledSlots([]);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // };
+    const fetchBookedSlots = (doctorId, date) => {
+        setLoading(true);
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/getingslot.php`, {
+            params: { doctorId, date }
+        })
+            .then(response => {
+                if (response.data.message === "Invalid doctor ID.") {
+                    notification.error({
+                        message: 'Error Fetching Slots',
+                        description: 'The selected doctor ID is invalid. Please select a different doctor.',
+                    });
+                    setTimeSlots([]);
+                    setDisabledSlots([]);
+                } else {
+                    const bookedSlots = response.data.bookedSlots;
+                    bookedSlots.length !== 0 ? setSelectedSlots(bookedSlots[0]) : setSelectedSlots([]);
+                    handleBookedSlots(bookedSlots);
+                }
+            })
+            .catch(error => {
+                notification.error({
+                    message: 'Error Fetching Slots',
+                    description: 'There was an error while fetching booked slots. Please try again later.',
+                });
+                setDisabledSlots([]);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
 
     const generateTimeSlots = (startTime, endTime, interval = 30) => {
         const startMoment = moment(startTime, 'HH:mm:ss');
@@ -461,7 +461,7 @@ function GroomingPetsForm() {
                 type="date"
                 name="appointmentDate"
                 value={applyGrooming.appointmentDate}
-                // onChange={handleFields}
+                onChange={handleFields}
                 required
             />
             {showErrors && error.appointmentDate && <p className="text-red-600 text-sm">{error.appointmentDate}</p>}
