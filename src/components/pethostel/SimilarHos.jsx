@@ -493,6 +493,8 @@ import CardView from './HosCard';
 import './similarHos.css';
 
 const SimilarPetsSlider = ({ hostels }) => {
+  // console.log(hostels);
+  // return;
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleItems = 3; // Number of items to show at once
 

@@ -19,10 +19,10 @@ const handleTabClick = (tab) => {
 
   return (
     <>
-      <Header />
-      <BreadcrumbComponent
+      {/* <Header /> */}
+      {/* <BreadcrumbComponent
         items={[{ title: 'Home', href: '/' }, { title: 'YourSalePets', href: '/requestpets/' }]}
-      />
+      /> */}
 
       <div className="petsandrequest">
 
@@ -74,7 +74,7 @@ const handleTabClick = (tab) => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
