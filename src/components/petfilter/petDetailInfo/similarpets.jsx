@@ -3,6 +3,9 @@ import './SimilarPetsSlider.css';
 import CardView from '../../pets/card/card'; 
 
 const SimilarPetsSlider = ({ similarPets }) => {
+  console.log(similarPets);
+  // return ;
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleItems = 3; 
   const handleNext = () => {

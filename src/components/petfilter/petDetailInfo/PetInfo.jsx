@@ -7,7 +7,6 @@ import './PetInfo.css';
 import { getCode } from 'country-list';
 import Loader from '../../Loader/Loader';
 import { notification } from 'antd';
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomPaging from './InfoSlider';
@@ -59,8 +58,8 @@ const PetDetailsRoute = () => {
         setSimilarPets(response.data.similar_pets);
         setError(null);
          setBreadcrumbItems((prevItems) => [
-          ...prevItems.slice(0, -1), // Keep all items except the last one
-          { title: response.data.pet.name, href: `/petDetails/${id}` }, // Add the pet name as the last item
+          ...prevItems.slice(0, -1), 
+          { title: response.data.pet.name, href: `/petDetails/${id}` }, 
         ]);
       }
     } catch (err) {
@@ -100,9 +99,9 @@ const PetDetailsRoute = () => {
    
   const handleAdoptNow = async () => {
          if (isAdopted) {
-    return; // Prevent further execution if already adopted
+    return; 
   }
-    setIsAdopted(true); // Disable the button to prevent further clicks
+    setIsAdopted(true); 
   try {
     const result = await Swal.fire({
       title: 'Do you want to adopt this pet?',
@@ -193,7 +192,7 @@ const addressResult = await Swal.fire({
 });
 
   if (!addressResult.isConfirmed) {
-        setIsAdopted(false); // Re-enable the button if the user cancels
+        setIsAdopted(false); 
         return;
       }
 
@@ -203,7 +202,7 @@ const addressResult = await Swal.fire({
   const token = localStorage.getItem('token');
   if (!token) {
     Swal.fire('Error', 'No token found for authorization.', 'error');
-      setIsAdopted(false); // R
+      setIsAdopted(false); 
     return;
   }
 
@@ -260,22 +259,22 @@ const addressResult = await Swal.fire({
       } catch (error) {
         console.error('Error updating adoption status:', error);
         Swal.fire('Error', 'There was an issue updating the adoption status.', 'error');
-          setIsAdopted(false); // R
+          setIsAdopted(false); 
       }
     } else {
       Swal.fire('Error', emailResponse.data.message || 'There was an issue sending the email.', 'error');
-        setIsAdopted(false); // R
+        setIsAdopted(false); 
     }
   } catch (error) {
     console.error('Error fetching pet owner profile:', error);
     Swal.fire('Error', 'There was an issue fetching the pet owner profile.', 'error');
-      setIsAdopted(false); // R
+      setIsAdopted(false); 
   }
 }
   } catch (error) {
     console.error('Error in adoption process:', error);
     Swal.fire('Error', 'There was an issue with the adoption process.', 'error');
-      setIsAdopted(false); // R
+      setIsAdopted(false); 
   }
 };
 
