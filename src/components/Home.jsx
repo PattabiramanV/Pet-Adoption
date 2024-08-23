@@ -34,7 +34,7 @@ function Home() {
   return (
     <>
       <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } />
+      {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } /> */}
       <Section />
       <PeacefulCoexistence />
       <Adoptioncard />
