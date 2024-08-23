@@ -1,10 +1,6 @@
 
-
-.Breadcrumbs {
-  
-  background-color: blueviolet;
- 
-
+.Breadcrumbs{
+    background-color: blueviolet;
 }
 
 .breadcrumb {
@@ -32,22 +28,7 @@
   border-radius: 4px;
 }
 
-.breadcrumb a:react-tabhover {
-  color: rgb(118, 250, 228);
-}
-
-.breadcrumb-item {
-  color: white; 
-}
-
-.breadcrumb-item.current-page {
-  color: red !important; 
-  font-weight: bold;
-}
-
-.breadcrumb-icon {
-  margin: 0 8px;
-  color: white; 
-  font-size: 14px;
-}
+  .breadcrumb a:hover {
+    color: rgb(118, 250, 228);
+  }
   
