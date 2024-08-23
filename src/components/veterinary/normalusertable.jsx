@@ -183,6 +183,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faSearch,faInbox } from '@fortawesome/free-solid-svg-icons';
 import ReactPaginate from 'react-paginate';
 
+
+
 const DoctorInfo = () => {
   const [doctorData, setDoctorData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -322,7 +324,7 @@ const getStatusClass = (status) => {
          <img src="../src/assets/emptydata.png" alt="nodata image" />
 
 
-          {/* <p className='text-center'>No data found</p> */}
+          
         </div>
       ) : (
         <>

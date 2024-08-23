@@ -5,7 +5,6 @@
 
 require ('../config/config.php');
 header('Content-Type: application/json');
-
 // $user_id = authenticate();
 $user_id = 4;
 

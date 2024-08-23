@@ -5,8 +5,13 @@
 *{
   font-family: Inter;
 }
-
-
+.doctertitle {
+  display: flex;
+  justify-content: center;
+  width: 170%;
+  position: relative;
+  left: 183%;
+}
 
 /* grooming form css */
 .custom-div{
@@ -95,8 +100,40 @@
   background-color: white;
   border-radius: 8px;
 }
+.doctortablename .no-data-container {
+  /* position: absolute; */
+  /* left: 700px; */
+  width: 200%;
+  top: 82%;
+  max-width: 291%;
+  margin-bottom: 1rem;
+  margin-left: 135%;
+  margin-top: 30px;
+}
+.doctortablename .search-containerdoc {
 
+margin-left: 30%;
+}
+/* .doctortablename h1{
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+}
+*/
 
+.doctortablename{
+  
+    position: relative;
+    width: 20%;
+
+} 
+
+.doctertitle h1{
+
+  text-align: center;
+  
+  
+}
 
 
   /* breadcrims style */
@@ -348,9 +385,10 @@ color: rgba(195, 0, 0, 1);
 
 
 .table-container h1{
-  text-align: center;
-  font-size: 24px;
+  width: 172%;
+    font-size: 24px;
   font-weight: 800;
+  margin-left: 35%;
 }
 
 
@@ -488,7 +526,7 @@ color: darkred; /* Darker red when hovered */
   width: 100%;
   max-width: 300px; /* Adjust the width as needed */
   margin-bottom: 1rem;
-  margin-left: 79%;
+  margin-left: 78%;
 }
 
 .search-input {
