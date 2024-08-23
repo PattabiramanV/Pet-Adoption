@@ -572,9 +572,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['petimage']) && $_FILES['petimage']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['petimage']['tmp_name'];
         $fileName = basename($_FILES['petimage']['name']);
-        $uploadFileDir = '../docterprofile/groomingpetspic/';
+        $uploadFileDir ='../docterprofile/groomingpetspic/';
         $dest_path = $uploadFileDir . $fileName;
-
         // Validate image type
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif','image/jpg','image/wepb'];
         if (!in_array($_FILES['petimage']['type'], $allowedTypes)) {
