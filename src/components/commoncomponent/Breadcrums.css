@@ -1,3 +1,5 @@
+
+
 .Breadcrumbs {
   
   background-color: blueviolet;
@@ -30,16 +32,16 @@
   border-radius: 4px;
 }
 
-.breadcrumb a:hover {
+.breadcrumb a:react-tabhover {
   color: rgb(118, 250, 228);
 }
 
 .breadcrumb-item {
-  color: white; /* Default breadcrumb color */
+  color: white; 
 }
 
 .breadcrumb-item.current-page {
-  color: red !important; /* Sets the color of the current page to red */
+  color: red !important; 
   font-weight: bold;
 }
 
@@ -48,3 +50,4 @@
   color: white; 
   font-size: 14px;
 }
+  

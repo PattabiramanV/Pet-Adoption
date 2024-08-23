@@ -18,9 +18,9 @@ const Section = () => {
               Pet adoption and rehoming are both vital aspects of animal
               welfare, offering hope and a fresh start to pets in need.
             </p>
-            <p className="openYourHeart">
+            {/* <p className="openYourHeart">
               Open your heart and your home to a shelter pet.
-            </p>
+            </p> */}
             </div>
           </div>
           <div className="wrapperDogCat">

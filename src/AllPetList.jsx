@@ -1,5 +1,5 @@
 
-import BreadcrumbComponent from './components/breedcrumbs'
+import BreadcrumbComponent from './components/commoncomponent/Breadcrumb'
 import PetForm from './components/petfilter/sideBar/sidebar'
 import Footer from './components/Siteframe/Footer'
 import Header from './components/Siteframe/Header'

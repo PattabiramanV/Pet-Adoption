@@ -53,6 +53,9 @@ section.landing_page_1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Inter', sans-serif; /* Correct font-family */
+    font-weight: 400; /* Correct font-weight */
+    font-size: 18px; 
 }
 
 img.dogCat {
@@ -73,8 +76,8 @@ img.dogCat {
    
 }
 .button{
-    width: 27%;
-    height: 35px;
+    width: 130%;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,4 +85,8 @@ img.dogCat {
     margin-top: 10px;
     border-radius: 5px;
     border: 1px solid #675bc8;
+}
+button:hover{
+    background-color: #675bc8;
+    color: white;
 }

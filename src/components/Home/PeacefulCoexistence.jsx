@@ -77,8 +77,8 @@ const PeacefulCoexistence = () => {
                   </div>
 
                   <div className="div_cont">
-                    <p>{card.content}</p>
-                    <div className="card-image">
+                  <p className="pesacefull">{card.content} </p>
+                  <div className="card-image">
                       <img
                         className="pet_icon"
                         src={card.image}

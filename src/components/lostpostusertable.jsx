@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from "./Siteframe/Footer";
 import Header from "./Siteframe/Header";
 import LostUsersTable from './lostpets/lostingusertable'
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from '../components/commoncomponent/Breadcrumb';
 
 
 
@@ -10,9 +10,7 @@ function Lostpostusertable() {
     return (
         <>
             <Header />
-            <div className="Breadcrumbs">
-            <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'LostUsersTable', href: '/lostingusertable' }]} /> 
-            </div>
+            <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' },{ title: 'Lost Post Users Table', href: '/lostingusertable' }]} /> 
             <LostUsersTable /> 
             <Footer />
         </>

@@ -98,7 +98,11 @@ span.div_reacod_name_span {
 .div_reacod_name {
   
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 24px;
+    height: 100%    ;
     align-items: center;
     gap: 12px;
 }.div_table_for_doct {

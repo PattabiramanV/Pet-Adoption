@@ -1,45 +1,50 @@
 
 
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import CircularProgress from '@mui/material/CircularProgress';
-import Alert from '@mui/material/Alert';
-import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import './DataTable.css';
+import PropTypes from 'prop-types';
+import './DataTable.css'; // Ensure your styles are imported
 
-const CommonTable = ({ data, columns, loading, error, searchTerm, setSearchTerm, title }) => {
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">{error}</Alert>;
-console.log(data);
+const CommonTable = ({ headers, body, onAction, isLoading }) => {
   return (
-    <Container className="doctor-page-container" maxWidth="lg">
-      <div className="div_search_doctor">
-        <div className="div_reacod_name">
-          <h4>{title}</h4> <span className='div_reacod_name_span'>Information</span>
-        </div>
-
-        <TextField
-          label="Search"
-          variant="outlined"
-          margin="normal"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      <div style={{ width: '100%' }}>
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10, 20]}
-          checkboxSelection={false}
-          disableSelectionOnClick={true}
-        />
-      </div>
-    </Container>
+    <div className="table-container">
+      <table className="custom-table">
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {isLoading ? (
+            <tr>
+              <td colSpan={headers.length}>Loading...</td>
+            </tr>
+          ) : body.length > 0 ? (
+            body.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell, cellIndex) => (
+                  <td key={cellIndex}>{cell}</td>
+                ))}
+               
+              </tr>
+            ))
+          ) : (
+            <tr className="no-data-row">
+              <td colSpan={headers.length}>No data found</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
+};
+
+CommonTable.propTypes = {
+  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  body: PropTypes.arrayOf(PropTypes.array).isRequired,
+  onAction: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default CommonTable;

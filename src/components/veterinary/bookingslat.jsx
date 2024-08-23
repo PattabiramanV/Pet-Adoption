@@ -20,7 +20,7 @@ const generateTimeSlots = (startTime, endTime) => {
     const timeSlots = [];
 
     while (start < end) {
-        const nextSlot = new Date(start.getTime() + 30 * 60000); // Increment by 30 minutes
+        const nextSlot = new Date(start.getTime() + 30 * 60000);
         timeSlots.push({
             start: formatTime(start),
             end: formatTime(nextSlot),
@@ -30,6 +30,9 @@ const generateTimeSlots = (startTime, endTime) => {
 
     return timeSlots;
 };
+
+
+
 
 const fetchDoctorAvailability = async (doctorId, date) => {
     try {
@@ -80,7 +83,7 @@ function BookingSlot() {
     console.log(selectedSlots);
 
     useEffect(() => {
-        const doctorId = 18; // Replace with your doctor's ID
+        const doctorId = 18;
 
         // Load disabled slots from localStorage
         const savedDisabledSlots = JSON.parse(localStorage.getItem(`disabledSlots-${doctorId}`)) || {};
@@ -116,10 +119,6 @@ function BookingSlot() {
             const updatedSlots = prevSlots.includes(slot)
                 ? prevSlots.filter(s => s !== slot)
                 : [...prevSlots, slot];
-
-            // Show alert when a checkbox is clicked
-            setAlertOpen(true);
-
             return updatedSlots;
         });
     };
@@ -129,6 +128,7 @@ function BookingSlot() {
     };
 
     const handleSubmit = async () => {
+      
         const doctorId = 18;
         const result = await saveSelectedSlots(doctorId, selectedDate, selectedSlots);
 
@@ -146,6 +146,7 @@ function BookingSlot() {
 
             setSelectedSlots([]);
             setIsSubmitted(true);
+            setAlertOpen(true);
         } else {
             console.error('Failed to save slots');
         }

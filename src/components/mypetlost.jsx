@@ -1,7 +1,7 @@
 import Header from "./Siteframe/Header";
 import Footer from "./Siteframe/Footer";
 import MyLostPostPet from "./lostpets/mypetlist/mylostpetlist";
-import BreadcrumbComponent from '../components/lostpetbreadcrumbs';
+import BreadcrumbComponent from '../components/commoncomponent/Breadcrumb';
 
 
 
@@ -9,9 +9,7 @@ function lostlistmainpage() {
   return (
     <>
       <Header />
-      <div className="Breadcrumbs">
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'FoundPetList', href: '/mypetlostpost' }]} />
-      </div>
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' },{ title: 'Found Pet List', href: '/mypetlostpost' }]} />
       <MyLostPostPet/>
       <Footer />
     </>

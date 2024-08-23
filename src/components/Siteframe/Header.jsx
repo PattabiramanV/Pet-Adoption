@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, notification } from "antd";
 import Logo from "../../assets/Logo.png";
-// import ProfileLogo from "../../assets/profile_icon_1.png";
 import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import Loader from "../Loader/Loader"; // Import Loader component
+import Loader from "../Loader/Loader";
+import Avatar from "@mui/material/Avatar"; // Import Material-UI Avatar component
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Header = () => {
       return;
     }
 
-    setLoading(true); // Show loader
+    setLoading(true);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_PROFILE_BASE_URL}read_profile.php`,
@@ -52,9 +52,14 @@ const Header = () => {
         description: error.message,
       });
     } finally {
-      setLoading(false); // Hide loader
+      setLoading(false);
     }
-    // console.log(response.data.user_type);
+  };
+
+  const closeProfile = async () => {
+    setProfileOpen(false);
+    console.log("Modal closed, fetching profile data...");
+    fetchProfile();
   };
 
   const handleMouseEnter = () => {
@@ -70,12 +75,8 @@ const Header = () => {
     setDropdownOpen(false);
   };
 
-  const closeProfile = () => {
-    setProfileOpen(false);
-  };
-
   const openSignup = () => {
-    navigate("/signup");
+    navigate("/login");
   };
 
   const handleHomepage = () => {
@@ -91,7 +92,7 @@ const Header = () => {
   if (loading) {
     return (
       <div className="loading-container">
-        <Loader /> {/* Use your custom loader component */}
+        <Loader />
       </div>
     );
   }
@@ -105,7 +106,7 @@ const Header = () => {
           </div>
 
           <nav className="nav-links">
-{/* Pet-Spotlight */}
+            {/* Pet-Spotlight */}
             <div
               className="user-profile Pet-Spotlight"
               onMouseEnter={handleMouseEnter}
@@ -114,24 +115,23 @@ const Header = () => {
               <span>Pet Spotlight</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Add lost pets
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-               Lost pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Found Pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                  My Entries
-                  </Link>
-                </div>
+                <Link className="menu" to="/findpet">
+                  Add lost pets
+                </Link>
+                <Link className="menu" to="/lostingpet">
+             Lost pets
+                </Link>
+                <Link className="menu" to="/mypetlostpost">
+                  Found Pets
+                </Link>
+                <Link className="menu" to="/lostingusertable">
+                My Entries
+                </Link>
+              </div>
               )}
             </div>
 
-{/* Pet-Expertise */}
-
+            {/* Pet-Expertise */}
             <div
               className="user-profile Pet-Expertise"
               onMouseEnter={handleMouseEnter}
@@ -139,31 +139,31 @@ const Header = () => {
             >
               <span>Pet Expertise</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/Veterinary">
-                  Veterinarians
-                  </Link>
-                  <Link className="menu" to="/doctoraddform">
-                   Add Veterinarians
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                   Apply for Grooming
-                  </Link>
-                  {/* <Link className="menu" to="/groomingusertable">
-                 Patinent info
-                  </Link> */}
-                  <Link className="menu" to="/venterinarytables">
-                  Service Records
-                  </Link>
-                  {/* <Link className="menu" to="/">
-                  Doctor Registration       
-                              </Link> */}
-              
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/Veterinary">
+               Veterinarians
+               </Link>
+               <Link className="menu" to="/doctoraddform">
+                Add Veterinarians
+               </Link>
+               <Link className="menu" to="/PetGrooming">
+                Apply for Grooming
+               </Link>
+               {/* <Link className="menu" to="/groomingusertable">
+              Patinent info
+               </Link> */}
+               <Link className="menu" to="/venterinarytables">
+               Service Records
+               </Link>
+               {/* <Link className="menu" to="/">
+               Doctor Registration       
+                           </Link> */}
+           
+             </div>
               )}
             </div>
 
-{/* Pet-Haven */}
+            {/* Pet-Haven */}
             <div
               className="user-profile Pet-Haven"
               onMouseEnter={handleMouseEnter}
@@ -171,84 +171,52 @@ const Header = () => {
             >
               <span>Pet Haven</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                  Home Finder
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Add Forms Pet
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                  Pet Showcase
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                  My Adopt List
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                  My Adopt Post
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                  My Request 
-                  </Link>
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/pets">
+               Home Finder
+               </Link>
+               <Link className="menu" to="/sale">
+                 Add Forms Pet
+               </Link>
+               <Link className="menu" to="/adopte">
+               Pet Showcase
+               </Link>
+              
+               <Link className="menu" to="/tables">
+               My Pet Lists
+               </Link>
+             </div>
               )}
             </div>
 
             {/* Pet-Oasis */}
-                       <div
+            <div
               className="user-profile Pet-Oasis"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
               <span>Pet Oasis</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/pethostel">
-                   Pet Hostel List
-                  </Link>
-                  <Link className="menu" to="/addhostel">
-                  Hostel Add
-                  </Link>
-                  <Link className="menu" to="/hostelusertable">
-                  Hostel Owner Record
-                  </Link>
-                  <Link className="menu" to="/BookHos">
-                  Hostel Booking
-                  </Link>
-                  <Link className="menu" to="/normaluserforhos">
-                  Client Info
-                  </Link>
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/pethostel">
+                 Hostel Listings
+               </Link>
+               <Link className="menu" to="/addhostel">
+                 Register Hostel
+               </Link>
+               <Link className="menu" to="/hostelusertable">
+                 Owner Details
+               </Link>
+               <Link className="menu" to="pethostel/booking">
+                 Manage Reservations
+               </Link>
+               <Link className="menu" to="/hosteldeteils/">
+                 Client Profiles
+               </Link>
+             </div>
               )}
             </div>
-            {/* <Link to="/Veterinary">Veterinarians</Link>
-            <Link to="/add-pets">Add Pets</Link>
-            <Link to="/pets">Pets</Link> */}
-
-
-            {/* {(profile && profile.hostel_user_type === "hostel_user") || (profile && profile.doctor_user_type === "doctor") ? (
-  <div
-    className="user-profile"
-    onMouseEnter={handleMouseEnter}
-    onMouseLeave={handleMouseLeave}
-  >
-    <span>More</span>
-    {isDropdownOpen && (
-      <div className="div_user_roll dropdown-menu dropdown-menu-Features">
-        {profile.hostel_user_type === "hostel_user" && (
-          <Link to="/hostel-dashboard">Hostel</Link>
-        )}
-        {profile.doctor_user_type === "doctor" && (
-          <Link to="/doctor-dashboard">Doctor</Link>
-        )}
-      </div>
-    )}
-  </div>
-) : null} */}
-
           </nav>
-
-        
 
           <div className="nav-links_mobile">
             <div
@@ -268,10 +236,6 @@ const Header = () => {
                 </div>
               )}
             </div>
-
-
-
-            
           </div>
 
           {isLoggedIn && profile ? (
@@ -281,9 +245,9 @@ const Header = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <img
-                  src={profile.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
+                <Avatar
                   alt="User"
+                  src={profile?.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   className="profile-image"
                 />
                 <span>{profile.username}</span> {/* Display user's name */}

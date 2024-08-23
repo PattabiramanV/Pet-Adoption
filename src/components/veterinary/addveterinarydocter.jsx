@@ -264,6 +264,7 @@ import TextField from '@mui/material/TextField';
 
 import './normaltable.css';
 
+
 function AddVeterinaryDoctor() {
     const [doctorData, setDoctorData] = useState({
         name: "",

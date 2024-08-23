@@ -241,10 +241,10 @@ class Hostel {
     }
     
 
-    public function createData($data) {
-        $sql = "INSERT INTO pet_hostel_users (
-            pet_type, breeds, age, gender, start_date, end_date, pet_behaviour, are_you_a_pet_parent, user_id
-        ) VALUES (:petType, :breed, :age, :gender, :checkin, :checkout, :behavior, :petParent, :userId)";
+    public function createData($data,$sql) {
+        // $sql = "INSERT INTO pet_hostel_users (
+        //     pet_type, breeds, age, gender, start_date, end_date, pet_behaviour, are_you_a_pet_parent, user_id
+        // ) VALUES (:petType, :breed, :age, :gender, :checkin, :checkout, :behavior, :petParent, :userId)";
 
         return $this->executeQuery($sql, $data);
     }
@@ -329,7 +329,7 @@ class Hostel {
 
         try {
             $stmt->execute();
-            return ["message" => "Operation successful"];
+            return ['status'=>'success',"message" => "Operation successful"];
         } catch (PDOException $e) {
             return ["error" => $e->getMessage()];
         }
