@@ -39,6 +39,8 @@
   border: 1px solid #ccc;
   border-radius: 0 5px 5px 5px;
   background-color: white;
+  overflow-y: scroll;
+      height: 500px;
 }
 
 .mypets-content,

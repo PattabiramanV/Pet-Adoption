@@ -57,7 +57,7 @@ function AddPetHos() {
 
     if (!formData.name) {
       formErrors.name = "Name is required";
-      // valid = false;
+      valid = false;
     }
     if (!formData.contact || formData.contact.length<10) {
 
@@ -96,93 +96,185 @@ function AddPetHos() {
     return valid;
   };
 
-  const formSubmitFun = async (e) => {
-    e.preventDefault();
+//   const formSubmitFun = async (e) => {
+//     e.preventDefault();
     
-    if (validateForm()) {
+//     if (validateForm()) {
       
-      try {
-        const data = new FormData();
+//       try {
+//         const data = new FormData();
 
-        // Append each field to FormData
-        for (const key in formData) {
-          if (key === 'photos') {
-            formData[key].forEach((file, index) => {
-              data.append('photos[]', file); // Use array notation for multiple files
-            });
-          } else {
-            data.append(key, formData[key]);
-          }
-        }
-      setLoading(true)
-        const token = localStorage.getItem('token');
-        const response = await axios.post(
-          `${import.meta.env.VITE_API_BASE_URL}/hostel/hostelimgupload.php`,
-          data, // Send FormData directly
-          { headers: { 
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data' // Required for file uploads
-          } }
-        );
-        // if (loading) { <Loader />}
+//         // // Append each field to FormData
+//         // for (const key in formData) {
+//         //   if (key === 'photos') {
+//         //     formData[key].forEach((file, index) => {
+//         //       data.append('photos[]', file); // Use array notation for multiple files
+//         //     });
+//         //   } else {
+//         //     data.append(key, formData[key]);
+//         //   }
+//         // }
+//       setLoading(true)
+//       console.log(formData);
+//         const token = localStorage.getItem('token');
+//         const response = await axios.post(
+//           `${import.meta.env.VITE_API_BASE_URL}/hostel/hostelimgupload.php`,
+//           formData, // Send FormData directly
+//           { headers: { 
+//             'Authorization': `Bearer ${token}`,
+//             'Content-Type': 'multipart/form-data' // Required for file uploads
+//           } }
+//         );
+//         // if (loading) { <Loader />}
 
-        console.log(response.data);
-        if (response.data.status === 'success') {
-          notification.success({
-              message: 'Form Submitted Successfully!',
-              description: response.data.message || 'Hostel added successfully.',
-          });
-          // message.success("hostel added sucessfully");
+//         console.log(response.data);
+//       // return;
 
-          // setFormData({
+//         if (response.data.status === 'success') {
+//           notification.success({
+//               message: 'Form Submitted Successfully!',
+//               description: response.data.message || 'Hostel added successfully.',
+//           });
+//           // message.success("hostel added sucessfully");
 
-          //   name: '',
-          //   contact: '',
-          //   price_per_day: '',
-          //   available_time: '',
-          //   address: '',
-          //   description: '',
-          //   photos: []
-          // });
-          // navigate("/pethostel")
- // Clear the file input field
- if (fileInputRef.current) {
-  fileInputRef.current.value = '';
-}
-            // navigate('/success'); // Uncomment this if you have a success page
-        }
+//           // setFormData({
 
-        else {
-          // Show error notification
-          setErrors(response.data.errors )
-          notification.error({
-              message: 'Submission Failed',
-              description: response.data.message || 'An unexpected error occurred.',
-          });
-          // throw new Error(response.data.message || 'An unexpected error occurred.');
-      }
+//           //   name: '',
+//           //   contact: '',
+//           //   price_per_day: '',
+//           //   available_time: '',
+//           //   address: '',
+//           //   description: '',
+//           //   photos: []
+//           // });
+//           // navigate("/pethostel")
+//  // Clear the file input field
+//  if (fileInputRef.current) {
+//   fileInputRef.current.value = '';
+// }
+//             // navigate('/success'); // Uncomment this if you have a success page
+//         }
+
+//         else {
+//           // Show error notification
+//           setErrors(response.data.errors )
+//           notification.error({
+//               message: 'Submission Failed',
+//               description: response.data.message || 'An unexpected error occurred.',
+//           });
+//           // throw new Error(response.data.message || 'An unexpected error occurred.');
+//       }
 
   
+
+//       } catch (error) {
+//         notification.error({
+//           message: 'Error Submitting Form',
+//           description: error.response?.data.message || error.message || 'There was an error submitting the form.',
+//       });
+//         // console.error("There was an error submitting the form!", error.response || error.message);
+//         // alert("There was an error submitting the form. Please try again.");
+//       }finally {
+//         setLoading(false);
+//         setTimeout(() => {
+//           setErrors({});
+//            }, 4000); // Set loading to false after response is received
+//       }
+//     }
+//     else {
+//       setTimeout(() => {
+//      setErrors({});
+//       }, 4000);
+//     }
+    
+//   };
+  
+
+const formSubmitFun = async (e) => {
+  e.preventDefault();
+
+  if (validateForm()) {
+      try {
+          const data = new FormData();
+
+          // Append each field to FormData
+          for (const key in formData) {
+              if (key === 'photos') {
+                  formData[key].forEach((file, index) => {
+                      data.append('photos[]', file); // Use array notation for multiple files
+                  });
+              } else {
+                  data.append(key, formData[key]);
+              }
+          }
+
+          setLoading(true);
+          console.log(formData);
+
+          const token = localStorage.getItem('token');
+          const response = await axios.post(
+              `${import.meta.env.VITE_API_BASE_URL}/hostel/hostelimgupload.php`,
+              data, // Send FormData directly
+              {
+                  headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'multipart/form-data' // Required for file uploads
+                  }
+              }
+          );
+
+          console.log(response.data);
+  return;
+          if (response.data.status === 'success') {
+              notification.success({
+                  message: 'Form Submitted Successfully!',
+                  description: response.data.message || 'Hostel added successfully.',
+              });
+
+              // Clear the form fields if needed
+              setFormData({
+                  name: '',
+                  contact: '',
+                  price_per_day: '',
+                  available_time: '',
+                  address: '',
+                  description: '',
+                  photos: []
+              });
+
+              // Clear the file input field
+              if (fileInputRef.current) {
+                  fileInputRef.current.value = '';
+              }
+
+              // navigate('/success'); // Uncomment this if you have a success page
+          } else {
+              // Show error notification
+              setErrors(response.data.errors);
+              notification.error({
+                  message: 'Submission Failed',
+                  description: response.data.message || 'An unexpected error occurred.',
+              });
+          }
 
       } catch (error) {
-        notification.error({
-          message: 'Error Submitting Form',
-          description: error.response?.data.message || error.message || 'There was an error submitting the form.',
-      });
-        // console.error("There was an error submitting the form!", error.response || error.message);
-        // alert("There was an error submitting the form. Please try again.");
-      }finally {
-        setLoading(false); // Set loading to false after response is received
+          notification.error({
+              message: 'Error Submitting Form',
+              description: error.response?.data.message || error.message || 'There was an error submitting the form.',
+          });
+      } finally {
+          setLoading(false);
+          setTimeout(() => {
+              setErrors({});
+          }, 4000);
       }
-    }
-    else {
+  } else {
       setTimeout(() => {
-     setErrors({});
+          setErrors({});
       }, 4000);
-    }
-    
-  };
-  
+  }
+};
+
 
   return (
     <>

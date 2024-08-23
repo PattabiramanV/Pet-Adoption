@@ -4,7 +4,6 @@ import PublicRoute from './PublicRoute';
 import Home from './components/Home';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/RegisterForm';
-import PetHostels from './components/PetHostel';
 import Veterinarian from './components/veterinarypage';
 
 import ReunitingLostPets from './components/searchinglostandfoundpets';
@@ -19,7 +18,8 @@ import EditUserForm from './components/edituserform';
 import Pets from './Pets';
 import AllPetList from './AllPetList';
 
-import BookHosPage from './components/pethostel/BookHosPage';
+
+
 // import GroomingPage  from './components/petgroomingpage';
 import PrivateRoute from './PrivateRoute';
 // import Practice from './components/practice';
@@ -42,19 +42,22 @@ import UserPets from './components/petfilter/petDetailInfo/userpetslist';
 import AdoptionRequests from './components/petfilter/petDetailInfo/petowneradoptionRequests';
 
 // import Adoption from './components/petfilter/petsForms/adaption';
-import NormalUserforHos from "./components/pethostel/datatable/NormalUserforHos";
-import HostelUserTable from "./components/pethostel/datatable/HostelUserTable"
+
 // import Adoption from './components/petfilter/petsForms/adaption';
 // import SideBar from './components/PetFilter/sideBar/SideBar';
 import AddHosPage from './components/AddHosPage';
 import HosDetailPage from "./components/HosDetailPage";
 import HostelDataTable from './components/pethostel/datatable/request';
+import BookHosPage from './components/pethostel/BookHosPage';
+import PetHostels from './components/PetHostel';
+import NormalUserforHos from "./components/pethostel/datatable/NormalUserforHos";
+import HostelUserTable from "./components/pethostel/datatable/HostelUserTable"
 function RouterPage() {
   return (
           <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
+       
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
@@ -68,7 +71,6 @@ function RouterPage() {
 
         <Route path="/pets" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
-        <Route path="/pethostel/booking/:id" element={<BookHosPage />} />
 
 
 
@@ -105,11 +107,16 @@ function RouterPage() {
                                   <Route path="/request" element={<AdoptionRequests />}  />
         {/* <Route path="/PetGroomingform" element={<GroomingForm />} /> */}
         <Route path="/reset" element={<PublicRoute><Reset/></PublicRoute>} />
+   
+
+
         <Route path="/normaluserforhos" element={<NormalUserforHos/>} />
         <Route path="/hostelusertable" element={<HostelUserTable/>} />
         <Route path="/addhostel" element={<AddHosPage/>} />
         <Route path="/pethostel/details/:id" element={<HosDetailPage/>} />
        
+        <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
+        <Route path="/pethostel/booking/:id" element={<BookHosPage />} />
 
         <Route path="/hosteldeteils/*" element={<HostelDataTable />} />
         
