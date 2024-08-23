@@ -3,23 +3,31 @@
   padding: 0;
 }
 
+
+.doctor-more-info-container .moreinfo_doctor{
+  font-weight: 400;
+  margin-left: 10px;
+  text-transform: capitalize;
+}
+
 .doctorMoreInfoContainer {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   padding: 20px;
-  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  max-width: 800px;
+  width: 50px;
+  /* max-width: 800px; */
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 40px;
+  
  
   
 }
 
-.doctor-details {
+.doctor-more-info-container .doctor-details {
   display: flex;
   align-items: center;
   width: 90%;
@@ -28,25 +36,31 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   justify-content: center;
+  margin-left: 18%;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
 }
 
-.backButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #070707;
+/* .backButton {
+  display: inline-block;
   border: none;
-  border-radius: 10%;
-  width: 30px;
-  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  width: 40%;
+  height: 100px;
+  margin-top: 10px;
   font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.backButton:hover{
+  border: 1px solid #675bc8;
+  background-color: #fff; 
+  color: #675bc8;
+} */
+/* .backButton:hover{
   background-color: #f2f2f2;
-}
+} */
 .doctorpic {
   flex: 1;
   overflow: hidden;
@@ -55,29 +69,32 @@
  
 }
 
-.doctor-info {
+.doctor-more-info-container .doctor-info {
 
   width: 100%;
   display: flex;
   justify-content: center;
   align-items:flex-start;
   flex-direction: column;
+
+
 }
 
-.doctorinfo {
+.doctor-more-info-container .doctorinfo {
   flex:1;
   padding: 20px;
   border-left: solid 2px #dbdbdb;
 }
 
-.doctorName {
-  font-size: 24px;
+.doctor-info .doctor-name-doctormoreinfo {
+  font-size: 26px;
   font-weight: bold;
-  color: #333333;
+  color: #675bc8;
   margin-bottom: 10px;
+  
 }
 
-.doctor-location,
+.doctor-more-info-container .doctor-location,
 .doctor-contact,
 .doctor-address,
 .doctor-education,
@@ -90,7 +107,7 @@
   margin: 5px 0;
 }
 
-.doctorContact strong,
+.doctor-more-info-container .doctorContact strong,
 .doctorAddress strong,
 .doctorEducation strong,
 .doctorDescription strong,
@@ -101,26 +118,59 @@
   color: #000;
 }
 
-.button-group {
+.doctor-more-info-container .button-group {
   display: flex;
   gap: 10px;
   margin-top: 20px;
 }
 
-.contact-doctor-btn,
+/* .contact-doctor-btn,
 .back-button {
-  background-color: #6a1b9a;
-  color: #ffffff;
+  display: inline-block;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  width: 30%;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #675bc8;
+  background-color: #fff; 
+  color: #675bc8;
+} */
+
+.doctor-more-info-container .contact-doctor-btn,
+.doctor-btn {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  width: 50%;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #675bc8;
+  background-color: #fff; 
+  color: #675bc8;
 }
 
-.back-button {
+.doctor-more-info-container .contact-doctor-btn:hover{
+  background-color: #675bc8;
+  color: white;
+}
+
+.doctor-more-info-container .doctor-btn:hover{
+  background-color: #675bc8;
+  color: white;
+}
+
+
+
+/* .back-button {
   background-color: #ff5a5f;
-} */
+} */ */
 
 
 /* 
@@ -200,7 +250,7 @@
 }
 
 
-.doctor-details {
+.doctor-more-info-container .doctor-details {
   width: 70%;
   display: flex;
   justify-content: center;
@@ -208,7 +258,7 @@
   gap: 4em;
   padding: 2em;
 }
-.doctor-pic {
+.doctor-more-info-container .doctor-pic {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -241,9 +291,8 @@
 .button-group-doctormoreinfo {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
+  /* justify-content: ; */
 }
-.doctorName{
-  /* color: #4B0082; */
-  color: #6A5ACD;
-}
+
+

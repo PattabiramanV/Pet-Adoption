@@ -477,7 +477,52 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
 // User authentication
-$user_id = authenticate();
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        // Retrieve doctor ID and date from query parameters
+        $doctorId = isset($_GET['doctorId']) ? intval($_GET['doctorId']) : 0;
+        $appointmentDate = isset($_GET['date']) ? $_GET['date'] : '';
+    
+        if ($doctorId <= 0 || empty($appointmentDate)) {
+            echo json_encode(array("message" => "Invalid input."));
+            exit;
+        }
+    
+        // Prepare and execute the query to get availability
+        $query = "SELECT available_timing_from AS start_time, available_timing_to AS end_time FROM vetneries WHERE id = :doctorId";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':doctorId', $doctorId, PDO::PARAM_INT);
+        $stmt->execute();
+        $availability = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($availability) {
+            $slots = generateSlots($availability['start_time'], $availability['end_time']);
+            echo json_encode(array('slots' => $slots));
+        } else {
+            echo json_encode(array("message" => "No availability found for the specified doctor."));
+        }
+    }
+    
+    // Function to generate time slots
+    function generateSlots($start_time, $end_time) {
+        $slots = [];
+        $start = new DateTime($start_time);
+        $end = new DateTime($end_time);
+        $interval = new DateInterval('PT30M'); // 30 minutes slots
+    
+        while ($start < $end) {
+            $slotStart = $start->format('H:i');
+            $start->add($interval);
+            $slotEnd = $start->format('H:i');
+            $slots[] = $slotStart . ' - ' . $slotEnd;
+        }
+    
+        return $slots;
+    }
+
+    $user_id = authenticate();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if all required fields are filled
@@ -485,7 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     || empty($_POST['petType']) || empty($_POST['petGender']) || empty($_POST['petAge']) 
     || empty($_POST['selectdoctorname']) || empty($_POST['doctorAddress']) || empty($_FILES['petimage'])
     || empty($_POST['city']) || empty($_POST['needForPet']) || empty($_POST['appointmentDate'])) {
-        echo json_encode(array("message" => "Please fill all the fields and upload an image."));
+        echo json_encode(array("message" => "Please fill all the fields and upload an image.","status" => "error"));
         
     }
 
@@ -517,7 +562,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $doctorEmail = $doctor['email'];
         $doctorcontact = $doctor['phone'];
     } else {
-        echo json_encode(array("message" => "Invalid doctor name."));
+        echo json_encode(array("message" => "Invalid doctor name.","status" => "error"));
         die();
     }
 
@@ -531,16 +576,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dest_path = $uploadFileDir . $fileName;
 
         // Validate image type
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif','image/jpg','image/wepb'];
         if (!in_array($_FILES['petimage']['type'], $allowedTypes)) {
-            echo json_encode(["message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."]);
+            echo json_encode(["message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed.","status" => "error"]);
             die();
         }
 
         // Check if the directory exists
         if (!is_dir($uploadFileDir)) {
             if (!mkdir($uploadFileDir, 0755, true)) {
-                echo json_encode(["message" => "Failed to create upload directory."]);
+                echo json_encode(["message" => "Failed to create upload directory.","status" => "error"]);
                 die();
             }
         }
@@ -553,7 +598,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die();
         }
     } else {
-        echo json_encode(["message" => "Image upload failed. No file uploaded or upload error."]);
+        echo json_encode(["message" => "Image upload failed. No file uploaded or upload error."," status"=> "error"]);
         die();
     }
 
@@ -579,15 +624,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':appointmentDate', $appoinmentDate);
     try {
         if ($stmt->execute()) {
-            echo json_encode(array("message" => "User registered successfully."));
+
+            // echo json_encode( array(" message" => "User registered successfully.",'status'=>'sucess'));
             emailSendFun($email, $doctorName, $doctorEmail, $username, $doctorAddress, $petType, $petGender, $petAge, $city, $service, $userContact, $doctorcontact,$appoinmentDate);
         } else {
-            echo json_encode(array("message" => "Unable to register user."));
+            echo json_encode(array("message" => "Unable to register user.","status"=>' error'));
            
         }
     } catch (PDOException $e) {
         echo json_encode(array("message" => "Error: " . $e->getMessage()));
     }
+
+
+    
 }
 
 // email sending.......
@@ -612,7 +661,7 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
         $userBody = $header . "
         <div style='padding: 24px; font-family: Arial, sans-serif; background-color: #f9f9f9;'>
             <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
-                <h1 style='font-size: 24px; font-weight: bold;'>New Booking Notification</h1>
+                <h1 style='font-size: 24px; font-weight: bold;'>New Booking confirmed</h1>
             </div>
             
             <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
@@ -672,6 +721,7 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
                         <p><strong>Client Name:</strong> ' . htmlspecialchars($username) . '</p>
                         <p><strong>Client Email:</strong> ' . htmlspecialchars($toUserEmail) . '</p>
                         <p><strong>Client Phone:</strong> ' . htmlspecialchars($userContact) . '</p>
+                        <p><strong>appoinmentDate:</strong> ' . htmlspecialchars($appoinmentDate) . '</p>
                         <p><strong>Pet Type:</strong> ' . htmlspecialchars($petType) . '</p>
                         <p><strong>Pet Gender:</strong> ' . htmlspecialchars($petGender) . '</p>
                         <p><strong>Pet Age:</strong> ' . htmlspecialchars($petAge) . ' years</p>
@@ -700,9 +750,14 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
 
         // Send the email to the doctor
         $mail->send();
+        echo json_encode( array(" message" => "User registered successfully.",'status'=>'sucess'));
+
     } catch (Exception $e) {
         echo json_encode(array("message" => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"));
     }
+
+
+    
 }
 
 ?>

@@ -1,22 +1,47 @@
 
 
+// import React from 'react';
+// // import { Breadcrumb } from 'antd';
+// import { Link } from 'react-router-dom';
+// import './Breadcrums.css';
+
+// const BreadcrumbComponent = ({ items }) => (
+//   <div className="Breadcrumbs">
+//   <div className="breadcrumb">
+//     {items.map((item, index) => (
+//       <span key={index} className="breadcrumb-item">
+//         {item.href ? <Link to={item.href}>{item.title}</Link> : item.title}
+//         {index < items.length - 1 && ' > '}
+//       </span>
+//     ))}
+//   </div>
+//   </div>
+// );
+
+// export default BreadcrumbComponent;
+
 import React from 'react';
-// import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './Breadcrums.css';
 
 const BreadcrumbComponent = ({ items }) => (
   <div className="Breadcrumbs">
-  <div className="breadcrumb">
-    {items.map((item, index) => (
-      <span key={index} className="breadcrumb-item">
-        {item.href ? <Link to={item.href}>{item.title}</Link> : item.title}
-        {index < items.length - 1 && ' > '}
-      </span>
-    ))}
-  </div>
+    <div className="breadcrumb">
+      {items.map((item, index) => (
+        <span
+          key={index}
+          className={`breadcrumb-item ${index === items.length - 1 ? 'current-page' : ''}`}
+        >
+          {item.href ? <Link to={item.href}>{item.title}</Link> : item.title}
+          {index < items.length - 1 && (
+            <FontAwesomeIcon icon={faChevronRight} className="breadcrumb-icon" />
+          )}
+        </span>
+      ))}
+    </div>
   </div>
 );
 
 export default BreadcrumbComponent;
-

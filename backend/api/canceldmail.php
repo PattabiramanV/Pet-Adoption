@@ -68,7 +68,6 @@ try {
             }
             .header h1 {
                 margin: 0;
-                color: #e74c3c;
             }
             .content {
                 padding: 20px;
@@ -85,7 +84,7 @@ try {
     <body>
         
              <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
-                <h1 style='font-size: 24px; font-weight: bold;''>Your Appointment is Canceled </h1>
+                <h1 style='font-size: 24px; font-weight: bold;'>Your Appointment is Canceled </h1>
             </div>
             <div class='content'>
                 <p>Dear <strong>{$doctorName}</strong>,</p>

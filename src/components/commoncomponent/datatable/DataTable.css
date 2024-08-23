@@ -1,69 +1,68 @@
 /* Container Styles */
-.doctor-page-container {
+/* .doctor-page-container {
     margin-top: 20px;
-}
+} */
 
 /* DataGrid Cell Styles */
-.MuiDataGrid-root .MuiDataGrid-cell {
+/* .MuiDataGrid-root .MuiDataGrid-cell {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 10px;
-}
+} */
 
 /* DataGrid Row Styles */
-.MuiDataGrid-row {
+/* .MuiDataGrid-row {
     background-color: #f9f9f9;
-}
+} */
 
-.MuiDataGrid-row:hover {
+/* .MuiDataGrid-row:hover {
     background-color: #e0e0e0;
     cursor: pointer;
-}
+} */
 
 /* DataGrid Column Header Styles */
-.MuiDataGrid-root .MuiDataGrid-columnHeader {
-    /* background-color: #ffffff; */
+/* .MuiDataGrid-root .MuiDataGrid-columnHeader {
     color: #675bc8;
     border-bottom: 2px solid #ddd;
     padding: 10px;
     font-weight: bold;
     background-color: rgba(204, 200, 200, 0.158);
 
-}
+} */
 
 /* DataGrid Column Header Title Styles */
-.MuiDataGrid-columnHeaderTitle {
+/* .MuiDataGrid-columnHeaderTitle {
     color: #675bc8;
-}
+} */
 
 /* DataGrid Cell Styles */
-.MuiDataGrid-root .MuiDataGrid-cell {
+/* .MuiDataGrid-root .MuiDataGrid-cell {
     background-color: #fff;
     padding: 10px;
-}
+} */
 
 
 
 /* DataGrid Column Separator */
-.MuiDataGrid-columnSeparator.MuiDataGrid-columnSeparator--resizable.MuiDataGrid-columnSeparator--sideRight {
+/* .MuiDataGrid-columnSeparator.MuiDataGrid-columnSeparator--resizable.MuiDataGrid-columnSeparator--sideRight {
     visibility: visible;
     color: grey;
-}
+} */
 
 /* Typography Styles */
-.MuiTypography-root {
+/* .MuiTypography-root {
     color: #675bc8;
-}
+} */
 
 /* Button Styles */
-.MuiButton-root {
+/* .MuiButton-root {
     background-color: #675bc8;
     color: #fff;
-}
+} */
 
 /* Search Box Styles */
-.div_search_doctor {
+/* .div_search_doctor {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -73,10 +72,10 @@
 
 .TextField-root {
     width: 300px;
-}
+} */
 
 /* Header Styles */
-.div_reacod_name {
+/* .div_reacod_name {
     text-align: center;
     font-size: 32px;
     color: #4B0082;
@@ -88,16 +87,16 @@
 
 span.div_reacod_name_span {
     color: #6A5ACD;
-}
+} */
 
 /* Expanded Row Styles */
-.expanded-row {
+/* .expanded-row {
     background-color: #f5f5f5;
     padding: 16px;
     border-top: 1px solid #ddd;
 }
 .div_reacod_name {
-    /* width: 100%; */
+  
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,7 +106,7 @@ span.div_reacod_name_span {
 }
 .MuiDataGrid-virtualScroller.css-1793420-MuiDataGrid-virtualScroller {
     background: aliceblue;
-}
+} */
 
 /* .MuiDataGrid-cell.MuiDataGrid-cell--textLeft:nth-child(even) {
     background-color: #685bc81a;
@@ -117,3 +116,109 @@ span.div_reacod_name_span {
 }.MuiDataGrid-row :nth-child(even) {
     background-color: #16131310;
 } */
+
+
+
+
+
+/* //........................CSS...........................................// */
+
+
+
+
+.table-container {
+    overflow-x: auto;
+    padding: 2%;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+  }
+  
+  .custom-table thead {
+    background-color: #f3f4f6;
+  }
+  
+  .custom-table tr:hover {
+    background-color: #f9fafb;
+  }
+  
+  .status-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .status-delivered {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .status-process {
+    background-color: #fef9c3;
+    color: #854d0e;
+  }
+  
+  .status-canceled {
+    background-color: #fde2e2;
+    color: #b91c1c;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+  }
+  
+  .edit-btn:hover {
+    color: #3b82f6;
+  }
+  
+  .delete-btn:hover {
+    color: #ef4444;
+  }
+  
+
+  td {
+    font-size: 14px;
+    color: 000000;
+}
+
+th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: red; /* Icon color */
+  font-size: 1.5em; /* Adjust the size of the icon */
+  transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+  color: darkred; /* Darker red when hovered */
+}
+
+

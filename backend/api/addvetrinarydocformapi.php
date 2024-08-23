@@ -53,9 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for empty fields
     if (empty($_POST['name']) || empty($_POST['education']) || empty($_POST['phone']) 
         || empty($_POST['experience']) || empty($_POST['email']) || empty($_POST['have_a_clinic']) 
-        || empty($_POST['specialist']) || empty($_POST['address']) || empty($_POST['available_timing']) 
-        || empty($_POST['description']) || empty($_POST['home_visiting_available'])
-        || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name']) || empty($_POST['state']) || empty($_POST['city'])) {
+        || empty($_POST['specialist']) || empty($_POST['address']) || empty($_POST['available_timing_from']) 
+        || empty($_POST['available_timing_to']) || empty($_POST['description']) 
+        ||  empty($_POST['home_visiting_available'])
+        || empty($_POST['doctor_registerno']) || empty($_FILES['profile_img']['name']) 
+        || empty($_POST['state']) || empty($_POST['city'])) {
         echo json_encode(array("message" => "Please fill all the fields and upload an image."));
         die();
     }
@@ -67,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $education = htmlspecialchars(strip_tags($_POST['education']));
     $experience = htmlspecialchars(strip_tags($_POST['experience']));
     $specialisation = htmlspecialchars(strip_tags($_POST['specialist']));
-    $availableTiming = htmlspecialchars(strip_tags($_POST['available_timing']));
+    $availableTimingfrom = htmlspecialchars(strip_tags($_POST['available_timing_from']));
+    $availableTimingto = htmlspecialchars(strip_tags($_POST['available_timing_to']));
     $haveAclinic = htmlspecialchars(strip_tags($_POST['have_a_clinic']));
     $address = htmlspecialchars(strip_tags($_POST['address']));
     $description = htmlspecialchars(strip_tags($_POST['description']));
@@ -85,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Image handling
     $imagePath = null;
+
     echo json_encode($_FILES);
     if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['profile_img']['tmp_name'];
@@ -93,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dest_path = $uploadFileDir . $fileName;
 
         // Validate image type
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif','image/jpg'];
         if (!in_array($_FILES['profile_img']['type'], $allowedTypes)) {
             echo json_encode(["message" => "Invalid image type. Only JPEG, PNG, and GIF are allowed."]);
             die();
@@ -119,8 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die();
     }
     // Insert data into database
-    $query = "INSERT INTO vetneries (name, education, have_a_clinic, specialist, available_timing, phone, home_visiting_available, experience, address, description, user_id, email, profile_img, doctor_registerno,state,city) 
-              VALUES (:doctorname, :education, :haveAclinic, :specialisation, :availableTiming, :docContact, :homeVisiting, :experience, :address, :description, :user_id, :docemail, :imagePath, :doctor_registerno, :state, :city)";
+    $query = "INSERT INTO vetneries (name, education, have_a_clinic, specialist, available_timing_from, phone, home_visiting_available, experience, address, description, user_id, email, profile_img, doctor_registerno,state,city, available_timing_to) 
+              VALUES (:doctorname, :education, :haveAclinic, :specialisation, :availableTimingfrom, :docContact, :homeVisiting, :experience, :address, :description, :user_id, :docemail, :imagePath, :doctor_registerno, :state, :city, :availableTimingto)";
 
     try {
         $stmt = $conn->prepare($query);
@@ -129,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':education', $education);
         $stmt->bindParam(':haveAclinic', $haveAclinic);
         $stmt->bindParam(':specialisation', $specialisation);
-        $stmt->bindParam(':availableTiming', $availableTiming);
+        $stmt->bindParam(':availableTimingfrom', $availableTimingfrom);
         $stmt->bindParam(':docContact', $docContact);
         $stmt->bindParam(':homeVisiting', $homeVisiting);
         $stmt->bindParam(':experience', $experience);
@@ -141,20 +145,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':doctor_registerno', $doctor_registerno);
         $stmt->bindParam(':state', $state);
         $stmt->bindParam(':city', $city);
+        $stmt->bindParam(':availableTimingto', $availableTimingto);
 
         if ($stmt->execute()) {
-            echo json_encode(array("message" => "Doctor registered successfully."));
+            echo json_encode(array("message" => "Doctor registered successfully.",'status'=>'success'));
             updateUserToDoctor($user_id);
 
-            emailSendFun($docemail, $doctorName);
+            emailSendFun($docemail, $doctorname);
         } else {
             $errorInfo = $stmt->errorInfo();
-            echo json_encode(array("message" => "Unable to register doctor.", "error" => $errorInfo));
-       emailSendFun($docemail, $doctorName);
+            echo json_encode(array("message" => "Unable to register doctor.","status"=>"error", "error" => $errorInfo));
         }
     } catch (Exception $e) {
         echo json_encode(array("message" => "An error occurred.", "error" => $e->getMessage()));
-        emailSendFun($docemail, $doctorName);
+       
     }
 
 
@@ -164,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Update user to doctor
 function updateUserToDoctor($user_id) {
     global $conn;
-    $query = "UPDATE users SET is_doctor = 'doctor' WHERE id = :user_id";
+    $query = "UPDATE users SET doctor_user_type = 'doctor' WHERE id = :user_id";
     try {
         $stmt = $conn->prepare($query);
         $stmt->bindParam(':user_id', $user_id);
@@ -177,7 +181,7 @@ function updateUserToDoctor($user_id) {
 
 
 // email sending.......
-function emailSendFun($toUserEmail, $doctorName) {
+function emailSendFun($toUserEmail, $doctorname) {
     $mail = new PHPMailer(true);
 
     try {
@@ -194,7 +198,7 @@ function emailSendFun($toUserEmail, $doctorName) {
         $mail->setFrom('furryfriens123@gmail.com', 'Furry friends');
 
         // Add a recipient
-        $mail->addAddress("$toUserEmail", "$doctorName");
+        $mail->addAddress("$toUserEmail", "$doctorname");
         
         $header = file_get_contents('../mailtemplate/header.html');
         $footer = file_get_contents('../mailtemplate/footer.html');
@@ -224,10 +228,7 @@ function emailSendFun($toUserEmail, $doctorName) {
                     background-color: #fff;
                     border-radius: 5px;
                 }
-                .header h1 {
-                    margin: 0;
-                    color: #4a90e2;
-                }
+                
                 .content {
                     padding: 20px;
                 }
@@ -253,21 +254,25 @@ function emailSendFun($toUserEmail, $doctorName) {
             </style>
         </head>
         <body>
-            <div class='container'>
-                <div class='header'>
-                    <h1>Your Doctor profile added to this website Confirmation</h1>
-                </div>
+
+         <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+                <h1 style='font-size: 24px; font-weight: bold;'>Your Doctor Profile Registration Confirmed</h1>
+            </div>
+           
+              
                 <div class='content'>
-                    <p>Dear User,</p>
-                    <p> <strong>{$doctorName}</strong>,Your profile has been confirmed.</p>
+                    <p>Dear <strong>{$doctorname}</strong>,</p>
+                    <p> Your profile has adding this website confirmed.</p>
                     <p>Thank you for choosing us!</p>
                    
                 </div>
                
-            </div>
+           
         </body>
         </html>
         " . $footer;
+
+     
 
         // $mail->AltBody = "Dear User,\n\nYour booking with {$doctorName} has been confirmed.\n\nThank you for choosing us!\n\nFor more details, please visit our website.";
 

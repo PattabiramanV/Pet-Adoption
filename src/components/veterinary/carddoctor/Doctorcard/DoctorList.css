@@ -9,21 +9,27 @@
 }
 
 .doctor-list-name {
+  font-size: 26px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 700;
   text-align: center;
-  font-size: 32px;
-  color: #4B0082; /* Indigo */
-  margin-bottom: 20px;
+  margin-top: 36px;
+  text-transform: uppercase;
 }
 
 .doctor-list-name span {
-  color: #6A5ACD; /* SlateBlue */
+  background: linear-gradient(135deg, #6A5ACD, #2f1746); /* Adjust gradient colors as needed */
+  -webkit-background-clip: text; /* For WebKit-based browsers (e.g., Chrome, Safari) */
+  -webkit-text-fill-color: transparent; /* For WebKit-based browsers */
+  background-clip: text; /* For other browsers */
+  color: transparent;
 }
 
 .doctor-list-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px; /* Adds space between the cards */
-  justify-content: flex-start; /* Centers the cards */
+  justify-content: center; 
   width: 100%;
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
-import CommonTable from "./commoncomponent/datatable/DataTable";
+import CommonTable from "../components/commoncomponent/datatable/DataTable";
 import text from "../assets/Cat_login.png";
 import Loader from '../components/Loader/Loader'; // Import the Loader component
 import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary

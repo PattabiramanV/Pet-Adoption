@@ -149,11 +149,11 @@ const Header = () => {
                   <Link className="menu" to="/PetGrooming">
                    Apply for Grooming
                   </Link>
-                  <Link className="menu" to="/groomingusertable">
+                  {/* <Link className="menu" to="/groomingusertable">
+                 Patinent info
+                  </Link> */}
+                  <Link className="menu" to="/venterinarytables">
                   Service Records
-                  </Link>
-                  <Link className="menu" to="/doctorpersonaltable">
-                  Patient Info
                   </Link>
                   {/* <Link className="menu" to="/">
                   Doctor Registration       

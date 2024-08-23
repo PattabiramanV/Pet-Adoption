@@ -48,6 +48,9 @@ import HostelUserTable from "./components/HostelUserTable"
 // import SideBar from './components/PetFilter/sideBar/SideBar';
 import AddHosPage from './components/AddHosPage';
 import HosDetailPage from "./components/HosDetailPage";
+import Venterinarytables from './components/veterinary/tablelrouting';
+import BookingSlat from './components/veterinary/bookingslat';
+
 
 function RouterPage() {
   return (
@@ -109,6 +112,9 @@ function RouterPage() {
         <Route path="/hostelusertable" element={<HostelUserTable/>} />
         <Route path="/addhostel" element={<AddHosPage/>} />
         <Route path="/hosdetailpage" element={<HosDetailPage/>} />
+        <Route path="/venterinarytables/*" element={<Venterinarytables/>} />
+        <Route path="/BookingSlat" element={<BookingSlat/>} />
+        
 
         
       </Routes>
