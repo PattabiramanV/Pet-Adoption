@@ -28,26 +28,26 @@ const PetList = () => {
     fetchPets();
   }, []);
 
-  if (loading) {
-    return <Loader/>;
-  }
+
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="pet-list">
-      <h1 className="pet-list-name">Posting a Lost Pets</h1>
-      <div className="pet-list-container">
-        <div className="pet-list-container-sub">
-          {pets[0] && <PetCard pet={pets[0]} />}
-          {pets[1] && <PetCard pet={pets[1]} />}
-          {pets[2] && <PetCard pet={pets[2]} />}
+    <div className="lost_pet-list">
+      <h1 className="lost_pet-list-name">Posting Lost Pets</h1>
+      <div className="lost_pet-list-container">
+        <div className="lost_pet-list-container-sub">
+          {pets.slice(0, 3).map((pet, index) => (
+            <PetCard key={index} pet={pet} />
+          ))}
         </div>
       </div>
+      {loading && <Loader/>}
     </div>
-  );
+    
+  );  
 };
 
 export default PetList;

@@ -22,9 +22,8 @@ input[type='checkbox'] {
 
 .ant-modal-header {
     display: flex;
-    align-items: center;
-    margin-left: 200px;
-    font-size: 20px;
+    justify-content: center;
+    font-weight: bold; /* Makes the header bold */
 }
 
 
@@ -32,32 +31,12 @@ input[type='checkbox'] {
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    /* width: 188px; */
     height: 24px;
     color: rgba(12, 12, 12, 1);
 }
 
-.ant-input {
-    height: 40px;
-    align-items: center;
-
-}
-
-.ant-modal .ant-modal-title {
-    margin: 0;
-    font-weight: 800;
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    margin-left: 50px;
- }
- .ant-modal .ant-modal-content{
-    width: 130%;
-    height: 710px;
- } 
  .form-grid{
     display: flex;
-    /* gap: px; */
     width:150%;
  }
  

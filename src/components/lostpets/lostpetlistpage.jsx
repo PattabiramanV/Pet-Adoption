@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PetCard from './lostpets';
 import { Pagination } from 'antd';
-  import Loader from '../Loader/Loader';
+import Loader from '../Loader/Loader';
 import 'antd/dist/reset.css'; // Ensure Ant Design styles are loaded
 
 const LostListMain = () => {
@@ -30,9 +30,6 @@ const LostListMain = () => {
     fetchPets();
   }, []);
 
-  if (loading) {
-    return <Loader/>;
-  }
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -46,22 +43,23 @@ const LostListMain = () => {
   const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
-    <div className="pet-list">
-      <h1 className="pet-list-name">Posting a Lost Pets Details</h1>
-      <div className="pet-list-container">
-        <div className="pet-list-container-sub">
+    <div className="lost_pet-list">
+      <h1 className="lost_pet-list-name">Posting a Lost Pets Details</h1>
+      <div className="lost_pet-list-container">
+        <div className="lost_pet-list-container-sub">
           {currentPets.map((pet, index) => (
             <PetCard key={index} pet={pet} />
           ))}
         </div>
         <Pagination
-          className="pagination"
+          className="lost_pagination"
           current={currentPage}
           pageSize={petsPerPage}
           total={filteredPets.length}
           onChange={(page) => setCurrentPage(page)}
         />
       </div>
+      {loading && <Loader/>}
     </div>
   );
 };
