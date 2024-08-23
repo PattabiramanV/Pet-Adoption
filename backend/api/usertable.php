@@ -1,8 +1,9 @@
 <?php
 
-require '../config/config.php';
 // require '../middleware/authentication.php';
 
+
+require ('../config/config.php');
 header('Content-Type: application/json');
 // $user_id = authenticate();
 $user_id = 4;
@@ -24,6 +25,7 @@ try {
                 vetneries.specialist AS specialization, 
                 pet_grooming_users.pet_type AS pet_type, 
                 pet_grooming_users.pet_gender AS pet_gender, 
+                pet_grooming_users.appoinment_date AS appoinment_date, 
                 pet_grooming_users.pet_age AS pet_age,
                 pet_grooming_users.what_you_need_for_your_pet AS need_for_pet,
                 pet_grooming_users.status,
@@ -44,6 +46,7 @@ try {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($result)) {
+        
         echo json_encode(["message" => "No data found for the provided user ID"]);
     } else {
         echo json_encode($result);
