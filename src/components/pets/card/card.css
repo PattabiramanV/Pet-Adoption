@@ -1,144 +1,216 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-* {
-  font-family: "Inter";
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+ .container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 20px;
+   padding: 20px;
+ }
 
-.container {
-        display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3%;
-    padding: 58px 35px;
-    justify-items: center;
+ .loca .location {
+       width: 19px;
+    height: 19px;
 
-}
+ }
 
-.card-container {
-  background-color: #f9f9fa;
-  border-radius: 10px 10px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 302px;
-  height: 470px;
-  text-align: center;
-  position: relative;
-}
+ .card-container {
+   width: 288px;
+   height: 469px;
+   gap: 0px;
+   border-radius: 16px;
+   border: 1px solid #c3c3c3;
+   opacity: 0px;
+ }
 
-.img {
-  width: 100%;
-  height: 175px;
-  border-radius: 10px 10px 0 0;
-}
+ .cardimg .img {
+   width: 286px;
+   height: 168px;
+   border-radius: 10px 10px 0 0;
+ }
 
-.name {
-  color: #2E256F;
-  text-align: left;
-  padding-left: 4%;
-  font-weight: 700;
-  font-size: 18px;
-  padding-top: 5%;
-}
+ .commonData {
+   padding: 16px 0px;
+ }
 
-.loca {
-  text-align: left;
-  padding-left: 4%;
-  font-size: 14px;
-  color: #66b366;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  position: relative;
-  top: 10px;
-}
+ .namelocation {
+   width: 100%;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+   position: relative;
+   left: 16px;
+ }
 
-.loca .location {
-  width: 14px;
-  height: 14px;
-  color: #37ff0f;
-}
+ .locationdescript {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
 
-.details {
-  padding-left: 5%;
-  position: relative;
-  top: 4%;
-  width: 100%;
-}
+ .des {
+   position: relative;
+   left: 16px;
+ }
 
-.detail1 {
-  display: flex;
-  gap: 45px;
-}
-.detail2 {
-  display: flex;
-  gap: 92px;
-}
+ .datas {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
 
-.details p {
-  line-height: 2;
-  font-size: 16px;
-  text-align: left;
-  font-weight: 500;
-}
+ .name {
+   color: #2E256F;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21.78px;
+ }
 
-.details p span {
-  /* margin-left: 3px; */
-  font-size: 12px;
-}
+ .loca {
+   font-size: 14px;
+   color: #66b366;
+   font-weight: 600;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+ }
 
-.age {
-  position: relative;
-  left: 26px;
-}
+ .details {
+   width: 100%;
+   padding-left: 5%;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
 
-.details span {
-  background-color: #EAE8F7;
-  color: #2E256F;
-  padding: 4px 8px;
-  border-radius: 10%;
-}
+ .detail1 {
+   display: flex;
+   justify-content: space-between;
+ }
 
-.description {
-  font-weight: 400;
-  font-size: 16px;
-  position: relative;
-  top: 8%;
-}
+ .detail2 {
+   display: flex;
+   gap: 75px;
+ }
 
-.buttons-card {
-  position: relative;
-  top: 48px;
-}
+ span.rightSide {
+   position: relative;
+   left: 9px;
+ }
 
-.buttons-card .more {
-border: 1px solid #675BC8;
-    color: #675BC8;
-    width: 52%;
-    font-weight: 500;
-    height: 44px;
-    margin-bottom: 5%;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+ span.age {
+   position: relative;
+   left: 24px;
+ }
 
-.more a {
-  color: inherit;
-  text-decoration: none;
-}
+ span#age {
+   padding: 3px 16px;
+   border-radius: 21px;
+   position: relative;
+   left: 22px;
+ }
 
-.breeds{
-  position: relative;
-  right: 10px;
-}
-.rightSide{
-  position: relative;
-  left: 10px;
-}
-.right {
-    position: relative;
-    /* left: 8px; */
-}
+ .genders {
+   width: 116px;
+   height: 23px;
+   display: flex;
+ }
+
+
+ .details p {
+   font-size: 16px;
+   font-weight: 500;
+ }
+
+ .details p span {
+   font-size: 12px;
+   background-color: #EAE8F7;
+   color: #2E256F;
+   padding: 4px 8px;
+   border-radius: 10%;
+ }
+
+ .cardimg {
+   width: 286px;
+   height: 168px;
+   opacity: 0px;
+ }
+
+ .description {
+   font-size: 16px;
+   font-weight: 400;
+   margin-top: 10px;
+ }
+
+ .buttons-card {
+   position: relative;
+   top: 9px;
+   left: 63px;
+ }
+
+ .buttons-card .mores {
+   border: 1px solid #675BC8;
+   color: #675BC8;
+   width: 52%;
+   font-weight: 500;
+   height: 44px;
+   border-radius: 5px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .Breedsname {
+   display: flex;
+   gap: 24px;
+ }
+
+ .mores:hover {
+   background-color: #696299;
+   color: white;
+ }
+
+ .detail1 {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+ }
+
+ .Breedsname {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+ }
+
+ .genders,
+ .breed {
+   display: inline-block;
+   min-width: 48%;
+ }
+
+ .genders p,
+ .breed p {
+   margin: 0;
+   padding: 0;
+ }
+
+ .breed .right {
+   display: inline-block;
+   padding-left: 5px;
+   color: #2E256F;
+   background-color: #EAE8F7;
+   border-radius: 5px;
+ }
+
+ .rightSide {
+   display: inline-block;
+   padding-left: 5px;
+   color: #675BC8;
+   background-color: #F5F5FF;
+   border-radius: 5px;
+ }
+
+ .genders span,
+ .breed span {
+   padding-left: 5px;
+ }

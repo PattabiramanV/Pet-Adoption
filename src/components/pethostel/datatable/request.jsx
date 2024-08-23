@@ -3,9 +3,9 @@ import './request.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 // import UserPets from '../usersalepetslist/userpetslist';
-import BreadcrumbComponent from '../../commoncomponent/Breadcrumb';
-import Header from '../../Siteframe/Header';
-import Footer from '../../Siteframe/Footer';
+// import BreadcrumbComponent from '../../commoncomponent/Breadcrumb';
+// import Header from '../../Siteframe/Header';
+// import Footer from '../../Siteframe/Footer';
 import HostelUserTable from './HostelUserTable';
 import UserTable from './NormalUserforHos';
 
@@ -19,10 +19,10 @@ const handleTabClick = (tab) => {
 
   return (
     <>
-      <Header />
-      <BreadcrumbComponent
+      {/* <Header /> */}
+      {/* <BreadcrumbComponent
         items={[{ title: 'Home', href: '/' }, { title: 'YourSalePets', href: '/requestpets/' }]}
-      />
+      /> */}
 
       <div className="petsandrequest">
 
@@ -74,7 +74,7 @@ const handleTabClick = (tab) => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

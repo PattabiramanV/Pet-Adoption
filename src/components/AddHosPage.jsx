@@ -11,7 +11,8 @@ const AddHosPage=()=>{
         <Header></Header>
       <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Pet Detail Page',href: '/pethostel' }]} />
         
-        <PetaddForm></PetaddForm>
+        <PetaddForm>
+        </PetaddForm>
         <Footer></Footer>
 
         </>

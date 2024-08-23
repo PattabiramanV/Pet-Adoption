@@ -1,4 +1,4 @@
-import CardView from '/src/components/pets/card/card';
+import CardView from './card';
 
 const PetList = () => {
   return (

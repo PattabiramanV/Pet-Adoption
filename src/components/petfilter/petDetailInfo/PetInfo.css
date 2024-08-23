@@ -6,7 +6,9 @@ html, body {
 .pet-info-page {
   width: 100%;
   height: auto;
-  padding: 13px 30px;
+      position: relative;
+    left: 107px;
+    top: 50px;
 }
 
 .pet-image-name {
@@ -18,6 +20,8 @@ html, body {
   display: flex;
   gap: 13px;
   width: 805px;
+      padding-left: 1%;
+
 }
 
 .pet-image-name-info .pet-image-info img {
@@ -32,11 +36,7 @@ html, body {
   color: #0A453A;
 }
 
-.welcome-user {
-  font-size: 24px;
-  font-weight: 500;
-  color: #202020;
-}
+
 
 .flag .map {
   width: 12px;
@@ -80,9 +80,11 @@ html, body {
 
 .info-description {
   display: flex;
-  flex-direction: column;
-  gap: 7%;
-  padding-left: 3%;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    left: 18px;
+    top: 16px;
 }
 
 .info-description p {
@@ -120,7 +122,7 @@ html, body {
 .petPerson {
   display: flex;
   justify-content: space-between;
-  margin-top: 51px; 
+  margin-top: 34px; 
   width: 600px;
   height: 89px;
   gap: 24px;
@@ -188,16 +190,12 @@ html, body {
   font-size: 12px;
   font-weight: 500;
 }
-
-.slider-info img {
-  width: 100%;
-  max-width: 593px;
-  height: 400px;
+.loca-info span{
+  text-transform: capitalize;
 }
 
-.slider-info {
+.Infos{
   width: 100%;
-  border: 1px solid #8c8b8b;
 }
 .price-info {
   display: flex;
@@ -217,69 +215,83 @@ html, body {
   color: green;
 }
 
-/* Modal overlay */
-.overlay {
-  background-color: rgba(0, 0, 0, 0.75);
+.similar-pets {
+    padding-top: 57px;
+    margin-bottom: 120px;
 }
-
-/* Modal content */
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 500px;
+.similar-pets h2{
+  font-size: 28px;
 }
-
-/* Close button */
-.modal-close {
-  background-color: #f00;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-/* Confirm button */
-.modal-confirm {
-  background-color: #0f0;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .adopt{
   text-transform: capitalize;
+      position: relative;
+    right: 82px;
+    top: 9px;
+
 }
-            /* $params[':size'] = $_GET['size'];
-        }
-        if (!empty($_GET['breed'])) {
-            $query .= " AND breed = :breed";
-            $params[':breeds'] = $_GET['breed'];
-        }
-        if (!empty($_GET['age'])) {
-            $query .= " AND age = :age";
-            $params[':age'] = $_GET['age'];
-        }
-        if (!empty($_GET['color'])) {
-            $query .= " AND color = :color";
-            $params[':color'] = $_GET['color'];
-        }
-    }
+.custom-prev-arrow,
+.custom-next-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  cursor: pointer;
+}
 
-    $stmt = $conn->prepare($query);
-    $stmt->execute($params);
-    $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+.custom-prev-arrow {
+  left: -25px; /* Adjust based on your design */
+}
 
-    echo json_encode($pets);
-} catch (PDOException $e) {
-    echo json_encode(['error' => $e->getMessage()]);
-} */
+.custom-next-arrow {
+  right: -25px; /* Adjust based on your design */
+}
+
+.custom-prev-arrow img,
+.custom-next-arrow img {
+  width: 30px; /* Adjust the size of the arrow images */
+  height: 30px;
+}
+.infos h6{
+  text-transform: capitalize;
+}
+.address-selection {
+  display: flex;
+  flex-direction: column;
+        position: relative;
+    left: 6%;
+}
+.addressdisplay{
+     position: relative;
+    right: 76px;
+}
+.address-display span{
+   position: relative;
+   right: 47px;
+}
+.address-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.address-option span {
+  margin-left: 8px;
+}
+
+.address-display {
+  margin-left: 28px;
+  border-left: 3px solid #4CAF50;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  display: none; /* Hidden by default */
+}
+
+.address-fields {
+  margin-left: 28px;
+  display: none; /* Hidden by default */
+}
+
+.swal2-input {
+  margin-bottom: 10px;
+}
+
