@@ -42,6 +42,21 @@ import HostelUserTable from "./components/pethostel/datatable/HostelUserTable"
 
 // hostall------
 
+// Ahalya Durairaj
+
+
+import DoctorCard from './components/veterinary/carddoctor/doctordata';
+import DoctorMoreInfo from './components/veterinary/carddoctor/moreinfo';
+import Adddoctorform from './components/veterinary/doctoraddform';
+import GroomingPage  from './components/veterinary/petgromming';
+import Veterinarian from './components/veterinarypage';
+import Groomingmainpage from './components/petgroomingpage';
+import Userpersonaltable from './components/veterinary/groomingusertable';
+import Doctorpersonaltable from './components/veterinary/docterpersonalpage';
+import Venterinarytables from './components/veterinary/tablelrouting';
+import BookingSlat from './components/veterinary/bookingslat';
+
+//  Ahalya Durairaj
 
 
 function RouterPage() {
@@ -65,14 +80,15 @@ function RouterPage() {
 
 {/* pommika -----------------------*/}
 
-        <Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
+<Route path="/findpet" element={<PrivateRoute><ReunitingLostPets /></PrivateRoute>} />
         <Route path="/lostingpet" element={<PrivateRoute><LostingpetAdd /></PrivateRoute>} />
-        <Route path="/LostListPet" element={<PrivateRoute><LostList /></PrivateRoute>} />
+        <Route path="/LostListPet/:id" element={<PrivateRoute><LostList /></PrivateRoute>} />
         <Route path="/mypetlostpost" element={<PrivateRoute><Mylostpostlist /></PrivateRoute>} />
         <Route path="/lostingusertable" element={<PrivateRoute><Lostpostusertable /></PrivateRoute>} />
         <Route path="/petdetails" element={<PrivateRoute><Checkboxlostpets /></PrivateRoute>} />
         <Route path="/lostpetlisting" element={<PrivateRoute><Lostlistallpage /></PrivateRoute>} />
         <Route path="/editform" element={<PrivateRoute><EditUserForm /></PrivateRoute>} /> 
+        {/* <Route path="/loctionforallpets" element={<PrivateRoute><Locationpage /></PrivateRoute>} /> */}
 
 {/* pommika -----------------------*/}
 
@@ -89,6 +105,22 @@ function RouterPage() {
 
         
     {/* hostall-------------- */}
+
+    {/* Ahalya Durairaj */}
+
+    <Route path="/veterinary" element={<Veterinarian />} />
+        <Route path="/petgroomingmainpage" element={<GroomingPage />} />
+        <Route path="/petgrooming" element={<Groomingmainpage />} />
+        <Route path="/doctorcard" element={<DoctorCard />} />
+        <Route path="/doctormoreinfo" element={<DoctorMoreInfo />} />
+        <Route path="/doctoraddform" element={<Adddoctorform />} />
+        <Route path="/groomingusertable" element={< Userpersonaltable/>} />
+        <Route path="/doctorpersonaltable" element={<Doctorpersonaltable/>} />
+        <Route path="/PetGrooming" element={<GroomingPage />} />
+        <Route path="/venterinarytables/*" element={<Venterinarytables/>} />
+        <Route path="/BookingSlat" element={<BookingSlat/>} />
+    {/* Ahalya Durairaj */}
+
 
 
 

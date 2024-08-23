@@ -8,7 +8,7 @@ const PetCard = ({ pet }) => {
   const navigate = useNavigate(); // Initialize navigate
 
   const handleNavigation = () => {
-    navigate('/LostListPet', { state: { pet } });
+    navigate('/petdetails', { state: { pet } });
   };
 
   // Construct the image source correctly

@@ -14,15 +14,15 @@ function Searching_Lost_and_Found_Pets() {
         <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' }]} />
       <Reuniting_pets />
       <Mypost />
-      <div className="div_more_btn">
+      <div className="lost_div_more_btn">
         <Link to="/mypetlostpost">
-          <button className="more hi">See More</button>
+          <button className="lost_more hi">See More</button>
         </Link>
       </div>
       <Lost_pets />
-      <div className="div_more_btn">
+      <div className="lost_div_more_btn">
         <Link to="/lostpetlisting">
-          <button className="more hi">See More</button>
+          <button className="lost_more hi">See More</button>
         </Link>
       </div>
       <Footer />

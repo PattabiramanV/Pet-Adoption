@@ -139,26 +139,27 @@ const Header = () => {
             >
               <span>Pet Expertise</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Veterinarians
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Add Veterinarians
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Apply for Grooming
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Service Records
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Patient Info
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Doctor Registration
-                  </Link>
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/Veterinary">
+               Veterinarians
+               </Link>
+               <Link className="menu" to="/doctoraddform">
+                Add Veterinarians
+               </Link>
+               <Link className="menu" to="/PetGrooming">
+                Apply for Grooming
+               </Link>
+               {/* <Link className="menu" to="/groomingusertable">
+              Patinent info
+               </Link> */}
+               <Link className="menu" to="/venterinarytables">
+               Service Records
+               </Link>
+               {/* <Link className="menu" to="/">
+               Doctor Registration       
+                           </Link> */}
+           
+             </div>
               )}
             </div>
 

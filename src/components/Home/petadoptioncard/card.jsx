@@ -11,62 +11,49 @@ const PetCard = ({ pet }) => {
     navigate('/LostListPet', { state: { pet } });
   };
 
-  // Construct the image source correctly
   const imageSrc = pet.photo ? `data:image/jpeg;base64,${pet.photo}` : '';
 
   return (
     <div className="pet-card">
-      <div className="pet-card-header">
-        <img src={imageSrc} alt={pet.pet_name} className="pet-card-image" />
+      <div className="pet-card-image-container">
+        <img src={imageSrc} alt={pet.name} className="pet-card-image" />
       </div>
 
       <div className="pet-card-body">
-        <div className="pet-name">
-          <div className="names">
-            <h2 className="pet-card-name">{pet.name}</h2>
-          </div>
-          <div className="locations">
-            <p className="pet-card-locations">
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.city}
-            </p>
-          </div>
-        </div>
-<div className="div_adou">
-
-        <div className="pet-card-info">
-          <div className="pet-left">
-            <div className="gender">
-              <p><strong>Gender:</strong></p>
-              <span className="span-color">{pet.gender}</span>
-            </div>
-          </div>
-          <div className="pet-right">
-            <p><strong>Breed:</strong></p>
-            <span className="span-color">{pet.breeds}</span>
-          </div>
+        <div className="pet-card-header">
+          <h2 className="pet-name">{pet.name}</h2>
+          <p className="pet-location">
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.city}
+          </p>
         </div>
 
         <div className="pet-card-info">
-          <div className="pet-left">
-            <div className="ages">
-              <p><strong>Age:</strong></p> 
-              <span className="span-color">{pet.age} year</span>
-            </div>
+          <div className="pet-info-item">
+            <p>Gender:</p>
+            <span className="info-value">{pet.gender}</span>
           </div>
-          <div className="pet-right">
-            <p><strong>Size:</strong></p>
-            <span className="span-color">{pet.size}</span>
+          <div className="pet-info-item">
+            <p>Breed:</p>
+            <span className="info-value">{pet.breeds}</span>
           </div>
         </div>
+
+        <div className="pet-card-info 2">
+          <div className="pet-info-item 1">
+            <p>Age:</p>
+            <span className="info-value">{pet.age} year</span>
+          </div>
+          <div className="pet-info-item">
+            <p>Size:</p>
+            <span className="info-value">{pet.size}</span>
+          </div>
         </div>
 
-        <div className="type">
-          <span className="">{pet.description.slice(0, 60)}...</span>
-        </div>
+        <p className="pet-description">
+          {pet.description.slice(0, 60)}...
+        </p>
 
-        <div className="btn">
-          <button className="more-info-btn" onClick={handleNavigation}>More Info</button>
-        </div>
+        <button className="more-info-btn" onClick={handleNavigation}>More Info</button>
       </div>
     </div>
   );

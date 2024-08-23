@@ -247,6 +247,7 @@ const updateRecord = (updatedRecord) => {
                         visible={isModalVisible}
                         onCancel={handleCancel}
                         footer={null}
+                        width={600}
                     >
                         {editRecord && <EditForm record={editRecord} onClose={handleCancel} onUpdate={updateRecord} refresh={fetchData} />}
                     </Modal>
@@ -268,6 +269,7 @@ const updateRecord = (updatedRecord) => {
                     />
                 </>
             )}
+              {loading && <Loader/>}
         </div>
     );
 };

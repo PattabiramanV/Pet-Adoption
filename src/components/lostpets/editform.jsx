@@ -233,11 +233,13 @@ const EditForm = ({ record, onClose, onUpdate }) => {
                     </button>
                 </div>
             </form>
+            {loading && <Loader/>}
         </div>
     );
 };
 
 export default EditForm;
+
 
 
 
