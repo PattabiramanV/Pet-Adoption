@@ -3,8 +3,8 @@
 $host = 'localhost';
 $db_name = 'pet_adoption';
 $username = 'dckap';
-// $password = 'Dckap2023Ecommerce';
-$password = 'Dckap2023Ubuntu';
+$password = 'Dckap2023Ecommerce';
+// $password = 'Dckap2023Ubuntu';
 
 
 try {
