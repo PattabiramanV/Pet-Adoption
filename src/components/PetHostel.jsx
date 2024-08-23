@@ -2,18 +2,23 @@
 // import React from "react";
 import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
-import PetaddForm from "./pethostel/AddPetForHos";
+import PetaddForm from "./pethostel/addhostel/AddPetForHos";
 import Hostels from "./pethostel/Hostels"; // Adjusted the import path
+import BreadcrumbComponent from './commoncomponent/Breadcrumb'; // Adjust the path as necessary
 
 function PetHostelPage() {
-
-
-
-
 
   return (
     <>
       <Header />
+      {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' }]} /> */}
+      <BreadcrumbComponent 
+  items={[
+    { title: 'Home', href: '/' }, 
+    { title: 'Pet Hostels', href: '/pethostel' }
+  ]} 
+/>
+
       <Hostels />
       {/* <Hostels hostel={data[1]}/>
       <Hostels hostel={data[2]}/> */}

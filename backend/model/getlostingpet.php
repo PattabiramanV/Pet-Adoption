@@ -1,12 +1,13 @@
 <?php
 require '../config/config.php';
+header("Content-type:application/json");
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 try {
-    $stmt = $conn->prepare("SELECT user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location FROM pet_losting_details");
+    $stmt = $conn->prepare("SELECT id, user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location ,status FROM pet_losting_details");
     $stmt->execute();
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

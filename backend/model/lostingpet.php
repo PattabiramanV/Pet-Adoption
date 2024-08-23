@@ -30,13 +30,18 @@ if ($data) {
     $address = $data->address;
     $description = $data->description;
     $location = $data->location; // Add location field
+    $status= "pending";
+
 
     // Decode the photo from base64
     $photoData = base64_decode($photo);
 
+
+    
+
     try {
         // Prepare the SQL statement with the correct column names
-        $stmt = $conn->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location,status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $user_id);
         $stmt->bindParam(2, $name);
         $stmt->bindParam(3, $petType);
@@ -48,6 +53,7 @@ if ($data) {
         $stmt->bindParam(9, $address);
         $stmt->bindParam(10, $description);
         $stmt->bindParam(11, $location);
+        $stmt->bindParam(12, $status);
 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Pet data inserted successfully"]);

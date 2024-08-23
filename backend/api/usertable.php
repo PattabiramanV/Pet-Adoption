@@ -4,10 +4,11 @@ require '../config/config.php';
 // require '../middleware/authentication.php';
 
 header('Content-Type: application/json');
-$user_id = authenticate();
-// $user_id = 2;
+// $user_id = authenticate();
+$user_id = 4;
 
 // Define the base URL for the images
+
 $image_base_url = 'http://localhost/petadoption/backend/images/';
 
 try {
@@ -24,7 +25,9 @@ try {
                 pet_grooming_users.pet_type AS pet_type, 
                 pet_grooming_users.pet_gender AS pet_gender, 
                 pet_grooming_users.pet_age AS pet_age,
-                pet_grooming_users.what_you_need_for_your_pet AS need_for_pet
+                pet_grooming_users.what_you_need_for_your_pet AS need_for_pet,
+                pet_grooming_users.status,
+                pet_grooming_users.id
             FROM 
                 vetneries 
             JOIN 
@@ -51,4 +54,7 @@ try {
 } catch (Exception $e) {
     echo json_encode(["message" => $e->getMessage()]);
 }
+
+
+
 ?>

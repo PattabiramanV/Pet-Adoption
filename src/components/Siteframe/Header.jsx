@@ -115,19 +115,19 @@ const Header = () => {
               <span>Pet Spotlight</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Add lost pets
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Lost pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Found Pets
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    My Entries
-                  </Link>
-                </div>
+                <Link className="menu" to="/findpet">
+                  Add lost pets
+                </Link>
+                <Link className="menu" to="/lostingpet">
+             Lost pets
+                </Link>
+                <Link className="menu" to="/mypetlostpost">
+                  Found Pets
+                </Link>
+                <Link className="menu" to="/lostingusertable">
+                My Entries
+                </Link>
+              </div>
               )}
             </div>
 
@@ -170,26 +170,21 @@ const Header = () => {
             >
               <span>Pet Haven</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Home Finder
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Add Forms Pet
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Pet Showcase
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    My Adopt List
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    My Adopt Post
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    My Request
-                  </Link>
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/pets">
+               Home Finder
+               </Link>
+               <Link className="menu" to="/sale">
+                 Add Forms Pet
+               </Link>
+               <Link className="menu" to="/adopte">
+               Pet Showcase
+               </Link>
+              
+               <Link className="menu" to="/tables">
+               My Pet Lists
+               </Link>
+             </div>
               )}
             </div>
 
@@ -201,23 +196,23 @@ const Header = () => {
             >
               <span>Pet Oasis</span>
               {isDropdownOpen && (
-                <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/findpet">
-                    Pet Hostel List
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Hostel Add
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Hostel Owner Record
-                  </Link>
-                  <Link className="menu" to="/PetGrooming">
-                    Hostel Booking
-                  </Link>
-                  <Link className="menu" to="/pethostel">
-                    Client Info
-                  </Link>
-                </div>
+               <div className="dropdown-menu dropdown-menu-Features">
+               <Link className="menu" to="/pethostel">
+                 Hostel Listings
+               </Link>
+               <Link className="menu" to="/addhostel">
+                 Register Hostel
+               </Link>
+               <Link className="menu" to="/hostelusertable">
+                 Owner Details
+               </Link>
+               <Link className="menu" to="pethostel/booking">
+                 Manage Reservations
+               </Link>
+               <Link className="menu" to="/hosteldeteils/">
+                 Client Profiles
+               </Link>
+             </div>
               )}
             </div>
           </nav>

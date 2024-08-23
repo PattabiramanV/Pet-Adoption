@@ -1,5 +1,6 @@
 // PetList.jsx
 import React, { useEffect, useState } from 'react';
+import Loader from '../Loader/Loader';
 import PetCard from './lostpets';
 
 const PetList = () => {
@@ -10,7 +11,7 @@ const PetList = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost/petadoption/backend/model/getlostingpet.php');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -27,26 +28,26 @@ const PetList = () => {
     fetchPets();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="pet-list">
-      <h1 className="pet-list-name">Posting a Lost Pets</h1>
-      <div className="pet-list-container">
-        <div className="pet-list-container-sub">
-          {pets[0] && <PetCard pet={pets[0]} />}
-          {pets[1] && <PetCard pet={pets[1]} />}
-          {pets[2] && <PetCard pet={pets[2]} />}
+    <div className="lost_pet-list">
+      <h1 className="lost_pet-list-name">Posting Lost Pets</h1>
+      <div className="lost_pet-list-container">
+        <div className="lost_pet-list-container-sub">
+          {pets.slice(0, 3).map((pet, index) => (
+            <PetCard key={index} pet={pet} />
+          ))}
         </div>
       </div>
+      {loading && <Loader/>}
     </div>
-  );
+    
+  );  
 };
 
 export default PetList;

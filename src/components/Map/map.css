@@ -259,8 +259,8 @@ button.map-categary-button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    left: 11em;
+    width: 40%;
+    left: 6em;
 }
 
 .error-message {
@@ -281,3 +281,112 @@ button.map-categary-button:hover {
         width: 100%;
     }
 }
+
+/* no recode ui  */
+
+.div_no_recode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30em;
+    flex-direction: column-reverse;
+    gap: 1em;
+}
+.no_location_in_100km {
+    font-weight: bold;
+    color: rgb(226, 43, 43);
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+}
+.div_main_no_100 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+.Records_found_icon {
+    display: flex;
+    justify-content:flex-start ;
+    align-items: center;
+    width: 80%;
+    font-weight: bold;
+    font-size: small;
+
+}
+/* Popup.css */
+.popup-container {
+    padding: 10px;
+    /* background-color: #ffffff; */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.popup-container strong {
+    font-size: 16px;
+    color: #007BFF;
+}
+
+.popup-container .popup-address {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.popup-container .popup-distance {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+}
+
+.popup-container .popup-message {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.Map_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Map_icon_main {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 0em;
+}
+
+
+/* -------------------- */
+
+.map-categary-button {
+    background-color: #f0f0f0; /* Default button color */
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.map-categary-button.selected {
+    background-color: #675bc8; /* Selected button color */
+    color: #fff;
+}
+
+.map-categary-button:hover {
+    background-color: #e0e0e0; /* Button color on hover */
+}
+
+/* Add additional styles if needed */

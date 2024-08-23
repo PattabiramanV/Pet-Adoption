@@ -1,175 +1,228 @@
 <?php
-require '../config/config.php';
-// require "../api/hostelcrud.php";
-require '../model/dbconnect.php';
-$user_id = authenticate();
 
+require '../config/config.php';
+require '../api/hostelcrud.php';
+require '../vendor/autoload.php';
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
+
+// Load the .env file
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$user_id = authenticate();
+$hostel = new Hostel();
 $db = new Database();
 
-$data = json_decode(file_get_contents("php://input"), true);
-
-$method = $_SERVER['REQUEST_METHOD'];
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// // Handle preflight requests (CORS)
-// header('Access-Control-Allow-Origin: *');
-// header('Access-Control-Allow-Methods: POST, OPTIONS');
-// header('Access-Control-Allow-Headers: Content-Type, Authorization');
-
-// Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204); // No Content
+$name = $_POST['name'] ?? '';
+$contact = $_POST['contact'] ?? '';
+$price_per_day = $_POST['price_per_day'] ?? '';
+$available_time = $_POST['available_time'] ?? '';
+$address = $_POST['address'] ?? '';
+$description = $_POST['description'] ?? '';
+$photos = $_FILES['photos'] ?? null;
+print_r($photos);
     exit;
-}
-// echo json_encode(["message" => "User not authenticated."]);
+$errors = validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $photos);
 
-// Authenticate user and get user ID
-$user_id = authenticate();
-
-if (!$user_id) {
-    header('Content-Type: application/json');
-    echo json_encode(["message" => "User not authenticated."]);
-    http_response_code(401); // Unauthorized
-    exit;
+if (!empty($errors)) {
+    respondWithError($errors);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$uploaded_files = handleFileUploads($photos,$user_id);
 
+// exit;
+if (!empty($errors)) {
+    respondWithError($errors);
+}
+
+try {
+// print_r($uploaded_files);
+    insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files);
+    // updateUserType($db, $user_id);
+
+    // emailSendFun($name);
+} catch (Exception $e) {
+    respondWithError(['message' => 'Failed to insert data', 'error' => $e->getMessage()]);
+}
+
+function validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $photos)
+{
+    $errors = [];
+
+    if (empty($name)) $errors['name'] = "Name is required";
+    if (empty($contact)) $errors['contact'] = "Contact No is required";
+    if (empty($price_per_day)) $errors['price_per_day'] = "Price per day is required";
+    if (empty($available_time)) $errors['available_time'] = "Available time is required";
+    if (empty($address)) $errors['address'] = "Address is required";
+    if (empty($description)) $errors['description'] = "Description is required";
+    if (empty($photos) || !is_array($photos['name'])) $errors['photos'] = "At least one photo is required";
+
+    return $errors;
+}
+
+function respondWithError($errors)
+{
+    echo json_encode(['status' => 'error', 'message' => 'Please enter all data', 'errors' => $errors]);
+    exit;
+
+}
+
+
+function handleFileUploads($photos, $user_id)
+{
+    
+    $uploaded_files = [];
+    $upload_directory = "./hostelimg/$user_id/";
+
+    // Create user directory if it doesn't exist
+    if (!is_dir($upload_directory)) {
+        mkdir($upload_directory, 0755, true);
+    }
+
+    foreach ($photos['name'] as $key => $value) {
+        if ($photos['error'][$key] === UPLOAD_ERR_OK) {
+            $tmp_name = $photos['tmp_name'][$key];
+            $file_name = basename($value);
+            $file_path = $upload_directory . $file_name;
+
+            if (move_uploaded_file($tmp_name, $file_path)) {
+                // Add the full file path to the array of uploaded files
+                $uploaded_files[] = $file_name;
+            } else {
+                $errors['photos'][] = "Failed to upload file: $file_name";
+            }
+        } else {
+            $errors['photos'][] = "Error occurred during file upload: $file_name";
+        }
+    }
+
+    // Return the array of uploaded file paths
+    return $uploaded_files;
+}
+
+
+
+function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files)
+{
+    try {
+        $image_paths_json = json_encode($uploaded_files);
+        global $user_id;
+        $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $db->conn->prepare($query);
+
+        if ($stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json, $user_id])) {
+            // echo json_encode(['status' => 'success', 'message' => 'Hostel successfully added']);
+    updateUserType($db, $user_id);
+
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to add hostel. Please try again later.']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['status' => 'error', 'message' => 'An unexpected error occurred: ' . $e->getMessage()]);
+    }
+}
+
+
+function updateUserType($db, $user_id)
+{
+    global $name;
+    $sql = "UPDATE users SET hostel_user_type = 'hostel_user' WHERE id = ?";
+    $updateUserType = $db->conn->prepare($sql);
 
     try {
-        // Prepare the SQL query
-        $stmt = $db->conn->prepare("INSERT INTO pet_hostels (name, address, price_per_day, description, contact, user_id, available_time) VALUES (:name, :address, :price_per_day, :description, :contact, :user_id, :available_time)");
-    
-        // Bind parameters
-        $stmt->bindParam(':name', $data['name']);
-        $stmt->bindParam(':address', $data['address']);
-        $stmt->bindParam(':price_per_day', $data['price_per_day']);
-        $stmt->bindParam(':description', $data['description']);
-        $stmt->bindParam(':contact', $data['contact']);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':available_time', $data['available_time']);
-    
-        // Execute the query
-        if ($stmt->execute()) {
-            echo json_encode(["message" => "Record inserted successfully."]);
+        if ($updateUserType->execute([$user_id])) {
+            // echo json_encode(['status' => 'success', 'message' => 'User type successfully updated.']);
+    emailSendFun($name);
+
         } else {
-            // If execute fails, fetch and display the error info
-            $errorInfo = $stmt->errorInfo();
-            echo json_encode(["message" => "Failed to execute query.", "error" => $errorInfo]);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update user type. Please try again later.']);
         }
     } catch (PDOException $e) {
-        // Handle and display PDO exceptions
-        echo json_encode(["message" => "Database error occurred.", "error" => $e->getMessage()]);
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
     }
-    
+}
+
+function emailSendFun($hostelName)
+{
+    global $hostel, $user_id;
+
+    // Fetch user data
+    $query = "SELECT * FROM users WHERE id = :id";
+    $params = [':id' => $user_id];
+    $userData = $hostel->getData($query, $params);
+
+    // Email configuration
+    $emailConfig = [
+        'Host' => $_ENV['SMTP_HOST'],
+        'SMTPAuth' => $_ENV['SMTP_AUTH'] === 'true',
+        'Username' => $_ENV['SMTP_USERNAME'],
+        'Password' => $_ENV['SMTP_PASSWORD'],
+        'SMTPSecure' => PHPMailer::ENCRYPTION_STARTTLS,
+        'Port' => $_ENV['SMTP_PORT'],
+        'FromAddress' => $_ENV['SMTP_FROM_ADDRESS'],
+        'FromName' => $_ENV['SMTP_FROM_NAME'],
+    ];
+
+    // Load email templates
+    $header = file_get_contents('../mailtemplate/header.html');
+    $footer = file_get_contents('../mailtemplate/footer.html');
+
+    // Prepare recipient data
+    $bookingUserEmail = $userData[0]['email'];
+    $bookingUsername = $userData[0]['username'];
+
+    $recipients = [
+        [
+            'email' => $bookingUserEmail,
+            'name' => $bookingUsername,
+            'body' => $header . "
+                <div style=\"padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;\">
+                    <h1 style=\"color: #333; font-size: 24px; text-align: center;\">Hostel Added Confirmation</h1>
+                    <p style=\"color: #555; font-size: 16px;\">Dear {$bookingUsername},</p>
+                    <p style=\"color: #555; font-size: 16px;\">Your hostel <strong style=\"color: #000;\">{$hostelName}</strong> has been successfully added to our platform.</p>
+                    <p style=\"color: #555; font-size: 16px;\">Thank you for partnering with us!</p>
+                    <p style=\"color: #555; font-size: 16px;\">We look forward to providing excellent service together.</p>
+                </div>" . $footer,
+            'altBody' => "Dear {$bookingUsername},\n\nYour hostel {$hostelName} has been successfully added to our platform.\n\nThank you for partnering with us!\n\nWe look forward to providing excellent service together."
+        ]
+    ];
+
+  
+    $status = 'success';
+    $message = 'Hostel has been successfully added and the confirmation email has been sent.';
 
 
-    // $uploadedFiles = [];
-    // $errors = [];
+    foreach ($recipients as $recipient) {
+        $mail = new PHPMailer(true);
 
+        try {
+            $mail->isSMTP();
+            $mail->Host = $emailConfig['Host'];
+            $mail->SMTPAuth = $emailConfig['SMTPAuth'];
+            $mail->Username = $emailConfig['Username'];
+            $mail->Password = $emailConfig['Password'];
+            $mail->SMTPSecure = $emailConfig['SMTPSecure'];
+            $mail->Port = $emailConfig['Port'];
 
+            $mail->setFrom($emailConfig['FromAddress'], $emailConfig['FromName']);
+            $mail->addAddress($recipient['email'], $recipient['name']);
 
+            $mail->isHTML(true);
+            $mail->Subject = 'Hostel Added Confirmation';
+            $mail->Body = $recipient['body'];
+            $mail->AltBody = $recipient['altBody'];
 
-    // Handle form fields
-    // $formData = [
-    //     'name' => $_POST['name'] ?? '',
-    //     'contact' => $_POST['contact'] ?? '',
-    //     'price_per_day' => $_POST['price_per_day'] ?? '',
-    //     'available_time' => $_POST['available_time'] ?? '',
-    //     'address' => $_POST['address'] ?? '',
-    //     'description' => $_POST['description'] ?? ''
-    // ];
+            $mail->send();
+        } catch (Exception $e) {
+            $status = 'error';
+            $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}.";
+            // You may want to log the error or handle it further here
+        }
+    }
 
-    // echo json_encode($_POST['name']);
-
-    // // Validate and process files
-    // if (isset($_FILES['photos']) && $_FILES['photos']['error'][0] === UPLOAD_ERR_OK) {
-    //     $files = $_FILES['photos'];
-    //     $allowedTypes = ['image/jpeg', 'image/png'];
-
-    //     foreach ($files['name'] as $key => $name) {
-    //         if ($files['error'][$key] === UPLOAD_ERR_OK) {
-    //             $file = [
-    //                 'name' => $files['name'][$key],
-    //                 'type' => $files['type'][$key],
-    //                 'tmp_name' => $files['tmp_name'][$key],
-    //                 'error' => $files['error'][$key],
-    //                 'size' => $files['size'][$key]
-    //             ];
-
-    //             // Validate file type
-    //             if (!in_array($file['type'], $allowedTypes)) {
-    //                 $errors[] = "Invalid file type for $name. Only JPEG and PNG types are allowed.";
-    //                 continue;
-    //             }
-
-    //             // Validate file size (max 2MB)
-    //             if ($file['size'] > 2 * 1024 * 1024) {
-    //                 $errors[] = "File size exceeds the limit of 2MB for $name.";
-    //                 continue;
-    //             }
-
-    //             $upload_dir = __DIR__ . '/uploads/';
-    //             if (!is_dir($upload_dir)) {
-    //                 mkdir($upload_dir, 0755, true);
-    //             }
-
-    //             // Use a unique filename
-    //             $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    //             $file_name = uniqid() . '.' . $extension;
-    //             $file_path = $upload_dir . $file_name;
-
-    //             if (move_uploaded_file($file['tmp_name'], $file_path)) {
-    //                 $uploadedFiles[] = $file_name;
-    //             } else {
-    //                 $errors[] = "Failed to move uploaded file $name.";
-    //             }
-    //         } else {
-    //             $errors[] = "Upload error for $name.";
-    //         }
-    //     }
-    // } else {
-    //     $errors[] = "No files uploaded or upload error.";
-    // }
-
-    // if (!empty($errors)) {
-    //     header('Content-Type: application/json');
-    //     echo json_encode(["errors" => $errors]);
-    //     http_response_code(400); // Bad Request
-    //     exit;
-    // }
-
-    // $photos = implode(', ', $uploadedFiles);
-
-    // try {
-    //     $stmt = $conn->prepare("INSERT INTO pet_hostels (name, address, price_per_day, description, contact, user_id, photos, available_time) VALUES (:name, :address, :price_per_day, :description, :contact, :user_id, :photos, :available_time)");
-    //     $stmt->bindParam(':name', $formData['name']);
-    //     $stmt->bindParam(':address', $formData['address']);
-    //     $stmt->bindParam(':price_per_day', $formData['price_per_day']);
-    //     $stmt->bindParam(':description', $formData['description']);
-    //     $stmt->bindParam(':contact', $formData['contact']);
-    //     $stmt->bindParam(':user_id', $user_id);
-    //     $stmt->bindParam(':photos', $photos);
-    //     $stmt->bindParam(':available_time', $formData['available_time']);
-
-    //     if ($stmt->execute()) {
-    //         $full_url = "http://localhost/petadoption/backend/uploads/" . implode(', ', $uploadedFiles);
-    //         header('Content-Type: application/json');
-    //         echo json_encode(["message" => "Request submitted successfully.", "photos" => $full_url]);
-    //         http_response_code(200); // OK
-    //     } else {
-    //         throw new Exception("Failed to save request to the database.");
-    //     }
-    // } catch (Exception $e) {
-    //     header('Content-Type: application/json');
-    //     echo json_encode(["message" => $e->getMessage()]);
-    //     http_response_code(500); // Internal Server Error
-    // }
-} else {
-    header('Content-Type: application/json');
-    echo json_encode(["message" => "Invalid request method."]);
-    http_response_code(405); // Method Not Allowed
+    echo json_encode(['status' => $status, 'message' => $message]);
 }

@@ -1,0 +1,89 @@
+/* .form-wrapper {
+    margin: auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.updatebtn {
+    text-align: center;
+    margin-top:20px;
+    
+}
+.gap-6 {
+    gap: 0.5rem;
+}
+
+input[type='checkbox'] {
+    width: 20px;
+}
+
+.ant-modal-header {
+    display: flex;
+    justify-content: center;
+    font-weight: bold; /* Makes the header bold */
+/* } */
+
+
+.lostpetform label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    height: 24px;
+    color: rgba(12, 12, 12, 1);
+}
+
+ .form-grid{
+    display: flex;
+    width:150%;
+ }
+ 
+
+ .popup-form input,#lost_date {
+    height: 40px;
+    width: 200px;
+    border: 1px solid rgba(96, 96, 96, 1);
+    border-radius: 8px;
+    padding: 8px;
+ }
+
+.popup-form  input::placeholder{
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.mb-6{
+    margin-bottom: 0.2px;
+}
+.center-column{
+margin-top: 10px;
+}
+#lostDate{
+    width: 100%;
+}
+#age{
+    width: 100%;
+}
+#name{
+    width: 100%;
+}
+#location{
+    width: 100%;
+}
+#description{
+    width: 100%;
+}
+#pet_type{
+    width: 100%;
+}
+#addresses{
+    width: 50%;
+}
+#contact_no{
+    width: 100%;
+}
+
+

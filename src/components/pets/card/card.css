@@ -10,7 +10,7 @@
 .container {
         display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 29px 22px;
+    gap: 3%;
     padding: 58px 35px;
     justify-items: center;
 
@@ -109,13 +109,13 @@
 
 .buttons-card {
   position: relative;
-  top: 64px;
+  top: 48px;
 }
 
 .buttons-card .more {
 border: 1px solid #675BC8;
     color: #675BC8;
-    width: 50%;
+    width: 52%;
     font-weight: 500;
     height: 44px;
     margin-bottom: 5%;

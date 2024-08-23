@@ -7,11 +7,16 @@ import Adoptioncard from "./Home/petadoptioncard/petlist";
 
 import Doctorcard from "./Home/Doctorcard_home/DoctorList";
 // import Hostal_card from "./Home/HostalCard/card_list";
+// import "./Home.css";
 
 
 import Footer from "./Siteframe/Footer";
 import PeacefulCoexistence from './Home/PeacefulCoexistence';
 import { Padding } from '@mui/icons-material';
+
+import BreadcrumbComponent from './commoncomponent/Breadcrumb';
+import Pomika from './lostpets/lostpetslist';
+
 
 function Home() {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -29,14 +34,17 @@ function Home() {
   return (
     <>
       <Header />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } />
       <Section />
       <PeacefulCoexistence />
       <Adoptioncard />
       <Doctorcard />
+<Petcard/>
+{/* <Pomika  /> */}
 
-      <Petcard />
+
       <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
-        <button className="more hi" onClick={handleNavigation}>See more</button>
+        <button className="more hi more-info-btn" onClick={handleNavigation}>See More</button>
       </div>
       {/* <Doctorcard /> */}
       {/* <Hostal_card /> */}

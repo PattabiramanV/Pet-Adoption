@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PetCard from './lostpets';
 import { Pagination } from 'antd';
+import Loader from '../Loader/Loader';
 import 'antd/dist/reset.css'; // Ensure Ant Design styles are loaded
 
 const LostListMain = () => {
@@ -13,7 +14,7 @@ const LostListMain = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost/petadoption/backend/model/getlostingpet.php');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -29,35 +30,36 @@ const LostListMain = () => {
     fetchPets();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
+  // Filter pets with status "pending"
+  const filteredPets = pets.filter((pet) => pet.status === "pending");
+
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = pets.slice(indexOfFirstPet, indexOfLastPet);
+  const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
-    <div className="pet-list">
-      <h1 className="pet-list-name">Posting a Lost Pets Details</h1>
-      <div className="pet-list-container">
-        <div className="pet-list-container-sub">
+    <div className="lost_pet-list">
+      <h1 className="lost_pet-list-name">Posting a Lost Pets Details</h1>
+      <div className="lost_pet-list-container">
+        <div className="lost_pet-list-container-sub">
           {currentPets.map((pet, index) => (
             <PetCard key={index} pet={pet} />
           ))}
         </div>
         <Pagination
-          className="pagination"
+          className="lost_pagination"
           current={currentPage}
           pageSize={petsPerPage}
-          total={pets.length}
+          total={filteredPets.length}
           onChange={(page) => setCurrentPage(page)}
         />
       </div>
+      {loading && <Loader/>}
     </div>
   );
 };

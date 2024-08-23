@@ -241,29 +241,34 @@ class Hostel {
     }
     
 
-    public function createData($data) {
-        $sql = "INSERT INTO pet_hostel_users (
-            pet_type, breeds, age, gender, start_date, end_date, pet_behaviour, are_you_a_pet_parent, user_id
-        ) VALUES (:petType, :breed, :age, :gender, :checkin, :checkout, :behavior, :petParent, :userId)";
+    public function createData($data,$sql) {
+        // $sql = "INSERT INTO pet_hostel_users (
+        //     pet_type, breeds, age, gender, start_date, end_date, pet_behaviour, are_you_a_pet_parent, user_id
+        // ) VALUES (:petType, :breed, :age, :gender, :checkin, :checkout, :behavior, :petParent, :userId)";
 
         return $this->executeQuery($sql, $data);
     }
 
-    public function updateData($data, $id) {
-        $query = "UPDATE pet_hostel_users SET 
-                  pet_type = :petType, 
-                  breeds = :breed, 
-                  age = :age, 
-                  gender = :gender, 
-                  start_date = :checkin, 
-                  end_date = :checkout, 
-                  pet_behaviour = :behavior, 
-                  are_you_a_pet_parent = :petParent 
-                  WHERE id = :id";
-
-        $data['id'] = $id;
-        return $this->executeQuery($query, $data);
+    public function updateData($query, $params = []) {
+        try {
+            $stmt = $this->db->conn->prepare($query);
+            
+            // Bind parameters
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+            
+            // Execute the query
+            $result = $stmt->execute();
+            
+            return $result; // This will be true if the query was successful, false otherwise
+        } catch (PDOException $e) {
+            // Handle exception
+            error_log("Error executing query: " . $e->getMessage());
+            return false;
+        }
     }
+    
 
     public function deleteData($id) {
         $query = "DELETE FROM pet_hostel_users WHERE id = :id";
@@ -276,9 +281,10 @@ class Hostel {
     }
 
     public function bookHostel($hosId, $data, $user_id) {
+
         $query = "INSERT INTO hostel_bookings (
-            hos_id, service_type, pet_type, breed_type, pet_name, age, gender, expectations, user_id
-        ) VALUES (:hos_id, :serviceType, :petType, :breedType, :petName, :age, :gender, :expectations, :user_id)";
+            hos_id, service_type, pet_type, breed_type, pet_name, age, gender, expectations, user_id,checkin_date,checkout_date
+        ) VALUES (:hos_id, :serviceType, :petType, :breedType, :petName, :age, :gender, :expectations, :user_id,:checkin_date,:checkout_date)";
     
         // Add hostel ID and user ID to data array
         $data['hos_id'] = $hosId;
@@ -296,6 +302,9 @@ class Hostel {
         $stmt->bindValue(':gender', $data['gender'] ?? null);
         $stmt->bindValue(':expectations', $data['expectations'] ?? null);
         $stmt->bindValue(':user_id', $data['user_id'] ?? null);
+        $stmt->bindValue(':checkin_date', $data['checkin'] ?? null);
+        $stmt->bindValue(':checkout_date', $data['checkout'] ?? null);
+
     
         try {
             $stmt->execute();
@@ -320,7 +329,7 @@ class Hostel {
 
         try {
             $stmt->execute();
-            return ["message" => "Operation successful"];
+            return ['status'=>'success',"message" => "Operation successful"];
         } catch (PDOException $e) {
             return ["error" => $e->getMessage()];
         }
@@ -357,6 +366,7 @@ class Hostel {
 
 
 }
+
 
 
 ?>

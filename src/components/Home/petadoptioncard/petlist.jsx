@@ -93,7 +93,7 @@ const PetList = () => {
     <div className="pet-list">
       <h1 className="pet-list-name">
   
-     Review some of the <span> Pet Adoption information</span>
+     Review some of the <span className='pet-list-name-span' > Pet Adoption information</span>
       </h1>
       <div className="pet-list-container_1">
       {pets.slice(0, 3).map(pet => <PetCard key={pet.id} pet={pet} />)}

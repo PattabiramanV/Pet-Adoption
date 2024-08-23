@@ -1,267 +1,150 @@
- @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
- .container {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-   gap: 20px;
-   padding: 20px;
- }
-
- .loca .location {
-   width: 16px;
-   height: 16px;
- }
-
- .card-container {
-   width: 288px;
-   height: 469px;
-   gap: 0px;
-   border-radius: 16px;
-   border: 1px solid #c3c3c3;
-   opacity: 0px;
- }
-
- .cardimg .img {
-   width: 286px;
-   height: 168px;
-   border-radius: 10px 10px 0 0;
- }
-
- .commonData {
-   padding: 16px 0px;
- }
-
- .namelocation {
-   width: 100%;
-   text-align: left;
-   display: flex;
-   flex-direction: column;
-   gap: 16px;
-   position: relative;
-   left: 16px;
- }
-
- .locationdescript {
-   display: flex;
-   flex-direction: column;
-   gap: 16px;
- }
-
- .des {
-   position: relative;
-   left: 16px;
- }
-
- .datas {
-   display: flex;
-   flex-direction: column;
-   gap: 16px;
- }
-
- .name {
-   color: #2E256F;
-   font-weight: 700;
-   font-size: 18px;
-   line-height: 21.78px;
- }
-
- .loca {
-   font-size: 14px;
-   color: #66b366;
-   font-weight: 600;
-   display: flex;
-   align-items: center;
-   gap: 8px;
- }
-
- .details {
-   width: 100%;
-   padding-left: 5%;
-   display: flex;
-   flex-direction: column;
-   gap: 16px;
- }
-
- .detail1 {
-   display: flex;
-   justify-content: space-between;
- }
-
- .detail2 {
-   display: flex;
-   gap: 75px;
- }
-
- span.rightSide {
-   position: relative;
-   left: 9px;
- }
-
- span.age {
-   position: relative;
-   left: 24px;
- }
-
- span#age {
-   padding: 3px 16px;
-   border-radius: 21px;
-   position: relative;
-   left: 22px;
- }
-
- .genders {
-   width: 116px;
-   height: 23px;
-   display: flex;
- }
-
-
- .details p {
-   font-size: 16px;
-   font-weight: 500;
- }
-
- .details p span {
-   font-size: 12px;
-   background-color: #EAE8F7;
-   color: #2E256F;
-   padding: 4px 8px;
-   border-radius: 10%;
- }
-
- .cardimg {
-   width: 286px;
-   height: 168px;
-   opacity: 0px;
- }
-
- .description {
-   font-size: 16px;
-   font-weight: 400;
-   margin-top: 10px;
- }
-
- .buttons-card {
-   position: relative;
-   top: 9px;
-   left: 63px;
- }
-
- .buttons-card .mores {
-   border: 1px solid #675BC8;
-   color: #675BC8;
-   width: 52%;
-   font-weight: 500;
-   height: 44px;
-   border-radius: 5px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
-
- .Breedsname {
-   display: flex;
-   gap: 24px;
- }
-
- .mores:hover {
-   background-color: #696299;
-   color: white;
- }
-
- .detail1 {
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
- }
-
- .Breedsname {
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
- }
-
- .genders,
- .breed {
-   display: inline-block;
-   min-width: 48%;
- }
-
- .genders p,
- .breed p {
-   margin: 0;
-   padding: 0;
- }
-
- .breed .right {
-   display: inline-block;
-   padding-left: 5px;
-   color: #675BC8;
-   background-color: #F5F5FF;
-   border-radius: 5px;
- }
-
- .rightSide {
-   display: inline-block;
-   padding-left: 5px;
-   color: #675BC8;
-   background-color: #F5F5FF;
-   border-radius: 5px;
- }
-
- .genders span,
- .breed span {
-   padding-left: 5px;
- }
-
-
- .pet-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1em;
-}
-.gender {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1em;
+.pet-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 300px;
+  background-color: #fff;
 }
 
-
-.ages {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3em;
+.pet-card-image-container {
+  width: 100%;
+  height: 168px; /* Adjusted to match image height */
 }
 
-.pet-card-locations {
+.pet-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-card-body {
+  padding: 20px;
+}
+
+.pet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pet-name {
+  font-size: 1.8em;
+  color: #2E256F;
+
+}
+
+.pet-location {
   color: #337739;
   font-size: large;
 }
 
-span.span-color {
-  width: auto;
-  height: auto;
-  background: #EAE8F7;
-  padding: 3px;
-  border-radius: 7px;
-  font-size: small;
-}
-
-
-.pet-name {
-  font-size: 1.8em;
+.pet-card-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin: 10px 0;
 }
 
-.names {
+.pet-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Add space between label and value */
+}
+
+.info-value {
+  background: #EAE8F7;
+  padding: 3px 8px;
+  border-radius: 7px;
+  font-size: small;
   color: #2E256F;
-  text-align: left;
-  font-weight: 700;
-  font-size: 18px;
-  width: auto;
+}
+
+.pet-description {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.more-info-btn {
+  background-color: #675BC8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.more-info-btn:hover {
+  background-color: #4a43b0;
+}
+
+/* Layout for pet info items to match the provided example */
+.pet-card-info .pet-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pet-card-info .pet-info-item p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.pet-card-info .pet-info-item span {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #EAE8F7;
+  border-radius: 7px;
+  font-size: small;
+  color: #2E256F;
+}
+
+
+
+
+
+
+.pet-list-container_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.\32 {
+  display: flex;
+  /* justify-content: flex-start; */
+  gap: 1em;
+}
+
+.pet-card-info .pet-info-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.\31 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+p.pet-location {
+  color: #0A453A;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+h1.pet-list-name {
+  text-align: center;
+  font-size: 32px;
+  color: #4B0082;
+  margin-bottom: 20px;
+}
+
+span.pet-list-name-span {
+  color: #6A5ACD;
 }

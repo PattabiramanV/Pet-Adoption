@@ -224,8 +224,10 @@ try {
             } else if ($distance <= 200) { // If the location is within 200 km but not within 100 km
                 $location['distance'] = $distance;
                 $location['message'] = "No locations available within 100 km.";
+                $location['message_in_100km'] = "No records found in within 100 km .";
                 $results[] = $location;
             }
+            
             
         }
 
