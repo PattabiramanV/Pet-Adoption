@@ -76,7 +76,7 @@ if ($_POST) {
 // print_r($photo);
 // exit;
     try {
-        $stmt = $conn->prepare("INSERT INTO pets (pet_name, gender, pet_category, age, breeds, price, state, city, description, add_for, user_id, size, color, photo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO pets (name, gender, pet_category, age, breeds, price, state, city, description, add_for, user_id, size, color, photo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->bindParam(1, $petname);
         $stmt->bindParam(2, $gender);

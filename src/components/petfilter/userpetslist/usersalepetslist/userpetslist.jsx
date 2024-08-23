@@ -7,14 +7,17 @@ import CommonTable from '../../../commoncomponent/datatable/DataTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faEdit, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import Modal from './popmodel'; // Ensure this path is correct
 
 const UserPets = () => {
-const [userPets, setUserPets] = useState([]);
+  const [userPets, setUserPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const petsPerPage = 5;
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedPet, setSelectedPet] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -27,10 +30,8 @@ const [userPets, setUserPets] = useState([]);
         });
         const userProfileData = profileResponse.data;
 
-      const petsResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_pets_by_user.php?id=${userProfileData.id}`);
-console.log(petsResponse.data); 
-setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
-
+        const petsResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_pets_by_user.php?id=${userProfileData.id}`);
+        setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -68,13 +69,34 @@ setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
     }
   };
 
- const filteredData = Array.isArray(userPets) ? userPets.filter(pet =>
-  pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  pet.age.toString().includes(searchTerm) ||
-  pet.size.toLowerCase().includes(searchTerm)
-) : [];
+  const handleUpdate = async (updatedPet) => {
+    console.log('Updated Pet Data:', updatedPet); // Check the data
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/petsapi/update_pet.php`,
+        updatedPet,
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      );
+      console.log('API Response:', response.data); // Check API response
+      if (response.data.success) {
+        Swal.fire('Success!', 'Pet details updated.', 'success');
+        setUserPets(userPets.map((pet) => (pet.id === updatedPet.id ? updatedPet : pet)));
+        handleModalClose();
+      } else {
+        Swal.fire('Error!', response.data.error, 'error');
+      }
+    } catch (err) {
+      console.error('API Error:', err); // Log error details
+      Swal.fire('Error!', err.message, 'error');
+    }
+  };
 
+  const filteredData = userPets.filter(pet =>
+    pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    pet.age.toString().includes(searchTerm) ||
+    pet.size.toLowerCase().includes(searchTerm)
+  );
 
   const currentData = filteredData.slice(
     (currentPage - 1) * petsPerPage,
@@ -95,47 +117,55 @@ setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
         return '';
     }
   };
-const tableHeaders = [
-  'S.No', 'Image', 'Name', 'Breed', 'Age', 'Size', 'Description', 'Status', 'Actions'
-];
 
-const tableBody = currentData.map((pet, index) => {
-  const rowNumber = (currentPage - 1) * petsPerPage + index + 1;
-  
-  let image1;
-  if (pet.photo) {
-    const parsed = JSON.parse(pet.photo);
-    const baseUrl = '/backend/petsapi/hostelimg/';
-    const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
-    image1 = imageUrls[0];
-  }
+  const handleEditClick = (pet) => {
+    setSelectedPet(pet);
+    setModalIsOpen(true);
+  };
 
-  return [
-    rowNumber,
-    image1 ? <img src={image1} className="pet-details-img" alt={pet.name} /> : 'No image available',
-    pet.name,
-    pet.breed,
-    pet.age,
-    pet.size,
-    pet.description,
-    <span className={`status-label ${getStatusClass(pet.status)}`}>
-      {pet.status === 'adopted' ? 'Adopted' : 'Available'}
-    </span>,
-    pet.status !== 'adopted' ? (
-      <>
-        <button className="edit-btn">
-          <FontAwesomeIcon icon={faEdit} />
-        </button>
-        <button className="delete-btn" onClick={() => handleDeleteClick(pet.id)}>
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-      </>
-    ) : null
+  const handleModalClose = () => {
+    setModalIsOpen(false);
+    setSelectedPet(null);
+  };
+
+  const tableHeaders = [
+    'S.No', 'Image', 'Name', 'Breed', 'Age', 'Size', 'Description', 'Status', 'Actions'
   ];
-});
 
+  const tableBody = currentData.map((pet, index) => {
+    const rowNumber = (currentPage - 1) * petsPerPage + index + 1;
 
+    let image1;
+    if (pet.photo) {
+      const parsed = JSON.parse(pet.photo);
+      const baseUrl = '/backend/petsapi/hostelimg/';
+      const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
+      image1 = imageUrls[0];
+    }
 
+    return [
+      rowNumber,
+      image1 ? <img src={image1} className="pet-details-img" alt={pet.name} /> : 'No image available',
+      pet.name,
+      pet.breed,
+      pet.age,
+      pet.size,
+      pet.description,
+      <span className={`status-label ${getStatusClass(pet.status)}`}>
+        {pet.status === 'adopted' ? 'Adopted' : 'Available'}
+      </span>,
+      pet.status !== 'adopted' ? (
+        <>
+          <button className="edit-btn" onClick={() => handleEditClick(pet)}>
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+          <button className="delete-btn" onClick={() => handleDeleteClick(pet.id)}>
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+        </>
+      ) : null
+    ];
+  });
 
   return (
     <>
@@ -196,6 +226,43 @@ const tableBody = currentData.map((pet, index) => {
               )}
             </>
           )}
+          <Modal isOpen={modalIsOpen} onClose={handleModalClose}>
+            <h2>Edit Pet</h2>
+            {selectedPet && (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  const updatedPet = Object.fromEntries(formData.entries());
+                  updatedPet.id = selectedPet.id;
+                  handleUpdate(updatedPet);
+                }}
+              >
+                <div>
+                  <label>Name</label><br></br>
+                  <input type="text" name="name" defaultValue={selectedPet.name} />
+                </div>
+                <div>
+                  <label>Breed</label><br></br>
+                  <input type="text" name="breed" defaultValue={selectedPet.breed} />
+                </div>
+                <div>
+                  <label>Age</label><br></br>
+                  <input type="number" name="age" defaultValue={selectedPet.age} />
+                </div>
+                <div>
+                  <label>Size</label><br></br>
+                  <input type="text" name="size" defaultValue={selectedPet.size} />
+                </div>
+                <div className="descedit">
+                  <label>Description</label><br></br>
+                  <textarea name="description" defaultValue={selectedPet.description} />
+                </div>
+              
+                <button type="submit" className="mores editbtnpet">Update Pet</button>
+              </form>
+            )}
+          </Modal>
         </div>
       )}
     </>

@@ -6,6 +6,9 @@ import Header from '../../Siteframe/Header';
 import Loader from '../../Loader/Loader';
 import BreadcrumbComponent from '../../commoncomponent/Breadcrumb'
 import './sale.css'
+import { useNavigate } from 'react-router-dom'; 
+
+
 
 
 const Sale = () => {
@@ -26,89 +29,163 @@ const Sale = () => {
     });
 
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value, files,type } = e.target;
-        console.log(type);
-        console.log(name);
-        console.log(files);
-        
-        if(type=='file'){
-            setFormData(prevFormData => ({
-  ...prevFormData,
-  [name]: prevFormData[name] 
-    ? [...prevFormData[name], ...Array.from(files)] 
-    : Array.from(files)
-}));
-        }
-        else {
+        const { name, value, files, type } = e.target;
 
-setFormData({
-            ...formData,
-            [name]: files ? files[0] : value
-        });
+        if (type === 'file') {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                [name]: prevFormData[name]
+                    ? [...prevFormData[name], ...Array.from(files)]
+                    : Array.from(files)
+            }));
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
         }
-        
     };
 
     const validateForm = () => {
-        const newErrors = {};
-        if (!formData.petName) newErrors.petName = "Pet Name is required";
-        if (!formData.petcategory) newErrors.petcategory = "Pet Category is required";
-        if (!formData.city) newErrors.city = "City is required";
-        if (!formData.location) newErrors.location = "Location is required";
-        if (!formData.petDescription) newErrors.petDescription = "Pet Description is required";
-        if (!formData.breed) newErrors.breed = "Breed is required";
-        if (!formData.gender) newErrors.gender = "Gender is required";
-        if (!formData.age || formData.age <= 0) newErrors.age = "Valid Age is required";
-        if (!formData.size) newErrors.size = "Size is required";
-        if (!formData.price || formData.price <= 0) newErrors.price = "Valid Price is required";
-        if (!formData.color) newErrors.color = "Color is required";
-        if (!formData.address) newErrors.address = "Address is required";
-        if (!formData.profilePic) newErrors.profilePic = "Profile Picture is required";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
+    const newErrors = {};
 
-    const token = localStorage.getItem("token");
-    const data = new FormData();
-
-console.log(data);
-
-    try {
-       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/addPet.php`, formData, 
-   { headers: { 
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data' 
-          } }
-    
-);
-
-
-        console.log(response.data);
-
-        if (response.data.success) {
-            console.log('Form submitted successfully');
-        }
-    } catch (error) {
-        console.error('There was an error!', error);
+    // Validate petName (should be a string and not a number)
+    if (!formData.petName) {
+        newErrors.petName = "Pet Name is required";
+    } else if (!isNaN(formData.petName)) {
+        newErrors.petName = "Pet Name must be a string";
     }
+
+    // Validate petCategory
+    if (!formData.petcategory) newErrors.petcategory = "Pet Category is required";
+
+    // Validate city
+    if (!formData.city) newErrors.city = "City is required";
+
+    // Validate location
+    if (!formData.location) newErrors.location = "Location is required";
+
+    // Validate petDescription
+    if (!formData.petDescription) newErrors.petDescription = "Pet Description is required";
+
+    // Validate breed
+    if (!formData.breed) newErrors.breed = "Breed is required";
+
+    // Validate gender
+    if (!formData.gender) newErrors.gender = "Gender is required";
+
+    // Validate age (should be a positive number)
+    if (!formData.age) {
+        newErrors.age = "Age is required";
+    } else if (isNaN(formData.age) || formData.age <= 0) {
+        newErrors.age = "Valid Age is required";
+    }
+
+    // Validate size
+    if (!formData.size) newErrors.size = "Size is required";
+
+    // Validate price (should be a positive number)
+    if (!formData.price) {
+        newErrors.price = "Price is required";
+    } else if (isNaN(formData.price) || formData.price <= 0) {
+        newErrors.price = "Valid Price is required";
+    }
+
+    // Validate color
+    if (!formData.color) newErrors.color = "Color is required";
+
+    // Validate address
+    if (!formData.address) newErrors.address = "Address is required";
+
+    // Validate profilePic (should not be empty)
+    if (!formData.profilePic.length) newErrors.profilePic = "Profile Picture is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
 };
 
-// };
 
-if (!formData) {
-    return <Loader />;
-  }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem("token");
+        const data = new FormData();
+
+        for (const key in formData) {
+            if (Array.isArray(formData[key])) {
+                formData[key].forEach((file) => data.append(`${key}[]`, file));
+            } else {
+                data.append(key, formData[key]);
+            }
+        }
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/addPet.php`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if (response.data) {
+                notification.success({
+                    message: 'Form successfully submitted',
+                    description: 'Your pet has been added for sale.',
+                });
+
+                // Reset the form fields
+                setFormData({
+                    petName: '',
+                    petcategory: '',
+                    city: '',
+                    location: '',
+                    petDescription: '',
+                    breed: '',
+                    gender: '',
+                    age: '',
+                    size: '',
+                    price: '',
+                    color: '',
+                    address: '',
+                    profilePic: []
+                });
+
+                navigate('/adopte'); // Corrected navigation
+            } else {
+                notification.error({
+                    message: 'Submission Failed',
+                    description: response.data.message || 'There was an issue submitting the form.',
+                });
+            }
+        } catch (error) {
+            console.error('There was an error!', error);
+            setError('An error occurred while submitting the form.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
         <Header />
            <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Sale',href: '/sale' }]} />
             <h2 className="addHostelTitle">Rehome Your Pet</h2>
             <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
+             {loading ? (
+                    <div className="loader-container">
+                        <Loader />
+                    </div>
+                ) : error ? (
+                    <div className="error-message">{error}</div>
+                ) : (
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -293,6 +370,7 @@ if (!formData) {
                     <button className="border border-transparent " type="submit">Submit</button>
                 </div>
             </form>
+                )}
             </div>
         <Footer />
          </>
@@ -301,3 +379,4 @@ if (!formData) {
 };
 
 export default Sale;
+

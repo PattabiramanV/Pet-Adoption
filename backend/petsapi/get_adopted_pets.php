@@ -11,7 +11,7 @@ try {
     
     if ($userId > 0) {
         $query = "
-            SELECT p.id, p.age, p.pet_name, p.breeds, p.city, p.price, p.state, p.gender, p.photo, ae.adoption_time, ae.status
+            SELECT p.id, p.age, p.name, p.breeds, p.city, p.price, p.state, p.gender, p.photo, ae.adoption_time, ae.status
             FROM adoption_events ae
             JOIN pets p ON ae.pet_id = p.id
             WHERE ae.user_id = :user_id";

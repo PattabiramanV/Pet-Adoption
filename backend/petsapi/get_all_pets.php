@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 include '../config/database.php';
 
 try {
-    $stmt = $conn->prepare("SELECT id, pet_name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo FROM pets WHERE status = 'available'");
+    $stmt = $conn->prepare("SELECT id, petname, gender, pet_category, age, breeds, price, state, city, description, size, color, photo FROM pets WHERE status = 'available'");
     $stmt->execute();
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

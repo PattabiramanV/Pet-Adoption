@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './SimilarPetsSlider.css'; // Create a separate CSS file for custom styles
-import CardView from '../../pets/card/card'; // Assuming you have a CardView component for displaying pet details
+import './SimilarPetsSlider.css'; 
+import CardView from '../../pets/card/card'; 
 
 const SimilarPetsSlider = ({ similarPets }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleItems = 3; // Number of items to display at once
-
+  const visibleItems = 3; 
   const handleNext = () => {
     if (currentIndex < similarPets.length - visibleItems) {
       setCurrentIndex(currentIndex + 1);
@@ -41,14 +40,6 @@ const SimilarPetsSlider = ({ similarPets }) => {
           &#8250; {/* Right Arrow */}
         </button>
       </div>
-      {/* <input
-        type="range"
-        min="0"
-        max={similarPets.length - visibleItems}
-        value={currentIndex}
-        onChange={(e) => setCurrentIndex(Number(e.target.value))}
-        className="custom-slider"
-      /> */}
     </div>
   );
 };

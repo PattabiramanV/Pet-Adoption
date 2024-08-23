@@ -84,7 +84,7 @@ try {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $pet_item = array(
                 "id" => $row['id'],
-                "pet_name" => $row['pet_name'],
+                "name" => $row['name'],
                 "gender" => $row['gender'],
                 "pet_category" => $row['pet_category'],
                 "age" => $row['age'],

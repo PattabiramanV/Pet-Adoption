@@ -182,3 +182,15 @@ body {
   border: 2px solid red;
   background-color: #ffe6e6;
 }
+
+.no-pets-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 15%;
+}
+
+.no-pets-image {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+}

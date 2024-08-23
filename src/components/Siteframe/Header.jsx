@@ -182,7 +182,7 @@ const Header = () => {
                   Pet Showcase
                   </Link>
                  
-                  <Link className="menu" to="/tables">
+                  <Link className="menu" to="/tables/userpets">
                   My Pet Lists
                   </Link>
                 </div>

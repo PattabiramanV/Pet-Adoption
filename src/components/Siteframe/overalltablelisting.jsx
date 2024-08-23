@@ -15,24 +15,43 @@ const OverallTables = () => {
   return (
     <>
       <Header />
-            <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Action',href: '/tables' }]} />
-
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Action', href: '/tables' }]} />
+      
       <div className="tablescontainer">
         <div className="sidebar">
           <ul>
-            <li onClick={() => handleMenuItemClick('Overview')}><span>Grooming</span></li>
-            <li onClick={() => handleMenuItemClick('Location')}><span>Docter Info</span></li>
-            <li onClick={() => handleMenuItemClick('Live View')}><span>Lost Pet</span></li>
-            <li onClick={() => handleMenuItemClick('Pet')}><span>Pet</span></li>
+            <li 
+              onClick={() => handleMenuItemClick('Hostel')} 
+              className={selectedItem === 'Hostel' ? 'active' : ''}
+            >
+              <span>Hostel</span>
+            </li>
+            <li 
+              onClick={() => handleMenuItemClick('Veternarians')} 
+              className={selectedItem === 'Veternarians' ? 'active' : ''}
+            >
+              <span>Veternarians</span>
+            </li>
+            <li 
+              onClick={() => handleMenuItemClick('Lost Pet')} 
+              className={selectedItem === 'Lost Pet' ? 'active' : ''}
+            >
+              <span>Lost Pet</span>
+            </li>
+            <li 
+              onClick={() => handleMenuItemClick('Pet')} 
+              className={selectedItem === 'Pet' ? 'active' : ''}
+            >
+              <span>Pet</span>
+            </li>
           </ul>
         </div>
 
         <div className="contenttables">
-          {selectedItem === 'Overview' && <div>Grooming</div>}
-          {selectedItem === 'Location' && <div>Docter Info</div>}
-          {selectedItem === 'Live View' && <div>Lost Pet</div>}
+          {selectedItem === 'Hostel' && <div>Hostel</div>}
+          {selectedItem === 'Veternarians' && <div>Veternarians</div>}
+          {selectedItem === 'Lost Pet' && <div>Lost Pet</div>}
           {selectedItem === 'Pet' && <Requesttables />}
-          
         </div>
       </div>
       <Footer />

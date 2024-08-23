@@ -14,7 +14,7 @@ try {
             a.user_id,
             a.address,
             a.status,
-            p.pet_name AS pet_name,
+            p.name AS name,
             u.username AS user_name,  
             a.adoption_time
         FROM adoption_events a

@@ -68,7 +68,7 @@ try {
     }
 
     // Prepare email content
-    $petName = htmlspecialchars($pet['pet_name']);
+    $petName = htmlspecialchars($pet['name']);
     $message = "
     <!DOCTYPE html>
     <html>
@@ -91,7 +91,7 @@ try {
                 <p>Your adoption request for <strong>{$petName}</strong> has been successfully processed.</p>
                 <p>Pet Details:</p>
                 <ul>
-                    <li>Name: " . htmlspecialchars($pet['pet_name']) . "</li>
+                    <li>Name: " . htmlspecialchars($pet['name']) . "</li>
                     <li>Breed: " . htmlspecialchars($pet['breeds']) . "</li>
                     <li>Age: " . htmlspecialchars($pet['age']) . "</li>
                 </ul>

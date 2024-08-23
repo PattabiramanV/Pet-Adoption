@@ -45,7 +45,7 @@ const Adoptedpetlist = () => {
   }, []);
 
   const filteredData = adoptedPets.filter(pet =>
-    pet.pet_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     pet.breeds.toLowerCase().includes(searchTerm.toLowerCase()) ||
     pet.age.toString().includes(searchTerm) ||
     pet.gender.toLowerCase().includes(searchTerm) ||
@@ -91,11 +91,11 @@ const Adoptedpetlist = () => {
     return [
       serialNumber,
       pet.photo ? (
-        <img src={`data:image/jpeg;base64,${pet.photo}`} className="pet-details-img" alt={pet.pet_name} />
+        <img src={`data:image/jpeg;base64,${pet.photo}`} className="pet-details-img" alt={pet.name} />
       ) : (
         <div>No image available</div>
       ),
-      pet.pet_name,
+      pet.name,
       pet.breeds,
       pet.age,
       pet.gender,

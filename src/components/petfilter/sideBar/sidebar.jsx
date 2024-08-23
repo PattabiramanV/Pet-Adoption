@@ -4,6 +4,8 @@ import CardView from '../../pets/card/card';
 import './sideBar.css';
 import { Pagination, Alert } from 'antd';
 import Loader from '../../Loader/Loader';
+// import queryimages from '/src/assets/queryimage'; // Adjust the path as needed
+
 
 const PetForm = () => {
   const [petTypes] = useState(['cat', 'dog']);
@@ -27,11 +29,7 @@ const PetForm = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const petsPerPage = 9;
-
-  useEffect(() => {
-
     const fetchInitialData = async () => {
-    // alert("pppp");
 
       try {
         const [petResponse, filterOptionsResponse] = await Promise.all([
@@ -50,7 +48,7 @@ console.log(petResponse.data);
         setLoading(false);
       }
     };
-
+  useEffect(() => {
     fetchInitialData();
   }, []);
 
@@ -66,34 +64,42 @@ console.log(petResponse.data);
     }));
   };
 
-  const filterPets = async () => {
-    try {
-      const queryParams = new URLSearchParams(formData).toString();
-      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
-      const result = response.data;
+const filterPets = async () => {
+  try {
+    const queryParams = new URLSearchParams(formData).toString();
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
+    const result = response.data;
 
-      if (result.status === 'success') {
-        setPets(result.data.length > 0 ? result.data : []);
-        setError('');
-      } else {
-        setPets([]);
-        setError('No matching pets found.');
-      }
-    } catch (error) {
+    if (result.status === 'success') {
+      setPets(result.data.length > 0 ? result.data : []);
+      setError(''); // Clear error
+    } else {
       setPets([]);
-      setError('Pet not available');
+      setError('No matching pets found.'); 
     }
-  };
+  } catch (error) {
+    setPets([]);
+    setError('Pet not available'); // Custom error message
+  }
+};
+
 
   const handleSubmit = () => {
-    // e.preventDefault();
     filterPets();
   };
 console.log(pets);
-
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = pets.slice(indexOfFirstPet, indexOfFirstPet + petsPerPage);
+    const shuffledPets = shuffleArray([...pets]);  
+
+  const currentPets = shuffledPets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
     <div className="filter-filterpet">
@@ -165,14 +171,17 @@ console.log(pets);
           </label>
         </form>
       </div>
-
-      <div className="pet-details_card">
+<div className="pet-details_card">
         <div className="pets_details">
           {loading ? (
             <Loader />
           ) : (
             <>
-              {error && <Alert message={error} type="error" className="error-alert" />}
+              {error && (
+                <div className="no-pets-container">
+                  <img src="/src/assets/queryimage.png" alt="No pets available" className="no-pets-image" />
+                </div>
+              )}
               <CardView pets={currentPets} />
               {pets.length > petsPerPage && (
                 <Pagination
@@ -187,6 +196,7 @@ console.log(pets);
           )}
         </div>
       </div>
+
     </div>
   );
 };

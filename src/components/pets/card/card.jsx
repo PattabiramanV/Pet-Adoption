@@ -3,27 +3,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './card.css';
 function PetDetails({ id, name, city, description = 'No description available', profile, breed, gender, age, size }) {
-  
-  let parsedPhotos = [];
+ let image1 = '/src/assets/default_image.png';
 
   if (profile) {
     try {
-      parsedPhotos = Array.isArray(profile) ? profile : JSON.parse(profile);
+      const parsed = JSON.parse(profile);
+      const baseUrl = '/backend/petsapi/hostelimg/';
+      const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
+      image1 = imageUrls[0] || image1; 
     } catch (error) {
       console.error("Error parsing profile photos:", error);
     }
   }
-
-  const firstPhoto = parsedPhotos.length > 0 ? parsedPhotos[0] : null;
-
-  const imageUrl = firstPhoto ? `/backend/petsapi/hostelimg/${firstPhoto}` : '/backend/petsapi/hostelimg/pug_b.jpg';
-
-  
   return (
     <div className="card-container">
       <div className="cardimg">
         <img
-          src={imageUrl}
+          src={image1}
           className="img"
           alt={name}
         />
@@ -99,7 +95,7 @@ const CardView = ({ pets }) => {
         <PetDetails 
           key={pet.id}
           id={pet.id}
-          name={pet.pet_name}
+          name={pet.name}
           city={pet.city}
           description={pet.description}
           profile={pet.photo}

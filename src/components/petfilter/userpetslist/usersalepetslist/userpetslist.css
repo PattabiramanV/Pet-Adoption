@@ -124,3 +124,80 @@
     position: relative;
     left: 50%;
 }
+
+
+/* userpetslist.css */
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  margin-left: 8px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.search-icon {
+  font-size: 20px;
+  color: #333;
+}
+
+.no-data {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.no-data-img {
+  width: 150px;
+  height: auto;
+}
+
+.edit-btn, .delete-btn {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #007bff;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  color: #0056b3;
+}
+.editbtnpet{
+    border: 1px solid #675BC8;
+    width: 124px;
+    height: 42px;
+    border-radius: 6px;
+    color: #675BC8;
+    /* display: table-column; */
+    position: relative;
+    left: 170px;
+    /* top: 57px; */
+    margin-top: 5%;
+}

@@ -190,12 +190,9 @@ html, body {
   font-size: 12px;
   font-weight: 500;
 }
-
-/* .Infos img {
-  width: 139%;
-  /* max-width: 593px; */
-  /* height: 400px;
-} */ 
+.loca-info span{
+  text-transform: capitalize;
+}
 
 .Infos{
   width: 100%;
@@ -254,19 +251,47 @@ html, body {
   width: 30px; /* Adjust the size of the arrow images */
   height: 30px;
 }
-
- /* .existingaddress{
-    width: 339px;
-    position: relative;
-    left: 64px;
+.infos h6{
+  text-transform: capitalize;
 }
-input#existingAddress {
-    position: relative;
-    right: 52px;
+.address-selection {
+  display: flex;
+  flex-direction: column;
+        position: relative;
+    left: 6%;
 }
-.existing{
+.addressdisplay{
      position: relative;
-    right: 52px;
-} */
+    right: 76px;
+}
+.address-display span{
+   position: relative;
+   right: 47px;
+}
+.address-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
+.address-option span {
+  margin-left: 8px;
+}
+
+.address-display {
+  margin-left: 28px;
+  border-left: 3px solid #4CAF50;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  display: none; /* Hidden by default */
+}
+
+.address-fields {
+  margin-left: 28px;
+  display: none; /* Hidden by default */
+}
+
+.swal2-input {
+  margin-bottom: 10px;
+}
 

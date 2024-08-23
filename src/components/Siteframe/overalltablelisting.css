@@ -37,4 +37,14 @@ margin-bottom: 607px;
 .contenttables {
       min-width: 87%;
   padding: 10px;
+      /* overflow: auto; */
+}
+
+.sidebar li.active {
+  background-color: #44444e;
+  color: white;
+}
+
+.sidebar li:hover {
+  background-color: #e0e0e0;
 }

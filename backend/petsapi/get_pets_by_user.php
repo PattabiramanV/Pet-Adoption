@@ -11,7 +11,7 @@ if (!isset($_GET['id'])) {
 
 $user_id = intval($_GET['id']);
 
-$sql = "SELECT id, pet_name as name, gender, size, age, breeds as breed, user_id, photo, description, status 
+$sql = "SELECT id, name as name, gender, size, age, breeds as breed, user_id, photo, description, status 
         FROM pets 
         WHERE user_id = :user_id";
         

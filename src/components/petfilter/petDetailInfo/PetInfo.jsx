@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomPaging from './InfoSlider';
 import SimilarPetsSlider from './similarpets'; 
+import BreadcrumbComponent from '../../commoncomponent/Breadcrumb';
 
 
 
@@ -22,6 +23,13 @@ const PetDetailsRoute = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [similarPets, setSimilarPets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdopted, setIsAdopted] = useState(false);
+ const [breadcrumbItems, setBreadcrumbItems] = useState([
+    { title: 'Home', href: '/' },
+    { title: 'Pets', href: '/pets' },
+    { title: 'Adopt', href: '/adopte' },
+    { title: 'Pet Details', href: `/petDetails/${id}` },
+  ]);
 
 
   const fetchPetData = async () => {
@@ -50,6 +58,10 @@ const PetDetailsRoute = () => {
         setPet(response.data.pet);
         setSimilarPets(response.data.similar_pets);
         setError(null);
+         setBreadcrumbItems((prevItems) => [
+          ...prevItems.slice(0, -1), // Keep all items except the last one
+          { title: response.data.pet.name, href: `/petDetails/${id}` }, // Add the pet name as the last item
+        ]);
       }
     } catch (err) {
       setError('Error fetching pet details');
@@ -87,6 +99,10 @@ const PetDetailsRoute = () => {
   
    
   const handleAdoptNow = async () => {
+         if (isAdopted) {
+    return; // Prevent further execution if already adopted
+  }
+    setIsAdopted(true); // Disable the button to prevent further clicks
   try {
     const result = await Swal.fire({
       title: 'Do you want to adopt this pet?',
@@ -94,78 +110,92 @@ const PetDetailsRoute = () => {
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
     });
+ 
+
     if (result.isConfirmed) {
-  const addressResult = await Swal.fire({
-    title: 'Select Address',
-    html: `
-      <input type="radio" id="existingAddress" name="addressOption" value="existing" checked>
-      <label for="existingAddress">Use existing address</label>
-      <div id="existingAddressDisplay" style="margin-bottom: 10px;">
-        <strong>Address:</strong> ${userProfile.address}, ${userProfile.city}, ${userProfile.state}
-      </div><br>
-      <input type="radio" id="newAddressOption" name="addressOption" value="new">
-      <label for="newAddressOption">Provide new address</label><br>
-      <div id="newAddressFields" style="display:none;">
-        <input type="text" id="newAddress" class="swal2-input" placeholder="Address" required>
-        <input type="text" id="newState" class="swal2-input" placeholder="State" required>
-        <input type="text" id="newCity" class="swal2-input" placeholder="City" required>
-      </div>`,
-    showCancelButton: true,
-    preConfirm: () => {
-      const addressOption = document.querySelector('input[name="addressOption"]:checked').value;
+const addressResult = await Swal.fire({
+  title: 'Select Address',
+  html: `
+    <div class="address-selection">
+  <label class="address-option">
+    <input type="radio" id="existingAddress" name="addressOption" value="existing">
+    <span>Use existing address</span>
+  </label>
+  <div id="existingAddressDisplay" class="address-display">
+   <div class="addressdisplay">
+    <p>${userProfile.address}, <br>
+    <span>
+     ${userProfile.city}, ${userProfile.state}</p>
+    </span>
+   </div>
+   
+   
+  </div>
+  
+  <label class="address-option">
+    <input type="radio" id="newAddressOption" name="addressOption" value="new">
+    <span>Provide new address</span>
+  </label>
+  <div id="newAddressFields" class="address-fields">
+    <input type="text" id="newAddress" class="swal2-input" placeholder="Address" required>
+    <input type="text" id="newState" class="swal2-input" placeholder="State" required>
+    <input type="text" id="newCity" class="swal2-input" placeholder="City" required>
+  </div>
+</div>
+`,
+  showCancelButton: true,
+  preConfirm: () => {
+    const addressOption = document.querySelector('input[name="addressOption"]:checked').value;
 
-      if (addressOption === 'new') {
-        const newAddress = document.getElementById('newAddress').value;
-        const newState = document.getElementById('newState').value;
-        const newCity = document.getElementById('newCity').value;
+    if (addressOption === 'new') {
+      const newAddress = document.getElementById('newAddress').value;
+      const newState = document.getElementById('newState').value;
+      const newCity = document.getElementById('newCity').value;
 
-        if (!newAddress || !newState || !newCity) {
-          Swal.showValidationMessage('Please fill out all required fields.');
-          return false;
-        }
-
-        return {
-          address: newAddress,
-          state: newState,
-          city: newCity,
-        };
+      if (!newAddress || !newState || !newCity) {
+        Swal.showValidationMessage('Please fill out all required fields.');
+        return false;
       }
 
       return {
-        address: userProfile.address,
-        state: userProfile.state,
-        city: userProfile.city,
+        address: newAddress,
+        state: newState,
+        city: newCity,
       };
-    },
-    didOpen: () => {
-      const existingAddressRadio = document.getElementById('existingAddress');
-      const newAddressRadio = document.getElementById('newAddressOption');
-      const newAddressFields = document.getElementById('newAddressFields');
-      const existingAddressDisplay = document.getElementById('existingAddressDisplay');
-
-      // Initially show existing address
-      existingAddressDisplay.style.display = 'block';
-      newAddressFields.style.display = 'none';
-
-      existingAddressRadio.addEventListener('change', () => {
-        if (existingAddressRadio.checked) {
-          existingAddressDisplay.style.display = 'block';
-          newAddressFields.style.display = 'none';
-        }
-      });
-
-      newAddressRadio.addEventListener('change', () => {
-        if (newAddressRadio.checked) {
-          newAddressFields.style.display = 'block';
-          existingAddressDisplay.style.display = 'none';
-        }
-      });
     }
-  });
+
+    return {
+      address: userProfile.address,
+      state: userProfile.state,
+      city: userProfile.city,
+    };
+  },
+  didOpen: () => {
+    const existingAddressRadio = document.getElementById('existingAddress');
+    const newAddressRadio = document.getElementById('newAddressOption');
+    const newAddressFields = document.getElementById('newAddressFields');
+    const existingAddressDisplay = document.getElementById('existingAddressDisplay');
+
+    existingAddressRadio.addEventListener('change', () => {
+      if (existingAddressRadio.checked) {
+        existingAddressDisplay.style.display = 'block';
+        newAddressFields.style.display = 'none';
+      }
+    });
+
+    newAddressRadio.addEventListener('change', () => {
+      if (newAddressRadio.checked) {
+        newAddressFields.style.display = 'block';
+        existingAddressDisplay.style.display = 'none';
+      }
+    });
+  }
+});
 
   if (!addressResult.isConfirmed) {
-    return;
-  }
+        setIsAdopted(false); // Re-enable the button if the user cancels
+        return;
+      }
 
   const addressData = addressResult.value;
   console.log(addressData);
@@ -173,10 +203,12 @@ const PetDetailsRoute = () => {
   const token = localStorage.getItem('token');
   if (!token) {
     Swal.fire('Error', 'No token found for authorization.', 'error');
+      setIsAdopted(false); // R
     return;
   }
 
   try {
+     setLoading(true); 
     const ownerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/pet_owner.php`, {
       params: { id: pet.user_id },
     });
@@ -198,15 +230,11 @@ const PetDetailsRoute = () => {
         city: addressData.city || userProfile.city,
         state: addressData.state || userProfile.state,
         address: addressData.address || userProfile.address
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
+      })
     );
 
     if (emailResponse.data.success) {
+        setLoading(false);
       notification.success({
         message: 'Request successfully sent to the owner',
         description: 'The owner will review your request. Please be patient.',
@@ -221,12 +249,7 @@ const PetDetailsRoute = () => {
             state: addressData.state || '',
             city: addressData.city || '',
             status: 'pending'
-          }),
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-          }
+          })
         );
 
         if (updateResponse.data.success) {
@@ -237,175 +260,22 @@ const PetDetailsRoute = () => {
       } catch (error) {
         console.error('Error updating adoption status:', error);
         Swal.fire('Error', 'There was an issue updating the adoption status.', 'error');
+          setIsAdopted(false); // R
       }
     } else {
       Swal.fire('Error', emailResponse.data.message || 'There was an issue sending the email.', 'error');
+        setIsAdopted(false); // R
     }
   } catch (error) {
     console.error('Error fetching pet owner profile:', error);
     Swal.fire('Error', 'There was an issue fetching the pet owner profile.', 'error');
+      setIsAdopted(false); // R
   }
 }
-
-//     if (result.isConfirmed) {
-//       const addressResult = await Swal.fire({
-//         title: 'Select Address',
-//         html: `
-//           <input type="radio" id="existingAddress" name="addressOption" value="existing" checked>
-//           <label for="existingAddress">Use existing address</label>
-//           <div id="existingAddressDisplay" style="margin-bottom: 10px;">
-//             <strong>Address:</strong> ${userProfile.address}, ${userProfile.city}, ${userProfile.state}
-//           </div><br>
-//           <input type="radio" id="newAddressOption" name="addressOption" value="new">
-//           <label for="newAddressOption">Provide new address</label><br>
-//           <div id="newAddressFields" style="display:none;">
-//             <input type="text" id="newAddress" class="swal2-input" placeholder="Address" required>
-//             <input type="text" id="newState" class="swal2-input" placeholder="State" required>
-//             <input type="text" id="newCity" class="swal2-input" placeholder="City" required>
-//           </div>`,
-//         showCancelButton: true,
-//        preConfirm: () => {
-//   const addressOption = document.querySelector('input[name="addressOption"]:checked').value;
-
-//   if (addressOption === 'new') {
-//     const newAddress = document.getElementById('newAddress').value;
-//     const newState = document.getElementById('newState').value;
-//     const newCity = document.getElementById('newCity').value;
-
-//     if (!newAddress || !newState || !newCity) {
-//       Swal.showValidationMessage('Please fill out all required fields.');
-//       return false;
-//     }
-
-//     return {
-//       address: newAddress,
-//       state: newState,
-//       city: newCity,
-//     };
-//   }
-
-//   return {
-//     address: userProfile.address,
-//     state: userProfile.state,
-//     city: userProfile.city,
-//   };
-// }
-// ,
-//         didOpen: () => {
-//           const existingAddressRadio = document.getElementById('existingAddress');
-//           const newAddressRadio = document.getElementById('newAddressOption');
-//           const newAddressFields = document.getElementById('newAddressFields');
-//           const existingAddressDisplay = document.getElementById('existingAddressDisplay');
-
-//           // Initially show existing address
-//           existingAddressDisplay.style.display = 'block';
-//           newAddressFields.style.display = 'none';
-
-//           existingAddressRadio.addEventListener('change', () => {
-//             if (existingAddressRadio.checked) {
-//               existingAddressDisplay.style.display = 'block';
-//               newAddressFields.style.display = 'none';
-//             }
-//           });
-
-//           newAddressRadio.addEventListener('change', () => {
-//             if (newAddressRadio.checked) {
-//               newAddressFields.style.display = 'block';
-//               existingAddressDisplay.style.display = 'none';
-//             }
-//           });
-//         }
-//       });
-
-//       if (!result.isConfirmed) {
-//         return;
-//       }
-
-//       const addressData = result;
-//       console.log(addressData);
-      
-
-//       const token = localStorage.getItem('token');
-//       if (!token) {
-//         Swal.fire('Error', 'No token found for authorization.', 'error');
-//         return;
-//       }
-
-//       try {
-//         const ownerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/pet_owner.php`, {
-//           params: { id: pet.user_id },
-//         });
-//         const userEmail = ownerResponse.data.email;
-
-//         const profileResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile/read_profile.php`, {
-//           headers: {
-//             'Authorization': `Bearer ${token}`,
-//           },
-//         });
-//         const userProfile = profileResponse.data;
-
-//         const emailResponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/send_email.php`,
-//           new URLSearchParams({
-//             email: userEmail,
-//             userName: userProfile.username,
-//             userContact: userProfile.phone,
-//             gender: userProfile.gender,
-//             city: addressData.city || userProfile.city,
-//             state: addressData.state || userProfile.state,
-//             address: addressData.address || userProfile.address
-//           }),
-//           {
-//             headers: {
-//               'Content-Type': 'application/x-www-form-urlencoded',
-//             },
-//           }
-//         );
-
-//         if (emailResponse.data.success) {
-//           notification.success({
-//             message: 'Request successfully sent to the owner',
-//             description: 'The owner will review your request. Please be patient.',
-//           });
-
-//   console.log(addressData);
-//   // return;
-//           try {
-//             const updateResponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/adopt_pet.php`,
-//               new URLSearchParams({
-//                 id: pet.id,
-//                 user_id: userProfile.id,
-//                 address: addressData.address || '',
-//                 state: addressData.state || '',
-//                 city: addressData.city || '',
-//                 status: 'pending'
-//               }),
-//               {
-//                 headers: {
-//                   'Content-Type': 'application/x-www-form-urlencoded',
-//                 },
-//               }
-//             );
-
-//             if (updateResponse.data.success) {
-//               setPet({ ...pet });
-//             } else {
-//               Swal.fire('Error', 'There was an issue updating the adoption status.', 'error');
-//             }
-//           } catch (error) {
-//             console.error('Error updating adoption status:', error);
-//             Swal.fire('Error', 'There was an issue updating the adoption status.', 'error');
-//           }
-//         } else {
-//           Swal.fire('Error', emailResponse.data.message || 'There was an issue sending the email.', 'error');
-//         }
-//       } catch (error) {
-//         console.error('Error fetching pet owner profile:', error);
-//         Swal.fire('Error', 'There was an issue fetching the pet owner profile.', 'error');
-//       }
-//     }
   } catch (error) {
     console.error('Error in adoption process:', error);
     Swal.fire('Error', 'There was an issue with the adoption process.', 'error');
+      setIsAdopted(false); // R
   }
 };
 
@@ -429,14 +299,18 @@ console.log(image1);
 
 
   return (
+    <>
+
+          <BreadcrumbComponent items={breadcrumbItems}  />
+
     <div className="pet-info-page">
-     <div className="pet-image-name-info">
-      <div className="pet-image-info">
+     <div className="pet-image-name-info ">
+      <div className="pet-image-info ">
   <img src={`${image1}`} alt="Pet" />
 </div>
 
         <div className="pet-image-name">
-          <h3 className="pet-details-name">{pet.pet_name}</h3>
+          <h3 className="pet-details-name">{pet.name}</h3>
           <div className="maps">
             <div className="flag">
               {countryCode && <ReactCountryFlag countryCode={countryCode} svg className='map' />}
@@ -453,10 +327,10 @@ console.log(image1);
           <CustomPaging  imageUrls={imageUrls} />
         </div>
         <div className="info-description">
-          <h3>{pet.pet_name} Story</h3>
+          <h3>{pet.name} Story</h3>
           <p>{pet.description}</p>
 
-          <div className="healthDetails">
+          <div className="healthDetails ">
             <div className="live health">
               <img className="healthImg" src="/src/assets/child_care.png" alt="Child Care" />
               <span>Can live with other children of any age</span>
@@ -473,7 +347,9 @@ console.log(image1);
             <p>Price: <span>₹{Number(pet.price).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             </div>
             <div className="buttons adoptNow">
-              <button className="adopt" onClick={handleAdoptNow}>Adopt Now</button>
+            <button className="adopt" onClick={handleAdoptNow} disabled={isAdopted}>
+          {isAdopted ? "Processing..." : "Adopt Now"}
+        </button>
             </div>
           </div>
         </div>
@@ -515,17 +391,12 @@ console.log(image1);
     
     <div className="similar-pets">
         <h2>Similar Pets</h2>
-        {/* <Slider  {...sliderSettings}>
-
-        {similarPets.map((petItem) => (
-          <CardView key={petItem.id} pets={[petItem]} />
-        ))}
-
-      </Slider> */}
             <SimilarPetsSlider similarPets={similarPets} />
 
       </div>
   </div>
+      
+    </>
   );
 };
 

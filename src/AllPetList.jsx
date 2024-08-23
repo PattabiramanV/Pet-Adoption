@@ -7,7 +7,7 @@ const AllPetList = () => {
   return (
      <>
      <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pets',href: '/pets' },{ title: 'Adopt',href: '/adopte' }]} />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pets',href: '/pets' },{ title: 'Adopt',href: '/adopte' }  ]} />
       <PetForm />
       <Footer />
     </>

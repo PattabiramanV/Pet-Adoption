@@ -35,7 +35,7 @@ const AdoptionRequests = () => {
   }, []);
 
   const filteredRequests = requests.filter(request =>
-    request.pet_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    request.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     request.address.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -102,7 +102,7 @@ const AdoptionRequests = () => {
                 headers={['S.No', 'Name', 'Address', 'Adoption Time',  'Action']}
                 body={currentRequests.map((request, index) => [
                   (currentPage - 1) * requestsPerPage + index + 1,
-                  request.pet_name,
+                  request.name,
                   request.address,
                   request.adoption_time,
                   <>
