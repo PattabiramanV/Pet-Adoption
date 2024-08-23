@@ -1,163 +1,102 @@
-* {
-    font-family: 'Inter', sans-serif;
-  }
-  
-  
-  .table-container {
-      overflow-x: auto;
-      padding: 2%;
-     
-    }
-    
-    .custom-table {
-      width: 100%;
-      /* border-collapse: collapse; */
-      background-color: white;
-      
-    }
-    
-    .custom-table th, .custom-table td {
-      padding: 12px;
-      text-transform: capitalize;
-      /* border: 1px solid #e5e7eb; */
-      /* text-align: center; */
-    }
-    
-    .custom-table thead {
-      background-color: #f3f4f6;
-    }
-    
-    .custom-table tr:hover {
-      background-color: #f9fafb;
-    }
-    
-    .status-label {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-    
-    .status-delivered {
-      background-color: #d1fae5;
-      color: #065f46;
-    }
-    
-    .status-process {
-      background-color: #fef9c3;
-      color: #854d0e;
-    }
-    
-    .status-canceled {
-      background-color: #fde2e2;
-      color: #b91c1c;
-    }
-    
-    .action-buttons {
-    
-  
-      /* display: flex; */
-      gap: 8px;
-     /* justify-content: center; */
-    }
-    
-   .delete-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 4px;
-    }
-    
-    .edit-btn:hover {
-      color: #3b82f6;
-    }
-    
-    .delete-btn:hover {
-      color: #ef4444;
-    }
-    
-  
-    td {
-      font-size: 14px;
-      color: 000000;
-      text-align: center;
-  }
-  
-  th {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  
-  .delete-btn {
-    background-color: transparent;
-    border: none;
+/* Container Styles */
+/* .doctor-page-container {
+    margin-top: 20px;
+} */
+
+/* DataGrid Cell Styles */
+/* .MuiDataGrid-root .MuiDataGrid-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+} */
+
+/* DataGrid Row Styles */
+/* .MuiDataGrid-row {
+    background-color: #f9f9f9;
+} */
+
+/* .MuiDataGrid-row:hover {
+    background-color: #e0e0e0;
     cursor: pointer;
-    color: red; /* Icon color */
-    font-size: 1.2em; /* Adjust the size of the icon */
-    transition: color 0.3s ease;
-    
-  }
-  
-  .delete-btn:hover {
-    color: darkred; /* Darker red when hovered */
-  }
-  
-  
-  
-  
-  
-  
-  
-  /* ........................Search................ */
-  
-  .table-container input {
-    border: 1px solid #0000004f;
-    width: 260px;
-    padding: 4px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-  
-  
-  .search-container {
-    position: relative;
+} */
+
+/* DataGrid Column Header Styles */
+/* .MuiDataGrid-root .MuiDataGrid-columnHeader {
+    color: #675bc8;
+    border-bottom: 2px solid #ddd;
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgba(204, 200, 200, 0.158);
+
+} */
+
+/* DataGrid Column Header Title Styles */
+/* .MuiDataGrid-columnHeaderTitle {
+    color: #675bc8;
+} */
+
+/* DataGrid Cell Styles */
+/* .MuiDataGrid-root .MuiDataGrid-cell {
+    background-color: #fff;
+    padding: 10px;
+} */
+
+
+
+/* DataGrid Column Separator */
+/* .MuiDataGrid-columnSeparator.MuiDataGrid-columnSeparator--resizable.MuiDataGrid-columnSeparator--sideRight {
+    visibility: visible;
+    color: grey;
+} */
+
+/* Typography Styles */
+/* .MuiTypography-root {
+    color: #675bc8;
+} */
+
+/* Button Styles */
+/* .MuiButton-root {
+    background-color: #675bc8;
+    color: #fff;
+} */
+
+/* Search Box Styles */
+/* .div_search_doctor {
     width: 100%;
-    max-width: 300px; /* Adjust the width as needed */
-    /* margin-bottom: 1rem; */
-    padding: 0 2%;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.TextField-root {
+    width: 300px;
+} */
+
+/* Header Styles */
+/* .div_reacod_name {
+    text-align: center;
+    font-size: 32px;
+    color: #4B0082;
+}
+
+.div_reacod_name_span {
+    color: #6A5ACD;
+}
+
+span.div_reacod_name_span {
+    color: #6A5ACD;
+} */
+
+/* Expanded Row Styles */
+/* .expanded-row {
+    background-color: #f5f5f5;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+}
+.div_reacod_name {
   
-  .search-input {
-    width: 100%;
-    padding: 8px 12px 8px 40px; /* Adjust padding to make room for the icon */
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  .search-input::placeholder {
-    width: 100%;
-    padding-left: 26px; /* Adjust padding to make room for the icon */
-    border-radius: 4px;
-    font-size: 14px;
-    /* border: 1px solid #ccc; */
-  }
-  
-  .search-icon {
-    position: absolute;
-    top: 40%;
-    left: 35px;
-    transform: translateY(-50%);
-    color: #888; /* Icon color */
-    font-size: 14px;
-  }
-  
-  /* ..............Pagination..................... */
-  
-  /* Pagination container */
-  .pagination {
     display: flex;
     justify-content: center;
     list-style: none;
@@ -166,108 +105,124 @@
     height: 100%    ;
     align-items: center;
     gap: 12px;
+}.div_table_for_doct {
+    padding: 2em 0;
+}
+.MuiDataGrid-virtualScroller.css-1793420-MuiDataGrid-virtualScroller {
+    background: aliceblue;
+} */
+
+/* .MuiDataGrid-cell.MuiDataGrid-cell--textLeft:nth-child(even) {
+    background-color: #685bc81a;
+} */
+/* .MuiDataGrid-cell.MuiDataGrid-cell--textLeft {
+    background-color: #14131610;
+}.MuiDataGrid-row :nth-child(even) {
+    background-color: #16131310;
+} */
+
+
+
+
+
+/* //........................CSS...........................................// */
+
+
+
+
+.table-container {
+    overflow-x: auto;
+    padding: 2%;
   }
   
-  /* Individual page items */
-  .page-item {
-    margin: 0 5px;
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
   }
   
-  /* Normal page links */
-  .page-link {
-    color: gray;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    text-decoration: none;
-    cursor: pointer;
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
   }
   
-  
-  
-  /* Next and Previous buttons */
-  .previous-page .page-link,
-  .next-page .page-link {
-    color: #007bff; /* Style for the Next and Previous text */
-    font-weight: bold;
-    
+  .custom-table thead {
+    background-color: #f3f4f6;
   }
   
-  /* Disabled page (optional, if you have disabled states) */
-  .disabled-page .page-link {
-    color: lightgray;
-    cursor: not-allowed;
-    
+  .custom-table tr:hover {
+    background-color: #f9fafb;
   }
   
-  
-  .active-page .page-link {
-    background-color:rgba(98, 77, 227, 1);
-    color: white;
-    border-radius: 8px;
-   font-weight: 500;
-    height: 31px;
-    width: 31px;
-    display: inline-flex; /* Ensure the element is treated as a flex container */
-    align-items: center;  /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
-    padding: 0; /* Remove any padding that may affect the size */
-    box-sizing: border-box; /* Include border and padding in width and height */
-    line-height: 1; /* Set line-height to normal to prevent overflow */
-    
-  }
-  
-  a.page-link{
-    background-color:rgba(224, 224, 224, 1);
-    color: rgba(0, 0, 0, 1);
-   font-size: 12px;
-   font-weight: 500;
-   border-radius: 8px;
-    height: 31px;
-    width: 31px;
-    display: inline-flex; /* Ensure the element is treated as a flex container */
-    align-items: center;  /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
-    padding: 0; /* Remove any padding that may affect the size */
-    box-sizing: border-box; /* Include border and padding in width and height */
-    line-height: 1; /* Set line-height to normal to prevent overflow */
-    
-  }
-  .previous-page a,
-  .next-page a {
-    color: rgba(158, 158, 158, 1);
+  .status-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: bold;
   }
   
+  .status-delivered {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
   
+  .status-process {
+    background-color: #fef9c3;
+    color: #854d0e;
+  }
   
+  .status-canceled {
+    background-color: #fde2e2;
+    color: #b91c1c;
+  }
   
-  .profileName {
+  .action-buttons {
     display: flex;
-    /* width: 120px; */
     gap: 8px;
-    align-items: center;
-  }
-  img.profileImg {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-  }
-  /* .profileName>*{
-    width: 50%;
-  } */
-  
-  
-  
-  .no-data-row {
-    background-color: #f9fafb; /* Light background for the no data row */
-    color: #6b7280; /* Gray color for the text */
-    text-align: center; /* Center align text */
-    font-size: 16px; /* Adjust font size as needed */
-    padding: 20px; /* Add padding to make the row more spacious */
-    font-weight: bold; /* Make the text bold */
-    border-top: 1px solid #e5e7eb; /* Optional: Add a border on top */
   }
   
+  .edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+  }
   
+  .edit-btn:hover {
+    color: #3b82f6;
+  }
+  
+  .delete-btn:hover {
+    color: #ef4444;
+  }
+  
+
+  td {
+    font-size: 14px;
+    color: 000000;
+}
+
+th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: red; /* Icon color */
+  font-size: 1.5em; /* Adjust the size of the icon */
+  transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+  color: darkred; /* Darker red when hovered */
+}
+
+

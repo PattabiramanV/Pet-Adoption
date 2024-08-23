@@ -9,6 +9,8 @@ const DoctorList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
+    
     const fetchDoctors = async () => {
       try {
         const response = await fetch('http://localhost/petadoption/backend/api/retrivevetrinarydocinfoapi.php');
@@ -38,6 +40,12 @@ const DoctorList = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+
+
+
+
+  
 
   return (
     <div className="doctor-list">

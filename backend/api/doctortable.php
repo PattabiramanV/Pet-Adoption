@@ -16,6 +16,7 @@ try {
                 pet_grooming_users.email AS grooming_user_email,
                 pet_grooming_users.pet_type,
                 pet_grooming_users.pet_gender,
+                pet_grooming_users.appoinment_date,
                 pet_grooming_users.pet_age,
                 pet_grooming_users.city,
                 pet_grooming_users.id,
