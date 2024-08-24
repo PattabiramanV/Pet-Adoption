@@ -532,7 +532,7 @@ console.log(visibleHostels); // Should print the currently visible hostels
           <div className="slider-content">
             <div
               className="slider-track"
-              style={{ transform: `translateX(-${currentIndex * (100 / visibleItems)}%)` }}
+            
             >
               {visibleHostels.map((hostel) => (
                 <div key={hostel.id} className="slider-item">
