@@ -80,7 +80,7 @@ function BookingSlot() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
 
-    console.log(selectedSlots);
+    console.log("checked fields slots ",selectedSlots);
 
     useEffect(() => {
         const doctorId = 18;
@@ -122,6 +122,24 @@ function BookingSlot() {
             return updatedSlots;
         });
     };
+
+
+    // const handleCheckboxChange = (slot) => {
+    //     setSelectedSlots(prevSlots => {
+    //         let updatedSlots;
+    
+    //         if (prevSlots.includes(slot)) {
+    //             // Remove the slot if it's already selected
+    //             updatedSlots = prevSlots.split(',').filter(s => s !== slot).join(',');
+    //              setSelectedSlots(slot);
+    //         } else {
+    //             // Add the slot if it's not selected
+    //             updatedSlots = prevSlots ? `${prevSlots},${slot}` : slot;
+    //         }
+    
+    //         return updatedSlots;
+    //     });
+    // };
 
     const handleAlertClose = () => {
         setAlertOpen(false);
@@ -169,7 +187,34 @@ function BookingSlot() {
                 />
             </div>
 
+
+
+
             <div>
+    <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
+    <div className="grid grid-cols-2 gap-4">
+        {loading ? (
+            <p className="text-gray-500 col-span-2">Loading slots...</p>
+        ) : timeSlots.length > 0 ? (
+            timeSlots.map((slot, index) => (
+                <div key={index} className="flex items-center">
+                    <Checkbox
+                        checked={selectedSlots.includes(slot)}
+                        onChange={() => handleCheckboxChange(slot)}
+                        disabled={disabledSlots.includes(moment(slot.split(" - ")[0], ['hh:mm A']).format('hh:mm A'))}
+                    />
+                    <label className="ml-2 text-gray-700">{slot}</label>
+                </div>
+            ))
+        ) : (
+            <p className="text-gray-500 col-span-2">No available slots.</p>
+        )}
+    </div>
+    {showErrors && error.selectedSlot && <p className="text-red-500 text-sm mt-2">{error.selectedSlot}</p>}
+</div>
+
+
+            {/* <div>
                 <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
                 <div className="grid grid-cols-2 gap-4">
                     {timeSlots.map((slot, index) => (
@@ -183,7 +228,7 @@ function BookingSlot() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
 
             <button
                 className={`mt-6 w-full py-2 px-4 text-white rounded-md ${isSubmitted ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}

@@ -61,7 +61,8 @@ function GroomingPetsForm() {
             const selectedOption = e.target.options[e.target.selectedIndex];
             const selectedId = selectedOption.id;
             setSelectedDoctorId(selectedId);
-
+            console.log(selectedId);
+            
             if (name === 'selectdoctorname') {
                 const selectedDoctor = doctors.find(doctor => doctor.name === value);
                 setApplyGrooming({
@@ -184,7 +185,8 @@ function GroomingPetsForm() {
         setDisabledSlots(formattedSlots);
     };
 
-    const handleCheckboxChange = (slot) => {
+    const handleCheckboxChange = (slot, isChecked) => {
+        console.log(`Selected: ${slot}`);
         setSelectedSlots(prevSelected => {
           if (prevSelected.includes(slot)) {
             return prevSelected.filter(s => s !== slot);
@@ -283,12 +285,12 @@ function GroomingPetsForm() {
         <div className="custom-div max-w-4xl mx-auto p-8 mb-5 mt-5">
             <h2 className="title">APPLAY GROOMING SERVICE</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Name */}
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Name </label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none  ${error.name ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none  ${error.name ? 'border-red-500' : ''}`}
                             type="text"
                             name="name"
                             value={applyGrooming.name}
@@ -302,7 +304,7 @@ function GroomingPetsForm() {
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Contact <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.contact ? 'border-red-500' : ''}`}
+                            className={` custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.contact ? 'border-red-500' : ''}`}
                             type="number"
                             name="contact"
                             value={applyGrooming.contact}
@@ -314,7 +316,7 @@ function GroomingPetsForm() {
 
                     {/* Email */}
                     <div >
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Email <span className="text-red-500">*</span></label>
+                        <label className="custum-input block text-gray-700 text-sm font-bold mb-2">Email <span className="text-red-500">*</span></label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.email ? 'border-red-500' : ''}`}
                             type="email"
@@ -329,7 +331,7 @@ function GroomingPetsForm() {
 
                     {/* Pet Type */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Pet Type </label>
+                        <label className="custum-input block text-gray-700 text-sm font-bold mb-2">Pet Type </label>
                         <input
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petType ? 'border-red-500' : ''}`}
                             type="text"
@@ -347,7 +349,7 @@ function GroomingPetsForm() {
                         <label className="block text-gray-700 text-sm font-bold mb-2">Pet Gender</label>
 
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petimage ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petimage ? 'border-red-500' : ''}`}
                             type="text"
                             name="petGender"
                             value={applyGrooming.petGender}
@@ -361,7 +363,7 @@ function GroomingPetsForm() {
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">Pet Age <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petAge ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petAge ? 'border-red-500' : ''}`}
                             type="text"
                             name="petAge"
                             value={applyGrooming.petAge}
@@ -376,7 +378,7 @@ function GroomingPetsForm() {
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">City <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.city ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.city ? 'border-red-500' : ''}`}
                             type="text"
                             name="city"
                             value={applyGrooming.city}
@@ -391,7 +393,7 @@ function GroomingPetsForm() {
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">Service <span className="text-red-500">*</span></label>
                         <select
-                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                            className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
                             id="sevice"
                             name="sevice"
                             value={applyGrooming.service}
@@ -410,7 +412,7 @@ function GroomingPetsForm() {
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Need for Pet </label>
                         <textarea
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.needForPet ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.needForPet ? 'border-red-500' : ''}`}
                             name="needForPet"
                             value={applyGrooming.needForPet}
                             onChange={handleFields}
@@ -424,7 +426,7 @@ function GroomingPetsForm() {
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Pet Image <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petimage ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petimage ? 'border-red-500' : ''}`}
                             type="file"
                             name="petimage"
                             onChange={handleFields}
@@ -437,7 +439,7 @@ function GroomingPetsForm() {
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">Select Doctor <span className="text-red-500">*</span></label>
                         <select
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.selectdoctorname ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.selectdoctorname ? 'border-red-500' : ''}`}
                             name="selectdoctorname"
                             value={applyGrooming.selectdoctorname}
                             onChange={handleFields}
@@ -457,7 +459,7 @@ function GroomingPetsForm() {
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Doctor's Address</label>
                         <input
-                            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                            className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
                             type="text"
                             name="doctorAddress"
                             value={applyGrooming.doctorAddress}
@@ -472,7 +474,7 @@ function GroomingPetsForm() {
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">Appointment Date <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.appointmentDate ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.appointmentDate ? 'border-red-500' : ''}`}
                             type="date"
                             name="appointmentDate"
                             value={applyGrooming.appointmentDate}
@@ -494,7 +496,7 @@ function GroomingPetsForm() {
                                         slot={slot}
                                         isChecked={selectedSlots.includes(slot)}
                                         isDisabled={disabledSlots.includes(moment(slot.split(" - ")[0], ['hh:mm A']).format('hh:mm A'))}
-                                        onChange={() => handleCheckboxChange(slot)}
+                                        onChange={(e) => handleCheckboxChange(slot,e.target.checked)}
                                     />
                                 ))
                             ) : (
