@@ -8,7 +8,7 @@ const SimilarPetsSlider = ({ similarPets }) => {
   // return ;
   
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleItems = 5; 
+  const visibleItems = 3; 
   const handleNext = () => {
     if (currentIndex < similarPets.length - visibleItems) {
       setCurrentIndex(currentIndex + 1);

@@ -16,13 +16,12 @@ const breadcrumbItems = {
 
 const OverallTables = () => {
   const [selectedItem, setSelectedItem] = useState(() => {
-    // Retrieve the selected item from localStorage or default to 'Overview'
     return localStorage.getItem('selectedItem') || 'Overview';
   });
 
   const handleMenuItemClick = (item) => {
     setSelectedItem(item);
-    localStorage.setItem('selectedItem', item); // Save the selected item to localStorage
+    localStorage.setItem('selectedItem', item); 
   };
 
   return (
