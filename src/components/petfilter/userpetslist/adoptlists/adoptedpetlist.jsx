@@ -80,21 +80,23 @@ const Adoptedpetlist = () => {
 
   const tableBody = currentData.map((pet, index) => {
     let serialNumber = (currentPage - 1) * petsPerPage + index + 1;
-//     let image1;
-//   if (pet.photo) {
-//     const parsed = JSON.parse(pet.photo);
-//     const baseUrl = '/backend/petsapi/hostelimg/';
-//     const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
-//     image1 = imageUrls[0];
-//   }
+ let image1;
+    if (pet.photo) {
+      const parsed = JSON.parse(pet.photo);
+      const baseUrl = '/backend/petsapi/hostelimg/';
+      const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
+      image1 = imageUrls[0];
+    }
 
     return [
       serialNumber,
-      pet.photo ? (
-        <img src={`data:image/jpeg;base64,${pet.photo}`} className="pet-details-img" alt={pet.name} />
-      ) : (
-        <div>No image available</div>
-      ),
+      // pet.photo ? (
+      //   <img src={`data:image/jpeg;base64,${pet.photo}`} className="pet-details-img" alt={pet.name} />
+      // ) : (
+      //   <div>No image available</div>
+      // ),
+            image1 ? <img src={image1} className="pet-details-img" alt={pet.name} /> : 'No image available',
+
       pet.name,
       pet.breeds,
       pet.age,

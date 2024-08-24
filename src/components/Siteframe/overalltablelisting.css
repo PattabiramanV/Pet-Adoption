@@ -30,9 +30,9 @@ margin-bottom: 607px;
   font-size: 16px;
 }
 
-.sidebar ul li:hover {
+/* .sidebar ul li:hover {
   background-color: #3b3b4e;
-}
+} */
 
 .contenttables {
       min-width: 87%;
@@ -41,10 +41,10 @@ margin-bottom: 607px;
 }
 
 .sidebar li.active {
-  background-color: #44444e;
+  background-color: #3b3b4e;
   color: white;
 }
 
-.sidebar li:hover {
+/* .sidebar li:hover {
   background-color: #e0e0e0;
-}
+} */

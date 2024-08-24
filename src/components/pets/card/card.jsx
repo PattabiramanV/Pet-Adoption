@@ -1,13 +1,17 @@
-// import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './card.css';
+
 function PetDetails({ id, name, city, description = 'No description available', profile, breed, gender, age, size }) {
- let image1 = '/src/assets/default_image.png';
+  let image1 = '/src/assets/Golden/Golden_brs.jpg';
+   console.log(profile);
+// return;
 
   if (profile) {
     try {
-      const parsed = JSON.parse(profile);
+      
+      const parsed = JSON.parse(profile); 
+
       const baseUrl = '/backend/petsapi/hostelimg/';
       const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
       image1 = imageUrls[0] || image1; 
@@ -15,6 +19,7 @@ function PetDetails({ id, name, city, description = 'No description available', 
       console.error("Error parsing profile photos:", error);
     }
   }
+
   return (
     <div className="card-container">
       <div className="cardimg">
@@ -67,12 +72,11 @@ function PetDetails({ id, name, city, description = 'No description available', 
   );
 }
 
-
 PetDetails.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  profile: PropTypes.string.isRequired, // Now expecting a JSON string
+  profile: PropTypes.string.isRequired, // Expecting Base64 encoded JSON string
   description: PropTypes.string,
   breed: PropTypes.string.isRequired,
   gender: PropTypes.string.isRequired,
@@ -85,6 +89,14 @@ PetDetails.defaultProps = {
 };
 
 const CardView = ({ pets }) => {
+
+//   console.log(pets[0].photo);
+// const parse=JSON.parse(pets[0].photo);
+// console.log(parse);
+
+  // return;
+
+  
   if (!Array.isArray(pets)) {
     return <p>No pets available.</p>;
   }
