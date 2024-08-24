@@ -67,14 +67,14 @@ function Tablesvent() {
                             </div>
                         )}
 
-                        {/* {activeTab === 'slat' && (
+                        {activeTab === 'slat' && (
                             <div className="slat-content">
                                 <Routes>
                                     <Route path="/" element={<BookingSlat />} />
                                     <Route path="/BookingSlat" element={<BookingSlat />} />
                                 </Routes>
                             </div>
-                        )} */}
+                        )}
 
 
                     </div>

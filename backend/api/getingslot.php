@@ -19,10 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt->execute([$doctorId, $appointmentDate]);
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $bookedSlotTime = DateTime::createFromFormat('H:i:s', $row['bookingslot']);
-            if ($bookedSlotTime) {
-                $bookedSlots[] = $bookedSlotTime->format('h:i A');
-            }
+            $bookedSlots[] = json_decode($row['bookingslot'], true);
         }
 
         // Fetch doctor's available timings
@@ -36,31 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             exit;
         }
 
-        // Generate all possible slots
-        $startTime = new DateTime($availability['available_timing_from']);
-        $endTime = new DateTime($availability['available_timing_to']);
+        // Convert available timings to array of slots
+        $availableTimingFrom = new DateTime($availability['available_timing_from']);
+        $availableTimingTo = new DateTime($availability['available_timing_to']);
+        $slots = [];
 
-        $interval = new DateInterval('PT30M');
-        $allSlots = [];
-        while ($startTime <= $endTime) {
-            $allSlots[] = $startTime->format('H:i:s');
-            $startTime->add($interval);
+        $interval = new DateInterval('PT30M'); // 30-minute interval
+
+        while ($availableTimingFrom < $availableTimingTo) {
+            $slotStart = $availableTimingFrom->format('g:i A'); // Start time
+            $availableTimingFrom->add($interval);
+            $slotEnd = $availableTimingFrom->format('g:i A'); // End time
+
+            if ($availableTimingFrom <= $availableTimingTo) {
+                $slots[] = "$slotStart - $slotEnd";
+            }
         }
-
-        // Calculate available slots
-        $availableSlots = array_diff($allSlots, array_map(function($slot) {
-            $time = DateTime::createFromFormat('h:i A', $slot);
-            return $time ? $time->format('H:i:s') : $slot;
-        }, $bookedSlots));
-
-        $availableSlotsFormatted = array_map(function($slot) {
-            $time = DateTime::createFromFormat('H:i:s', $slot);
-            return $time ? $time->format('h:i A') : $slot;
-        }, $availableSlots);
 
         echo json_encode([
             "status" => "success",
-            "slots" => $availableSlotsFormatted,
+            "slots" => $slots,
             "bookedSlots" => $bookedSlots
         ]);
     } catch (PDOException $e) {

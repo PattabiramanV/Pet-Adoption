@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, Snackbar, Alert } from '@mui/material';
+import Loader from '../Loader/Loader';
+import moment from 'moment';
 
 const currentDayShowFun = () => {
     const today = new Date();
@@ -20,7 +22,7 @@ const generateTimeSlots = (startTime, endTime) => {
     const timeSlots = [];
 
     while (start < end) {
-        const nextSlot = new Date(start.getTime() + 30 * 60000); // Increment by 30 minutes
+        const nextSlot = new Date(start.getTime() + 30 * 60000);
         timeSlots.push({
             start: formatTime(start),
             end: formatTime(nextSlot),
@@ -33,12 +35,18 @@ const generateTimeSlots = (startTime, endTime) => {
 
 const fetchDoctorAvailability = async (doctorId, date) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php?id=${doctorId}&date=${date}`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php?id=${doctorId}&date=${date}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        });
         if (!response.ok) throw new Error('Network response was not ok');
-        
+
         const text = await response.text(); // Get the raw text response
         console.log("Raw Response:", text);
-        
+
         const data = JSON.parse(text); // Parse the JSON manually
         console.log("Availability slots", data);
         return data;
@@ -48,13 +56,14 @@ const fetchDoctorAvailability = async (doctorId, date) => {
     }
 };
 
-
 const saveSelectedSlots = async (doctorId, date, slots) => {
     try {
+        const token = localStorage.getItem('token')
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
             },
             body: JSON.stringify({ doctorId, date, slots }),
         });
@@ -73,19 +82,21 @@ function BookingSlot() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [availability, setAvailability] = useState({ startTime: '09:00 AM', endTime: '05:00 PM' });
     const [selectedSlots, setSelectedSlots] = useState([]);
-    const [disabledSlots, setDisabledSlots] = useState({});
+    const [disabledSlots, setDisabledSlots] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    console.log(selectedSlots);
+    console.log("checked fields slots ", selectedSlots);
 
     useEffect(() => {
-        const doctorId = 18; // Replace with your doctor's ID
+        const doctorId = 18;
 
         // Load disabled slots from localStorage
         const savedDisabledSlots = JSON.parse(localStorage.getItem(`disabledSlots-${doctorId}`)) || {};
         setDisabledSlots(savedDisabledSlots);
 
+        setLoading(true);
         fetchDoctorAvailability(doctorId, selectedDate).then(data => {
             if (data.start_time && data.end_time) {
                 const startTime = new Date(data.start_time);
@@ -104,6 +115,7 @@ function BookingSlot() {
             }
 
             setIsSubmitted(false); // Reset submit state when date changes
+            setLoading(false);
         });
     }, [selectedDate]);
 
@@ -116,10 +128,6 @@ function BookingSlot() {
             const updatedSlots = prevSlots.includes(slot)
                 ? prevSlots.filter(s => s !== slot)
                 : [...prevSlots, slot];
-
-            // Show alert when a checkbox is clicked
-            setAlertOpen(true);
-
             return updatedSlots;
         });
     };
@@ -129,6 +137,7 @@ function BookingSlot() {
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
         const doctorId = 18;
         const result = await saveSelectedSlots(doctorId, selectedDate, selectedSlots);
 
@@ -146,9 +155,11 @@ function BookingSlot() {
 
             setSelectedSlots([]);
             setIsSubmitted(true);
+            setAlertOpen(true);
         } else {
             console.error('Failed to save slots');
         }
+        setLoading(false);
     };
 
     return (
@@ -171,16 +182,22 @@ function BookingSlot() {
             <div>
                 <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
                 <div className="grid grid-cols-2 gap-4">
-                    {timeSlots.map((slot, index) => (
-                        <div key={index} className="flex items-center">
-                            <Checkbox
-                                checked={selectedSlots.includes(slot.start)}
-                                onChange={() => handleCheckboxChange(slot.start)}
-                                disabled={disabledSlots[selectedDate]?.includes(slot.start)}
-                            />
-                            <label className="ml-2">{slot.start}</label>
-                        </div>
-                    ))}
+                    {loading ? (
+                        <Loader />
+                    ) : timeSlots.length > 0 ? (
+                        timeSlots.map((slot, index) => (
+                            <div key={index} className="flex items-center">
+                                <Checkbox
+                                    checked={selectedSlots.includes(slot.start)}
+                                    onChange={() => handleCheckboxChange(slot.start)}
+                                    disabled={disabledSlots[selectedDate]?.includes(slot.start)}
+                                />
+                                <label className="ml-2">{slot.start}</label>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-500 col-span-2">No available slots.</p>
+                    )}
                 </div>
             </div>
 
@@ -202,6 +219,8 @@ function BookingSlot() {
                     Slot selection updated!
                 </Alert>
             </Snackbar>
+
+            {loading && <Loader />}
         </div>
     );
 }
