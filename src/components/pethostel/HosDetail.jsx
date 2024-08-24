@@ -186,12 +186,16 @@ const HostelDetails = () => {
       console.log(response.data);
   
       if (response.data.status == 'success') {
-     
-        setPet(response.data.reviewData[0]);
-      setReviews(response.data.reviewData);
-      setHostels(response.data.hostels);
-      setUserId(response.data.user_id);
-      setRating(Math.floor(Number(pet?.average_rating)));
+     console.log('res',response);
+
+        setPet(response?.data?.reviewData[0]);
+      
+      setReviews(response?.data?.reviewData);
+      setHostels(response?.data?.hostels);
+      setUserId(response?.data?.user_id);
+      console.log('find',Math.floor(response?.data?.reviewData[0]?.average_rating));
+      setRating(Math.floor(response?.data?.reviewData[0]?.average_rating));
+      // setRating(Math.floor(Number(pet?.average_rating)));
 
         }
 
@@ -223,7 +227,8 @@ const HostelDetails = () => {
 
   }, [hosId]);
 
-
+// console.log(rat);
+console.log('rating',typeof rating);
   // console.log(pet);
   // console.log(reviews);
   // if (loading) {
@@ -366,7 +371,9 @@ console.log(hostels);
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
-              <StarRating rating={2} readOnly={true}  />
+              {console.log('saa',rating)}
+              {rating ?
+                            <StarRating rating={rating } readOnly={true}  /> : null }
               <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
 
