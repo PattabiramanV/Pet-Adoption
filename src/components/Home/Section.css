@@ -232,3 +232,9 @@ img.dogCatname {
         width: 80%;
     }
 }
+
+button.landing_more-info-btns {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}

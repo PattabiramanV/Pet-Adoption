@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesomeIcon
+import { faMap ,faMapSigns} from "@fortawesome/free-solid-svg-icons"; // Import specific icons
+import { faMapMarkerAlt, faLocationArrow, faSearchLocation, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+
 import catanddog from "../../assets/Dog_&_Cat.png";
 import name from "../../assets/Give a new life to Furry Friends.png";
+
 import './Section.css';
 
 const Section = () => {
@@ -29,13 +34,16 @@ const Section = () => {
                   className="landing_more-info-btns" 
                   onClick={handleNavigation} // Add onClick handler to navigate
                 >
-                  Find Nearby Location
+                  <span>
+                    <FontAwesomeIcon icon={faSearchLocation} className="signup-icon" />
+                  </span> 
+                   Find Nearby Location
                 </button>
               </div>
             </div>
           </div>
           <div className="wrapperDogCat">
-            <img className="dogCat" loading="lazy" alt="" src={catanddog} />
+            <img className="dogCat" loading="lazy" alt="Dog and Cat" src={catanddog} />
           </div>
         </div>
       </div>
