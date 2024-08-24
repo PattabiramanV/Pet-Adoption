@@ -1,6 +1,8 @@
+
+
 import React, { useEffect, useState } from 'react';
 import { Checkbox, Snackbar, Alert } from '@mui/material';
-
+import moment from 'moment/moment';
 const currentDayShowFun = () => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -53,6 +55,8 @@ const fetchDoctorAvailability = async (doctorId, date) => {
 
 
 const saveSelectedSlots = async (doctorId, date, slots) => {
+// console.log(slots);
+    // return;
     try {
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
             method: 'POST',
@@ -72,6 +76,8 @@ const saveSelectedSlots = async (doctorId, date, slots) => {
 };
 
 function BookingSlot() {
+
+
     const [selectedDate, setSelectedDate] = useState(currentDayShowFun());
     const [timeSlots, setTimeSlots] = useState([]);
     const [availability, setAvailability] = useState({ startTime: '09:00 AM', endTime: '05:00 PM' });
@@ -79,7 +85,11 @@ function BookingSlot() {
     const [disabledSlots, setDisabledSlots] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showErrors, setErrors] = useState(false);
 
+
+    
     console.log("checked fields slots ",selectedSlots);
 
     useEffect(() => {
@@ -165,10 +175,14 @@ function BookingSlot() {
             setSelectedSlots([]);
             setIsSubmitted(true);
             setAlertOpen(true);
+            setLoading(true);
         } else {
             console.error('Failed to save slots');
         }
+        setLoading(false);
     };
+
+
 
     return (
         <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
@@ -189,7 +203,7 @@ function BookingSlot() {
 
 
 
-
+{/* 
             <div>
     <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
     <div className="grid grid-cols-2 gap-4">
@@ -211,10 +225,10 @@ function BookingSlot() {
         )}
     </div>
     {showErrors && error.selectedSlot && <p className="text-red-500 text-sm mt-2">{error.selectedSlot}</p>}
-</div>
+</div> */}
 
 
-            {/* <div>
+            <div>
                 <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
                 <div className="grid grid-cols-2 gap-4">
                     {timeSlots.map((slot, index) => (
@@ -228,7 +242,7 @@ function BookingSlot() {
                         </div>
                     ))}
                 </div>
-            </div> */}
+            </div>
 
             <button
                 className={`mt-6 w-full py-2 px-4 text-white rounded-md ${isSubmitted ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}

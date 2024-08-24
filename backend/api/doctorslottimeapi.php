@@ -78,8 +78,10 @@ try {
 
             echo json_encode(array("success" => true, "message" => "Record updated successfully."));
         } else {
+            // echo json_encode(array("success" => true, "message" => "Record updated successfully."));
             // Insert a new record
-            $slotsJson = json_encode($newSlots);
+            // $slotsJson = json_encode($newSlots);
+// exit;
 
             $query = "INSERT INTO slot (doctor_id, booking_date, bookingslot) VALUES (:doctorId, :date, :slots)";
             $stmt = $conn->prepare($query);
