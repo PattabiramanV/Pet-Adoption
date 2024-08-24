@@ -44,6 +44,7 @@ const PetDetailsRoute = () => {
       const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_pet_details.php`, {
         params: { id },
         headers: { 'Authorization': `Bearer ${token}` },
+
       });
 
 

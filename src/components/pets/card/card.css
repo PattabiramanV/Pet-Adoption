@@ -1,10 +1,12 @@
  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
  .petscontainer {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-   gap: 20px;
-   padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 19px;
+  padding: 20px;
+  flex-wrap: wrap;
+  display: flex;
  }
 
  .petsloca .petslocation {

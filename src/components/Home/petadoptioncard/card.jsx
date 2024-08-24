@@ -16,12 +16,12 @@ const PetCard = ({ pet }) => {
   return (
     <div className="pet-card">
       <div className="pet-card-image-container">
-        <img src={imageSrc} alt={pet.pet_name} className="pet-card-image" />
+        <img src={imageSrc} alt={pet.name} className="pet-card-image" />
       </div>
 
       <div className="pet-card-body">
         <div className="pet-card-header">
-          <h2 className="pet-name">{pet.pet_name}</h2>
+          <h2 className="pet-name">{pet.name}</h2>
           <p className="pet-location">
             <FontAwesomeIcon icon={faMapMarkerAlt} /> {pet.city}
           </p>

@@ -75,6 +75,7 @@ section.header_nav {
   border-radius: 4px;
   overflow: hidden;
   display: none;
+  z-index: 50;
 }
 
 .dropdown-menu a {
