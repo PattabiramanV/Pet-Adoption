@@ -155,7 +155,7 @@ const Sale = () => {
                     profilePic: []
                 });
 
-                navigate('/adopte'); // Corrected navigation
+                navigate('/adopte'); 
             } else {
                 notification.error({
                     message: 'Submission Failed',
