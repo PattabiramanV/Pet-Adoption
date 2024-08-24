@@ -297,7 +297,7 @@ function GroomingPetsForm() {
                             onChange={handleFields}
                             placeholder="Name"
                         />
-                        {showErrors && error.name && <p className="text-red-600 text-sm">{error.name}</p>}
+                        {error.name && error.name && <p className="text-red-600 text-sm">{error.name}</p>}
                     </div>
 
                     {/* Contact */}
@@ -311,7 +311,7 @@ function GroomingPetsForm() {
                             onChange={handleFields}
                             placeholder="Contact"
                         />
-                        {showErrors && error.contact && <p className="text-red-600 text-sm">{error.contact}</p>}
+                        {error.contact && error.contact && <p className="text-red-600 text-sm">{error.contact}</p>}
                     </div>
 
                     {/* Email */}
@@ -326,7 +326,7 @@ function GroomingPetsForm() {
                             placeholder="Email"
                             
                         />
-                        {showErrors && error.email && <p className="text-red-600 text-sm">{error.email}</p>}
+                        {error.email && error.email && <p className="text-red-600 text-sm">{error.email}</p>}
                     </div>
 
                     {/* Pet Type */}
@@ -341,7 +341,7 @@ function GroomingPetsForm() {
                             placeholder="Enter Pet Type"
                             
                         />
-                        {showErrors && error.petType && <p className="text-red-600 text-sm">{error.petType}</p>}
+                        {error.petType && error.petType && <p className="text-red-600 text-sm">{error.petType}</p>}
                     </div>
 
                     {/* Pet Gender */}
@@ -357,7 +357,7 @@ function GroomingPetsForm() {
                             onChange={handleFields}
                         />
 
-                        {showErrors && error.petGender && <p className="text-red-600 text-sm">{error.petGender}</p>}
+                        {error.petGender && error.petGender && <p className="text-red-600 text-sm">{error.petGender}</p>}
                     </div>
 
                     {/* Pet Age */}
@@ -372,7 +372,7 @@ function GroomingPetsForm() {
                             placeholder="Pet Age"
                             
                         />
-                        {showErrors && error.petAge && <p className="text-red-600 text-sm">{error.petAge}</p>}
+                        {error.petAge && error.petAge && <p className="text-red-600 text-sm">{error.petAge}</p>}
                     </div>
 
                     {/* City */}
@@ -387,7 +387,7 @@ function GroomingPetsForm() {
                             placeholder="City"
                             
                         />
-                        {showErrors && error.city && <p className="text-red-600 text-sm">{error.city}</p>}
+                        {error.city && error.city && <p className="text-red-600 text-sm">{error.city}</p>}
                     </div>
 
                     {/* Service */}
@@ -420,9 +420,9 @@ function GroomingPetsForm() {
                             value={applyGrooming.needForPet}
                             onChange={handleFields}
                             placeholder="Why do you need a pet?"
-                            required
+                            
                         ></textarea>
-                        {showErrors && error.needForPet && <p className="text-red-600 text-sm">{error.needForPet}</p>}
+                        {error.needForPet && error.needForPet && <p className="text-red-600 text-sm">{error.needForPet}</p>}
                     </div>
 
                     {/* Pet Image */}
@@ -433,9 +433,9 @@ function GroomingPetsForm() {
                             type="file"
                             name="petimage"
                             onChange={handleFields}
-                            required
+                            
                         />
-                        {showErrors && error.petimage && <p className="text-red-600 text-sm">{error.petimage}</p>}
+                        {error.petimage && error.petimage && <p className="text-red-600 text-sm">{error.petimage}</p>}
                     </div>
 
                     {/* Select Doctor */}
@@ -446,7 +446,7 @@ function GroomingPetsForm() {
                             name="selectdoctorname"
                             value={applyGrooming.selectdoctorname}
                             onChange={handleFields}
-                            required
+                            
                         >
                             <option value="">Select Doctor</option>
                             {doctors.map(doctor => (
@@ -455,7 +455,7 @@ function GroomingPetsForm() {
                                 </option>
                             ))}
                         </select>
-                        {showErrors && error.selectdoctorname && <p className="text-red-600 text-sm">{error.selectdoctorname}</p>}
+                        {error.selectdoctorname && error.selectdoctorname && <p className="text-red-600 text-sm">{error.selectdoctorname}</p>}
                     </div>
 
                     {/* Doctor's Address */}
@@ -485,7 +485,7 @@ function GroomingPetsForm() {
                             onChange={handleFields}
                             required
                         />
-                        {showErrors && error.appointmentDate && <p className="text-red-600 text-sm">{error.appointmentDate}</p>}
+                        {error.appointmentDate && error.appointmentDate && <p className="text-red-600 text-sm">{error.appointmentDate}</p>}
                     </div>
 
                     <div className="form-group">
@@ -507,7 +507,7 @@ function GroomingPetsForm() {
                                 <p className="text-gray-500">No available slots.</p>
                             )
                         )}
-                        {showErrors && error.selectedSlot && <p className="text-red-500 text-sm">{error.selectedSlot}</p>}
+                        {error.selectedSlot && error.selectedSlot && <p className="text-red-500 text-sm">{error.selectedSlot}</p>}
                     </div>
 
 
