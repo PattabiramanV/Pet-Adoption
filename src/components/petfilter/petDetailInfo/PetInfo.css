@@ -228,7 +228,26 @@ html, body {
     right: 82px;
     top: 9px;
 
+} 
+
+.adoptNow{
+      position: relative;
+    right: 102px;
+    top: 7px;
 }
+
+.adoptNow .adopte{
+   color: #ffffff;
+    width: 15%;
+    font-weight: 500;
+    height: 46px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #675BC8;
+}
+  
 .custom-prev-arrow,
 .custom-next-arrow {
   position: absolute;

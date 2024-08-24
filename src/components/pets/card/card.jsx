@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './card.css';
 
 function PetDetails({ id, name, city, description = 'No description available', profile, breed, gender, age, size }) {
-  let image1 = '/src/assets/Golden/Golden_brs.jpg';
+  let image1 = '';
    console.log(profile);
 // return;
 
@@ -21,51 +21,51 @@ function PetDetails({ id, name, city, description = 'No description available', 
   }
 
   return (
-    <div className="card-container">
-      <div className="cardimg">
+    <div className="petscard-container">
+      <div className="petscardimg">
         <img
           src={image1}
-          className="img"
+          className="petsimg"
           alt={name}
         />
       </div>
-      <div className="commonData">
-        <div className="locationdescript">
-          <div className="datas">
-            <div className="namelocation">
-              <h3 className="name">{name}</h3>
-              <h3 className="loca">
-                <img className="location" src="/src/assets/location_on.png" alt="marker" />
+      <div className="petscommonData">
+        <div className="petslocationdescript">
+          <div className="petsdatas">
+            <div className="petsnamelocation">
+              <h3 className="petsname">{name}</h3>
+              <h3 className="petsloca">
+                <img className="petslocation" src="/src/assets/location_on.png" alt="marker" />
                 <span>{city}</span>
               </h3>
             </div>
-            <div className="details">
-              <div className="detail1">
-                <div className="Breedsname">
-                  <div className="genders">
+            <div className="petsdetails">
+              <div className="petsdetail1">
+                <div className="petsBreedsname">
+                  <div className="petsgenders">
                     <p>Gender: <span>{gender}</span></p>
                   </div>
-                  <div className="breed">
-                    <p className="breeds">Breed: <span className="right">{breed}</span></p>
+                  <div className="petsbreed">
+                    <p className="petsbreeds">Breed: <span className="petsright">{breed}</span></p>
                   </div>
                 </div>
               </div>
-              <div className="detail2">
-                <div className="ages">
-                  <p>Age: <span id="age">{age}</span></p>
+              <div className="petsdetail2">
+                <div className="petsages">
+                  <p>Age: <span id="petsage">{age}</span></p>
                 </div>
-                <div className="sizes">
-                  <p>Size: <span className="rightSide">{size}</span></p>
+                <div className="petssizes">
+                  <p>Size: <span className="petsrightSide">{size}</span></p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="des">
-            <p className="description">{description.slice(0, 70)}...</p>
+          <div className="petsdes">
+            <p className="petsdescription">{description.slice(0, 70)}...</p>
           </div>
         </div>
-        <div className="buttons-card">
-          <Link to={`/petDetails/${id}`} className="mores" >More info</Link>
+        <div className="petsbuttons-card">
+          <Link to={`/petDetails/${id}`} className="petsmores" >More info</Link>
         </div>
       </div>
     </div>
@@ -90,11 +90,12 @@ PetDetails.defaultProps = {
 
 const CardView = ({ pets }) => {
 
-//   console.log(pets[0].photo);
+//   // console.log(pets);
+//   // return;
 // const parse=JSON.parse(pets[0].photo);
-// console.log(parse);
+// // console.log(parse);
 
-  // return;
+//   // return;
 
   
   if (!Array.isArray(pets)) {
@@ -102,7 +103,7 @@ const CardView = ({ pets }) => {
   }
 
   return (
-    <div className="container">
+    <div className="petscontainer">
       {pets.map(pet => (
         <PetDetails 
           key={pet.id}
@@ -110,7 +111,7 @@ const CardView = ({ pets }) => {
           name={pet.name}
           city={pet.city}
           description={pet.description}
-          profile={pet.photo}
+          profile={pet?.photo}
           breed={pet.breeds}
           gender={pet.gender}
           age={pet.age}

@@ -12,7 +12,7 @@ const Pets = () => {
   return (
     <>
       <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pets',href: '/pets' }]} />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Home ',href: '/pets' }]} />
       
       <Image />
         <ProfileGuide />

@@ -1,19 +1,19 @@
  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
- .container {
+ .petscontainer {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
    gap: 20px;
    padding: 20px;
  }
 
- .loca .location {
+ .petsloca .petslocation {
        width: 19px;
     height: 19px;
 
  }
 
- .card-container {
+ .petscard-container {
    width: 288px;
    height: 469px;
    gap: 0px;
@@ -22,51 +22,55 @@
    opacity: 0px;
  }
 
- .cardimg .img {
+ .petscardimg .petsimg {
    width: 286px;
    height: 168px;
    border-radius: 10px 10px 0 0;
  }
 
- .commonData {
+ .petscommonData {
    padding: 16px 0px;
  }
+ .petsbreed {
+    position: relative;
+    right: 6%;
+}
 
- .namelocation {
+ .petsnamelocation {
    width: 100%;
    text-align: left;
    display: flex;
    flex-direction: column;
-   gap: 16px;
+   gap: 19px;
    position: relative;
    left: 16px;
  }
 
- .locationdescript {
+ .petslocationdescript {
    display: flex;
    flex-direction: column;
    gap: 16px;
  }
 
- .des {
+ .petsdes {
    position: relative;
    left: 16px;
  }
 
- .datas {
+ .petsdatas {
    display: flex;
    flex-direction: column;
    gap: 16px;
  }
 
- .name {
+ .petsname {
    color: #2E256F;
    font-weight: 700;
    font-size: 18px;
    line-height: 21.78px;
  }
 
- .loca {
+ .petsloca {
    font-size: 14px;
    color: #66b366;
    font-weight: 600;
@@ -75,30 +79,32 @@
    gap: 8px;
  }
 
- .details {
+ .petsdetails {
    width: 100%;
    padding-left: 5%;
    display: flex;
    flex-direction: column;
    gap: 16px;
+  
+
  }
 
- .detail1 {
+ .petsdetail1 {
    display: flex;
    justify-content: space-between;
  }
 
- .detail2 {
+ .petsdetail2 {
    display: flex;
    gap: 75px;
  }
 
- span.rightSide {
+ span.petsrightSide {
    position: relative;
    left: 9px;
  }
 
- span.age {
+ span.petsage {
    position: relative;
    left: 24px;
  }
@@ -110,19 +116,19 @@
    left: 22px;
  }
 
- .genders {
+ .petsgenders {
    width: 116px;
    height: 23px;
    display: flex;
  }
 
 
- .details p {
+ .petsdetails p {
    font-size: 16px;
    font-weight: 500;
  }
 
- .details p span {
+ .petsdetails p span {
    font-size: 12px;
    background-color: #EAE8F7;
    color: #2E256F;
@@ -130,25 +136,25 @@
    border-radius: 10%;
  }
 
- .cardimg {
+ .petscardimg {
    width: 286px;
    height: 168px;
    opacity: 0px;
  }
 
- .description {
+ .petsdescription {
    font-size: 16px;
    font-weight: 400;
    margin-top: 10px;
  }
 
- .buttons-card {
+ .petsbuttons-card {
    position: relative;
    top: 9px;
    left: 63px;
  }
 
- .buttons-card .mores {
+ .petsbuttons-card .petsmores {
    border: 1px solid #675BC8;
    color: #675BC8;
    width: 52%;
@@ -160,41 +166,41 @@
    align-items: center;
  }
 
- .Breedsname {
+ .petsBreedsname {
    display: flex;
    gap: 24px;
  }
 
- .mores:hover {
+ .petsmores:hover {
    background-color: #696299;
    color: white;
  }
 
- .detail1 {
+ .petsdetail1 {
    display: flex;
    justify-content: space-between;
    width: 100%;
  }
 
- .Breedsname {
+ .petsBreedsname {
    display: flex;
    justify-content: space-between;
    width: 100%;
  }
 
- .genders,
- .breed {
+ .petsgenders,
+ .petsbreed {
    display: inline-block;
    min-width: 48%;
  }
 
- .genders p,
- .breed p {
+ .petsgenders p,
+ .petsbreed p {
    margin: 0;
    padding: 0;
  }
 
- .breed .right {
+ .petsbreed .petsright {
    display: inline-block;
    padding-left: 5px;
    color: #2E256F;
@@ -202,7 +208,7 @@
    border-radius: 5px;
  }
 
- .rightSide {
+ .petsrightSide {
    display: inline-block;
    padding-left: 5px;
    color: #675BC8;
@@ -210,7 +216,7 @@
    border-radius: 5px;
  }
 
- .genders span,
- .breed span {
+ .petsgenders span,
+ .petsbreed span {
    padding-left: 5px;
  }

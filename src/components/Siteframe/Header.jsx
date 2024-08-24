@@ -171,21 +171,21 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Haven</span>
+              <span>Pet Sanctuary</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
                   <Link className="menu" to="/pets">
-                  Home Finder
+                 Pet Home Finder
                   </Link>
                   <Link className="menu" to="/sale">
-                    Add Forms Pet
+                   Pet Rehoming Form
                   </Link>
                   <Link className="menu" to="/adopte">
-                  Pet Showcase
+                 Pet Gallery
                   </Link>
                  
                   <Link className="menu" to="/tables">
-                  My Pet Lists
+                  My Pets Dashboard
                   </Link>
                 </div>
               )}
