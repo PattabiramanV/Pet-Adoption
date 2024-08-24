@@ -204,9 +204,9 @@ const Header = () => {
                <Link className="menu" to="/addhostel">
                  Register Hostel
                </Link>
-               <Link className="menu" to="/hostelusertable">
+               {/* <Link className="menu" to="/hostelusertable">
                  Owner Details
-               </Link>
+               </Link> */}
                <Link className="menu" to="pethostel/booking">
                  Manage Reservations
                </Link>
