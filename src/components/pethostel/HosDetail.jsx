@@ -168,8 +168,11 @@ const HostelDetails = () => {
   const hosId = useParams().id;
   const token = localStorage.getItem('token');
   const [reviews, setReviews] = useState(null);
+  const [hostels, setHostels] = useState(null);
   // console.log(hosId==40);
   const [rating, setRating] = useState(null); 
+  const [userId, setUserId] = useState(null); 
+
 
   const fetchPetDetails = async () => {
     try {
@@ -180,12 +183,32 @@ const HostelDetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       
-      console.log(response.data[0]);
-      setPet(response.data[0]);
-      setReviews(response.data);
+      console.log(response.data);
+  
+      if (response.data.status == 'success') {
+     
+        setPet(response.data.reviewData[0]);
+      setReviews(response.data.reviewData);
+      setHostels(response.data.hostels);
+      setUserId(response.data.user_id);
       setRating(Math.floor(Number(pet?.average_rating)));
+
+        }
+
+     else{
+      notification.error({
+        message: 'Error',
+        description: response.data.message || 'An unexpected error occurred.',
+      });
+     }
+
     } catch (error) {
+      notification.error({
+        message: 'Submission Failed',
+        description: response.data.message || 'An unexpected error occurred.',
+      });
       console.error("Failed to fetch pet details:", error);
+      
     } finally {
       setLoading(false);
     }
@@ -198,7 +221,7 @@ const HostelDetails = () => {
     // }
   fetchPetDetails();
 
-  }, []);
+  }, [hosId]);
 
 
   // console.log(pet);
@@ -216,7 +239,7 @@ const HostelDetails = () => {
     console.error("Failed to parse pet photos:", error);
   }
 
-  const baseUrl = '../../../backend/hostel/hostelimg/2/'; // Adjust base URL if necessary
+  const baseUrl = `../../../backend/hostel/hostelimg/${userId}/`; // Adjust base URL if necessary
   const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
 console.log(imageUrls);
 
@@ -278,7 +301,7 @@ const handleReviewSubmit = async (reviewData) => {
 
 
 console.log(pet);
-console.log(rating);
+console.log(hostels);
 
   return (
     <>
@@ -309,34 +332,42 @@ console.log(rating);
 
             
 
-            <div className="div_location w-full flex items-center gap-6">
+            <div className="div_location w-full flex items-center gap-5">
               <strong className='w-30'>Location</strong>
               <main>:</main>
               <span> {pet?.hostel_address}</span>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
               <strong className='w-30'>Price/Day</strong>
               <main>:</main>
               <span>&#8377;{pet?.price_per_day}</span>
             </div>
 
-            <div className="flex items-center gap-16" style={{ textTransform: 'capitalize' }}>
-              <strong>Facilities:</strong>
+            <div className="flex items-center gap-3" style={{ textTransform: 'capitalize' }}>
+              <strong>Facilities</strong>
+              <main>:</main>
               <span>{pet?.facilities}</span>
             </div>
 
-            <div className="flex items-center gap-11">
-              <strong>Contact No:</strong>
+            <div className="flex items-center gap-3">
+              <strong>Contact No</strong>
+              <main>:</main>
               <span> {pet?.contact}</span>
             </div>
 
-            <div className="div_name flex gap-8">
+            <div className="flex items-center gap-3">
+              <strong>Available time</strong>
+              <main>:</main>
+              <span> {pet?.available_time}</span>
+            </div>
+
+            <div className="div_name flex gap-7">
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
               <StarRating rating={2} readOnly={true}  />
-
+              <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
 
             </div>
@@ -368,11 +399,13 @@ console.log(rating);
 )}
 
 </div>
+<div className='mb-20'>
 {pet && (
 
-<SimilarHos hostels={reviews}/>
+<SimilarHos hostels={hostels}/>
 
 )}
+</div>
 
 
     </>

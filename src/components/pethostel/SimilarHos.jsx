@@ -499,17 +499,21 @@ const SimilarPetsSlider = ({ hostels }) => {
   const visibleItems = 3; // Number of items to show at once
 
   const handleNext = () => {
-    alert(currentIndex)
     if (currentIndex < hostels.length - visibleItems) {
       setCurrentIndex(currentIndex + 1);
+      console.log("Next clicked, new index:", currentIndex + 1);
     }
   };
-
+  
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+      console.log("Prev clicked, new index:", currentIndex - 1);
     }
   };
+  console.log(currentIndex);
+const visibleHostels = hostels.slice(currentIndex, currentIndex + visibleItems);
+console.log(visibleHostels); // Should print the currently visible hostels
 
   return (
     <>
@@ -530,7 +534,7 @@ const SimilarPetsSlider = ({ hostels }) => {
               className="slider-track"
               style={{ transform: `translateX(-${currentIndex * (100 / visibleItems)}%)` }}
             >
-              {hostels.slice(currentIndex, currentIndex + visibleItems).map((hostel) => (
+              {visibleHostels.map((hostel) => (
                 <div key={hostel.id} className="slider-item">
                   <CardView hostel={hostel} />
                 </div>

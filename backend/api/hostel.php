@@ -212,6 +212,7 @@ switch ($method) {
     users.avatar,
     hostel_ratings.rating AS user_rating,
     hostel_ratings.comments,
+    hostel_ratings.	craeted_at,
     AVG(hostel_ratings.rating) OVER (PARTITION BY hostel_ratings.hos_id) AS average_rating,
     pet_hostels.id AS hostel_id,
     pet_hostels.name AS hostel_name,
@@ -233,7 +234,20 @@ WHERE
 
             $params=[':hosid'=>$_GET['hosid']];
             $data = $hostel->getData($query,  $params);
-            echo json_encode($data);
+
+            $sql = "SELECT * FROM pet_hostels";
+            $all_Data = $hostel->getData($sql);
+           
+            // echo json_encode($all_Data);
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Operation completed successfully.',
+                'reviewData' => $data,
+                'hostels' =>  $all_Data,
+                'user_id' =>  $user_id
+
+            ]);
+            
         } else {
             $query = "SELECT * FROM pet_hostels";
             $all_Data = $hostel->getData($query);

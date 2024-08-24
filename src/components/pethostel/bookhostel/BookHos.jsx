@@ -805,7 +805,7 @@ console.log(formData);
     <p className="text-lg  text-gray-700 mb-2 "><strong>Name:</strong> {selectedHostel.name}</p>
     <p className="text-lg text-gray-700 mb-4 h-12"><strong>Address:</strong> {selectedHostel.address}</p>
     <p className="text-lg text-gray-700 mb-2"><strong>Phone:</strong> {selectedHostel.phone}</p>
-    <p className="text-lg text-gray-700 mb-2"><strong>Price per Day:</strong> ₹{selectedHostel.price}</p>
+    <p className="text-lg text-gray-700 mb-2"><strong>Price/Day:</strong> ₹{selectedHostel.price}</p>
   </div>
 
   </div>
@@ -823,8 +823,8 @@ console.log(formData);
       <div className='p-4'>
       <p className="text-lg text-gray-700 mb-2"><strong>Check-in Date:</strong> {formData.checkin}</p>
       <p className="text-lg text-gray-700 mb-2"><strong>Check-out Date:</strong> {formData.checkout}</p>
-      <p className="text-lg font-semibold text-gray-700 mb-2"><strong>Total Days:</strong> {calculateDaysAndPrice().days}</p>
-      <p className="text-lg font-bold text-gray-700"><strong>Total Price:</strong> ₹{calculateDaysAndPrice().totalPrice}</p>
+      <p className="text-lg  text-gray-700 mb-2"><strong>Total Days:</strong> {calculateDaysAndPrice().days}</p>
+      <p className="text-lg  text-gray-700"><strong>Total Price:</strong> ₹{calculateDaysAndPrice().totalPrice}</p>
     </div>
     </div>
     </>
