@@ -97,7 +97,7 @@ try {
                 "user_id" => $row['user_id'],
                 "size" => $row['size'],
                 "color" => $row['color'],
-                "photo" => base64_encode($row['photo']),
+                "photo" => $row['photo'],
                
             );
 

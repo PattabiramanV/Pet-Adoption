@@ -139,3 +139,8 @@ th {
         justify-content: center;
 
 }
+
+.no-data-container .no-data-image{
+ height: 386px;
+    width: 420px;
+}

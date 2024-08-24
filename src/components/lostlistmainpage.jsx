@@ -10,7 +10,7 @@ const Lostlistmainpage = () => {
     <>
       <Header />
       <div className="Breadcrumbs">
-     <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'LostPetList', href: '/lostpetlisting' }]} />
+     <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' },{ title: 'Lost Post Pet List', href: '/lostpetlisting' }]} />
       </div>
       <Alllostlist />
       <Footer />

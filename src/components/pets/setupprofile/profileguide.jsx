@@ -2,7 +2,7 @@ import './profileguide.css';
 const ProfileGuide = () => {
     return (
         <div className="profile-guide-container">
-          <div className="content">
+          <div className="profilecontent">
             <h3>Adopt or Rehome a pet in just </h3>
             <p>3 Easy Steps</p>
           </div>

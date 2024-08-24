@@ -1,69 +1,70 @@
-.pet-detail-page {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.lost_pet-detail-page {
   font-family: Arial, sans-serif;
   color: #333;
 }
 
-.pet-detail-container-main {
+.lost_pet-detail-container-main {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding :50px 0;
+  padding: 50px 0;
 }
 
-.pet-detail-container {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4em;
-
+.lost_pet-detail-container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
 }
 
-.pet-images {
+.lost_pet-images {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.pet-details {
+
+.lost_pet-details {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.main-pet-image {
+
+.lost_main-pet-image {
   width: 90%;
   max-width: 600px; 
   height: auto;
   border-radius: 8px;
 }
 
-
-
-.pet-name {
+.lost_pet-name {
   font-size: 1.8em;
-
+  color: #2E256F;
 }
 
-.pet-location {
-  color: #666;
+.lost_pet-location {
+  color: #0A453A;
   font-size: 1.1em;
 }
 
-.pet-description {
+.lost_pet-description {
   font-size: 1em;
 }
 
-.pet-specifications {
+.lost_pet-specifications {
   font-size: 1em;
   width: 80%;
 }
 
-.add-to-cart {
+.lost_add-to-cart {
   display: inline-block;
   border: none;
   border-radius: 5px;
@@ -78,12 +79,12 @@
   color: #675bc8;
 }
 
-.add-to-cart:hover {
+.lost_add-to-cart:hover {
   background-color: #675bc8;
-  color: white ;
+  color: white;
 }
 
-.back-button {
+.lost_goback-button {
   display: inline-block;
   border: none;
   border-radius: 5px;
@@ -98,15 +99,12 @@
   color: #675bc8;
 }
 
-.back-button:hover {
+.lost_back-button:hover {
   background-color: #675bc8;
-  color: white ;
+  color: white;
 }
 
-
-
-
-.div_name {
+.lost_div_name {
   width: 100%;
   height: 100%;
   display: flex;
@@ -114,7 +112,8 @@
   align-items: center;
   color: #675bc8;
 }
-.pet-details {
+
+.lost_pet-details {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -123,18 +122,102 @@
   gap: 5px;
 }
 
-
-.btn_for_message {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2em;
+.lost_btn_for_message {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
 }
-.pet_left_de, .pet_right_de {
-  width: 50%;
-  }
 
+.lost_pet-card-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
 
+input[type="checkbox"] {
+  margin-right: 10px; 
+  font-family: 'Inter';
+}
 
+.lostpetform select {
+  background-color: white;
+  border: 1px solid rgba(96, 96, 96, 1);
+}
+
+* {
+  font-family: 'Inter';
+}
+
+.lostpetform input {
+  height: 40px;
+  width: 400px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.lostpetform .fileInput {
+  height: 40px;
+  width: 400px;
+  border: none;
+}
+
+.lostpetform input::placeholder {
+  color: rgba(96, 96, 96, 1);
+  line-height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.lostpetform textarea::placeholder {
+  color: rgba(96, 96, 96, 1);
+  line-height: 60px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.lostpetform label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  width: 188px;
+  height: 24px;
+  color: rgba(12, 12, 12, 1);
+}
+
+.lostpetform span {
+  color: rgba(195, 0, 0, 1);
+  margin-left: 5px;
+}
+
+.lostpetform textarea {
+  height: 86px;
+  border: 1px solid rgba(96, 96, 96, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.lostpetform h2 {
+  font-size: 32px;
+  color: rgba(12, 12, 12, 1);
+  font-weight: 500;
+  text-align: center;
+  margin-top: 36px;
+}
+
+.lostpetform .lostformsubmitbtn {
+  width: 184px;
+  height: 40px;
+  background-color: rgba(103, 91, 200, 1);
+  border-radius: 8px;
+  padding: 8px 16px; /* Updated padding syntax */
+  color: rgba(255, 255, 255, 1);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-left: 40%;
+  margin-top: 10px;
+}

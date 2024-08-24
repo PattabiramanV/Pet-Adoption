@@ -36,6 +36,9 @@ if ($data) {
     // Decode the photo from base64
     $photoData = base64_decode($photo);
 
+
+    
+
     try {
         // Prepare the SQL statement with the correct column names
         $stmt = $conn->prepare("INSERT INTO pet_losting_details (user_id, name, pet_type, age, gender, contact_no, lost_date, photo, address, description, location,status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spin, Alert, Modal } from 'antd';
-import EditForm from './editform'; // Ensure EditForm component is correctly imported
-
-
+import { Table, Spin, Alert, Modal, Checkbox } from 'antd';
+import Loader from '../Loader/Loader';
+import EditForm from './editform';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../lostpets/lostusertable.css';
+import ReactPaginate from 'react-paginate';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const Lostusertable = () => {
     const [userData, setUserData] = useState([]);
@@ -11,19 +15,19 @@ const Lostusertable = () => {
     const [error, setError] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editRecord, setEditRecord] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 10;
 
     const fetchData = async () => {
         let token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost/petadoption/backend/model/lostinguserstable.php', {
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/model/lostinguserstable.php`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            console.log('Response data:', response.data);  // Log the response data for debugging
-
-            // Ensure response data is an array
             if (Array.isArray(response.data)) {
                 setUserData(response.data);
             } else {
@@ -31,23 +35,20 @@ const Lostusertable = () => {
                 setError("Invalid data format received from the server.");
             }
         } catch (error) {
-            console.error('Fetch error:', error);  // Log any fetch errors for debugging
+            console.error('Fetch error:', error);
             setError("An error occurred while fetching data.");
         } finally {
             setLoading(false);
         }
     };
 
-   
     useEffect(() => {
         fetchData();
     }, []);
 
     const showModal = (record) => {
-      
         setEditRecord(record);
         setIsModalVisible(true);
-        // fetchData();
     };
 
     const handleCancel = () => {
@@ -55,17 +56,60 @@ const Lostusertable = () => {
         setEditRecord(null);
     };
 
+    const handleStatusChange = async (record) => {
+        const updatedStatus = record.status === 'completed' ? 'pending' : 'completed';
+        try {
+      const response =  await axios.post(`${import.meta.env.VITE_API_BASE_URL}/model/editform.php`, {
+                user_id: record.user_id,
+                status: updatedStatus
+            });
+
+            console.log(response)
+            fetchData(); // Refresh data after updating status
+        } catch (error) {
+            console.error('Status update error:', error);
+            setError("An error occurred while updating status.");
+        }
+    };
+    
+const updateRecord = (updatedRecord) => {
+    setUserData((prevUserData) =>
+        prevUserData.map((item) =>
+            item.user_id === updatedRecord.user_id ? { ...item, ...updatedRecord } : item
+        )
+    );
+    fetchData(); // Refresh data after updating status
+    setIsModalVisible(false); // Close the modal after updating the record
+};
+
+    
+
+    const getStatusClass = (status) => {
+        switch (status) {
+          case 'completed':
+            return 'status-delivered';
+          case 'pending':
+            return 'status-process';
+          default:
+            return '';
+        }
+    };
+
     const columns = [
         {
+            title: 'S.No:',
+            key: 'sno',
+            render: (_, __, index) => index + 1
+        },
+        {
             title: 'Photo',
-            dataIndex: 'photo',
             key: 'photo',
-            render: (text) => (
-                text ? <img src={`data:image/jpeg;base64,${text}`} alt="Pet" style={{ width: '50px', height: '50px' }} /> : null
+            render: (record) => (
+                <img src={`data:image/jpeg;base64,${record.photo}`} alt="Pet" style={{ width: '50px', height: '50px', marginRight: '8px' }} />
             )
         },
         {
-            title: 'name',
+            title: 'Name',
             dataIndex: 'name',
             key: 'name'
         },
@@ -110,39 +154,131 @@ const Lostusertable = () => {
             key: 'contact_no'
         },
         {
-            title: 'Action',
-            key: 'action',
+            title: 'Status',
+            key: 'status',
             render: (record) => (
-                <a onClick={() => showModal(record)}>Edit</a>
+                <div>
+                    <Checkbox 
+                        checked={record.status === 'completed'} 
+                        onChange={() => handleStatusChange(record)}
+                    />
+                    <span className={`status-label ${getStatusClass(record.status)}`}>
+                        {record.status}
+                    </span>
+                </div>
             )
         },
         {
-            title:'status',
-            key:'status',
-            render: (record) => {
-                return record.status === 'completed'? <span style={{ color: 'green' }}>Completed</span> : <span style={{ color:'red' }}>Pending</span>
-            }  // Add conditional rendering for status coloring (green for completed, red for incomplete)
+            title: 'Action',
+            key: 'action',
+            render: (record) => (
+                <div className="action-buttons">
+                    <a onClick={() => showModal(record)}>
+                        <button className='Edit-Btn'><FontAwesomeIcon icon={faEdit} /></button>
+                    </a>
+                </div>
+            )
         }
-
-    ];  
+    ];
 
     if (loading) return <Spin size="large" />;
     if (error) return <Alert message="Error" description={error} type="error" showIcon />;
 
+    const filteredData = userData.filter(item =>
+        [item.name, item.contact_no, item.pet_type, item.age, item.location].some(field =>
+            String(field).toLowerCase().includes(searchTerm.toLowerCase().trim())
+        )
+    );
+
+    const currentData = filteredData.slice(
+        (currentPage - 1) * recordsPerPage,
+        currentPage * recordsPerPage
+    );
+
+    const handlePageClick = (page) => {
+        setCurrentPage(page.selected + 1);
+    };
+
+    const handleChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
-        <div>
-            <h1 style={{ textAlign: 'center', color: 'purple' }}>Lost Pet Details</h1>
-            <Table dataSource={userData} columns={columns} rowKey="user_id" className='usertsble'/>
-            <Modal 
-                title="Edit Pet Details" 
-                visible={isModalVisible} 
-                onCancel={handleCancel}
-                footer={null}
-            >
-                {editRecord && <EditForm record={editRecord} onClose={handleCancel} />}
-            </Modal>
+        <div className="table-container mt-10 mb-10">
+            <h1 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'inter', fontSize:'24px', fontWeight:'800'}}>Lost Pet Details</h1>
+            <div className="search-container">
+                {searchTerm === '' && (
+                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                )}
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleChange}
+                    className="search-input searchBox"
+                />
+            </div>
+            {filteredData.length === 0 ? (
+                <div className="no-data-container">
+                    <p className='text-center'>No data found</p>
+                </div>
+            ) : (
+                <>
+                    <table className="custom-table">
+                        <thead>
+                            <tr>
+                                {columns.map((col) => (
+                                    <th key={col.key}>{col.title}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentData.map((item, index) => (
+                                <tr key={item.user_id}>
+                                    {columns.map((col) => (
+                                        <td key={col.key}>{col.render ? col.render(item, null, index) : item[col.dataIndex]}</td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <Modal
+                        title="Edit Pet Details"
+                        visible={isModalVisible}
+                        onCancel={handleCancel}
+                        footer={null}
+                        width={600}
+                    >
+                        {editRecord && <EditForm record={editRecord} onClose={handleCancel} onUpdate={updateRecord} refresh={fetchData} />}
+                    </Modal>
+                    <ReactPaginate
+                        previousLabel={'Previous'}
+                        nextLabel={'Next'}
+                        breakLabel={'...'}
+                        pageCount={Math.ceil(filteredData.length / recordsPerPage)}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={'pagination'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        activeClassName={'active-page'}
+                        previousClassName={'previous-page'}
+                        nextClassName={'next-page'}
+                        disabledClassName={'disabled-page'}
+                    />
+                </>
+            )}
+              {loading && <Loader/>}
         </div>
     );
 };
 
 export default Lostusertable;
+
+
+
+
+
+
+

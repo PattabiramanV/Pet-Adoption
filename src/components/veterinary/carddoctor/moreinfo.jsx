@@ -2,7 +2,8 @@ import React from 'react';
 import Header from "../../Siteframe/Header";
 import Footer from "../../Siteframe/Footer";
 import DoctorMoreInfo from './doctormoreinfo';
-import BreadcrumbComponent from '../../commoncomponent/Breadcrumb';
+import BreadcrumbComponent from '../../../components/commoncomponent/Breadcrumb'
+// import '../Breadcrums.css';
 
 function Moreinfo() {
   return ( 

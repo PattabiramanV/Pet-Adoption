@@ -19,6 +19,7 @@
 .slider-track {
   display: flex;
   transition: transform 0.3s ease-in-out;
+  width: 1052px;
 }
 
 .slider-item {
@@ -27,7 +28,7 @@
   padding: 0 8px;
 }
 
-.arrow-btn {
+.petsarrow-btn {
   background: none;
   border: none;
     font-size: 3rem;
@@ -36,7 +37,7 @@
   color: #333;
 }
 
-.arrow-btn:disabled {
+.petsarrow-btn:disabled {
   color: #ccc;
   cursor: not-allowed;
 }

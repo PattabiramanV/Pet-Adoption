@@ -1,6 +1,6 @@
 import Footer from "../components/Siteframe/Footer";
 import Header from "../components/Siteframe/Header";
-import PetaddForm from "./pethostel/AddPetForHos";
+import PetaddForm from "./pethostel/addhostel/AddPetForHos";
 import BreadcrumbComponent from "../components/commoncomponent/Breadcrumb";
 
 const AddHosPage=()=>{

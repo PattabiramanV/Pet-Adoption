@@ -76,7 +76,7 @@ if ($_POST) {
 // print_r($photo);
 // exit;
     try {
-        $stmt = $conn->prepare("INSERT INTO pets (name, gender, pet_category, age, breeds, price, state, city, description, add_for, user_id, size, color, photo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO pets (name, gender, pet_category, age, breeds, price, state, city, description, add_for, user_id, size, color, photo, status , address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 
         $stmt->bindParam(1, $petname);
         $stmt->bindParam(2, $gender);
@@ -93,6 +93,8 @@ if ($_POST) {
         $stmt->bindParam(13, $color);
         $stmt->bindParam(14, $photo);
         $stmt->bindParam(15, $status);
+                $stmt->bindParam(16, $address);
+
 
         if ($stmt->execute()) {
             $userStmt = $conn->prepare("SELECT email, username FROM users WHERE id = ?");

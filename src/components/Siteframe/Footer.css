@@ -132,3 +132,18 @@
     margin: 0 20px;
   }
 }
+
+
+.div_sub_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 1240px;
+  flex-direction:column-reverse;
+  gap: 1em;
+}
+
+.footer-bottom {
+  padding: 15px 108px;
+}

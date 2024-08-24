@@ -10,7 +10,14 @@ const HosDetailPage=()=>{
 
         <>
         <Header></Header>
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Pet Detail Page',href: '/pethostel' }]} />
+      {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Pet Detail Page',href: './pethostel' }]} /> */}
+      <BreadcrumbComponent 
+  items={[
+    { title: 'Home', href: '/' }, 
+    { title: 'Pet Hostels', href: '/pethostel' },
+    { title: 'Pet Detail', href: '/pethostel/details' }
+  ]} 
+/>
 
         <HostelDetails></HostelDetails>
         <Footer></Footer>

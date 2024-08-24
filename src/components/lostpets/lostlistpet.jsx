@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loader from '../Loader/Loader';
 import "./lostlistpet.css";
 
 const LostListPet = () => {
@@ -13,9 +14,7 @@ const LostListPet = () => {
     } else {
       const fetchPetDetails = async () => {
         try {
-          const response = await fetch(
-            "http://localhost/petadoption/backend/model/getlostingpet.php"
-          );
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
           const data = await response.json();
           console.log("Fetched Pet Data:", data); // Debugging output
           setPet(data);
@@ -27,73 +26,58 @@ const LostListPet = () => {
     }
   }, [location.state]);
 
-  if (!pet) {
-    return <p>Loading pet details...</p>;
-  }
 
   let imageSrc = `data:image/jpeg;base64,${pet.photo}`;
   console.log("Image Source:", imageSrc); // Debugging output
 
   return (
-    <section className="pet-detail-page">
-      <div className="pet-detail-container-main">
-        <div className="pet-detail-container">
-          <div className="pet-images">
-            <img src={imageSrc} alt={pet.name} className="main-pet-image" />
+    <section className="lost_pet-detail-page">
+      <div className="lost_pet-detail-container-main">
+        <div className="lost_pet-detail-container">
+          <div className="lost_pet-images">
+            <img src={imageSrc} alt={pet.name} className="lost_main-pet-image" />
           </div>
-          <div className="pet-details">
-            <div className="div_name">
-              <h2 className="pet-name">{pet.name}</h2> 
+          <div className="lost_pet-details">
+            <div className="lost_div_name">
+              <h2 className="lost_pet-name">{pet.name}</h2>
             </div>
-            <div className="div_location">
-              <p className="pet-location">
-                <i className="fas fa-map-marker-alt"></i><strong>Location:</strong> {pet.location}
+            <div className="lost_div_location">
+              <p className="lost_pet-location">
+                <i className="fas fa-map-marker-alt"></i>Location: {pet.location}
               </p>
             </div>
-            
 
-            <div className="pet-specifications">
-              <div className="pet-card-info">
-                <div className="pet_left_de">
-                  <p><strong>Gender:</strong> {pet.gender}</p>
-                  <p><strong>Pet Type:</strong> {pet.pet_type}</p>
+            <div className="lost_pet-specifications">
+              <div className="lost_pet-card-info">
+                <div className="lost_pet_left_de">
+                  <p>Gender: {pet.gender}</p>
+                  <p>Pet Type: {pet.pet_type}</p>
                 </div>
-                <div className="pet_right_de">
-                  <p><strong>Age:</strong> {pet.age}</p>
-                  <p><strong>Lost Date:</strong> {pet.lost_date}</p>
+                <div className="lost_pet_right_de">
+                  <p>Age: {pet.age}</p>
+                  <p>Lost Date: {pet.lost_date}</p>
                 </div>
+              </div>
             </div>
-            </div>
-                <p><strong>Contact No:</strong> {pet.contact_no}</p>
-                <p><strong>Address:</strong> {pet.address}</p>
-            <div className="div_description">
-              <p className="pet-description">
-                <strong></strong> {pet.description}
+            <p>Contact No: {pet.contact_no}</p>
+            <p>Address: {pet.address}</p>
+            <div className="lost_div_description">
+              <p className="lost_pet-description">
+                {pet.description}
               </p>
             </div>
-            <div className="btn_for_message">
-              <button className="add-to-cart">Contact Owner</button>
-              <button className="back-button" onClick={() => navigate("/lostpetlisting")}> 
+            <div className="lost_btn_for_message">
+              <button className="lost_add-to-cart">Contact Owner</button>
+              <button className="lost_goback-button" onClick={() => navigate("/lostpetlisting")}> 
                 Go Back
-               </button>
+              </button>
             </div>
           </div>
         </div>
+        {loading && <Loader/>}
       </div>
     </section>
   );
 };
 
 export default LostListPet;
-
-
-
-
-
-
-
-
-
-
-
-

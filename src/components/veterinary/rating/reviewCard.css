@@ -1,0 +1,47 @@
+.review-section {
+    text-align: center;
+    padding: 20px;
+}
+.review-section h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.review-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+}
+.review-card img.profile-img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    position: relative;
+    left: -39px;
+    bottom: 42px;
+}
+.review-content {
+    text-align: left;
+}
+.review-content .stars {
+    color: #f5c518;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.review-content p {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+}
+.review-content .name {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}

@@ -8,9 +8,7 @@ function checkboxpetpost() {
   return (
     <>
       <Header />
-      <div className="Breadcrumbs">
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting', href: '/findpet' },{ title: 'LostPetlist', href: '/lostpetlisting' },{ title: 'PetsDetail', href: '/checkboxpage' }]} />
-      </div>
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' },{ title: 'Lost Post Pet List', href: '/lostpetlisting' },{ title: 'Lost Pet Detail', href: '/petdetails' }]} />
       <Checkboxpost/>
       <Footer />
     </>

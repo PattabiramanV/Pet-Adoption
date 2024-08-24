@@ -10,9 +10,7 @@ function lostpetandform() {
   return (
     <>
       <Header />
-      <div className="Breadcrumbs">
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting',href: '/findpet' },{ title: 'LostPostForm',href: '/lostingpet' }]} />
-      </div>
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet',href: '/findpet' },{ title: 'Lost Post Form',href: '/lostingpet' }]} />
       <Lostpetsform/>
       <Footer />
     </>

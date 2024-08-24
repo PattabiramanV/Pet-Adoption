@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <footer className="footer">
         {/* <div className="footer-main"> */}
-      <div className="footer-container">
+      {/* <div className="footer-container">
         <div className="footer-column">
           <h3>How Can We Help?</h3>
           <ul>
@@ -40,11 +40,11 @@ const Footer = () => {
             <button>Subscribe</button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="footer-bottom">
 
         <div className="div_sub_footer">
-        <p>&copy;Furry Friends</p>
+        <p>&copy;2024 Furry Friends | All Rights Reserved</p>
         <div className="social-icons">
           <a href="#"><FontAwesomeIcon icon={faInstagram}/></a>
           <a href="#"><FontAwesomeIcon icon={faGithub}/></a>

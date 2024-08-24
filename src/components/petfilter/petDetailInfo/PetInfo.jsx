@@ -46,7 +46,6 @@ const PetDetailsRoute = () => {
         headers: { 'Authorization': `Bearer ${token}` },
       });
 
-// console.log(response.data);
 
       if (response.data.message) {
         console.log(response.data.message);
@@ -56,6 +55,9 @@ const PetDetailsRoute = () => {
       } else {
         setPet(response.data.pet);
         setSimilarPets(response.data.similar_pets);
+                setIsAdopted(response.data.pet.adopted); 
+  console.log(response.data);
+
         setError(null);
          setBreadcrumbItems((prevItems) => [
           ...prevItems.slice(0, -1), 
@@ -69,6 +71,7 @@ const PetDetailsRoute = () => {
       setLoading(false);
     }
   };
+
 
   const fetchUserProfile = async () => {
     const token = localStorage.getItem("token");
@@ -346,8 +349,8 @@ console.log(image1);
             <p>Price: <span>₹{Number(pet.price).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             </div>
             <div className="buttons adoptNow">
-            <button className="adopt" onClick={handleAdoptNow} disabled={isAdopted}>
-          {isAdopted ? "Processing..." : "Adopt Now"}
+            <button className="adopte" onClick={handleAdoptNow} disabled={isAdopted}>
+         {isAdopted ? 'Already Adopted' : 'Adopt Now'}
         </button>
             </div>
           </div>

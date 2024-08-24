@@ -7,7 +7,9 @@ import CommonTable from '../../../commoncomponent/datatable/DataTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faEdit, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import Modal from './popmodel'; // Ensure this path is correct
+import Modal from './popmodel'; 
+import { notification } from 'antd';
+
 
 const UserPets = () => {
   const [userPets, setUserPets] = useState([]);
@@ -42,54 +44,70 @@ const UserPets = () => {
     fetchProfileData();
   }, []);
 
-  const handleDeleteClick = async (petId) => {
-    const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this pet!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel'
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/petsapi/delete_pet.php?id=${petId}`);
-        if (response.data.success) {
-          Swal.fire('Deleted!', 'Your pet has been deleted.', 'success');
-          setUserPets(userPets.filter(pet => pet.id !== petId));
-        } else {
-          Swal.fire('Error!', response.data.error, 'error');
-        }
-      } catch (err) {
-        Swal.fire('Error!', err.message, 'error');
-      }
-    }
-  };
-
-  const handleUpdate = async (updatedPet) => {
-    console.log('Updated Pet Data:', updatedPet); // Check the data
+const handleDeleteClick = async (petId) => {
+  const result = window.confirm('Are you sure you want to delete this pet? This action cannot be undone.');
+  if (result) {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/petsapi/update_pet.php`,
-        updatedPet,
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-      );
-      console.log('API Response:', response.data); // Check API response
+      const response = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/petsapi/delete_pet.php?id=${petId}`);
       if (response.data.success) {
-        Swal.fire('Success!', 'Pet details updated.', 'success');
-        setUserPets(userPets.map((pet) => (pet.id === updatedPet.id ? updatedPet : pet)));
-        handleModalClose();
+        notification.success({
+          message: 'Pet Deleted',
+          description: 'Your pet has been successfully deleted.',
+        });
+        setUserPets(userPets.filter(pet => pet.id !== petId));
       } else {
-        Swal.fire('Error!', response.data.error, 'error');
+        notification.error({
+          message: 'Deletion Failed',
+          description: response.data.error,
+        });
       }
     } catch (err) {
-      console.error('API Error:', err); // Log error details
-      Swal.fire('Error!', err.message, 'error');
+      notification.error({
+        message: 'Error',
+        description: err.message,
+      });
     }
-  };
+  }
+};
+
+const handleUpdate = async (formData) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/petsapi/update_pet.php`,
+      formData,
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }
+    );
+    if (response.data.success) {
+      notification.success({
+        message: 'Pet Updated',
+        description: 'Pet details have been updated successfully.',
+      });
+      setUserPets(userPets.map((pet) => (pet.id === formData.get('id') ? {
+        ...pet,
+        name: formData.get('name'),
+        breed: formData.get('breed'),
+        age: formData.get('age'),
+        size: formData.get('size'),
+        description: formData.get('description'),
+        photo: formData.get('photo') ? formData.get('photo').name : pet.photo,
+      } : pet)));
+      handleModalClose();
+    } else {
+      notification.error({
+        message: 'Update Failed',
+        description: response.data.error,
+      });
+    }
+  } catch (err) {
+    notification.error({
+      message: 'Error',
+      description: err.message,
+    });
+  }
+};
+
 
   const filteredData = userPets.filter(pet =>
     pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,12 +174,12 @@ const UserPets = () => {
       </span>,
       pet.status !== 'adopted' ? (
         <>
-          <button className="edit-btn" onClick={() => handleEditClick(pet)}>
+          <p className="edit-btn" onClick={() => handleEditClick(pet)}>
             <FontAwesomeIcon icon={faEdit} />
-          </button>
-          <button className="delete-btn" onClick={() => handleDeleteClick(pet.id)}>
+          </p>
+          <p className="delete-btn" onClick={() => handleDeleteClick(pet.id)}>
             <FontAwesomeIcon icon={faTrashCan} />
-          </button>
+          </p>
         </>
       ) : null
     ];
@@ -175,7 +193,8 @@ const UserPets = () => {
         <p>Error: {error}</p>
       ) : (
         <div className="table-container mt-10 mb-10">
-          <div className="search-container">
+          <h1 className="page-title">Pet list</h1> 
+          <div className="search-container petssearch">
             {searchTerm === '' && (
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
             )}
@@ -230,37 +249,40 @@ const UserPets = () => {
             <h2>Edit Pet</h2>
             {selectedPet && (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target);
-                  const updatedPet = Object.fromEntries(formData.entries());
-                  updatedPet.id = selectedPet.id;
-                  handleUpdate(updatedPet);
-                }}
-              >
-                <div>
-                  <label>Name</label><br></br>
-                  <input type="text" name="name" defaultValue={selectedPet.name} />
-                </div>
-                <div>
-                  <label>Breed</label><br></br>
-                  <input type="text" name="breed" defaultValue={selectedPet.breed} />
-                </div>
-                <div>
-                  <label>Age</label><br></br>
-                  <input type="number" name="age" defaultValue={selectedPet.age} />
-                </div>
-                <div>
-                  <label>Size</label><br></br>
-                  <input type="text" name="size" defaultValue={selectedPet.size} />
-                </div>
-                <div className="descedit">
-                  <label>Description</label><br></br>
-                  <textarea name="description" defaultValue={selectedPet.description} />
-                </div>
-              
-                <button type="submit" className="mores editbtnpet">Update Pet</button>
-              </form>
+  onSubmit={(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append('id', selectedPet.id); 
+    handleUpdate(formData); 
+  }}
+>
+  <div>
+    <label>Name</label><br></br>
+    <input type="text" name="name" defaultValue={selectedPet.name} required />
+  </div>
+  <div>
+    <label>Breed</label><br></br>
+    <input type="text" name="breed" defaultValue={selectedPet.breed} required />
+  </div>
+  <div>
+    <label>Age</label><br></br>
+    <input type="number" name="age" defaultValue={selectedPet.age} required />
+  </div>
+  <div>
+    <label>Size</label><br></br>
+    <input type="text" name="size" defaultValue={selectedPet.size} required />
+  </div>
+  <div className="descedit">
+    <label>Description</label><br></br>
+    <textarea name="description" defaultValue={selectedPet.description} required />
+  </div>
+  <div>
+    <label>Image</label><br></br>
+    <input type="file" name="photo" accept="/backend/petsapi/hostelimg/*" />
+  </div>
+  <button type="submit" className="mores editbtnpet">Update Pet</button>
+</form>
+
             )}
           </Modal>
         </div>

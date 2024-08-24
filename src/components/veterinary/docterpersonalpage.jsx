@@ -3,6 +3,7 @@ import Footer from "../Siteframe/Footer";
 import Header from "../Siteframe/Header";
 import Doctorpersonaltable from './doctortablepage'; 
 import BreadcrumbComponent from '../../components/commoncomponent/Breadcrumb';
+// import './Breadcrums.css';
 
 function Doctortable() {
     return (

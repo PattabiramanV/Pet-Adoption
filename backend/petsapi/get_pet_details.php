@@ -10,7 +10,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : die(json_encode(["message" => "Pet ID n
 try {
 
     // Prepare and execute the query to fetch pet details
-    $stmt = $conn->prepare("SELECT id, name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo, user_id FROM pets WHERE id = :id AND status = 'available'");
+    $stmt = $conn->prepare("SELECT id, name, gender, pet_category, age, breeds, price, state, city, description, size, color, photo, user_id , status FROM pets WHERE id = :id AND status = 'available'");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $pet = $stmt->fetch(PDO::FETCH_ASSOC);

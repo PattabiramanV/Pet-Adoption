@@ -1,46 +1,30 @@
-// import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link
 import Header from './Siteframe/Header';
 import Footer from './Siteframe/Footer';
 import Reuniting_pets from './reunitingpets/reuniting';
 import Lost_pets from './lostpets/lostpetslist';
 import Mypost from './lostpets/mypetlist/mylostpetposts';
-import BreadcrumbComponent from './commoncomponent/Breadcrumb';
-import { Link } from'react-router-dom'; // Import Link for navigation
+import BreadcrumbComponent from '../components/commoncomponent/Breadcrumb';
 
 function Searching_Lost_and_Found_Pets() {
-  const navigate = useNavigate(); // Initialize useNavigate
-
-  const handleNavigation = () => {
-    navigate('/lostpetlisting'); // Navigate to the desired route
-  };
-
-
-
-  const Navigation = () => {
-    navigate('/mypetlostpost'); // Navigate to the desired route
-  };
-
   return (
     <>
       <Header />
-   
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Reuniting',href: '/findpet' },]} />
-    
-      {/* <Link to=> */}
-        {/* <button>Normal User</button> */}
-      {/* </Link> */}
+        <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Pet', href: '/findpet' }]} />
       <Reuniting_pets />
-      <Mypost/>
-      <div className="div_more_btn">
-      <button className="more hi" onClick={Navigation}>See more</button>
+      <Mypost />
+      <div className="lost_div_more_btn">
+        <Link to="/mypetlostpost">
+          <button className="lost_more hi">See More</button>
+        </Link>
       </div>
       <Lost_pets />
-      <div className="div_more_btn">
-      <button className="more hi" onClick={handleNavigation}>See more</button>
-
+      <div className="lost_div_more_btn">
+        <Link to="/lostpetlisting">
+          <button className="lost_more hi">See More</button>
+        </Link>
       </div>
-
       <Footer />
     </>
   );

@@ -1,161 +1,193 @@
-/* Ensure the background section covers the whole screen */
 .login-section {
   display: flex;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
 }
 
 .login-main {
-  width: 50%;
-  max-width: 800px; /* Adjust the maximum width as needed */
-  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.div_user_password_email {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1em;
+  width: 500px;
+}
+
+
+.login_user_main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* gap: 1em; */
+}
+
+
+.div_forget {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-top: -1em;
+}
+
+
+.div_forgot_pass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* gap: 1em; */
+  width: 100%;
+}
+
+
+.input-box {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.heading_name_h1 {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+} 
+.heading_name_span {
+  text-align: center;
+  font-size: x-large;
+} 
+
+.login_btn_div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #675bc8;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
   box-sizing: border-box;
 }
 
-.login-container {
-  display: flex;
-  background: #f1f1f1;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-}
-.heading_name {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.login-form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem;
-}
-
-/* Customize input field */
-.login-form .ant-input {
-  border-color: #ccc; /* Example: Change border color */
-  border-radius: 6px; /* Example: Rounded corners */
-}
-
-/* Customize input field focus state */
-.login-form .ant-input:focus {
-  border-color: #1890ff; /* Example: Change border color on focus */
-  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); /* Example: Add box shadow on focus */
-}
-
-.login-image {
-  display: none; /* Hide image section by default on smaller screens */
+.login-button:hover {
+  background-color: #5745b3;
 }
 
 
-
-.login-image {
-  flex-direction: column;
-  background: #efefefd6;
+.input-field {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  .login-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f7f7f7;
-    flex: 1;
-    padding: 2rem;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-
-  /* .login-image .login-img,
-  .login-image .login-img1 {
-    width: 100%;
-    padding: 1rem;
-  } */
-
-  .login-image img {
-    max-width: 100%;
-    height: auto;
-  }
-
-}
-
-@media (max-width: 768px) {
-
-  .login-main{
-    width: 100%;
-  }
-}
-
-.forgot-password {
-  text-align: right;
-  margin-top: 0.5rem;
-}
-.div_login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.login-button {
-  margin-top: 1rem;
-  background-color: #6200ea;
-  margin: 0;
-  width: 50%;
-}
-
-
-.social-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-}
-
-.google-login {
-  background-color: #db4437; /* Google red color */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px; /* Ensure consistent height */
-  width: 40px; /* Ensure button is a perfect circle */
-  border-radius: 50%; /* Make the button circular */
-  border: none;
-}
-/* Override styles for Ant Design circle button */
-:where(.css-dev-only-do-not-override-98ntnt).ant-btn.ant-btn-circle {
-  min-width: 32px;
-  padding: 0; /* Adjust padding as needed */
-  border-radius: 50%;
-  color: black; /* Set text color */
-  border-color: gray; /* Set border color */
-}
-
-.google-login .anticon {
-  margin-right: 0.5rem;
-}
-
-.sign-up-link {
+.custom-divider {
+  margin: 20px 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #675bc8; /* Example color */
+  text-transform: uppercase;
   text-align: center;
-  margin-top: 0.5rem;
-}
-.login-image {
-  flex-direction: column;
+  border-top: 1px solid #ccc; /* Line color */
 }
 
-.ant-divider-horizontal.ant-divider-with-text::before,
-.ant-divider-horizontal.ant-divider-with-text::after {
-  position: relative;
-  width: 50%; /* Adjust width as needed */
-  border-block-start: 1px solid gray; /* Set border color and style */
-  border-block-end: 0;
-  transform: translateY(50%);
-  content: '';
+
+.div_text_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+.heading_name_login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.div_text_login {
+  margin-top: 10px;
+}
+
+/* Login.css */
+
+/* .google-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #dcdcdc;
+  padding: 10px;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #3c4043;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.google-login-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.google-login-btn:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.google-login-btn svg {
+  margin-right: 8px;
+} */
+.google-login-btn .user-info {
+  display: none !important;
+}
+
+/* Ensure the button text is visible */
+.google-login-btn {
+  color: #fff; /* or any color that suits your theme */
 }
