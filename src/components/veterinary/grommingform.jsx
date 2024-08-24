@@ -316,42 +316,43 @@ function GroomingPetsForm() {
 
                     {/* Email */}
                     <div >
-                        <label className="custum-input block text-gray-700 text-sm font-bold mb-2">Email <span className="text-red-500">*</span></label>
+                        <label className=" block text-gray-700 text-sm font-bold mb-2">Email <span className="text-red-500">*</span></label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.email ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.email ? 'border-red-500' : ''}`}
                             type="email"
                             name="email"
                             value={applyGrooming.email}
                             onChange={handleFields}
                             placeholder="Email"
-                            required
+                            
                         />
                         {showErrors && error.email && <p className="text-red-600 text-sm">{error.email}</p>}
                     </div>
 
                     {/* Pet Type */}
                     <div>
-                        <label className="custum-input block text-gray-700 text-sm font-bold mb-2">Pet Type </label>
+                        <label className=" block text-gray-700 text-sm font-bold mb-2">Pet Type </label>
                         <input
-                            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petType ? 'border-red-500' : ''}`}
+                            className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petType ? 'border-red-500' : ''}`}
                             type="text"
                             name="petType"
                             value={applyGrooming.petType}
                             onChange={handleFields}
                             placeholder="Enter Pet Type"
-                            required
+                            
                         />
                         {showErrors && error.petType && <p className="text-red-600 text-sm">{error.petType}</p>}
                     </div>
 
                     {/* Pet Gender */}
                     <div >
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Pet Gender</label>
+                        <label className="block  text-sm font-bold mb-2">Pet Gender</label>
 
                         <input
                             className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petimage ? 'border-red-500' : ''}`}
                             type="text"
                             name="petGender"
+                            placeholder='Pet Gender'
                             value={applyGrooming.petGender}
                             onChange={handleFields}
                         />
@@ -361,7 +362,7 @@ function GroomingPetsForm() {
 
                     {/* Pet Age */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Pet Age <span className="text-red-500">*</span></label>
+                        <label className="block  text-sm font-bold mb-2">Pet Age <span className="text-red-500">*</span></label>
                         <input
                             className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.petAge ? 'border-red-500' : ''}`}
                             type="text"
@@ -369,14 +370,14 @@ function GroomingPetsForm() {
                             value={applyGrooming.petAge}
                             onChange={handleFields}
                             placeholder="Pet Age"
-                            required
+                            
                         />
                         {showErrors && error.petAge && <p className="text-red-600 text-sm">{error.petAge}</p>}
                     </div>
 
                     {/* City */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">City <span className="text-red-500">*</span></label>
+                        <label className="block  text-sm font-bold mb-2">City <span className="text-red-500">*</span></label>
                         <input
                             className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${error.city ? 'border-red-500' : ''}`}
                             type="text"
@@ -384,30 +385,32 @@ function GroomingPetsForm() {
                             value={applyGrooming.city}
                             onChange={handleFields}
                             placeholder="City"
-                            required
+                            
                         />
                         {showErrors && error.city && <p className="text-red-600 text-sm">{error.city}</p>}
                     </div>
 
                     {/* Service */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Service <span className="text-red-500">*</span></label>
-                        <select
-                            className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
-                            id="sevice"
-                            name="sevice"
-                            value={applyGrooming.service}
-                            onChange={handleFields}
-                        >
-                            <option value="">Select service</option>
-                            <option value="Pet Bothing">Bothing</option>
-                            <option value="Tick Remove">Tick Remove</option>
-                            <option value="Bothing + Tick Remove">Bothing + Tick Remove</option>
-                            <option value="Cutting">Cutting</option>
-                            <option value="Bathing + Cutting">Bathing + Cutting</option>
-                        </select>
-                        {error.service && <p className="text-red-600 text-sm">{error.service}</p>}
-                    </div>
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                Service <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                                id="service"
+                                value={applyGrooming.service}  
+                                name="service"
+                                onChange={handleFields}
+                            >
+                                <option value="Select service">Select service</option> 
+                                <option value="Pet Bathing">Bathing</option>
+                                <option value="Tick Remove">Tick Remove</option>
+                                <option value="Bathing + Tick Remove">Bathing + Tick Remove</option>
+                                <option value="Cutting">Cutting</option>
+                                <option value="Bathing + Cutting">Bathing + Cutting</option>
+                            </select>
+                            {error.service && <p className="text-red-600 text-sm">{error.service}</p>}
+                        </div>
                     {/* Need for Pet */}
                     <div >
                         <label className="block text-gray-700 text-sm font-bold mb-2">Need for Pet </label>
@@ -462,6 +465,7 @@ function GroomingPetsForm() {
                             className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
                             type="text"
                             name="doctorAddress"
+                            placeholder='address'
                             value={applyGrooming.doctorAddress}
                             onChange={handleFields}
                             readOnly
@@ -514,14 +518,14 @@ function GroomingPetsForm() {
                 {/* Submit Button */}
                 <div className="flex justify-center">
                     <button
-                        className="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                        className=" mt-10 bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                         type="submit"
                     >
                         Submit
                     </button>
                 </div>
             </form>
-
+        {loading && <Loader/>}
         </div>
     );
 }
