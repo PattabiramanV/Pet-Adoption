@@ -1,5 +1,4 @@
-section.landing_page_1 {
-    /* width: 100%; */
+/* section.landing_page_1 {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -14,14 +13,12 @@ section.landing_page_1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 90%; */
     height: 100%;
 }
 .landingpage1_sub {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 90%; */
     height: 100%;
 }
 .wrapperDogCat {
@@ -57,10 +54,8 @@ section.landing_page_1 {
     flex-direction: column;
 }
 
-/* image size */
 img.dogCat {
     width: 500px;
-    /* height: 600px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,3 +97,138 @@ img.dogCat {
     }
   }
 
+
+  .div_landing_find_near {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+} */
+
+
+
+section.landing_page_1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 16px; /* Reduced padding for better responsiveness */
+    max-width: 1440px;
+    box-sizing: border-box; /* Ensures padding is included in width/height */
+}
+
+.landingpage1_main {
+    display: flex;
+    justify-content: space-between; /* Adjusted for better spacing */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+}
+
+.landingpage1_sub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96%;
+    height: 100%;
+    flex-direction: row; /* Ensures row layout on larger screens */
+}
+
+.wrapperDogCat {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1; /* Allows this section to take up remaining space */
+    padding-left: 20px; /* Added padding for spacing */
+}
+
+.petAdoptionAndContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1; /* Allows this section to take up space equally */
+    padding-right: 20px; /* Added padding for spacing */
+}
+
+.text1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px; /* Added margin for spacing */
+}
+
+.petAdoptionAnd_text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+img.dogCat {
+    max-width: 100%; /* Ensures image doesn't exceed container width */
+    height: auto; /* Maintains aspect ratio */
+}
+
+img.dogCatname {
+    max-width: 100%; /* Ensures image doesn't exceed container width */
+    height: auto; /* Maintains aspect ratio */
+}
+
+.div_landing_find_near {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Added margin for spacing */
+}
+
+.landing_more-info-btns {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Example button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.landing_more-info-btns:hover {
+    background-color: #45a049; /* Button hover effect */
+}
+
+@media (max-width: 768px) {
+    .landingpage1_sub {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .wrapperDogCat {
+        justify-content: center;
+        padding-left: 0;
+        margin-top: 20px; /* Added margin for spacing */
+    }
+
+    .petAdoptionAndContainer {
+        align-items: center;
+        padding-right: 0;
+    }
+
+    img.dogCat {
+        width: 300px;
+    }
+
+    img.dogCatname {
+        width: 90%; /* Ensures image scales well on smaller screens */
+    }
+}
+
+@media (max-width: 500px) {
+    img.dogCat {
+        width: 250px; /* Smaller image size for very small screens */
+    }
+
+    img.dogCatname {
+        width: 80%;
+    }
+}

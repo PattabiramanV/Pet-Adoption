@@ -216,6 +216,13 @@ const Header = () => {
              </div>
               )}
             </div>
+
+            <div className="">
+                  <Link to="/map">Epic Nearby</Link>
+                </div>
+
+
+
           </nav>
 
           <div className="nav-links_mobile">
@@ -236,6 +243,8 @@ const Header = () => {
                 </div>
               )}
             </div>
+
+
           </div>
 
           {isLoggedIn && profile ? (
