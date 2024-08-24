@@ -59,6 +59,28 @@ import BookingSlat from './components/veterinary/bookingslat';
 //  Ahalya Durairaj
 
 
+// Veena
+
+import Pets from './Pets';
+import AllPetList from './AllPetList';
+import Info from './components/petfilter/petDetailInfo/Info';
+import Sale from './components/petfilter/petsForms/sale';
+import PetForm from './AllPetList';
+import Adoptedlits from './components/petfilter/userpetslist/adoptlists/adoptedlists';
+// import UserPetsForSale from './components/petfilter/petDetailInfo/usersale';
+import UserPets from './components/petfilter/userpetslist//usersalepetslist/userpetslist';
+import AdoptionRequests from './components/petfilter/userpetslist/onwerpetsrequest/petowneradoptionRequests';
+import Request from './components/petfilter/userpetslist/requestsale/request';
+import OverallTables from './components/Siteframe/overalltablelisting';
+import Payment from './components/petfilter/petsForms/payment';
+import Requesttables from './components/petfilter/userpetslist/requestsale/requesttables';
+
+// Veena
+
+
+
+
+
 function RouterPage() {
   return (
           <Router>
@@ -118,11 +140,25 @@ function RouterPage() {
         <Route path="/doctorpersonaltable" element={<Doctorpersonaltable/>} />
         <Route path="/PetGrooming" element={<GroomingPage />} />
         <Route path="/venterinarytables/*" element={<Venterinarytables/>} />
+
         <Route path="/BookingSlat" element={<BookingSlat/>} />
     {/* Ahalya Durairaj */}
 
+    {/* Veena */}
+        <Route path="/reguesttabel" element={<Requesttables />} />
+        <Route path="/pets/*" element={<Pets />} />
+        <Route path="/petList" element={<AllPetList />} />
+         <Route path="/petDetails/:id"  element={<Info />} />
+         <Route path="/sale" element={<Sale />} />
+         <Route path="/adopte" element={<PetForm />} />
+         <Route path="/adoptelist" element={<Adoptedlits />}  />
+         <Route path="/userpets" element={<UserPets />}  />
+         <Route path="/request" element={<AdoptionRequests />}  />
+         <Route path="/requestpets/*" element={<Request />} />
+         <Route path="/tables/*"  element={<OverallTables />} />
+         <Route path="/payment"  element={<Payment />} />
 
-
+    {/* Veena */}
 
 
     

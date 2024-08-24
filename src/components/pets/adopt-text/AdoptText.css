@@ -1,20 +1,21 @@
 .pet-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 55vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+    position: relative;
+    top: 117px;
 }
-
 .inner-content {
   text-align: center;
     width: 46%;
 
 }
 .first-content{
-    line-height:9px;
+    line-height:37px;
 }
 .first-content h4{
-    font-size:1.5rem;
+    font-size:32px;
     text-transform: uppercase;
     color: #e5a62d;
 }

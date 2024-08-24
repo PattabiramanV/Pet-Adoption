@@ -171,21 +171,21 @@ const Header = () => {
             >
               <span>Pet Haven</span>
               {isDropdownOpen && (
-               <div className="dropdown-menu dropdown-menu-Features">
-               <Link className="menu" to="/pets">
-               Home Finder
-               </Link>
-               <Link className="menu" to="/sale">
-                 Add Forms Pet
-               </Link>
-               <Link className="menu" to="/adopte">
-               Pet Showcase
-               </Link>
-              
-               <Link className="menu" to="/tables">
-               My Pet Lists
-               </Link>
-             </div>
+                <div className="dropdown-menu dropdown-menu-Features">
+                  <Link className="menu" to="/pets">
+                  Home Finder
+                  </Link>
+                  <Link className="menu" to="/sale">
+                    Add Forms Pet
+                  </Link>
+                  <Link className="menu" to="/adopte">
+                  Pet Showcase
+                  </Link>
+                 
+                  <Link className="menu" to="/tables">
+                  My Pet Lists
+                  </Link>
+                </div>
               )}
             </div>
 
@@ -250,11 +250,13 @@ const Header = () => {
                   src={profile?.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   className="profile-image"
                 />
-                <span>{profile.username}</span> {/* Display user's name */}
+                <span>{profile.username}</span>
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}>Profile</a>
-                    <a onClick={logout}>Logout</a>
+                    <Link to={`tables`}> My Action</Link>
+
+                    <a onClick={logout}>Logout</a>                   
                   </div>
                 )}
               </div>

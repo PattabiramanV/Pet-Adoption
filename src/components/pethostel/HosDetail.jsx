@@ -158,6 +158,7 @@ import { notification } from 'antd';
 import  StarRating from  '../commoncomponent/rating/StarRating';
 import ReviewCard from '../commoncomponent/rating/ReviewCard'
 import Tabs from '../commoncomponent/tabs/Tabs';
+import NewTab from '../commoncomponent/tabs/NewTab'
 import SimilarHos from './SimilarHos';
 const HostelDetails = () => {
   const navigate = useNavigate();
@@ -167,41 +168,44 @@ const HostelDetails = () => {
   const hosId = useParams().id;
   const token = localStorage.getItem('token');
   const [reviews, setReviews] = useState(null);
-  // console.log(hosId);
-  // const [rating, setRating] = useState(3); 
+  // console.log(hosId==40);
+  const [rating, setRating] = useState(null); 
 
+  const fetchPetDetails = async () => {
+    try {
+     
+      setLoading(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${hosId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      console.log(response.data[0]);
+      setPet(response.data[0]);
+      setReviews(response.data);
+      setRating(Math.floor(Number(pet?.average_rating)));
+    } catch (error) {
+      console.error("Failed to fetch pet details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     // if (location.state && location.state.pet) {
     //   setPet(location.state.pet);
     // } else {
-      const fetchPetDetails = async () => {
-        try {
-         
-          setLoading(true);
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?hosid=${hosId}`,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          
-          // console.log(response.data);
-          setPet(response.data[0]);
-          setReviews(response.data);
-
-        } catch (error) {
-          console.error("Failed to fetch pet details:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchPetDetails();
+    
     // }
+  fetchPetDetails();
+
   }, []);
 
-  console.log(pet);
-  console.log(reviews);
-  if (loading) {
-    return <Loader />;
-  }
+
+  // console.log(pet);
+  // console.log(reviews);
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
 
   // Parse the image filenames from the pet object
@@ -219,6 +223,7 @@ console.log(imageUrls);
 
 // Example function for handling review submission
 const handleReviewSubmit = async (reviewData) => {
+
   try {
     const token = localStorage.getItem('token');
     
@@ -251,6 +256,8 @@ const handleReviewSubmit = async (reviewData) => {
         message: 'Review Submitted Successfully!',
         description: response.data.message || 'Your review has been submitted.',
       });
+  fetchPetDetails();
+
       // You can also clear the form or navigate as needed
       // e.g., setReviewData({ review: '', rating: 0 });
     } else {
@@ -270,10 +277,12 @@ const handleReviewSubmit = async (reviewData) => {
 };
 
 
-
+console.log(pet);
+console.log(rating);
 
   return (
     <>
+    {loading && <Loader></Loader>}
       {/* <div className="btn_for_message flex justify-end items-end p-2 ">
         <ReviewForm onSubmit={handleReviewSubmit} />
       </div>   */}
@@ -284,7 +293,7 @@ const handleReviewSubmit = async (reviewData) => {
             <CustomPaging imageUrls={imageUrls} /> {/* Pass image URLs as props */}
           </div>
 
-          <div className="hosright-details">
+          <div className="hosright-details">  
             <div className='w-full grid  gap-8'>
             <div className="div_name">
               <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
@@ -296,7 +305,7 @@ const handleReviewSubmit = async (reviewData) => {
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
-              <StarRating rating={Math.floor(pet?.average_rating)} readOnly={true}  />
+              <StarRating rating={2} readOnly={true}  />
 
               <ReviewForm onSubmit={handleReviewSubmit} />
 
@@ -321,12 +330,7 @@ const handleReviewSubmit = async (reviewData) => {
               <strong>Contact No:</strong>
               <span> {pet?.contact}</span>
             </div>
-            {/* <div className="hos_description">
-              <strong className="" style={{ fontSize: '24px' }}>Description:</strong>
-              <p className="pet-description p-2 tex-xm" style={{ lineHeight: '22px', fontSize: '14px', color: 'grey', fontWeight: '500' }}>
-                {pet?.description}
-              </p>
-            </div> */}
+         
 </div>
                 <div className='w-full ' style={{position:'relative',bottom:'-52px'}}>
             <div className="btn_for_message flex justify-start items-end">
@@ -340,13 +344,27 @@ const handleReviewSubmit = async (reviewData) => {
     </section>
 
 {/* <ReviewCard></ReviewCard> */}
-{reviews && (
+{/* {reviews && (
 
 <Tabs hostelReviews={reviews}   />
 
+)} */}
+
+<div>
+{reviews && (
+
+<NewTab hostelReviews={reviews}></NewTab>
+
 )}
 
-{/* <SimilarHos hostels={pet}/> */}
+</div>
+{pet && (
+
+<SimilarHos hostels={reviews}/>
+
+)}
+
+
     </>
   );
 };

@@ -9,7 +9,7 @@ const LostListMain = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const petsPerPage = 9; // Display 9 pets per page
+  const petsPerPage = 9; 
 
   useEffect(() => {
     const fetchPets = async () => {
