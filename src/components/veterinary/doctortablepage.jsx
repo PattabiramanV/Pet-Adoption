@@ -176,14 +176,14 @@ const Doctorpersonalpage = () => {
         }
     ];
 
-    if (loading) return <Loader />;
+   
     
     return (
        <div className='table-container'>
     <div className='doctortablename'>
         <div className="doctertitle">
 
-        <h1>Client Information Overview</h1>
+        <h2>Client Information Overview</h2>
 
         </div>
         <div className="search-container">
@@ -211,7 +211,7 @@ const Doctorpersonalpage = () => {
         
         )}
         </div>
-
+        {loading && <Loader/>}
        </div>
     );
 };

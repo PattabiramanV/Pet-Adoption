@@ -1,8 +1,8 @@
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, Snackbar, Alert } from '@mui/material';
-import moment from 'moment/moment';
+import Loader from '../Loader/Loader';
+import moment from 'moment';
+
 const currentDayShowFun = () => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -33,17 +33,20 @@ const generateTimeSlots = (startTime, endTime) => {
     return timeSlots;
 };
 
-
-
-
 const fetchDoctorAvailability = async (doctorId, date) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php?id=${doctorId}&date=${date}`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php?id=${doctorId}&date=${date}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        });
         if (!response.ok) throw new Error('Network response was not ok');
-        
+
         const text = await response.text(); // Get the raw text response
         console.log("Raw Response:", text);
-        
+
         const data = JSON.parse(text); // Parse the JSON manually
         console.log("Availability slots", data);
         return data;
@@ -53,15 +56,16 @@ const fetchDoctorAvailability = async (doctorId, date) => {
     }
 };
 
-
 const saveSelectedSlots = async (doctorId, date, slots) => {
 // console.log(slots);
     // return;
     try {
+        const token = localStorage.getItem('token')
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
             },
             body: JSON.stringify({ doctorId, date, slots }),
         });
@@ -82,15 +86,12 @@ function BookingSlot() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [availability, setAvailability] = useState({ startTime: '09:00 AM', endTime: '05:00 PM' });
     const [selectedSlots, setSelectedSlots] = useState([]);
-    const [disabledSlots, setDisabledSlots] = useState({});
+    const [disabledSlots, setDisabledSlots] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [showErrors, setErrors] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-
-    
-    console.log("checked fields slots ",selectedSlots);
+    console.log("checked fields slots ", selectedSlots);
 
     useEffect(() => {
         const doctorId = 18;
@@ -99,6 +100,7 @@ function BookingSlot() {
         const savedDisabledSlots = JSON.parse(localStorage.getItem(`disabledSlots-${doctorId}`)) || {};
         setDisabledSlots(savedDisabledSlots);
 
+        setLoading(true);
         fetchDoctorAvailability(doctorId, selectedDate).then(data => {
             if (data.start_time && data.end_time) {
                 const startTime = new Date(data.start_time);
@@ -117,6 +119,7 @@ function BookingSlot() {
             }
 
             setIsSubmitted(false); // Reset submit state when date changes
+            setLoading(false);
         });
     }, [selectedDate]);
 
@@ -133,30 +136,12 @@ function BookingSlot() {
         });
     };
 
-
-    // const handleCheckboxChange = (slot) => {
-    //     setSelectedSlots(prevSlots => {
-    //         let updatedSlots;
-    
-    //         if (prevSlots.includes(slot)) {
-    //             // Remove the slot if it's already selected
-    //             updatedSlots = prevSlots.split(',').filter(s => s !== slot).join(',');
-    //              setSelectedSlots(slot);
-    //         } else {
-    //             // Add the slot if it's not selected
-    //             updatedSlots = prevSlots ? `${prevSlots},${slot}` : slot;
-    //         }
-    
-    //         return updatedSlots;
-    //     });
-    // };
-
     const handleAlertClose = () => {
         setAlertOpen(false);
     };
 
     const handleSubmit = async () => {
-      
+        setLoading(true);
         const doctorId = 18;
         const result = await saveSelectedSlots(doctorId, selectedDate, selectedSlots);
 
@@ -201,46 +186,25 @@ function BookingSlot() {
                 />
             </div>
 
-
-
-{/* 
-            <div>
-    <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
-    <div className="grid grid-cols-2 gap-4">
-        {loading ? (
-            <p className="text-gray-500 col-span-2">Loading slots...</p>
-        ) : timeSlots.length > 0 ? (
-            timeSlots.map((slot, index) => (
-                <div key={index} className="flex items-center">
-                    <Checkbox
-                        checked={selectedSlots.includes(slot)}
-                        onChange={() => handleCheckboxChange(slot)}
-                        disabled={disabledSlots.includes(moment(slot.split(" - ")[0], ['hh:mm A']).format('hh:mm A'))}
-                    />
-                    <label className="ml-2 text-gray-700">{slot}</label>
-                </div>
-            ))
-        ) : (
-            <p className="text-gray-500 col-span-2">No available slots.</p>
-        )}
-    </div>
-    {showErrors && error.selectedSlot && <p className="text-red-500 text-sm mt-2">{error.selectedSlot}</p>}
-</div> */}
-
-
             <div>
                 <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
                 <div className="grid grid-cols-2 gap-4">
-                    {timeSlots.map((slot, index) => (
-                        <div key={index} className="flex items-center">
-                            <Checkbox
-                                checked={selectedSlots.includes(slot.start)}
-                                onChange={() => handleCheckboxChange(slot.start)}
-                                disabled={disabledSlots[selectedDate]?.includes(slot.start)}
-                            />
-                            <label className="ml-2">{slot.start}</label>
-                        </div>
-                    ))}
+                    {loading ? (
+                        <Loader />
+                    ) : timeSlots.length > 0 ? (
+                        timeSlots.map((slot, index) => (
+                            <div key={index} className="flex items-center">
+                                <Checkbox
+                                    checked={selectedSlots.includes(slot.start)}
+                                    onChange={() => handleCheckboxChange(slot.start)}
+                                    disabled={disabledSlots[selectedDate]?.includes(slot.start)}
+                                />
+                                <label className="ml-2">{slot.start}</label>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-500 col-span-2">No available slots.</p>
+                    )}
                 </div>
             </div>
 
@@ -262,6 +226,8 @@ function BookingSlot() {
                     Slot selection updated!
                 </Alert>
             </Snackbar>
+
+            {loading && <Loader />}
         </div>
     );
 }

@@ -3,12 +3,15 @@
 // Include the config file
 require('../config/config.php');
 
-// Handle CORS (optional, depending on your needs)
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+$user_id=authenticate();
+// echo $user_id;
+// exit;
+// // Handle CORS (optional, depending on your needs)
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+// header("Access-Control-Allow-Headers: Content-Type");
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -83,11 +86,13 @@ try {
             // $slotsJson = json_encode($newSlots);
 // exit;
 
-            $query = "INSERT INTO slot (doctor_id, booking_date, bookingslot) VALUES (:doctorId, :date, :slots)";
+            $query = "INSERT INTO slot (doctor_id, booking_date, bookingslot,user_id) VALUES (:doctorId, :date, :slots,:user_id)";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':doctorId', $doctorId, PDO::PARAM_INT);
             $stmt->bindParam(':date', $date, PDO::PARAM_STR);
             $stmt->bindParam(':slots', $slotsJson, PDO::PARAM_STR);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+
             $stmt->execute();
 
             echo json_encode(array("success" => true, "message" => "New record created successfully."));
