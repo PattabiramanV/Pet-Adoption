@@ -237,7 +237,7 @@ function BookingSlot() {
             message: 'Success',
             description: 'Slots successfully saved.',
         });
-        
+
         // if (result.success) {
         //     const updatedDisabledSlots = {
         //         ...disabledSlots,
@@ -304,9 +304,10 @@ function BookingSlot() {
                                 <Checkbox
                                     checked={selectedSlots.includes(slot.start)}
                                     onChange={() => handleCheckboxChange(slot.start)}
+                                    id={`checkbox${index}`}
                                     // disabled={disabledSlots[selectedDate]?.includes(slot.start)}
                                 />
-                                <label className="ml-2">{slot.start}</label>
+                                <label htmlFor={`checkbox${index}`} className="ml-2 cursor-pointer">{slot.start}</label>
                             </div>
                         ))
                     ) : (

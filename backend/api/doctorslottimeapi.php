@@ -67,8 +67,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 //     echo "pattabi";
 //     exit;
 
+// grooming
 
-    if(isset($_GET['endpoint'])){
+ if(isset($_GET['endpoint']) && $_GET['endpoint']=='grooming'){
+
+
+    // echo $user_id;
+    // exit;
+            // =34;
+            $date=$_GET['date'];
+            $doctorId=$_GET['doctorId'];
+            $query = "SELECT * FROM `slot` WHERE booking_date = :date AND doctor_id = :doctorId  ";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+            $stmt->bindParam(':doctorId', $doctorId, PDO::PARAM_INT);
+          
+            $stmt->execute();
+            $slotTimings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            echo json_encode([
+                'data' => $slotTimings,
+                'status' => 'success',
+                'message' => 'Slot timings fetched successfully'
+            ]);
+            
+    
+          exit;
+    
+        }
+    
+   if(isset($_GET['endpoint'])){
 
 
 // echo $user_id;
@@ -95,7 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Retrieve doctor ID from query parameters
     $doctorId = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $date = isset($_GET['date']) ? $_GET['date'] : '';
-
+    // echo  $doctorId;
+    // exit;
+  
     // Check if the doctor ID and date are valid
     if ($doctorId <= 0 || empty($date)) {
         echo json_encode(array("message" => "Invalid doctor ID or date."));
