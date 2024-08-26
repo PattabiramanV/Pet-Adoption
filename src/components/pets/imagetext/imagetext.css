@@ -1,5 +1,5 @@
 .img-content {
-     position: absolute;
+    position: absolute;
     top: 50%;
     left: 26%;
     transform: translate(-50%, -50%);
@@ -13,35 +13,36 @@
 }
 
 .img-content h2 {
-      font-size: 25px;
-    /* margin-bottom: 10px; */
+    font-size: 25px;
     width: 105%;
     font-weight: 800;
 }
 
 .img-content p {
-   font-size: 16px;
+    font-size: 16px;
     line-height: 1.5;
     font-weight: 400;
-        width: 68%;
+    width: 68%;
     position: relative;
     left: 173px;
-
 }
-.buttons{
-     display: flex;
+
+.buttons {
+    display: flex;
     flex-direction: row;
     gap: 2%;
-        padding-top: 1%;
+    padding-top: 1%;
     justify-content: center;
 }
-.buttons .now{
+
+.buttons .now {
     background-color: #675BC8;
     color: #fff;
-    padding:10px;
+    padding: 10px;
     border-radius: 7px;
     border: none;
-} 
+}
+
 button.rehome {
     position: relative;
     top: 10px;
@@ -58,7 +59,6 @@ button.rehome {
     position: relative;
     text-align: center;
     color: white;
-    height: 83vh; 
+    height: 83vh;
     overflow: hidden;
-    }
-
+}

@@ -9,33 +9,18 @@
 }
 
 .doctor-card-header {
-  position: relative;
-  width: 300px;
-  height: 168px;
-}
-
-
-.doctor-card-header img {
-  position: relative;
+  /* position: relative; */
   width: 100%;
-  height: 168px;
+  height: 168px; 
+  /* overflow: hidden; */
+
 }
-/* images size was reduced............ */
+
 .doctor-card-image {
   width: 100%;
   height: 100%;
-  /* object-fit: contain; */
+   /* Ensures the image covers the entire header */
 }
-
-
-/* .doctor-card-image {
-  width: 50%;
-    height: 150px;
-    border-radius: 50%;
-    margin: 0 auto;
-    margin-top: 15px;
-} */
-
 
 .doctor-card-body {
   padding: 15px; /* Reduced padding */
@@ -53,22 +38,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
- 
 }
 
 .doctor-address {
   font-family: 'Arial', sans-serif;
-  /* color: #888; */
   font-size: 12px; /* Reduced font size */
   margin: 5px 0;
-  color:#0A453A;
+  color: #0A453A;
   text-transform: capitalize;
 }
 
 .doctor-card-info {
   display: flex;
   flex-direction: column;
-  /* gap: 1px; Reduced gap */
   margin-top: 8px; /* Reduced margin */
   font-weight: 600;
 }
@@ -78,15 +60,21 @@
   justify-content: space-between;
   width: 100%;
   font-family: 'Arial', sans-serif;
+  align-items: center;
 }
 
-.info-title {
-  font-weight: bold;
-  color: #333;
+.title_doctorcard {
+  font-family: 'Arial', sans-serif;
+  color: #535353;
+  margin: 5px 0;
 }
 
-.info-value {
-  color: #555;
+.doctorcard-item {
+  font-size: 15px;
+  background-color: #EAE8F7;
+  color: #2E256F;
+  padding: 4px 8px;
+  border-radius: 10%;
 }
 
 .more-info-btn {
@@ -108,49 +96,3 @@
   color: white;
 }
 
-.div_title {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 50%;
-}
-.div_value {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%; 
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Arial', sans-serif;
-  width: 100%;
-  align-items: center;
-}
-
-.doctor-address, h2 {
-  font-size: medium;
-}
-h3.title_doctorcard {
-  font-family: 'Arial', sans-serif;
-  color: #535353;
-  /* font-weight: 400px; */
-  margin: 5px 0;
-}
-h3.value_doctorcard {
-  font-family: 'Arial', sans-serif;
-  color: #000;
-  margin: 5px 0;
-}
-.doctorcard-item{
-  font-size: 15px;
-  width: 100%;
-   background-color: #EAE8F7;
-   color: #2E256F;
-   padding: 4px 8px;
-   border-radius: 10%;
-}
-.doctor-locaions{
-  margin-left: 5px;
-}

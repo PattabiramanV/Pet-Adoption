@@ -6,7 +6,6 @@ import ReactPaginate from 'react-paginate';
 import CommonTable from '../../../commoncomponent/datatable/DataTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faEdit, faSearch } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
 import Modal from './popmodel'; 
 import { notification } from 'antd';
 
@@ -84,15 +83,18 @@ const handleUpdate = async (formData) => {
         message: 'Pet Updated',
         description: 'Pet details have been updated successfully.',
       });
-      setUserPets(userPets.map((pet) => (pet.id === formData.get('id') ? {
-        ...pet,
-        name: formData.get('name'),
-        breed: formData.get('breed'),
-        age: formData.get('age'),
-        size: formData.get('size'),
-        description: formData.get('description'),
-        photo: formData.get('photo') ? formData.get('photo').name : pet.photo,
-      } : pet)));
+
+      const token = localStorage.getItem("token");
+      const profileResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile/read_profile.php`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const userProfileData = profileResponse.data;
+
+      const petsResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_pets_by_user.php?id=${userProfileData.id}`);
+      setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
+      
       handleModalClose();
     } else {
       notification.error({
@@ -206,85 +208,84 @@ const handleUpdate = async (formData) => {
               className="search-input searchBox"
             />
           </div>
-          {userPets.length === 0 ? (
-            <div className="no-data">
-              <img src="/src/assets/nodata.png" alt="No data available" className="no-data-img" />
-              <p>No pets found.</p>
-            </div>
-          ) : (
-            <>
-              {filteredData.length === 0 ? (
-                <div className="no-data">
-                  <img src="/path/to/your/no-data-image.png" alt="No data available" className="no-data-img" />
-                  <p>No pets match your search criteria.</p>
-                </div>
-              ) : (
-                <>
-                  <CommonTable
-                    headers={tableHeaders}
-                    body={tableBody}
-                    isLoading={loading}
-                  />
-                  <ReactPaginate
-                    previousLabel={'Previous'}
-                    nextLabel={'Next'}
-                    breakLabel={'...'}
-                    pageCount={Math.ceil(filteredData.length / petsPerPage)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageClick}
-                    containerClassName={'pagination'}
-                    pageClassName={'page-item'}
-                    pageLinkClassName={'page-link'}
-                    activeClassName={'active-page'}
-                    previousClassName={'previous-page'}
-                    nextClassName={'next-page'}
-                    disabledClassName={'disabled-page'}
-                  />
-                </>
-              )}
-            </>
-          )}
-          <Modal isOpen={modalIsOpen} onClose={handleModalClose}>
-            <h2>Edit Pet</h2>
-            {selectedPet && (
-              <form
-  onSubmit={(e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    formData.append('id', selectedPet.id); 
-    handleUpdate(formData); 
-  }}
->
-  <div>
-    <label>Name</label><br></br>
-    <input type="text" name="name" defaultValue={selectedPet.name} required />
+   {userPets.length === 0 ? (
+  <div className="no-data">
+    <img src="/src/assets/nodata.png" alt="No data available" className="no-data-img" />
+    <p>No pets found.</p>
   </div>
-  <div>
-    <label>Breed</label><br></br>
-    <input type="text" name="breed" defaultValue={selectedPet.breed} required />
-  </div>
-  <div>
-    <label>Age</label><br></br>
-    <input type="number" name="age" defaultValue={selectedPet.age} required />
-  </div>
-  <div>
-    <label>Size</label><br></br>
-    <input type="text" name="size" defaultValue={selectedPet.size} required />
-  </div>
-  <div className="descedit">
-    <label>Description</label><br></br>
-    <textarea name="description" defaultValue={selectedPet.description} required />
-  </div>
-  <div>
-    <label>Image</label><br></br>
-    <input type="file" name="photo" accept="/backend/petsapi/hostelimg/*" />
-  </div>
-  <button type="submit" className="mores editbtnpet">Update Pet</button>
-</form>
+) : (
+  <>
+    <CommonTable
+      headers={tableHeaders}
+      body={filteredData.length === 0 ? (
+        <tr>
+          <td colSpan={tableHeaders.length} className="no-data-message">
+            <p>No pets match your search criteria.</p>
+          </td>
+        </tr>
+      ) : (
+        tableBody
+      )}
+      isLoading={loading}
+    />
+    {filteredData.length > 0 && (
+      <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        pageCount={Math.ceil(filteredData.length / petsPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        activeClassName={'active-page'}
+        previousClassName={'previous-page'}
+        nextClassName={'next-page'}
+        disabledClassName={'disabled-page'}
+      />
+    )}
+  </>
+)}
 
-            )}
-          </Modal>
+<Modal isOpen={modalIsOpen} onClose={handleModalClose}>
+  <h2 className="modal-title">Edit Pet</h2>
+  {selectedPet && (
+    <form
+      className="modal-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        formData.append('id', selectedPet.id);
+        handleUpdate(formData);
+      }}
+    >
+      <div className="modal-field">
+        <label className="modal-label">Name</label><br></br>
+        <input type="text" name="name" defaultValue={selectedPet.name} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Breed</label><br></br>
+        <input type="text" name="breed" defaultValue={selectedPet.breed} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Age</label><br></br>
+        <input type="number" name="age" defaultValue={selectedPet.age} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Size</label><br></br>
+        <input type="text" name="size" defaultValue={selectedPet.size} required className="modal-input" />
+      </div>
+      <div className="modal-field descedit">
+        <label className="modal-label">Description</label><br></br>
+        <textarea name="description" defaultValue={selectedPet.description} required className="modal-textarea" />
+      </div>
+      <button type="submit" className="editbtnpet">Update Pet</button>
+    </form>
+  )}
+</Modal>
+
         </div>
       )}
     </>

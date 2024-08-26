@@ -48,46 +48,48 @@
 
 // export default PetList;
 import React, { useState, useEffect } from 'react';
-import PetCard from './card';
-import Loader from '../../Loader/Loader'; // Import your custom Loader component
+import ViewMore from '../../pets/morebutton/button';
+// import PetCard from './card';
+import "./ve.css";
+// import Loader from '../../Loader/Loader'; // Import your custom Loader component
 
 const PetList = () => {
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [pets, setPets] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const response = await fetch('http://localhost/petadoption/backend/pethomeapi/petadoption.php');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data);
+  // useEffect(() => {
+  //   const fetchPets = async () => {
+  //     try {
+  //       const response = await fetch('http://localhost/petadoption/backend/pethomeapi/petadoption.php');
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       const data = await response.json();
+  //       console.log(data);
         
-        setPets(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setPets(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchPets();
-  }, []);
+  //   fetchPets();
+  // }, []);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <Loader /> {/* Use your custom loader component */}
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="loading-container">
+  //       <Loader /> {/* Use your custom loader component */}
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   return (
     <div className="pet-list">
@@ -96,7 +98,8 @@ const PetList = () => {
      Review some of the <span className='pet-list-name-span' > Pet Adoption information</span>
       </h1>
       <div className="pet-list-container_1">
-      {pets.slice(0, 3).map(pet => <PetCard key={pet.id} pet={pet} />)}
+        <ViewMore />
+      {/* {pets.slice(0, 3).map(pet => <PetCard key={pet.id} pet={pet} />)} */}
       </div>
     </div>
   );

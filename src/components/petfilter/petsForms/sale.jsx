@@ -212,7 +212,7 @@ const Sale = () => {
                         {errors.petcategory && <p className="text-red-500 text-sm">{errors.petcategory}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">City <span className="star">*</span></label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">City/state <span className="star">*</span></label>
                         <input
                             name="city"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.city ? 'border-red-500' : ''}`}
@@ -220,12 +220,12 @@ const Sale = () => {
                             type="text"
                             value={formData.city}
                             onChange={handleChange}
-                            placeholder="City"
+                            placeholder="City/state"
                         />
                         {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location <span className="star">*</span></label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Country <span className="star">*</span></label>
                         <input
                             name="location"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none ${errors.location ? 'border-red-500' : ''}`}
@@ -233,7 +233,7 @@ const Sale = () => {
                             type="text"
                             value={formData.location}
                             onChange={handleChange}
-                            placeholder="Location"
+                            placeholder="Country"
                         />
                         {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
                     </div>
