@@ -364,7 +364,7 @@ console.log('disabledSlots',disabledSlots);
           {/* Name */}
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Name{" "}
+              Name{" "} 
             </label>
             <input
               className={`custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none  ${
