@@ -8,7 +8,7 @@ import ReviewForm from '../../veterinary/rating/Review';
 import StarRating from "../../veterinary/rating/StarRating";
 import Tabs from '../../veterinary/tabs/Tabs';
 import axios from "axios";
-
+import moment from 'moment';
 
 const DoctorMoreInfo = () => {
   const location = useLocation();
@@ -203,7 +203,8 @@ const DoctorMoreInfo = () => {
             <div className="div-home-visiting-doctormoreinfo dot">
               <div className="div_left_doctor">
                 <p className="available_timing-doctormoreinfo">
-                  <strong >Available Time:<span className="moreinfo_doctor">{doctor.available_timing}</span></strong>
+                  <strong >Available Time:<span className="moreinfo_doctor">{moment(doctor.available_timing_from).format('hh:mm A')} - {moment(doctor.available_timing_to).format('hh:mm A')}</span></strong>
+                  
                 </p>
               </div>
 
