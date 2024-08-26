@@ -100,7 +100,7 @@ function handleFileUploads($photos, $user_id)
                 $errors['photos'][] = "Failed to upload file: $file_name";
             }
         } else {
-            $errors['photos'][] = "Error occurred during file upload: $file_name";
+            $errors['photos'][] = "Error occurred during file upload: ";
         }
     }
 
