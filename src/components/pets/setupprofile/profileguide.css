@@ -62,7 +62,7 @@
     left: 58px;
 
 }
-.content {
+.profilecontent {
        text-align: center;
     line-height: 48px;
     text-transform: capitalize;
@@ -71,12 +71,12 @@
   position: relative;
     right: 58px;
 }
-.content h3{
+.profilecontent h3{
   font-size:32px;
   font-weight: 500;
 }
-.content p{
-  color: #0A453A;
+.profilecontent p{
+     color: #0A453A;
       position: relative;
     bottom: 10px;
   font-size: 24px;
@@ -89,6 +89,5 @@
 }
 
 .profile-guide-container {
-    position: relative;
-    top: 83px;
+    padding-top: 120px;
 }

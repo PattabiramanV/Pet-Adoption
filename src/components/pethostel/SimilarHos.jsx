@@ -520,19 +520,19 @@ console.log(visibleHostels); // Should print the currently visible hostels
       {/* <div>
         <h1>Similar Hostels</h1>
       </div> */}
-      <div className="slider-container mt-20">
+      <div className="slider-container mt-20 m-auto">
         <div className="slider-wrapper">
-          <button
+          <p
             className="arrow-btn"
             onClick={handlePrev}
             disabled={currentIndex === 0}
           >
             &#8249; {/* Left Arrow */}
-          </button>
+          </p>
           <div className="slider-content">
             <div
               className="slider-track"
-              style={{ transform: `translateX(-${currentIndex * (100 / visibleItems)}%)` }}
+            
             >
               {visibleHostels.map((hostel) => (
                 <div key={hostel.id} className="slider-item">
@@ -541,13 +541,13 @@ console.log(visibleHostels); // Should print the currently visible hostels
               ))}
             </div>
           </div>
-          <button
+          <p
             className="arrow-btn"
             onClick={handleNext}
             disabled={currentIndex >= hostels.length - visibleItems}
           >
             &#8250; {/* Right Arrow */}
-          </button>
+          </p>
         </div>
       </div>
     </>

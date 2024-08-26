@@ -8,9 +8,6 @@ import BreadcrumbComponent from '../../commoncomponent/Breadcrumb'
 import './sale.css'
 import { useNavigate } from 'react-router-dom'; 
 
-
-
-
 const Sale = () => {
     const [formData, setFormData] = useState({
         petName: '',
@@ -158,7 +155,7 @@ const Sale = () => {
                     profilePic: []
                 });
 
-                navigate('/adopte'); // Corrected navigation
+                navigate('/adopte'); 
             } else {
                 notification.error({
                     message: 'Submission Failed',
@@ -379,4 +376,3 @@ const Sale = () => {
 };
 
 export default Sale;
-

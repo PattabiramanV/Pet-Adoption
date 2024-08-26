@@ -296,7 +296,7 @@ const getStatusClass = (status) => {
     setCurrentPage(selected);
   };
 
-  if (loading) return <Loader />;
+
   if (error) return <div className="error-alert">Error: {error}</div>;
 
   const offset = currentPage * petsPerPage;
@@ -392,8 +392,10 @@ const getStatusClass = (status) => {
         nextClassName={'next-page'}
         disabledClassName={'disabled-page'}
       />
+       {loading && <Loader/>}
       </>
     )}
+     
     </div>
   );
 };

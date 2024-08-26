@@ -4,7 +4,9 @@ import Logo from "../../assets/Logo.png";
 import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {faMap, faLocationArrow, faSignOutAlt,faMapMarkerAlt ,faPaw,faRunning,faShoppingCart,faBoxOpen ,faMapSigns} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserCircle, faIdBadge, faAddressCard } from "@fortawesome/free-solid-svg-icons";
+
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Loader from "../Loader/Loader";
@@ -169,21 +171,21 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Haven</span>
+              <span>Pet Sanctuary</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
                   <Link className="menu" to="/pets">
-                  Home Finder
+                 Pet Home Finder
                   </Link>
                   <Link className="menu" to="/sale">
-                    Add Forms Pet
+                   Pet Rehoming Form
                   </Link>
                   <Link className="menu" to="/adopte">
-                  Pet Showcase
+                 Pet Gallery
                   </Link>
                  
                   <Link className="menu" to="/tables">
-                  My Pet Lists
+                  My Pets Dashboard
                   </Link>
                 </div>
               )}
@@ -193,7 +195,7 @@ const Header = () => {
             <div
               className="user-profile Pet-Oasis"
               onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              // onMouseLeave={handleMouseLeave}
             >
               <span>Pet Oasis</span>
               {isDropdownOpen && (
@@ -218,7 +220,7 @@ const Header = () => {
             </div>
 
             <div className="">
-                  <Link to="/map">Epic Nearby</Link>
+                  <Link to="/map"><span><FontAwesomeIcon icon={faLocationArrow} className="signup-icon" /></span> Epic Nearby</Link>
                 </div>
 
 
@@ -259,13 +261,14 @@ const Header = () => {
                   src={profile?.avatar || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"}
                   className="profile-image"
                 />
-                <span>{profile.username}</span>
+                <span className="profile_name">{profile.username}</span>
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
-                    <a onClick={openProfile}>Profile</a>
-                    <Link to={`tables`}> My Action</Link>
+                    <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
+                    <Link to={`tables`}><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
 
-                    <a onClick={logout}>Logout</a>                   
+
+                    <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   
                   </div>
                 )}
               </div>
