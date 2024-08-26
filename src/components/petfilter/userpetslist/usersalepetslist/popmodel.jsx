@@ -1,4 +1,3 @@
-import React from 'react';
 import './petseditform.css'; // Ensure this path is correct
 
 const Modal = ({ isOpen, onClose, children }) => {
