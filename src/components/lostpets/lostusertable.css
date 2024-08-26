@@ -274,5 +274,5 @@ th {
   .div_lost_re {
     max-height: 600px;
     height: 550px;
-    overflow: scroll;
+    overflow-y: scroll;
 }

@@ -20,11 +20,11 @@ input[type='checkbox'] {
     width: 20px;
 }
 
-.ant-modal-header {
+/* .ant-modal-header {
     display: flex;
     justify-content: center;
     font-weight: bold; 
- }
+ } */
 
 
 .lostpetform label {
