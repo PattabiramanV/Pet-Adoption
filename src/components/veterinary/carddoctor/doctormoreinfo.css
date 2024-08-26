@@ -24,21 +24,25 @@
   
 }
 
-.doctor-more-info-container .doctor-details {
-  display: flex;
-  align-items: center;
-  width: 90%;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  justify-content: center;
-  margin-left: 18%;
-  margin-top: 30px;
-  margin-bottom: 40px;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
+img.doctor-img {
+  width: 100%;
 }
+
+  .doctor-more-info-container .doctor-details {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    justify-content: center;
+    /* margin-left: 18%; */
+    margin-top: 30px;
+    margin-bottom: 40px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
 
 
 .doctorpic {

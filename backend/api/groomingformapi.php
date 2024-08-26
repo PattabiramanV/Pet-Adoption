@@ -305,7 +305,6 @@
 
 
 
-
 require '../config/config.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -599,7 +598,7 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
                 <h1 style="font-size: 24px; font-weight: bold;">Grooming Service Booking Confirmation</h1>
             </div>
            
-                <div class="content">
+          doctorID      <div class="content">
                     <p>Dear Dr. ' . htmlspecialchars($doctorName) . ',</p>
                     <p>You have a new grooming booking request.</p>
                     <p>Here are the details:</p>
