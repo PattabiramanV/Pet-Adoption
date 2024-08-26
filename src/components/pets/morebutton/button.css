@@ -1,42 +1,32 @@
-.mores-info .petsmores{
-   border: 1px solid #675BC8;
-   color:#675BC8 ;
-   width: 10%;
-   font-weight: 500;
-   height: 44px;
-   margin-bottom: 5%;
-   border-radius: 5px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-       position: relative;
-    right: 20px;
-
+.petsmores {
+    border: 1px solid #675BC8;
+    color: #675BC8;
+    width: 10%;
+    font-weight: 500;
+    height: 44px;
+    border-radius: 5px;
 }
-.mores-info{
-      display: flex;
+
+.Rehome .mores-info {
+    display: flex;
     justify-content: center;
-    padding: 2%;
-    position: relative;
-    top: 58px;
-
+    padding: 3%;
+    align-items: center;
 }
+
 .Rehome {
-    margin-bottom: 46px;
+    position: relative;
+    left: 25px;
 }
 
 .threeCard {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    top: 75px;
 }
+
 .overlapcard {
     width: 75%;
+      padding: 76px 0px 40px 60px;
 }
-.petsmores:hover {
-background-color: #696299; 
-color: white ;
 
-}

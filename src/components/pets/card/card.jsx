@@ -1,22 +1,25 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './card.css';
+import { notification } from 'antd';
 
 function PetDetails({ id, name, city, description = 'No description available', profile, breed, gender, age, size }) {
   let image1 = '';
-   console.log(profile);
-// return;
+  console.log(profile);
 
   if (profile) {
     try {
-      
-      const parsed = JSON.parse(profile); 
+
+      const parsed = JSON.parse(profile);
 
       const baseUrl = '/backend/petsapi/hostelimg/';
       const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
-      image1 = imageUrls[0] || image1; 
+      image1 = imageUrls[0] || image1;
     } catch (error) {
-      console.error("Error parsing profile photos:", error);
+      notification.error({
+        message: `Error parsing profile photos: ${error}`,
+      });
+
     }
   }
 
@@ -61,7 +64,7 @@ function PetDetails({ id, name, city, description = 'No description available', 
             </div>
           </div>
           <div className="petsdes">
-            <p className="petsdescription">{description.slice(0, 70)}...</p>
+            <p className="petsdescription">{description.slice(0, 73)}..</p>
           </div>
         </div>
         <div className="petsbuttons-card">
@@ -76,7 +79,7 @@ PetDetails.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  profile: PropTypes.string.isRequired, // Expecting Base64 encoded JSON string
+  profile: PropTypes.string.isRequired,
   description: PropTypes.string,
   breed: PropTypes.string.isRequired,
   gender: PropTypes.string.isRequired,
@@ -90,14 +93,9 @@ PetDetails.defaultProps = {
 
 const CardView = ({ pets }) => {
 
-//   // console.log(pets);
-//   // return;
-// const parse=JSON.parse(pets[0].photo);
-// // console.log(parse);
 
-//   // return;
 
-  
+
   if (!Array.isArray(pets)) {
     return <p>No pets available.</p>;
   }
@@ -105,7 +103,7 @@ const CardView = ({ pets }) => {
   return (
     <div className="petscontainer">
       {pets.map(pet => (
-        <PetDetails 
+        <PetDetails
           key={pet.id}
           id={pet.id}
           name={pet.name}

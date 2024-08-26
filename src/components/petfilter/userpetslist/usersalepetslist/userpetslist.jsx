@@ -245,46 +245,43 @@ const handleUpdate = async (formData) => {
               )}
             </>
           )}
-          <Modal isOpen={modalIsOpen} onClose={handleModalClose}>
-            <h2>Edit Pet</h2>
-            {selectedPet && (
-              <form
-  onSubmit={(e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    formData.append('id', selectedPet.id); 
-    handleUpdate(formData); 
-  }}
->
-  <div>
-    <label>Name</label><br></br>
-    <input type="text" name="name" defaultValue={selectedPet.name} required />
-  </div>
-  <div>
-    <label>Breed</label><br></br>
-    <input type="text" name="breed" defaultValue={selectedPet.breed} required />
-  </div>
-  <div>
-    <label>Age</label><br></br>
-    <input type="number" name="age" defaultValue={selectedPet.age} required />
-  </div>
-  <div>
-    <label>Size</label><br></br>
-    <input type="text" name="size" defaultValue={selectedPet.size} required />
-  </div>
-  <div className="descedit">
-    <label>Description</label><br></br>
-    <textarea name="description" defaultValue={selectedPet.description} required />
-  </div>
-  <div>
-    <label>Image</label><br></br>
-    <input type="file" name="photo" accept="/backend/petsapi/hostelimg/*" />
-  </div>
-  <button type="submit" className="mores editbtnpet">Update Pet</button>
-</form>
+<Modal isOpen={modalIsOpen} onClose={handleModalClose}>
+  <h2 className="modal-title">Edit Pet</h2>
+  {selectedPet && (
+    <form
+      className="modal-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        formData.append('id', selectedPet.id);
+        handleUpdate(formData);
+      }}
+    >
+      <div className="modal-field">
+        <label className="modal-label">Name</label><br></br>
+        <input type="text" name="name" defaultValue={selectedPet.name} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Breed</label><br></br>
+        <input type="text" name="breed" defaultValue={selectedPet.breed} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Age</label><br></br>
+        <input type="number" name="age" defaultValue={selectedPet.age} required className="modal-input" />
+      </div>
+      <div className="modal-field">
+        <label className="modal-label">Size</label><br></br>
+        <input type="text" name="size" defaultValue={selectedPet.size} required className="modal-input" />
+      </div>
+      <div className="modal-field descedit">
+        <label className="modal-label">Description</label><br></br>
+        <textarea name="description" defaultValue={selectedPet.description} required className="modal-textarea" />
+      </div>
+      <button type="submit" className="editbtnpet">Update Pet</button>
+    </form>
+  )}
+</Modal>
 
-            )}
-          </Modal>
         </div>
       )}
     </>

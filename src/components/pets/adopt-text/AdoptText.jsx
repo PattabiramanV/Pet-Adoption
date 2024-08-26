@@ -14,10 +14,7 @@ const AdoptText = () => {
            </div>
         </div>
       </div>
-      
-
-    </>
-      
+    </>     
   )
 }
 

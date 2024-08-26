@@ -2,7 +2,7 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
-import { Pagination } from 'antd';
+import { notification, Pagination } from 'antd';
 import Loader from '../../Loader/Loader';
 
 
@@ -27,6 +27,7 @@ const PetForm = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+    const [filteredPets, setFilteredPets] = useState([]);
   const petsPerPage = 9;
     const fetchInitialData = async () => {
 
@@ -38,6 +39,7 @@ const PetForm = () => {
 console.log(petResponse.data);
 
         setPets(petResponse.data);
+          setFilteredPets(petResponse.data);
         setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
         setBreeds(Array.isArray(filterOptionsResponse.data.breeds) ? filterOptionsResponse.data.breeds : []);
       } catch (error) {
@@ -55,34 +57,87 @@ console.log(petResponse.data);
     filterPets();
   }, [formData]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  
+  // Trim the input value to remove leading/trailing spaces
+  const trimmedValue = value.trim();
+  
+  setFormData(prevData => ({
+    ...prevData,
+    [name]: trimmedValue,
+  }));
+};
 
-const filterPets = async () => {
+
+
+  const filterPets = async () => {
   try {
-    const queryParams = new URLSearchParams(formData).toString();
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
-    const result = response.data;
+    const sanitizedFormData = { ...formData, searchLocation: formData.searchLocation.trim() };
 
-    if (result.status === 'success') {
-      setPets(result.data.length > 0 ? result.data : []);
-      setError(''); 
+    const queryParams = new URLSearchParams(sanitizedFormData).toString();
+    
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
+    
+    if (response.status === 200) {
+      const result = response.data;
+      if (result.status === 'success') {
+        setPets(result.data);
+        setFilteredPets(result.data);
+        setError('');
+      } else {
+        setPets([]);
+        setFilteredPets([]);
+        setError('No matching pets found.');
+        notification.warning({
+          message: 'No Pets Found',
+          description: 'No pets match your search criteria. Please try different filters.',
+        });
+      }
     } else {
-      setPets([]);
-      setError('No matching pets found.'); 
+      throw new Error('API response not successful');
     }
   } catch (error) {
+    console.error('Error occurred while fetching pets:', error);
     setPets([]);
-    setError('Pet not available'); 
+    setFilteredPets([]);
+    setError('An error occurred while fetching pets. Please try again later.');
+    notification.error({
+      message: 'Error',
+      description: 'An error occurred while fetching pets. Please try again later.',
+    });
   }
 };
 
 
+  let handleReset = (e) => {
+    e.preventDefault();
+    let isFormFilled = Object.values(formData).some(value => value !== '');
+
+    if (isFormFilled) {
+      setFormData({
+        petType: '',
+        searchLocation: '',
+        size: '',
+        breed: '',
+        age: '',
+        color: '',
+        gender: ''
+      });
+ setCurrentPage(1);
+      setFilteredPets();    
+      
+         notification.success({
+        message: 'Filters Reset',
+        description: 'All filters have been cleared. Please select new options to search again.',
+      })
+    }else{
+      notification.error({
+        message: 'No Filters Applied',
+        description: 'There are no filters to reset. Please fill in some filters before resetting.',
+      })
+    }
+  };
   const handleSubmit = () => {
     filterPets();
   };
@@ -101,7 +156,6 @@ console.log(pets);
 
   const currentPets = shuffledPets.slice(indexOfFirstPet, indexOfLastPet);
 console.log(currentPets);
-// return;
 
   return (
     <div className="petsfilter-filterpet">
@@ -171,9 +225,12 @@ console.log(currentPets);
               ))}
             </select>
           </label>
+          <div className="resetfilter petsbuttons-card">
+            <button className='petsmore rfilter' onClick={handleReset}>Reset Filter</button>
+          </div>
         </form>
       </div>
-<div className="petspet-details_card">
+    <div className="petspet-details_card">
         <div className="petspets_details">
           {loading ? (
             <Loader />

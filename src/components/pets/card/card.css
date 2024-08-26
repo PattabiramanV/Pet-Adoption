@@ -2,11 +2,11 @@
 
  .petscontainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(244px, 1fr));
   gap: 19px;
-  padding: 20px;
-  flex-wrap: wrap;
-  display: flex;
+    padding: 23px 14px 0px 14px;
+  /* flex-wrap: wrap;
+  display: flex; */
  }
 
  .petsloca .petslocation {

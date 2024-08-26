@@ -5,122 +5,80 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 
 try {
-    $query = "SELECT * FROM pets WHERE 1=1 AND status = 'available' ";
-
-    $params = [];
-    $filterResults = [
-        'petType' => true,
-        'size' => true,
-        'breed' => true,
-        'age' => true,
-        'color' => true,
-        'gender' => true,
-        'searchLocation' => true
-    ];
-
-    // Append conditions based on filters
-    if (isset($_GET['petType']) && !empty($_GET['petType'])) {
-        $query .= " AND pet_category = :petType";
-        $params[':petType'] = htmlspecialchars(strip_tags($_GET['petType']));
-    } else {
-        $filterResults['petType'] = false;
+    // Base query for fetching available pets
+    $query = "SELECT * FROM pets WHERE status = 'available'";
+    $filters = [];
+    
+    // Collect filter criteria
+    if (isset($_GET['pet_category']) && !empty($_GET['pet_category'])) {
+        $filters[] = "category = :petType";
     }
-
-    if (isset($_GET['size']) && !empty($_GET['size'])) {
-        $query .= " AND size = :size";
-        $params[':size'] = htmlspecialchars(strip_tags($_GET['size']));
-    } else {
-        $filterResults['size'] = false;
-    }
-
-    if (isset($_GET['breed']) && !empty($_GET['breed'])) {
-        $query .= " AND breeds = :breed";
-        $params[':breed'] = htmlspecialchars(strip_tags($_GET['breed']));
-    } else {
-        $filterResults['breed'] = false;
-    }
-
-    if (isset($_GET['age']) && !empty($_GET['age'])) {
-        $query .= " AND age = :age";
-        $params[':age'] = htmlspecialchars(strip_tags($_GET['age']));
-    } else {
-        $filterResults['age'] = false;
-    }
-
-    if (isset($_GET['color']) && !empty($_GET['color'])) {
-        $query .= " AND color = :color";
-        $params[':color'] = htmlspecialchars(strip_tags($_GET['color']));
-    } else {
-        $filterResults['color'] = false;
-    }
-
-    if (isset($_GET['gender']) && !empty($_GET['gender'])) {
-        $query .= " AND gender = :gender";
-        $params[':gender'] = htmlspecialchars(strip_tags($_GET['gender']));
-    } else {
-        $filterResults['gender'] = false;
-    }
-
     if (isset($_GET['searchLocation']) && !empty($_GET['searchLocation'])) {
-        $query .= " AND (city LIKE :searchLocation OR state LIKE :searchLocation)";
-        $params[':searchLocation'] = "%" . htmlspecialchars(strip_tags($_GET['searchLocation'])) . "%";
-    } else {
-        $filterResults['searchLocation'] = false;
+        $filters[] = "city LIKE :searchLocation";
+    }
+    if (isset($_GET['size']) && !empty($_GET['size'])) {
+        $filters[] = "size = :size";
+    }
+    if (isset($_GET['breed']) && !empty($_GET['breed'])) {
+        $filters[] = "breeds = :breed";
+    }
+    if (isset($_GET['age']) && !empty($_GET['age'])) {
+        $filters[] = "age = :age";
+    }
+    if (isset($_GET['color']) && !empty($_GET['color'])) {
+        $filters[] = "color = :color";
+    }
+    if (isset($_GET['gender']) && !empty($_GET['gender'])) {
+        $filters[] = "gender = :gender";
+    }
+    
+    if (count($filters) > 0) {
+        $query .= " AND " . implode(" AND ", $filters);
     }
 
+    error_log("SQL Query: " . $query);
+
+    // Prepare the SQL statement
     $stmt = $conn->prepare($query);
 
-    foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value);
+    // Bind filter parameters to the prepared statement
+    if (isset($_GET['pet_category']) && !empty($_GET['pet_category'])) {
+        $stmt->bindParam(':pet_category', $_GET['pet_category']);
     }
-
+    if (isset($_GET['searchLocation']) && !empty($_GET['searchLocation'])) {
+        $searchLocation = '%' . $_GET['searchLocation'] . '%';
+        $stmt->bindParam(':searchLocation', $searchLocation);
+    }
+    if (isset($_GET['size']) && !empty($_GET['size'])) {
+        $stmt->bindParam(':size', $_GET['size']);
+    }
+    if (isset($_GET['breed']) && !empty($_GET['breed'])) {
+        $stmt->bindParam(':breed', $_GET['breed']);
+    }
+    if (isset($_GET['age']) && !empty($_GET['age'])) {
+        $stmt->bindParam(':age', $_GET['age']);
+    }
+    if (isset($_GET['color']) && !empty($_GET['color'])) {
+        $stmt->bindParam(':color', $_GET['color']);
+    }
+    if (isset($_GET['gender']) && !empty($_GET['gender'])) {
+        $stmt->bindParam(':gender', $_GET['gender']);
+    }
+    
     $stmt->execute();
-    $num = $stmt->rowCount();
+    
+    $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($num > 0) {
-        $pets_arr = array();
-        $pets_arr["records"] = array();
+    error_log("Number of pets found: " . count($pets));
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $pet_item = array(
-                "id" => $row['id'],
-                "name" => $row['name'],
-                "gender" => $row['gender'],
-                "pet_category" => $row['pet_category'],
-                "age" => $row['age'],
-                "breeds" => $row['breeds'],
-                "price" => $row['price'],
-                "state" => $row['state'],
-                "city" => $row['city'],
-                "description" => $row['description'],
-                "add_for" => $row['add_for'],
-                "user_id" => $row['user_id'],
-                "size" => $row['size'],
-                "color" => $row['color'],
-                "photo" => $row['photo'],
-               
-            );
-
-            array_push($pets_arr["records"], $pet_item);
-        }
-
-        http_response_code(200);
-        echo json_encode([
-            'status' => 'success',
-            'data' => $pets_arr["records"],
-            'noMatchFilters' => array_filter($filterResults, function($match) { return !$match; })
-        ]);
+    if ($pets) {
+        echo json_encode(['status' => 'success', 'data' => $pets]);
     } else {
-        http_response_code(404);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'No pets found.',
-            'noMatchFilters' => array_filter($filterResults, function($match) { return $match; })
-        ]);
+        echo json_encode(['status' => 'error', 'message' => 'No pets found']);
     }
+
+} catch (PDOException $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
 } catch (Exception $e) {
-    error_log("Error: " . $e->getMessage());
-    http_response_code(500);
-    echo json_encode(array("message" => "Server error."));
+    echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
 }
-?>

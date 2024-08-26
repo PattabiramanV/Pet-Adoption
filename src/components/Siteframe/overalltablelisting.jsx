@@ -9,7 +9,7 @@ import Tablesvent from '../veterinary/usertb';
 
 const breadcrumbItems = {
   'Hostel': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Hostel', href: '/tables/hostel' }],
-  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/veterinarians' }],
+  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/venterinarytables' }],
   'Lost Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Lost Pet', href: '/tables/lost-pet' }],
   'Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Pet', href: '/tables/pet' }]
 };

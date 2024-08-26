@@ -6,32 +6,37 @@
     position: relative;
     top: 117px;
 }
-.inner-content {
-  text-align: center;
-    width: 46%;
 
+.inner-content {
+    text-align: center;
+    width: 46%;
 }
-.first-content{
-    line-height:37px;
+
+.first-content {
+    line-height: 37px;
 }
-.first-content h4{
-    font-size:32px;
+
+.first-content h4 {
+    font-size: 32px;
     text-transform: uppercase;
     color: #e5a62d;
 }
-.first-content h2{
-    font-size:3rem;
+
+.first-content h2 {
+    font-size: 3rem;
     text-transform: capitalize;
     position: relative;
     top: 25px;
 }
-.first-content, .second-content {
-  margin-bottom: 21px;
-  width: 100%; 
+
+.first-content,
+.second-content {
+    margin-bottom: 21px;
+    width: 100%;
 }
-.second-content p{
+
+.second-content p {
     color: grey;
     position: relative;
     top: 25px;
-
 }

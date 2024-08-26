@@ -145,7 +145,9 @@ body {
   flex-direction: column;
   margin-bottom: 10px;
 }
-
+.resetfilter .rfilter:hover{
+  color: #fff;
+}
 .petspet-form .petsselect,
 .petspet-form input {
   padding: 8px;
