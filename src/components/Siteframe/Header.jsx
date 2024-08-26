@@ -124,7 +124,7 @@ const Header = () => {
                 <Link className="menu" to="/mypetlostpost">
                   Found Pets
                 </Link>
-                <Link className="menu" to="/lostingusertable">
+                <Link className="menu" to="/tables">
                 My Entries
                 </Link>
               </div>

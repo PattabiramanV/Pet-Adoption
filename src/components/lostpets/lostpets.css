@@ -174,9 +174,10 @@ button.hi {
 .lost_pet-list-container-sub {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
   justify-content: flex-start;
   padding: -1px 130px;
+  /* margin-left: 100px; */
 }
 
 .lost_pet-list-container-sub > .lost_pet-card {
