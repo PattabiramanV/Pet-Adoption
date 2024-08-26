@@ -36,10 +36,12 @@ const PetForm = () => {
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_all_pets.php`),
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_filter_options.php`)
         ]);
-console.log(petResponse.data);
+        console.log(petResponse.data);
+        console.log(filterOptionsResponse.data);
+        
 
         setPets(petResponse.data);
-          setFilteredPets(petResponse.data);
+        setFilteredPets(petResponse.data);
         setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
         setBreeds(Array.isArray(filterOptionsResponse.data.breeds) ? filterOptionsResponse.data.breeds : []);
       } catch (error) {
@@ -60,7 +62,6 @@ console.log(petResponse.data);
 const handleChange = (e) => {
   const { name, value } = e.target;
   
-  // Trim the input value to remove leading/trailing spaces
   const trimmedValue = value.trim();
   
   setFormData(prevData => ({
@@ -124,7 +125,7 @@ const handleChange = (e) => {
         color: '',
         gender: ''
       });
- setCurrentPage(1);
+      setCurrentPage(1);
       setFilteredPets();    
       
          notification.success({
@@ -138,10 +139,8 @@ const handleChange = (e) => {
       })
     }
   };
-  const handleSubmit = () => {
-    filterPets();
-  };
-console.log(pets);
+
+   console.log(pets);
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -160,7 +159,7 @@ console.log(currentPets);
   return (
     <div className="petsfilter-filterpet">
       <div className="petsfilterSearch">
-        <form className="petspet-form" onSubmit={handleSubmit}>
+        <form className="petspet-form" >
          <label>
             Search Location:
             <input

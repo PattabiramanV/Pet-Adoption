@@ -17,10 +17,10 @@ const ViewMore = () => {
       }
       setLoading(false);
     } catch (error) {
-      notification.error({
+       notification.error({
         message :'There was an error fetching the pet data!', error}
         );
-      setLoading(false);
+       setLoading(false);
     }
   };
 

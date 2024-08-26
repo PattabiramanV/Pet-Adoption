@@ -35,3 +35,4 @@ function CustomPaging({ imageUrls }) {
 }
 
 export default CustomPaging;
+

@@ -102,7 +102,7 @@ const CardView = ({ pets }) => {
 
   return (
     <div className="petscontainer">
-      {pets.map(pet => (
+      {pets . map(pet => (
         <PetDetails
           key={pet.id}
           id={pet.id}
