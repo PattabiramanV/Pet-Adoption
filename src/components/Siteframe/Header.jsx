@@ -126,7 +126,7 @@ const Header = () => {
                 <Link className="menu" to="/mypetlostpost">
                   Found Pets
                 </Link>
-                <Link className="menu" to="/lostingusertable">
+                <Link className="menu" to="/tables">
                 My Entries
                 </Link>
               </div>
@@ -154,7 +154,7 @@ const Header = () => {
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
-               <Link className="menu" to="/venterinarytables">
+               <Link className="menu" to="/tables/groomingusertable">
                Service Records
                </Link>
                {/* <Link className="menu" to="/">
@@ -184,7 +184,7 @@ const Header = () => {
                  Pet Gallery
                   </Link>
                  
-                  <Link className="menu" to="/tables">
+                  <Link className="menu" to="/tables/userpets">
                   My Pets Dashboard
                   </Link>
                 </div>
@@ -212,7 +212,7 @@ const Header = () => {
                <Link className="menu" to="pethostel/booking">
                  Manage Reservations
                </Link>
-               <Link className="menu" to="/hosteldeteils/">
+               <Link className="menu" to="/tables/userpets">
                  Client Profiles
                </Link>
              </div>

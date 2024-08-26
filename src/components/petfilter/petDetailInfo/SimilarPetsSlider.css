@@ -9,6 +9,10 @@
   display: flex;
   align-items: center;
 }
+.arrow-btn:hover {
+  background: #ffffff; /* Slightly darker background on hover */
+  color: #000000; /* Darker text color on hover */
+}
 
 .slider-content {
   flex: 1;

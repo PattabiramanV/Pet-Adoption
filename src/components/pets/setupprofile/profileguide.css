@@ -3,12 +3,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: -1; 
+  z-index: -1;
 }
-.card p{
-  font-size:14px;
+
+.card p {
+  font-size: 14px;
   font-weight: 400;
 }
+
 .three-card-layout {
   display: flex;
   align-items: center;
@@ -35,8 +37,8 @@
 .profileIcons {
   width: 80px;
   height: 80px;
-      position: relative;
-    top: 89px;
+  position: relative;
+  top: 89px;
 
 }
 
@@ -53,41 +55,45 @@
 .circle_container {
   display: flex;
   justify-content: center;
-    position: absolute;
-    bottom: 254px;
+  position: absolute;
+  bottom: 254px;
 }
 
 .card1 {
-   position: relative;
-    left: 58px;
+  position: relative;
+  left: 58px;
 
 }
+
 .profilecontent {
-       text-align: center;
-    line-height: 48px;
-    text-transform: capitalize;
+  text-align: center;
+  line-height: 48px;
+  text-transform: capitalize;
 }
+
 .card3 {
   position: relative;
-    right: 58px;
+  right: 58px;
 }
-.profilecontent h3{
-  font-size:32px;
+
+.profilecontent h3 {
+  font-size: 32px;
   font-weight: 500;
 }
-.profilecontent p{
-     color: #0A453A;
-      position: relative;
-    bottom: 10px;
-  font-size: 24px;
-  font-weight:500;
-}
-.rehomeCard{
-   position: relative;
-    top: 39px;
 
+.profilecontent p {
+  color: #0A453A;
+  position: relative;
+  bottom: 10px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.rehomeCard {
+  position: relative;
+  top: 39px;
 }
 
 .profile-guide-container {
-    padding-top: 120px;
+  padding-top: 120px;
 }

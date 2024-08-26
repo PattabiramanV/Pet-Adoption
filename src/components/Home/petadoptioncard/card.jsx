@@ -50,7 +50,7 @@ const PetCard = ({ pet }) => {
         </div>
 
         <p className="pet-description">
-          {pet.description.slice(0, 60)}...
+          {pet.description.slice(0, 30)}...
         </p>
 
         <button className="more-info-btn" onClick={handleNavigation}>More Info</button>

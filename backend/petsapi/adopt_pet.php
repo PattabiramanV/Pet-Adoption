@@ -77,9 +77,11 @@ try {
     <body>
         {$header}
         <div class='container'>
-            <div class='header'>
-                <h1>Pet Adoption Request</h1>
-            </div>
+            <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+                    <h1 style='font-size: 24px; font-weight: bold;'>Pet Adoption Request</h1>
+                </div>
+                
+          
             <div class='content'>
                 <p>Dear {$user['username']},</p>
                 <p>Your adoption request for <strong>{$petName}</strong> has been successfully processed.</p>

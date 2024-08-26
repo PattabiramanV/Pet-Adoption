@@ -1,5 +1,4 @@
-import React from 'react';
-import './editform.css'; // Ensure this path is correct
+import './petseditform.css'; // Ensure this path is correct
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;

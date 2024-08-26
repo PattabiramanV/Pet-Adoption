@@ -195,7 +195,7 @@ html, body {
 }
 
 .Infos{
-  width: 100%;
+  width: 570px;
 }
 .price-info {
   display: flex;
@@ -215,12 +215,20 @@ html, body {
   color: green;
 }
 
-.similar-pets {
+  .similar-pets {
     padding-top: 57px;
     margin-bottom: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 85%;
+
 }
 .similar-pets h2{
   font-size: 28px;
+  font-weight: bold;
+
 }
 .adopt{
   text-transform: capitalize;
@@ -232,13 +240,13 @@ html, body {
 
 .adoptNow{
       position: relative;
-    right: 102px;
+    left: 102px;
     top: 7px;
 }
 
 .adoptNow .adopte{
    color: #ffffff;
-    width: 15%;
+    width: 104px;
     font-weight: 500;
     height: 46px;
     border-radius: 5px;

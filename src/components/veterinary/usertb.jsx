@@ -53,7 +53,6 @@ function Tablesvent() {
                         {activeTab === 'mypets' && (
                             <div className="mypets-content">
                                 <Routes>
-                                    <Route path="/" element={<Groomingusertable />} />
                                     <Route path="/groomingusertable" element={<Groomingusertable />} />
                                 </Routes>
                             </div>
@@ -61,7 +60,6 @@ function Tablesvent() {
                         {activeTab === 'request' && (
                             <div className="request-content">
                                 <Routes>
-                                    <Route path="/" element={<Doctorpersonalpage />} />
                                     <Route path="/doctorpersonaltable" element={<Doctorpersonalpage />} />
                                 </Routes>
                             </div>

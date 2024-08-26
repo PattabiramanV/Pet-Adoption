@@ -9,20 +9,19 @@ import Tablesvent from '../veterinary/usertb';
 
 const breadcrumbItems = {
   'Hostel': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Hostel', href: '/tables/hostel' }],
-  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/veterinarians' }],
+  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/venterinarytables' }],
   'Lost Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Lost Pet', href: '/tables/lost-pet' }],
   'Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Pet', href: '/tables/pet' }]
 };
 
 const OverallTables = () => {
   const [selectedItem, setSelectedItem] = useState(() => {
-    // Retrieve the selected item from localStorage or default to 'Overview'
     return localStorage.getItem('selectedItem') || 'Overview';
   });
 
   const handleMenuItemClick = (item) => {
     setSelectedItem(item);
-    localStorage.setItem('selectedItem', item); // Save the selected item to localStorage
+    localStorage.setItem('selectedItem', item); 
   };
 
   return (
