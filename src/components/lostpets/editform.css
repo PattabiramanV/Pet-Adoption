@@ -1,4 +1,4 @@
-/* .form-wrapper {
+.form-wrapper {
     margin: auto;
 }
 
@@ -20,11 +20,11 @@ input[type='checkbox'] {
     width: 20px;
 }
 
-.ant-modal-header {
+/* .ant-modal-header {
     display: flex;
     justify-content: center;
-    font-weight: bold; /* Makes the header bold */
-/* } */
+    font-weight: bold; 
+ } */
 
 
 .lostpetform label {

@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../lostpets/lostusertable.css';
 import ReactPaginate from 'react-paginate';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import catanddog from "../../assets/emptydata.png";
+
 
 const Lostusertable = () => {
     const [userData, setUserData] = useState([]);
@@ -65,7 +67,7 @@ const Lostusertable = () => {
             });
 
             console.log(response)
-            fetchData(); // Refresh data after updating status
+            fetchData(); 
         } catch (error) {
             console.error('Status update error:', error);
             setError("An error occurred while updating status.");
@@ -204,6 +206,9 @@ const updateRecord = (updatedRecord) => {
     };
 
     return (
+
+        <div className="div_lost_re">
+            
         <div className="table-container mt-10 mb-10">
             <h1 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'inter', fontSize:'24px', fontWeight:'800'}}>Lost Pet Details</h1>
             <div className="search-container">
@@ -218,9 +223,9 @@ const updateRecord = (updatedRecord) => {
                     className="search-input searchBox"
                 />
             </div>
-            {filteredData.length === 0 ? (
+            {filteredData.length === 0 ? (  
                 <div className="no-data-container">
-                    <p className='text-center'>No data found</p>
+                     <img className="dogCat" loading="lazy" alt="Cat and Dog" src={catanddog} />
                 </div>
             ) : (
                 <>
@@ -232,15 +237,25 @@ const updateRecord = (updatedRecord) => {
                                 ))}
                             </tr>
                         </thead>
-                        <tbody>
-                            {currentData.map((item, index) => (
-                                <tr key={item.user_id}>
-                                    {columns.map((col) => (
-                                        <td key={col.key}>{col.render ? col.render(item, null, index) : item[col.dataIndex]}</td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
+                    <tbody>
+                    {currentData.length === 0 ? (
+        <tr>
+            <td colSpan={columns.length} className="text-center">
+                No data foundd
+                
+            </td>
+        </tr>
+    ) : (
+        currentData.map((item, index) => (
+            <tr key={item.user_id}>
+                {columns.map((col) => (
+                    <td key={col.key}>{col.render ? col.render(item, null, index) : item[col.dataIndex]}</td>
+                ))}
+            </tr>
+        ))
+    )}
+</tbody>
+
                     </table>
                     <Modal
                         title="Edit Pet Details"
@@ -271,10 +286,20 @@ const updateRecord = (updatedRecord) => {
             )}
               {loading && <Loader/>}
         </div>
+        </div>
+
     );
 };
 
 export default Lostusertable;
+
+
+
+
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import BreadcrumbComponent from '../commoncomponent/Breadcrumb';
 import HostelDataTable from '../../components/pethostel/datatable/request';
 import Tablesvent from '../veterinary/usertb';
+import Lostusertable from '../lostpets/lostingusertable';
 
 const breadcrumbItems = {
   'Hostel': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Hostel', href: '/tables/hostel' }],
@@ -63,7 +64,7 @@ const OverallTables = () => {
         <div className="contenttables">
           {selectedItem === 'Hostel' && <HostelDataTable />}
           {selectedItem === 'Veternarians' && <Tablesvent />}
-          {selectedItem === 'Lost Pet' && <div>Lost Pet</div>}
+          {selectedItem === 'Lost Pet' && <Lostusertable />}
           {selectedItem === 'Pet' && <Requesttables />}
         </div>
       </div>
