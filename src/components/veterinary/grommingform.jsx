@@ -55,29 +55,33 @@ function GroomingPetsForm() {
     }, [applyGrooming.appointmentDate, selectedDoctorId]);
 
     const handleFields = (e) => {
-        const { name, value, type, files } = e.target;
-
-        if (e.target.tagName === 'SELECT') {
-            const selectedOption = e.target.options[e.target.selectedIndex];
-            const selectedId = selectedOption.id;
-            setSelectedDoctorId(selectedId);
-            console.log(selectedId);
-            
+        const { name, value, type, files, tagName } = e.target;
+    
+       
+           
+    
             if (name === 'selectdoctorname') {
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const selectedId = selectedOption.id;
+                setSelectedDoctorId(selectedId);
+                console.log(selectedId);
                 const selectedDoctor = doctors.find(doctor => doctor.name === value);
                 setApplyGrooming({
                     ...applyGrooming,
                     selectdoctorname: value,
                     doctorAddress: selectedDoctor ? selectedDoctor.address : '',
+                    doctorId: selectedDoctor ? selectedDoctor.id : null,
                 });
-                setSelectedDoctorId(selectedDoctor ? selectedDoctor.id : null);
-            }
+            
         } else if (type === 'file') {
-            setApplyGrooming({ ...applyGrooming, [name]: files[0] });
+            setApplyGrooming(prev => ({ ...prev, [name]: files[0] }));
+        } else if (name === 'service') {
+            setApplyGrooming(prev => ({ ...prev, service: value }));
         } else {
-            setApplyGrooming({ ...applyGrooming, [name]: value });
+            setApplyGrooming(prev => ({ ...prev, [name]: value }));
         }
     };
+    
 
 
     const fetchAvailableSlots = (date, doctorId) => {
@@ -391,25 +395,25 @@ function GroomingPetsForm() {
                     </div>
 
                     {/* Service */}
-                    <div>
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                            <div>
+                            <label htmlFor="service" className="block text-gray-700 text-sm font-bold mb-2">
                                 Service <span className="text-red-500">*</span>
                             </label>
                             <select
-                                className="custum-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                                className="custom-input w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
                                 id="service"
-                                value={applyGrooming.service}  
+                                value={applyGrooming.service }  // Ensures default empty value if undefined
                                 name="service"
                                 onChange={handleFields}
                             >
-                                <option value="Select service">Select service</option> 
+                                <option value="">Select service</option>
                                 <option value="Pet Bathing">Bathing</option>
                                 <option value="Tick Remove">Tick Remove</option>
                                 <option value="Bathing + Tick Remove">Bathing + Tick Remove</option>
                                 <option value="Cutting">Cutting</option>
                                 <option value="Bathing + Cutting">Bathing + Cutting</option>
                             </select>
-                            {error.service && <p className="text-red-600 text-sm">{error.service}</p>}
+                            {error?.service && <p className="text-red-600 text-sm">{error.service}</p>}
                         </div>
                     {/* Need for Pet */}
                     <div >
