@@ -7,6 +7,14 @@ import BreadcrumbComponent from '../commoncomponent/Breadcrumb';
 import HostelDataTable from '../../components/pethostel/datatable/request';
 import Tablesvent from '../veterinary/usertb';
 import Lostusertable from '../lostpets/lostingusertable';
+
+const breadcrumbItems = {
+  'Hostel': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Hostel', href: '/tables/hostel' }],
+  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/venterinarytables' }],
+  'Lost Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Lost Pet', href: '/tables/lost-pet' }],
+  'Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Pet', href: '/tables/pet' }]
+};
+
 const OverallTables = () => {
   const [selectedItem, setSelectedItem] = useState(() => {
     return localStorage.getItem('selectedItem') || 'Overview';
@@ -56,7 +64,7 @@ const OverallTables = () => {
         <div className="contenttables">
           {selectedItem === 'Hostel' && <HostelDataTable />}
           {selectedItem === 'Veternarians' && <Tablesvent />}
-          {selectedItem === 'Lost Pet' && <Lostusertable/>}
+          {selectedItem === 'Lost Pet' && <Lostusertable />}
           {selectedItem === 'Pet' && <Requesttables />}
         </div>
       </div>

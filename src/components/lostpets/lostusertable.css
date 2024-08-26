@@ -269,3 +269,10 @@ th {
     font-weight: bold; /* Make the text bold */
     border-top: 1px solid #e5e7eb; /* Optional: Add a border on top */
   }
+
+
+  .div_lost_re {
+    max-height: 600px;
+    height: 550px;
+    overflow: scroll;
+}

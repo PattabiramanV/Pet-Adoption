@@ -141,6 +141,22 @@ console.log('currentUserId',currentUserId);
                 <strong>Description: </strong>{pet.description}
               </p>
             </div>
+            <div className="div_social_med_lost_pet">
+                <InlineShareButtons
+                    config={{
+                      alignment: 'center',
+                      color: 'social',
+                      enabled: true,
+                      font_size: 16,
+                      language: 'en',
+                      networks: ['whatsapp', 'facebook', 'twitter', 'email'],
+                      padding: 12,
+                      radius: 50,
+                      show_total: false,
+                      size: 40,
+                    }}
+                  />
+                </div>
             <div className="lost_btn_for_message">
               {isUserOwner ? (
                 <>
@@ -153,7 +169,7 @@ console.log('currentUserId',currentUserId);
                     />
                     {pet.status === 'completed' ? 'Completed' : 'Pending'}
                   </label>
-                  <InlineShareButtons
+                  {/* <InlineShareButtons
                     config={{
                       alignment: 'center',
                       color: 'social',
@@ -166,10 +182,12 @@ console.log('currentUserId',currentUserId);
                       show_total: false,
                       size: 40,
                     }}
-                  />
+                  /> */}
                 </>
               ) : (
                 <>
+
+       
                   <div className="lost_add-to-cart">
                     <a className="lostpetowner_contact" href={`tel:${pet.contact_no}`}>
                       <button>Contact Owner</button>
@@ -178,20 +196,7 @@ console.log('currentUserId',currentUserId);
                   <button className="lost_goback-button" onClick={() => navigate("/mypetlostpost")}>
                     Go Back
                   </button>
-                  <InlineShareButtons
-                    config={{
-                      alignment: 'center',
-                      color: 'social',
-                      enabled: true,
-                      font_size: 16,
-                      language: 'en',
-                      networks: ['whatsapp', 'facebook', 'twitter', 'email'],
-                      padding: 12,
-                      radius: 50,
-                      show_total: false,
-                      size: 40,
-                    }}
-                  />
+                 
                 </>
               )}
             </div>

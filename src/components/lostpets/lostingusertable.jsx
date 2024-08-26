@@ -206,6 +206,9 @@ const updateRecord = (updatedRecord) => {
     };
 
     return (
+
+        <div className="div_lost_re">
+            
         <div className="table-container mt-10 mb-10">
             <h1 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'inter', fontSize:'24px', fontWeight:'800'}}>Lost Pet Details</h1>
             <div className="search-container">
@@ -283,6 +286,8 @@ const updateRecord = (updatedRecord) => {
             )}
               {loading && <Loader/>}
         </div>
+        </div>
+
     );
 };
 
