@@ -58,7 +58,6 @@ const handleTabClick = (tab) => {
            {activeTab === 'mypets' && (
   <div className="mypets-content">
     <Routes>
-      <Route path="/" element={<UserTable />} />
       <Route path="userpets" element={<UserTable />} />
     </Routes>
   </div>

@@ -209,7 +209,7 @@ const Header = () => {
                {/* <Link className="menu" to="/hostelusertable">
                  Owner Details
                </Link> */}
-               <Link className="menu" to="pethostel/booking">
+               <Link className="menu" to="/pethostel/booking">
                  Manage Reservations
                </Link>
                <Link className="menu" to="/tables/userpets">
@@ -265,7 +265,7 @@ const Header = () => {
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to={`tables`}><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
+                    <Link to="/tables"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

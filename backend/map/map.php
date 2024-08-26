@@ -208,18 +208,32 @@ try {
 
     if ($userLat && $userLng) {
         // Fetch records with non-null coordinates
+        if ($tableName === "pet_hostels"){
+            $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name,photos  FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
+
+        }
+        else if ($tableName==="vetneries"){
+            $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name,photo  FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
+
+        }
+        else{
+            
+        }
        
-        $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
 
         $stmt->execute();
         $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // $photos = ['photos']; // Initialize it as an empty array or any other default value
 
         foreach ($locations as $location) {
+            $photos = $location['photos'] ? explode(',', $location['photos']) : [];
 
             $distance = calculateDistance($userLat, $userLng, $location['latitude'], $location['longitude']);
-           
+
             if ($distance <= 100) { // If the location is within 100 km
                 $location['distance'] = $distance;
+                $location['photos'] = $photos;
+
                 $results[] = $location;
             } else if ($distance <= 200) { // If the location is within 200 km but not within 100 km
                 $location['distance'] = $distance;
