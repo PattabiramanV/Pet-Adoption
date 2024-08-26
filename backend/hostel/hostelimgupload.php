@@ -120,7 +120,7 @@ function insertHostelData($db, $name, $contact, $price_per_day, $available_time,
 
         if ($stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json, $user_id])) {
             // echo json_encode(['status' => 'success', 'message' => 'Hostel successfully added']);
-    // updateUserType($db, $user_id);
+    updateUserType($db, $user_id);
 
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to add hostel. Please try again later.']);
@@ -140,7 +140,7 @@ function updateUserType($db, $user_id)
     try {
         if ($updateUserType->execute([$user_id])) {
             // echo json_encode(['status' => 'success', 'message' => 'User type successfully updated.']);
-    // emailSendFun($name);
+    emailSendFun($name);
 
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to update user type. Please try again later.']);

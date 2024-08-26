@@ -172,6 +172,7 @@ const HostelDetails = () => {
   // console.log(hosId==40);
   const [rating, setRating] = useState(null); 
   const [userId, setUserId] = useState(null); 
+console.log('hosId',hosId);
 
 
   const fetchPetDetails = async () => {
@@ -223,7 +224,10 @@ const HostelDetails = () => {
     // } else {
     
     // }
+console.log('hosId',hosId);
+
   fetchPetDetails();
+  window.scrollTo(0, 0);
 
   }, [hosId]);
 
@@ -319,7 +323,7 @@ console.log(hostels);
         <div className="pet-detail-container">
           <div className="pet-images">
             <div>
-            <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px', padding:'16px'}}>
+            <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px', padding:'16px',textTransform:'capitalize'}}>
                 {pet?.hostel_name}
               </h2>
 
@@ -371,8 +375,8 @@ console.log(hostels);
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
-              {console.log('saa',rating)}
-              {rating ?
+              {console.log('saa0',rating)}
+              {rating || rating==0 ?
                             <StarRating rating={rating } readOnly={true}  /> : null }
               <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
@@ -401,7 +405,7 @@ console.log(hostels);
 <div>
 {reviews && (
 
-<NewTab hostelReviews={reviews}></NewTab>
+<NewTab hostelReviews={reviews} ></NewTab>
 
 )}
 
@@ -409,7 +413,7 @@ console.log(hostels);
 <div className='mb-20'>
 {pet && (
 
-<SimilarHos hostels={hostels}/>
+<SimilarHos hostels={hostels}  />
 
 )}
 </div>
