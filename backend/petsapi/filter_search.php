@@ -5,11 +5,9 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 
 try {
-    // Base query for fetching available pets
     $query = "SELECT * FROM pets WHERE status = 'available'";
     $filters = [];
     
-    // Collect filter criteria
     if (isset($_GET['pet_category']) && !empty($_GET['pet_category'])) {
         $filters[] = "category = :petType";
     }
@@ -38,10 +36,8 @@ try {
 
     error_log("SQL Query: " . $query);
 
-    // Prepare the SQL statement
     $stmt = $conn->prepare($query);
 
-    // Bind filter parameters to the prepared statement
     if (isset($_GET['pet_category']) && !empty($_GET['pet_category'])) {
         $stmt->bindParam(':pet_category', $_GET['pet_category']);
     }

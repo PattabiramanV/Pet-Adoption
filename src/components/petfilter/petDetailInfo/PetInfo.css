@@ -232,13 +232,13 @@ html, body {
 
 .adoptNow{
       position: relative;
-    right: 102px;
+    left: 102px;
     top: 7px;
 }
 
 .adoptNow .adopte{
    color: #ffffff;
-    width: 15%;
+    width: 104px;
     font-weight: 500;
     height: 46px;
     border-radius: 5px;

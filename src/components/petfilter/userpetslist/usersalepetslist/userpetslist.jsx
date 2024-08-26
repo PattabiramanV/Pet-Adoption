@@ -84,15 +84,18 @@ const handleUpdate = async (formData) => {
         message: 'Pet Updated',
         description: 'Pet details have been updated successfully.',
       });
-      setUserPets(userPets.map((pet) => (pet.id === formData.get('id') ? {
-        ...pet,
-        name: formData.get('name'),
-        breed: formData.get('breed'),
-        age: formData.get('age'),
-        size: formData.get('size'),
-        description: formData.get('description'),
-        photo: formData.get('photo') ? formData.get('photo').name : pet.photo,
-      } : pet)));
+
+      const token = localStorage.getItem("token");
+      const profileResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile/read_profile.php`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const userProfileData = profileResponse.data;
+
+      const petsResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_pets_by_user.php?id=${userProfileData.id}`);
+      setUserPets(Array.isArray(petsResponse.data) ? petsResponse.data : []);
+      
       handleModalClose();
     } else {
       notification.error({
@@ -206,45 +209,47 @@ const handleUpdate = async (formData) => {
               className="search-input searchBox"
             />
           </div>
-          {userPets.length === 0 ? (
-            <div className="no-data">
-              <img src="/src/assets/nodata.png" alt="No data available" className="no-data-img" />
-              <p>No pets found.</p>
-            </div>
-          ) : (
-            <>
-              {filteredData.length === 0 ? (
-                <div className="no-data">
-                  <img src="/path/to/your/no-data-image.png" alt="No data available" className="no-data-img" />
-                  <p>No pets match your search criteria.</p>
-                </div>
-              ) : (
-                <>
-                  <CommonTable
-                    headers={tableHeaders}
-                    body={tableBody}
-                    isLoading={loading}
-                  />
-                  <ReactPaginate
-                    previousLabel={'Previous'}
-                    nextLabel={'Next'}
-                    breakLabel={'...'}
-                    pageCount={Math.ceil(filteredData.length / petsPerPage)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageClick}
-                    containerClassName={'pagination'}
-                    pageClassName={'page-item'}
-                    pageLinkClassName={'page-link'}
-                    activeClassName={'active-page'}
-                    previousClassName={'previous-page'}
-                    nextClassName={'next-page'}
-                    disabledClassName={'disabled-page'}
-                  />
-                </>
-              )}
-            </>
-          )}
+   {userPets.length === 0 ? (
+  <div className="no-data">
+    <img src="/src/assets/nodata.png" alt="No data available" className="no-data-img" />
+    <p>No pets found.</p>
+  </div>
+) : (
+  <>
+    <CommonTable
+      headers={tableHeaders}
+      body={filteredData.length === 0 ? (
+        <tr>
+          <td colSpan={tableHeaders.length} className="no-data-message">
+            <p>No pets match your search criteria.</p>
+          </td>
+        </tr>
+      ) : (
+        tableBody
+      )}
+      isLoading={loading}
+    />
+    {filteredData.length > 0 && (
+      <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        pageCount={Math.ceil(filteredData.length / petsPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        activeClassName={'active-page'}
+        previousClassName={'previous-page'}
+        nextClassName={'next-page'}
+        disabledClassName={'disabled-page'}
+      />
+    )}
+  </>
+)}
+
 <Modal isOpen={modalIsOpen} onClose={handleModalClose}>
   <h2 className="modal-title">Edit Pet</h2>
   {selectedPet && (

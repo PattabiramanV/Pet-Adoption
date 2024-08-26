@@ -114,9 +114,15 @@ const PetDetailsRoute = () => {
       cancelButtonText: 'No',
     });
  
+   if (!result.isConfirmed) {
+      setIsAdopted(false);
+      return;
+    }
+
+        setIsAdopted(true); 
 
     if (result.isConfirmed) {
-const addressResult = await Swal.fire({
+   const addressResult = await Swal.fire({
   title: 'Select Address',
   html: `
     <div class="address-selection">
@@ -349,7 +355,7 @@ console.log(image1);
             <div className="price-info health">
             <p>Price: <span>₹{Number(pet.price).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             </div>
-            <div className="buttons adoptNow">
+            <div className=" adoptNow">
             <button className="adopte" onClick={handleAdoptNow} disabled={isAdopted}>
          {isAdopted ? 'Already Adopted' : 'Adopt Now'}
         </button>

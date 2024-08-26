@@ -6,7 +6,6 @@ import '../adoptlists/adoptedpets.css';
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { notification } from 'antd';
 
 const AdoptionRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -50,17 +49,8 @@ const AdoptionRequests = () => {
   const handleAccept = async (requestId) => {
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/accept_adoption_request.php`, { requestId });
-    
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
-      notification.success({
-        message: 'Request Accepted',
-        description: 'You have successfully accepted the adoption request.',
-      });
     } catch (error) {
-      notification.error({
-        message: 'Error',
-        description: 'There was an error accepting the request. Please try again.',
-      });
       console.error('Error accepting request:', error);
     }
   };
@@ -69,15 +59,7 @@ const AdoptionRequests = () => {
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/reject_adoption_request.php`, { requestId });
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
-      notification.warning({
-        message: 'Request Rejected',
-        description: 'You have rejected the adoption request.',
-      });
     } catch (error) {
-      notification.error({
-        message: 'Error',
-        description: 'There was an error rejecting the request. Please try again.',
-      });
       console.error('Error rejecting request:', error);
     }
   };
@@ -90,75 +72,70 @@ const AdoptionRequests = () => {
         <div>{error}</div>
       ) : (
         <div className="table-container mt-10 mb-10">
-          <h1 className="page-title">Adoption Requests</h1> 
-          
-          {filteredRequests.length === 0 && (
-            <div className="no-data-container">
-              <img src="/src/assets/nodata.png" alt="No Data Available" className="no-data-image" />
+          <div className="search-container">
+            {searchTerm === '' && (
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            )}
+            <div  id='requestserach'><input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input searchBox "
+             
+            />
             </div>
-          )}
-          {filteredRequests.length > 0 && (
-            <>
-              <div className="search-container petssearch">
-                <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input searchBox"
-                />
-              </div>
-              <CommonTable
-                headers={['S.No', 'Name', 'Address', 'Adoption Time', 'Action']}
-                body={
-                  
-                  currentRequests.length === 0 ? (
-                    <tr>
-                      <td colSpan="5" className="no-data-container">
-                        <p>No adoption requests found on this page.</p>
-                      </td>
-                    </tr>
-                  ) : (
-                    currentRequests.map((request, index) => [
-                      (currentPage - 1) * requestsPerPage + index + 1,
-                      request.name,
-                      request.address,
-                      request.adoption_time,
-                      <>
-                        <div className="ARbutton">
-                          <button className='accepted' onClick={() => handleAccept(request.request_id)}> 
-                            <img src="/src/assets/tick.webp" alt="Accept" />
-                          </button>
-                          <button className='rejected' onClick={() => handleReject(request.request_id)}> 
-                            <img src="/src/assets/xmark.png" alt="Reject" />
-                          </button>
-                        </div>
-                      </>
-                    ])
-                  )
-                }
+            
+          </div>
+          
+          <div className="table-content">
+            <CommonTable
+              headers={['S.No', 'Name', 'Address', 'Adoption Time', 'Action']}
+              body={
+                filteredRequests.length === 0 && searchTerm !== '' ? (
+                
+               
+                    <div key="no-data">
+                        Data not found in table
+                    </div>
+              
+                ) : (
+                  currentRequests.map((request, index) => [
+                    (currentPage - 1) * requestsPerPage + index + 1,
+                    request.name,
+                    request.address,
+                    request.adoption_time,
+                    <div className="ARbutton" key={request.request_id}>
+                      <button className='accepted' onClick={() => handleAccept(request.request_id)}>
+                        <img src="/src/assets/tick.webp" alt="Accept" />
+                      </button>
+                      <button className='rejected' onClick={() => handleReject(request.request_id)}>
+                        <img src="/src/assets/xmark.png" alt="Reject" />
+                      </button>
+                    </div>
+                  ])
+                )
+              }
+            />
+            {filteredRequests.length > requestsPerPage && (
+              <ReactPaginate
+                previousLabel={'Previous'}
+                nextLabel={'Next'}
+                breakLabel={'...'}
+                pageCount={Math.ceil(filteredRequests.length / requestsPerPage)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                pageClassName={'page-item'}
+                pageLinkClassName={'page-link'}
+                activeClassName={'active-page'}
+                previousClassName={'previous-page'}
+                nextClassName={'next-page'}
+                disabledClassName={'disabled-page'}
               />
-              {filteredRequests.length > 0 && (
-                <ReactPaginate
-                  previousLabel={'Previous'}
-                  nextLabel={'Next'}
-                  breakLabel={'...'}
-                  pageCount={Math.ceil(filteredRequests.length / requestsPerPage)}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={handlePageClick}
-                  containerClassName={'pagination'}
-                  pageClassName={'page-item'}
-                  pageLinkClassName={'page-link'}
-                  activeClassName={'active-page'}
-                  previousClassName={'previous-page'}
-                  nextClassName={'next-page'}
-                  disabledClassName={'disabled-page'}
-                />
-              )}
-            </>
-          )}
+            )}
+          </div>
         </div>
       )}
     </>
