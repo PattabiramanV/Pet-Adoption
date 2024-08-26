@@ -318,54 +318,7 @@ button.map-categary-button:hover {
     font-size: small;
 
 }
-/* Popup.css */
-.popup-container {
-    padding: 10px;
-    /* background-color: #ffffff; */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
 
-.popup-container strong {
-    font-size: 16px;
-    color: #007BFF;
-}
-
-.popup-container .popup-address {
-    font-size: 14px;
-    color: #555;
-    margin-top: 5px;
-}
-
-.popup-container .popup-distance {
-    font-size: 14px;
-    color: #888;
-    margin-top: 5px;
-}
-
-.popup-container .popup-message {
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
-}
-
-.Map_icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.Map_icon_main {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column-reverse;
-    gap: 0em;
-}
 
 
 /* -------------------- */
@@ -391,3 +344,100 @@ button.map-categary-button:hover {
 }
 
 /* Add additional styles if needed */
+
+
+
+
+
+
+/* Popup.css */
+
+
+.popup-container strong {
+    font-size: 16px;
+    color: #675bc8;
+}
+
+.popup-container .popup-address {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.popup-container .popup-distance {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+}
+
+.popup-container .popup-message {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+h2.pop_Address_in_map {
+    font-size: medium;
+    font-family: inherit;
+    font-weight: bold;
+    color: black;
+}
+.Map_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Map_icon_main {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 0em;
+}
+
+.popup-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.popup-address {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.popup-distance {
+    display: block;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.popup-message {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.popup-btn {
+    background: #6A5ACD;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.popup-btn:hover {
+    background: #ffffff;
+    color: #6A5ACD;
+    border:1px solid #6A5ACD;
+
+}
+
