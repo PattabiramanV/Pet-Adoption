@@ -228,3 +228,4 @@ const getStatusClass = (status) => {
 
 export default DoctorInfo;
 
+
