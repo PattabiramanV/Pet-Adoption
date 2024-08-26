@@ -215,12 +215,20 @@ html, body {
   color: green;
 }
 
-.similar-pets {
+  .similar-pets {
     padding-top: 57px;
     margin-bottom: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 85%;
+
 }
 .similar-pets h2{
   font-size: 28px;
+  font-weight: bold;
+
 }
 .adopt{
   text-transform: capitalize;

@@ -251,6 +251,7 @@ WHERE
         } else {
             $query = "SELECT * FROM pet_hostels";
             $all_Data = $hostel->getData($query);
+            // $all_Data['user_id']=$user_id;
             echo json_encode($all_Data);
         }
         

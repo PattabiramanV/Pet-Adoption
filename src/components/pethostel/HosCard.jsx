@@ -153,7 +153,7 @@ console.log(images);
 <div className="hoscardimg">
         {/* {images.length > 0 ? ( */}
           <img
-            src={`../../../backend/hostel/hostelimg/2/${images[0]}`}
+            src={`../../../backend/hostel/hostelimg/${hostel?.user_id}/${images[0]}`}
             className="img"
             alt="Hostel"
           />
@@ -170,7 +170,7 @@ console.log(images);
     <h3 className="name">{hostel.name}</h3>
    <h3 className="loca">
     <img className="location" src="https://img.icons8.com/material-outlined/24/000000/marker.png" alt="marker"/>
-    <span>{hostel.address}</span>
+    <span>{hostel.address.slice(0, 70)}</span>  
   </h3>
   </div>
 

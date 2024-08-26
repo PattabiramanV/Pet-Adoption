@@ -6,6 +6,7 @@ import '../adoptlists/adoptedpets.css';
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { notification } from 'antd';
 
 const AdoptionRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -50,8 +51,16 @@ const AdoptionRequests = () => {
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/accept_adoption_request.php`, { requestId });
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
+      notification.success({
+        message: 'Request Accepted',  
+        description: 'The adoption request has been successfully Accepted.',
+      })
     } catch (error) {
       console.error('Error accepting request:', error);
+      notification.error({
+        message: 'Request Accepted Failed',
+        description: 'There was an error Accepted the adoption request. Please try again.',
+      });
     }
   };
 
@@ -59,8 +68,16 @@ const AdoptionRequests = () => {
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/reject_adoption_request.php`, { requestId });
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
+      notification.success({
+        message: 'Request Rejected',
+        description: 'The adoption request has been successfully rejected.',
+      })
     } catch (error) {
       console.error('Error rejecting request:', error);
+      notification.error({
+        message: 'Request Rejection Failed',
+        description: 'There was an error rejecting the adoption request. Please try again.',
+      });
     }
   };
 

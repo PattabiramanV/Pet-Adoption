@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Checkbox, Snackbar, Alert } from '@mui/material';
 import Loader from '../Loader/Loader';
 import moment from 'moment';
+import axios from 'axios';
+import { notification } from 'antd';
+// import { fetchDoctorId } from './FetchDoctorId';
 
 const currentDayShowFun = () => {
     const today = new Date();
@@ -12,7 +15,10 @@ const currentDayShowFun = () => {
 };
 
 const formatTime = (date) => {
+    // console.log(date);
     const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+    // console.log(options);
+    // console.log(date.toLocaleTimeString([], options));
     return date.toLocaleTimeString([], options);
 };
 
@@ -29,7 +35,7 @@ const generateTimeSlots = (startTime, endTime) => {
         });
         start.setTime(nextSlot.getTime());
     }
-
+// console.log(timeSlots);
     return timeSlots;
 };
 
@@ -57,8 +63,11 @@ const fetchDoctorAvailability = async (doctorId, date) => {
 };
 
 const saveSelectedSlots = async (doctorId, date, slots) => {
+// console.log('slots',slots);
+    // return;
     try {
         const token = localStorage.getItem('token')
+        console.log(token);
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php`, {
             method: 'POST',
             headers: {
@@ -67,6 +76,9 @@ const saveSelectedSlots = async (doctorId, date, slots) => {
             },
             body: JSON.stringify({ doctorId, date, slots }),
         });
+        console.log(response);
+        // console.log("sssss", doctorId, date, slots);
+// return;
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
         console.log("sssss", doctorId, date, slots);
@@ -78,7 +90,8 @@ const saveSelectedSlots = async (doctorId, date, slots) => {
 };
 
 function BookingSlot() {
-    const [selectedDate, setSelectedDate] = useState(currentDayShowFun());
+
+  
     const [timeSlots, setTimeSlots] = useState([]);
     const [availability, setAvailability] = useState({ startTime: '09:00 AM', endTime: '05:00 PM' });
     const [selectedSlots, setSelectedSlots] = useState([]);
@@ -86,83 +99,139 @@ function BookingSlot() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [doctorId,setDoctorId]=useState(null);
 
     console.log("checked fields slots ", selectedSlots);
 
-    useEffect(() => {
-        const doctorId = 18;
 
-        // Load disabled slots from localStorage
+    useEffect(() => {
+        const fetchDoctorId = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(
+                    `${import.meta.env.VITE_API_BASE_URL}/api/doctorslottimeapi.php?endpoint=docId`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+            if(response.data.status=='success'){
+                setDoctorId(response.data.data.id); 
+
+            }
+            else{
+                console.log("not fetchhed doctor id");
+            }
+            } catch (err) {
+                console.log('Error fetching doctor ID:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDoctorId();
+    }, []); // Empty dependency array means this runs once on component mount
+
+    const [selectedDate, setSelectedDate] = useState(currentDayShowFun());
+    console.log('doctorId',doctorId);
+
+
+
+
+    useEffect(() => {
+
+        if (doctorId === null) {
+            return; // Do nothing if doctorId is not available
+        }
+// console.log('doctorId',doctorId);
+
         const savedDisabledSlots = JSON.parse(localStorage.getItem(`disabledSlots-${doctorId}`)) || {};
+        console.log('savedDisabledSlots',savedDisabledSlots);
         setDisabledSlots(savedDisabledSlots);
 
         setLoading(true);
         fetchDoctorAvailability(doctorId, selectedDate).then(data => {
-            if (data.start_time && data.end_time) {
-                const startTime = new Date(data.start_time);
-                const endTime = new Date(data.end_time);
+            console.log('data', data);
+        
+            if (data[0]?.start_time && data[0]?.end_time) {
+                const startTime = new Date(data[0].start_time);
+                const endTime = new Date(data[0].end_time);
+        
                 setAvailability({ startTime, endTime });
                 setTimeSlots(generateTimeSlots(startTime, endTime));
             } else {
                 console.error('No availability data found or error fetching data.');
             }
-
-            // Pre-select and disable already booked slots for the selected date
-            if (data.bookingslot) {
-                setSelectedSlots(data.bookingslot);
-                const updatedDisabledSlots = { ...disabledSlots, [selectedDate]: data.bookingslot };
-                setDisabledSlots(updatedDisabledSlots);
+        
+            // Handle selected and disabled slots
+            const bookedSlots = data.map(item => item.bookingslot);
+            if (bookedSlots.length > 0) {
+                setSelectedSlots(bookedSlots); // Set the booked slots
+                // const updatedDisabledSlots = { ...disabledSlots, [selectedDate]: bookedSlots };
+                // setDisabledSlots(updatedDisabledSlots);
+            } else {
+                console.log('No bookings found for the selected date.');
             }
-
+        
             setIsSubmitted(false); // Reset submit state when date changes
             setLoading(false);
+        }).catch(error => {
+            console.error('Error fetching data:', error);
+            setLoading(false);
         });
-    }, [selectedDate]);
+        
+    }, [selectedDate,doctorId]);
 
     const handleDateChange = (event) => {
+        // console.log('pp',event.target.value);
         setSelectedDate(event.target.value);
     };
 
     const handleCheckboxChange = (slot) => {
         setSelectedSlots(prevSlots => {
-            const updatedSlots = prevSlots.includes(slot)
-                ? prevSlots.filter(s => s !== slot)
-                : [...prevSlots, slot];
+            // Ensure no null or undefined values in the previous slots
+            const cleanPrevSlots = prevSlots.filter(s => s !== null && s !== undefined);
+    
+            // Toggle the selected slot
+            const updatedSlots = cleanPrevSlots.includes(slot)
+                ? cleanPrevSlots.filter(s => s !== slot)
+                : [...cleanPrevSlots, slot];
+    
+            console.log('Updated Slots:', updatedSlots); // This will log the correct updated slots
+    
             return updatedSlots;
         });
+    
+        // To log the updated selectedSlots after the state change, use a useEffect hook
     };
+    
 
     const handleAlertClose = () => {
         setAlertOpen(false);
     };
+    console.log('selectedSlots',selectedSlots);
 
     const handleSubmit = async () => {
+
         setLoading(true);
-        const doctorId = 18;
+        // const doctorId = 14;
         const result = await saveSelectedSlots(doctorId, selectedDate, selectedSlots);
 
         console.log("cccc", result);
 
-        if (result.success) {
-            const updatedDisabledSlots = {
-                ...disabledSlots,
-                [selectedDate]: [...(disabledSlots[selectedDate] || []), ...selectedSlots],
-            };
-            setDisabledSlots(updatedDisabledSlots);
+        notification.success({
+            message: 'Success',
+            description: 'Slots successfully saved.',
+        });
 
-            // Save disabled slots to localStorage
-            localStorage.setItem(`disabledSlots-${doctorId}`, JSON.stringify(updatedDisabledSlots));
-
-            setSelectedSlots([]);
-            setIsSubmitted(true);
-            setAlertOpen(true);
-        } else {
-            console.error('Failed to save slots');
-        }
+      
         setLoading(false);
     };
 
+
+
     return (
+
+        <>
+                    {loading && <Loader />}
+                
         <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Book Your Pet Grooming Service</h2>
             <p className="mb-4">Select your pet's grooming service and book an appointment today!</p>
@@ -190,9 +259,10 @@ function BookingSlot() {
                                 <Checkbox
                                     checked={selectedSlots.includes(slot.start)}
                                     onChange={() => handleCheckboxChange(slot.start)}
-                                    disabled={disabledSlots[selectedDate]?.includes(slot.start)}
+                                    id={`checkbox${index}`}
+                                    // disabled={disabledSlots[selectedDate]?.includes(slot.start)}
                                 />
-                                <label className="ml-2">{slot.start}</label>
+                                <label htmlFor={`checkbox${index}`} className="ml-2 cursor-pointer">{slot.start}</label>
                             </div>
                         ))
                     ) : (
@@ -222,6 +292,8 @@ function BookingSlot() {
 
             {loading && <Loader />}
         </div>
+
+        </>
     );
 }
 

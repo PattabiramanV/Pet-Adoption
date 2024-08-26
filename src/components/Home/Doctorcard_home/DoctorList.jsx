@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DoctorCard from './DoctorCard';
 import Loader from '../../Loader/Loader'; // Import your custom Loader component
-import "./DoctorList.css"; // Import your CSS file
+import "../../veterinary/carddoctor/Doctorcard/DoctorList"; // Import your CSS file
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);

@@ -223,8 +223,7 @@ const formSubmitFun = async (e) => {
               }
           );
 
-          console.log(response.data);
-  return;
+  
           if (response.data.status === 'success') {
               notification.success({
                   message: 'Form Submitted Successfully!',
@@ -289,7 +288,7 @@ const formSubmitFun = async (e) => {
 }}>
         Secure Your Pet's Stay Trusted Pet Hostel Services
         </h2>
-      <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
+      <div className="addHostelFormParent max-w-4xl mx-auto p-8  mb-5 mt-5">
         
 
         <form onSubmit={formSubmitFun}>
@@ -391,8 +390,8 @@ const formSubmitFun = async (e) => {
               {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
             </div>
             
-            <div className="sm:col-span-2">
-              <label className="block text-gray-700 text-sm font-bold mb-2 Upload-photos" htmlFor="photos">
+            <div className="sm:col-span-2 addimagesdiv ">
+              <label className="block text-gray-700 text-sm font-bold mb-2 Upload-photos " htmlFor="photos">
                 Upload Photos <span className="star">*</span>
               </label>
               <input

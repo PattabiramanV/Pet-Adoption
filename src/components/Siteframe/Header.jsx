@@ -126,7 +126,7 @@ const Header = () => {
                 <Link className="menu" to="/mypetlostpost">
                   Found Pets
                 </Link>
-                <Link className="menu" to="/lostingusertable">
+                <Link className="menu" to="/tables">
                 My Entries
                 </Link>
               </div>
@@ -154,7 +154,7 @@ const Header = () => {
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
-               <Link className="menu" to="/tables">
+               <Link className="menu" to="/tables/groomingusertable">
                Service Records
                </Link>
                {/* <Link className="menu" to="/">
@@ -209,10 +209,10 @@ const Header = () => {
                {/* <Link className="menu" to="/hostelusertable">
                  Owner Details
                </Link> */}
-               <Link className="menu" to="pethostel/booking">
+               <Link className="menu" to="/pethostel/booking">
                  Manage Reservations
                </Link>
-               <Link className="menu" to="tables">
+               <Link className="menu" to="/tables/userpets">
                  Client Profiles
                </Link>
              </div>
@@ -265,7 +265,7 @@ const Header = () => {
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to={`tables`}><span><FontAwesomeIcon icon={faShoppingCart} className="signup-icon" /></span>  Activity</Link>
+                    <Link to="/tables"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

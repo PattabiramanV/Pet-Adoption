@@ -3,7 +3,7 @@
  .petscontainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(244px, 1fr));
-  gap: 19px;
+  gap: 1em;
     padding: 23px 14px 0px 14px;
   /* flex-wrap: wrap;
   display: flex; */

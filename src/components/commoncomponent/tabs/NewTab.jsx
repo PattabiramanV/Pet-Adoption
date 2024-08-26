@@ -195,9 +195,10 @@
 import React, { useState } from 'react';
 import './style.css';
 import ReviewCard from '../rating/ReviewCard'
+import ReviewForm from '../rating/Review';
 
 function App({hostelReviews}) {
-    console.log(hostelReviews);
+    console.log('hostelReviews',hostelReviews);
 // return;
   const [activeTab, setActiveTab] = useState('London');
 
@@ -252,18 +253,33 @@ function App({hostelReviews}) {
               </div>
             )}
 
-            {activeTab === 'Paris' && (
-              <div id="Paris" className="tabcontent active">
-                <h3>Reviews</h3>
-                <div className="flex flex-wrap -m-4">
-                  {hostelReviews?.map((pet, index) => (
-                    <div key={index} className="w-full sm:w-1/2 p-4">
-                      <ReviewCard pet={pet} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+{activeTab === 'Paris' && (
+  <div id="Paris" className="tabcontent active">
+    <h3>Reviews</h3>
+    <div className="flex flex-wrap -m-4">
+      {hostelReviews && hostelReviews.length > 0 && hostelReviews[0]?.user_rating!=null ? (
+        hostelReviews.map((pet, index) => (
+          <div key={index} className="w-full sm:w-1/2 p-4">
+            <ReviewCard pet={pet} />
+          </div>
+        ))
+      ) : (
+        <div className="w-full p-4 text-center rounded-lg">
+        <p className="text-gray-700 text-xl font-semibold mb-2">No reviews available yet</p>
+        {/* <p className="text-gray-500 text-lg mb-4">
+          Be the first to share your experience with this hostel!
+        </p>
+        <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+          Write a Review
+        
+          <ReviewForm onSubmit={onReviewSubmit} />
+        </button> */}
+      </div>
+      )}
+    </div>
+  </div>
+)}
+
 
             {activeTab === 'Barcelona' && (
               <div id="Barcelona" className="tabcontent active">

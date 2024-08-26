@@ -356,7 +356,7 @@ console.log(image1);
             </div>
             <div className=" adoptNow">
             <button className="adopte" onClick={handleAdoptNow} disabled={isAdopted}>
-         {isAdopted ? 'Already Adopted' : 'Adopt Now'}
+         {isAdopted ? ' Adopted' : 'Adopt Now'}
         </button>
             </div>
           </div>

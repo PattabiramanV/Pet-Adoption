@@ -64,7 +64,7 @@ function PetDetails({ id, name, city, description = 'No description available', 
             </div>
           </div>
           <div className="petsdes">
-            <p className="petsdescription">{description.slice(0, 73)}..</p>
+            <p className="petsdescription">{description.slice(0, 60)}..</p>
           </div>
         </div>
         <div className="petsbuttons-card">

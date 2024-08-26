@@ -160,6 +160,7 @@ import ReviewCard from '../commoncomponent/rating/ReviewCard'
 import Tabs from '../commoncomponent/tabs/Tabs';
 import NewTab from '../commoncomponent/tabs/NewTab'
 import SimilarHos from './SimilarHos';
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
 const HostelDetails = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Corrected useLocation() hook usage
@@ -172,6 +173,7 @@ const HostelDetails = () => {
   // console.log(hosId==40);
   const [rating, setRating] = useState(null); 
   const [userId, setUserId] = useState(null); 
+console.log('hosId',hosId);
 
 
   const fetchPetDetails = async () => {
@@ -223,7 +225,10 @@ const HostelDetails = () => {
     // } else {
     
     // }
+console.log('hosId',hosId);
+
   fetchPetDetails();
+  window.scrollTo(0, 0);
 
   }, [hosId]);
 
@@ -319,7 +324,7 @@ console.log(hostels);
         <div className="pet-detail-container">
           <div className="pet-images">
             <div>
-            <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px', padding:'16px'}}>
+            <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px', padding:'16px',textTransform:'capitalize'}}>
                 {pet?.hostel_name}
               </h2>
 
@@ -367,13 +372,13 @@ console.log(hostels);
               <span> {pet?.available_time}</span>
             </div>
 
-            <div className="div_name flex gap-7">
+            <div className="div_name flex gap-6">
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
-              {console.log('saa',rating)}
-              {rating ?
-                            <StarRating rating={rating } readOnly={true}  /> : null }
+              {console.log('saa0',rating)}
+              {rating || rating==0 ?
+                            <StarRating rating={rating } readOnly={true} style={{width:'124px'}}  /> : null }
               <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
 
@@ -401,7 +406,7 @@ console.log(hostels);
 <div>
 {reviews && (
 
-<NewTab hostelReviews={reviews}></NewTab>
+<NewTab hostelReviews={reviews} ></NewTab>
 
 )}
 
@@ -409,7 +414,7 @@ console.log(hostels);
 <div className='mb-20'>
 {pet && (
 
-<SimilarHos hostels={hostels}/>
+<SimilarHos hostels={hostels}  />
 
 )}
 </div>

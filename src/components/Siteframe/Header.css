@@ -153,3 +153,8 @@ button.signup:hover {
 .profile_name{
   text-transform:capitalize;
 }
+
+/* 
+.ant-modal-header {
+  display: contents;
+} */

@@ -3,7 +3,7 @@ import { message } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import './editform.css';
-
+import Loader from '../Loader/Loader'
 const EditForm = ({ record, onClose, onUpdate }) => {
     const [formData, setFormData] = useState({
         id: record.id, 
@@ -62,17 +62,17 @@ const EditForm = ({ record, onClose, onUpdate }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return; // Prevent submission if validation fails
-
+       
         const updatedFormData = {
             ...formData,
             status: statusChecked ? 'completed' : 'pending',
         };
-
+       
         setLoading(true); 
-
+      
         try {
             const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/model/editform.php`, updatedFormData);
-            if (response.data.status === "success") { // Corrected status check
+            if (response.data.status === "success") { 
                 message.success('Updated successfully!');
                 console.log(response.data)
                 onUpdate(updatedFormData); 
@@ -86,7 +86,9 @@ const EditForm = ({ record, onClose, onUpdate }) => {
         } finally {
             setLoading(false); // Reset loading state after the request completes
         }
+
     };
+    
 
     return (
         <div className="editform lostpetform max-w-4xl mx-auto mb-5 mt-5 rounded-[10px]">
