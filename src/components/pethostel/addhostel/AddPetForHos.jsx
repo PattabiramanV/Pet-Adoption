@@ -288,7 +288,7 @@ const formSubmitFun = async (e) => {
 }}>
         Secure Your Pet's Stay Trusted Pet Hostel Services
         </h2>
-      <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
+      <div className="addHostelFormParent max-w-4xl mx-auto p-8  mb-5 mt-5">
         
 
         <form onSubmit={formSubmitFun}>

@@ -160,6 +160,7 @@ import ReviewCard from '../commoncomponent/rating/ReviewCard'
 import Tabs from '../commoncomponent/tabs/Tabs';
 import NewTab from '../commoncomponent/tabs/NewTab'
 import SimilarHos from './SimilarHos';
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
 const HostelDetails = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Corrected useLocation() hook usage
@@ -371,13 +372,13 @@ console.log(hostels);
               <span> {pet?.available_time}</span>
             </div>
 
-            <div className="div_name flex gap-7">
+            <div className="div_name flex gap-6">
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
               {console.log('saa0',rating)}
               {rating || rating==0 ?
-                            <StarRating rating={rating } readOnly={true}  /> : null }
+                            <StarRating rating={rating } readOnly={true} style={{width:'124px'}}  /> : null }
               <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
 
