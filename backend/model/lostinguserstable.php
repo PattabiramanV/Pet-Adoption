@@ -21,20 +21,22 @@ if ($user_id === null) {
     exit();
 }
 
-$query = "SELECT * FROM pet_losting_details WHERE user_id = :user_id";
+$query = "SELECT * FROM pet_losting_details ";
 $stmt = $conn->prepare($query);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+// $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
 try {
     $stmt->execute();
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     // Encode the photo data in base64 if it's not null
     foreach ($pets as &$pet) {
         if (!empty($pet['photo'])) {
             $pet['photo'] = base64_encode($pet['photo']);
+            $pet['currentUserId']=$user_id;
+
         } else {
             $pet['photo'] = null; // Ensure null if no photo
+            $pet['currentUserId']=$user_id;
         }
     }
     

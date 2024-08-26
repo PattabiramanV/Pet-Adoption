@@ -28,7 +28,7 @@ const LostListPet = () => {
 
         const userData = await userResponse.json();
         if (Array.isArray(userData) && userData.length > 0 && userData[0].user_id) {
-          setCurrentUserId(userData[0].user_id);
+          setCurrentUserId(userData[0].currentUserId);
         } else {
           throw new Error("Invalid data format received from the server.");
         }
@@ -42,7 +42,7 @@ const LostListPet = () => {
         }
       } catch (error) {
         console.error('Fetch error:', error);
-        message.error('Failed to fetch data', {
+        message.error('Failed to fetch data1', {
           style: {
             position: 'fixed',
             top: '20px',
@@ -56,6 +56,10 @@ const LostListPet = () => {
 
     fetchData();
   }, [location.state]);
+
+
+console.log('pet',pet);
+console.log('currentUserId',currentUserId);
 
 
   if (!pet || currentUserId === null) return <p>Failed to load pet details.</p>;
@@ -100,7 +104,7 @@ const LostListPet = () => {
     } catch (error) {
       console.error('Error updating status:', error);
       message.error({
-        content: 'Failed to update status',
+        content: 'Failed to update statuses',
         style: {
           position: 'fixed',
           top: '20px',
@@ -174,6 +178,20 @@ const LostListPet = () => {
                   <button className="lost_goback-button" onClick={() => navigate("/mypetlostpost")}>
                     Go Back
                   </button>
+                  <InlineShareButtons
+                    config={{
+                      alignment: 'center',
+                      color: 'social',
+                      enabled: true,
+                      font_size: 16,
+                      language: 'en',
+                      networks: ['whatsapp', 'facebook', 'twitter', 'email'],
+                      padding: 12,
+                      radius: 50,
+                      show_total: false,
+                      size: 40,
+                    }}
+                  />
                 </>
               )}
             </div>
@@ -220,6 +238,8 @@ export default LostListPet;
 //         });
 
 //         const userData = await userResponse.json();
+//         console.log(userData);
+        
 //         if (Array.isArray(userData) && userData.length > 0 && userData[0].user_id) {
 //           setCurrentUserId(userData[0].user_id);
 //         } else {
