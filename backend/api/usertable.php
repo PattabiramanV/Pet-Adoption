@@ -5,8 +5,8 @@
 
 require ('../config/config.php');
 header('Content-Type: application/json');
-// $user_id = authenticate();
-$user_id = 4;
+$user_id = authenticate();
+
 
 // Define the base URL for the images
 

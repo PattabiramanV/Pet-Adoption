@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import "./DoctorCard.css"; // Import your CSS file
+import "../../veterinary/carddoctor/Doctorcard/DoctorCard.css"; // Import your CSS file
 
 const DoctorCard = ({ doctor }) => {
   const navigate = useNavigate(); // Hook for navigation
@@ -54,7 +54,7 @@ const DoctorCard = ({ doctor }) => {
 
           <div className="info-item">
             {/* <div className="div_title"> */}
-              <h3 className="title_doctorcard">Experience :<span className="doctorcard-item">{doctor.experience}</span></h3>
+              <h3 className="title_doctorcard">Experience :<span className="doctorcard-item">{doctor.experience} Year</span> </h3>
             {/* </div> */}
             {/* <div className="div_value"> */}
               {/* <h3 className="value_doctorcard">{doctor.experience}</h3> */}

@@ -11,13 +11,10 @@
 }
 
 .doctorMoreInfoContainer {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+
   padding: 20px;
   border-radius: 10px;
   width: 50px;
-  /* max-width: 800px; */
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -43,24 +40,7 @@
 
 }
 
-/* .backButton {
-  display: inline-block;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 10px 20px;
-  text-align: center;
-  width: 40%;
-  height: 100px;
-  margin-top: 10px;
-  font-size: 16px;
-  border: 1px solid #675bc8;
-  background-color: #fff; 
-  color: #675bc8;
-} */
-/* .backButton:hover{
-  background-color: #f2f2f2;
-} */
+
 .doctorpic {
   flex: 1;
   overflow: hidden;
@@ -124,21 +104,6 @@
   margin-top: 20px;
 }
 
-/* .contact-doctor-btn,
-.back-button {
-  display: inline-block;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 10px 20px;
-  text-align: center;
-  width: 30%;
-  margin-top: 10px;
-  font-size: 16px;
-  border: 1px solid #675bc8;
-  background-color: #fff; 
-  color: #675bc8;
-} */
 
 .doctor-more-info-container .contact-doctor-btn,
 .doctor-btn {
@@ -168,76 +133,6 @@
 
 
 
-/* .back-button {
-  background-color: #ff5a5f;
-} */ */
-
-
-/* 
-.doctor-more-info-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.doctor-details {
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4em;
-}
-
-.doctor-pic {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.doctor-info {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.doctor-details, p {
-  text-transform: capitalize;
-}
-
-.button-group-doctormoreinfo {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-
-.doctor-btn{
-  padding: 8px 16px; 
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  width: 30%;
-  margin-top: 8px;
-  font-size: 14px; 
-  border: 1px solid #675bc8;
-  background-color: #fff;
-  color: #675bc8;
-  font-family: 'Arial', sans-serif;
-}
-
-
-.doctor-btn:hover {
-  background-color: #696299; 
-  color: white;
-} */
-
 
 
 
@@ -265,11 +160,7 @@
   align-items: center;
 }
 
-/* .doctor-img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 10px;
-} */
+
 .doctor-info {
   width: 100%;
   display: flex;
@@ -292,7 +183,6 @@
   width: 100%;
   display: flex;
   gap: 20px;
-  /* justify-content: ; */
 }
 
 
