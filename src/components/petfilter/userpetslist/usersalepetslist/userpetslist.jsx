@@ -6,7 +6,6 @@ import ReactPaginate from 'react-paginate';
 import CommonTable from '../../../commoncomponent/datatable/DataTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faEdit, faSearch } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
 import Modal from './popmodel'; 
 import { notification } from 'antd';
 
