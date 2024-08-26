@@ -4,21 +4,34 @@ import Footer from './Footer';
 import Requesttables from '../petfilter/userpetslist/requestsale/requesttables';
 import { useState } from 'react';
 import BreadcrumbComponent from '../commoncomponent/Breadcrumb';
-import HostelDataTable from '..//../components/pethostel/datatable/request';
+import HostelDataTable from '../../components/pethostel/datatable/request';
 import Tablesvent from '../veterinary/usertb';
+
+const breadcrumbItems = {
+  'Hostel': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Hostel', href: '/tables/hostel' }],
+  'Veternarians': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Veterinarians', href: '/tables/veterinarians' }],
+  'Lost Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Lost Pet', href: '/tables/lost-pet' }],
+  'Pet': [{ title: 'Home', href: '/' }, { title: 'Dashboard', href: '/tables' }, { title: 'Pet', href: '/tables/pet' }]
+};
+
 const OverallTables = () => {
-  const [selectedItem, setSelectedItem] = useState('Overview');
+  const [selectedItem, setSelectedItem] = useState(() => {
+    // Retrieve the selected item from localStorage or default to 'Overview'
+    return localStorage.getItem('selectedItem') || 'Overview';
+  });
 
   const handleMenuItemClick = (item) => {
     setSelectedItem(item);
+    localStorage.setItem('selectedItem', item); // Save the selected item to localStorage
   };
 
   return (
     <>
       <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Action', href: '/tables' }]} />
+      <BreadcrumbComponent items={breadcrumbItems[selectedItem] || []} />
       
       <div className="tablescontainer">
+      
         <div className="sidebar">
           <ul>
             <li 
@@ -31,7 +44,7 @@ const OverallTables = () => {
               onClick={() => handleMenuItemClick('Veternarians')} 
               className={selectedItem === 'Veternarians' ? 'active' : ''}
             >
-              <span>Veternarians</span>
+              <span>Veterinarians</span>
             </li>
             <li 
               onClick={() => handleMenuItemClick('Lost Pet')} 

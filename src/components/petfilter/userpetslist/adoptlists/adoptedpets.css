@@ -122,8 +122,8 @@ th {
     bottom: 70px;
 }
 .status-pending {
-color: #ffd078;
-    background-color: #ffe8bc;
+    color: #6b6363;
+    background-color: #bbb0f3;
 }
 
 .ARbutton button {
@@ -138,4 +138,9 @@ color: #ffd078;
     display: flex;
         justify-content: center;
 
+}
+
+.no-data-container .no-data-image{
+ height: 386px;
+    width: 420px;
 }

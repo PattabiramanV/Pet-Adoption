@@ -1,4 +1,4 @@
-.mores-info .mores{
+.mores-info .petsmores{
    border: 1px solid #675BC8;
    color:#675BC8 ;
    width: 10%;
@@ -9,6 +9,9 @@
    display: flex;
    justify-content: center;
    align-items: center;
+       position: relative;
+    right: 20px;
+
 }
 .mores-info{
       display: flex;
@@ -32,7 +35,7 @@
 .overlapcard {
     width: 75%;
 }
-.mores:hover {
+.petsmores:hover {
 background-color: #696299; 
 color: white ;
 

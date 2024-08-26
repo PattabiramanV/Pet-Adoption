@@ -107,7 +107,7 @@ const Hostels = () => {
   textTransform:'uppercase'
 }}
 >Book The Best Hostel Service For Your Pet</h1>
-      <div className="flex flex-wrap justify-center space-x-4 mt-10 gap-x-2 gap-y-6 pb-8">
+      <div className="flex flex-wrap  space-x-4 mt-10 gap-x-2 gap-y-6 pb-8 mx-auto justify-start max-w-[1000px]">
       {/* <HostelCard hostel={data[0]}/>
       <HostelCard hostel={data[1]}/>
       <HostelCard hostel={data[2]}/> */}

@@ -15,7 +15,8 @@
 
 .Hostelcard-container {
   width: 310px;
-  height: 470px;
+  /* height: 470px; */
+  height: 450px;
   gap: 0px;
   border-radius: 16px;
   border: 1px solid #c3c3c3;
@@ -27,6 +28,7 @@
 }
 .hoscardimg .img {
   /* width: 286px; */
+  width: 100%;
   height: 168px;
   border-radius: 10px 10px 0 0;
 }
@@ -41,17 +43,20 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    /* gap: 4px; */
     /* position: relative; */
     height: 100px;
+    justify-content: space-evenly;
+    padding-left: 4%;
     /* left: 16px; */
 }
 
 .locationdescript {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    height: 240px;
+    gap: 8px;
+    /* height: 240px; */
+    height: 220px;
 }
 
 .des {
@@ -62,7 +67,7 @@
 .datas {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .name {
@@ -148,7 +153,10 @@ span#age {
   font-weight: 400;
   /* margin-top: 10px; */
 }
-
+/* p.description {
+  font-size: 15px;
+  line-height: 26px;
+} */
 .hosbuttons-card {
   /* position: relative;
   top: 9px;

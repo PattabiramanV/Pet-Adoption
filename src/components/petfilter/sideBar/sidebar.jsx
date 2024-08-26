@@ -2,9 +2,8 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
-import { Pagination, Alert } from 'antd';
+import { Pagination } from 'antd';
 import Loader from '../../Loader/Loader';
-// import queryimages from '/src/assets/queryimage'; // Adjust the path as needed
 
 
 const PetForm = () => {
@@ -38,7 +37,7 @@ const PetForm = () => {
         ]);
 console.log(petResponse.data);
 
-        setPets(Array.isArray(petResponse.data) ? petResponse.data : []);
+        setPets(petResponse.data);
         setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
         setBreeds(Array.isArray(filterOptionsResponse.data.breeds) ? filterOptionsResponse.data.breeds : []);
       } catch (error) {
@@ -72,14 +71,14 @@ const filterPets = async () => {
 
     if (result.status === 'success') {
       setPets(result.data.length > 0 ? result.data : []);
-      setError(''); // Clear error
+      setError(''); 
     } else {
       setPets([]);
       setError('No matching pets found.'); 
     }
   } catch (error) {
     setPets([]);
-    setError('Pet not available'); // Custom error message
+    setError('Pet not available'); 
   }
 };
 
@@ -98,13 +97,16 @@ const shuffleArray = (array) => {
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
     const shuffledPets = shuffleArray([...pets]);  
+console.log(pets);
 
   const currentPets = shuffledPets.slice(indexOfFirstPet, indexOfLastPet);
+console.log(currentPets);
+// return;
 
   return (
-    <div className="filter-filterpet">
-      <div className="filterSearch">
-        <form className="pet-form" onSubmit={handleSubmit}>
+    <div className="petsfilter-filterpet">
+      <div className="petsfilterSearch">
+        <form className="petspet-form" onSubmit={handleSubmit}>
          <label>
             Search Location:
             <input
@@ -116,7 +118,7 @@ const shuffleArray = (array) => {
           </label>
           <label>
             Pet Type:
-            <select name="petType" value={formData.petType} onChange={handleChange}>
+            <select name="petType" className="petsselect" value={formData.petType} onChange={handleChange}>
               <option value="">Select Pet Type</option>
               {petTypes.map(type => (
                 <option key={type} value={type}>{type}</option>
@@ -126,7 +128,7 @@ const shuffleArray = (array) => {
          
           <label>
             Size:
-            <select name="size" value={formData.size} onChange={handleChange}>
+            <select name="size" className="petsselect" value={formData.size} onChange={handleChange}>
               <option value="">Select Size</option>
               {sizes.map(size => (
                 <option key={size} value={size}>{size}</option>
@@ -135,7 +137,7 @@ const shuffleArray = (array) => {
           </label>
           <label>
             Breed:
-            <select name="breed" value={formData.breed} onChange={handleChange}>
+            <select name="breed" className="petsselect" value={formData.breed} onChange={handleChange}>
               <option value="">Select Breed</option>
               {breeds.map(breed => (
                 <option key={breed} value={breed}>{breed}</option>
@@ -144,7 +146,7 @@ const shuffleArray = (array) => {
           </label>
           <label>
             Age:
-            <select name="age" value={formData.age} onChange={handleChange}>
+            <select name="age"  className="petsselect" value={formData.age} onChange={handleChange}>
               <option value="">Select Age</option>
               {ages.map(age => (
                 <option key={age} value={age}>{age}</option>
@@ -153,7 +155,7 @@ const shuffleArray = (array) => {
           </label>
           <label>
             Color:
-            <select name="color" value={formData.color} onChange={handleChange}>
+            <select name="color" className="petsselect" value={formData.color} onChange={handleChange}>
               <option value="">Select Color</option>
               {colors.map(color => (
                 <option key={color} value={color}>{color}</option>
@@ -162,7 +164,7 @@ const shuffleArray = (array) => {
           </label>
           <label>
             Gender:
-            <select name="gender" value={formData.gender} onChange={handleChange}>
+            <select name="gender" className="petsselect" value={formData.gender} onChange={handleChange}>
               <option value="">Select Gender</option>
               {genders.map(gender => (
                 <option key={gender} value={gender}>{gender}</option>
@@ -171,15 +173,15 @@ const shuffleArray = (array) => {
           </label>
         </form>
       </div>
-<div className="pet-details_card">
-        <div className="pets_details">
+<div className="petspet-details_card">
+        <div className="petspets_details">
           {loading ? (
             <Loader />
           ) : (
             <>
               {error && (
-                <div className="no-pets-container">
-                  <img src="/src/assets/queryimage.png" alt="No pets available" className="no-pets-image" />
+                <div className="petsno-pets-container">
+                  <img src="/src/assets/queryimage.png" alt="No pets available" className="petsno-pets-image" />
                 </div>
               )}
               <CardView pets={currentPets} />

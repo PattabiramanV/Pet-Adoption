@@ -38,7 +38,7 @@ const ViewMore = () => {
           </div>
           <div className="Rehome">
             <div className="mores-info">
-              <button className="mores">
+              <button className="petsmores">
                 <a href="petList">See more</a>
               </button>
             </div>

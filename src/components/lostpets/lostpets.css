@@ -175,7 +175,7 @@ button.hi {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  justify-content: flex-start;
+  justify-content: center;
   padding: -1px 130px;
 }
 
@@ -211,4 +211,11 @@ span#lost_inputscolors {
   color: #2E256F;
   padding: 4px 8px;
   border-radius: 10%;
+}
+
+.lost_pet-card-image {
+  width: 300px;
+  height: 230px;
+  -o-object-fit: cover;
+  object-fit: cover;
 }

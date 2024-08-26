@@ -1,4 +1,4 @@
-.filterSearch {
+.petsfilterSearch {
   padding: 30px;
   background-color: #fff;
   width: 25%; 
@@ -9,7 +9,7 @@ body {
   overflow-x: hidden;
 }
 
-.pet-details_card {
+.petspet-details_card {
   background-color: #fff;
   margin-bottom: 15%;
   width: 80%; 
@@ -17,11 +17,11 @@ body {
   overflow: hidden;
 }
 
-.pets_details {
+.petspets_details {
   margin-bottom: 14%;
 }
 
-.filter {
+.petsfilter {
   background-color: #fcfcfc;
   border-bottom: 1px solid #CBCBCB;
   width: 288px;
@@ -31,23 +31,23 @@ body {
   align-items: center;
 }
 
-.filter_image img {
+.petsfilter_image img {
   width: 124px;
   height: 124px;
 }
 
-.filterLocation {
+.petsfilterLocation {
   padding-top: 16px;
   width: 288px;
   height: 40px;
 }
 
-.filterLocation p {
+.petsfilterLocation p {
   font-size: 16px;
   font-weight: 500;
 }
 
-.locationData {
+.petslocationData {
   width: 288px;
   height: 62px;
   border-radius: 8px;
@@ -57,7 +57,7 @@ body {
   top: 8px;
 }
 
-.locationData .code {
+.petslocationData .petscode {
   color: #606060;
   font-size: 12px;
   font-weight: 500;
@@ -65,16 +65,16 @@ body {
   top: 5px;
 }
 
-.locationData p {
+.petslocationData p {
   padding-left: 4%;
 }
 
-.locationData .address {
+.petslocationData .petsaddress {
   position: relative;
   top: 11px;
 }
 
-.currentl {
+.petscurrentl {
   width: 188px;
   height: 32px;
   display: flex;
@@ -85,17 +85,17 @@ body {
   top: 84px;
 }
 
-.currentl .ltext {
+.petscurrentl .petsltext {
   font-size: 12px;
   font-weight: 500;
   color: #0A453A;
 }
 
-.slidecontainer {
+.petsslidecontainer {
   width: 100%;
 }
 
-.slider {
+.petsslider {
   -webkit-appearance: none;
   width: 288px;
   height: 10px;
@@ -107,11 +107,11 @@ body {
   transition: opacity .2s;
 }
 
-.slider:hover {
+.petsslider:hover {
   opacity: 1;
 }
 
-.filter-filterpet {
+.petsfilter-filterpet {
   display: flex;
   justify-content: space-between; /* Space out filter and pet details */
   padding: 12px;
@@ -119,7 +119,7 @@ body {
   gap: 1%;
 }
 
-.list-pet {
+.petslist-pet {
   display: flex;
   flex-direction: column;
   flex: 2;
@@ -127,34 +127,35 @@ body {
   padding-bottom: 66px;
 }
 
-.pet-details_card .pagination {
+.petspet-details_card .pagination {
      display: flex;
     justify-content: center;
     position: relative;
     top: 109px; 
 }
 
-.pet-form {
+.petspet-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.pet-form label {
+.petspet-form label {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
 
-.pet-form select,
-.pet-form input {
+.petspet-form .petsselect,
+.petspet-form input {
   padding: 8px;
-  border: 1px solid #ddd;
+      width: 109%;
+  border: 1px solid rgba(96, 96, 96, 1);
   border-radius: 4px;
   background-color: #fff;
 }
 
-.pet-form button {
+.petspet-form button {
   padding: 10px;
   color: #675BC8;
   border: 1px solid #675BC8;
@@ -162,34 +163,34 @@ body {
   cursor: pointer;
 }
 
-.petnot {
+.petspetnot {
   text-align: center;
 }
 
-.error-alert {
+.petserror-alert {
   text-align: center;
   margin: 20px auto;
   width: 80%;
   max-width: 600px;
 }
 
-.ant-alert-error {
+.petsant-alert-error {
   background-color: #f8d7da;
   border-color: #f5c6cb;
   color: #721c24;
 }
-.no-match {
+.petsno-match {
   border: 2px solid red;
   background-color: #ffe6e6;
 }
 
-.no-pets-container {
+.petsno-pets-container {
     display: flex;
     justify-content: center;
     padding-top: 15%;
 }
 
-.no-pets-image {
+.petsno-pets-image {
   max-width: 300px;
   height: auto;
   margin-bottom: 10px;

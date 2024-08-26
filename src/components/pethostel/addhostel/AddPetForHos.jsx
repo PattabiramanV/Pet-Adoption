@@ -279,8 +279,15 @@ const formSubmitFun = async (e) => {
   return (
     <>
       {loading && <Loader />}
-      <h2 className="addHostelTitle">
-          Need pet hostel services? We're here to take care of your pet!
+      <h2 className="addHostelTitle" style={{
+  fontSize: '26px',
+  color: 'rgba(12, 12, 12, 1)',
+  fontWeight: 700,
+  textAlign: 'center',
+  marginTop: '36px',
+  textTransform:'uppercase'
+}}>
+        Secure Your Pet's Stay Trusted Pet Hostel Services
         </h2>
       <div className="addHostelParent max-w-4xl mx-auto p-8  mb-5 mt-5">
         
@@ -385,7 +392,7 @@ const formSubmitFun = async (e) => {
             </div>
             
             <div className="sm:col-span-2">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photos">
+              <label className="block text-gray-700 text-sm font-bold mb-2 Upload-photos" htmlFor="photos">
                 Upload Photos <span className="star">*</span>
               </label>
               <input

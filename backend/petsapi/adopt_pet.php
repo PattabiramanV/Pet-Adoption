@@ -73,12 +73,6 @@ try {
     <!DOCTYPE html>
     <html>
     <head>
-        <style>
-            body { font-family: inter, sans-serif; background-color: #f9f9f9; }
-            .container { padding: 24px; }
-            // .header { padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0; }
-            .content { padding: 24px; background-color: white; border-radius: 0 0 8px 8px; }
-        </style>
     </head>
     <body>
         {$header}

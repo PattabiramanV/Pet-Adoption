@@ -1,8 +1,5 @@
 .tablescontainer {
-  display: flex;
-  height: 100vh; 
-margin-bottom: 607px;  
-}
+   display: flex; height: 100vh; width: 100vw; /* margin-bottom: 0em; */ }
 
 .sidebar {
   height: 100%; 
@@ -17,6 +14,7 @@ margin-bottom: 607px;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  border-top: 20px solid #2f2f3a;
 }
 
 .sidebar ul li {
@@ -30,9 +28,9 @@ margin-bottom: 607px;
   font-size: 16px;
 }
 
-.sidebar ul li:hover {
+/* .sidebar ul li:hover {
   background-color: #3b3b4e;
-}
+} */
 
 .contenttables {
       min-width: 87%;
@@ -41,10 +39,13 @@ margin-bottom: 607px;
 }
 
 .sidebar li.active {
-  background-color: #44444e;
+  background-color: #3b3b4e;
   color: white;
+  cursor: pointer;
+  /* background-color: #dadada;
+  color: white; */
 }
 
-.sidebar li:hover {
+/* .sidebar li:hover {
   background-color: #e0e0e0;
-}
+} */

@@ -14,7 +14,7 @@ function CustomPaging({ imageUrls }) {
       );
     },
     dots: true,
-    dotsClass: 'slick-dots slick-thumb',
+    dotsClass: 'petssliderslick-dots petssliderslick-thumb',
     infinite: true,
     speed: 500,
     slidesToShow: 1,
