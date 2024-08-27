@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardView from '../../pets/card/card';
 import './sideBar.css';
-import { Table, Spin, Alert } from 'antd';
+import { Pagination } from 'antd';
 import Loader from '../../Loader/Loader';
+
 
 const PetForm = () => {
   const [petTypes] = useState(['cat', 'dog']);
@@ -25,16 +26,18 @@ const PetForm = () => {
   const [pets, setPets] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const petsPerPage = 9;
     const fetchInitialData = async () => {
+
       try {
         const [petResponse, filterOptionsResponse] = await Promise.all([
-          axios.get('http://localhost/petadoption/backend/pets_api/get_all_pets.php'),
-          axios.get('http://localhost/petadoption/backend/pets_api/get_filter_options.php')
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_all_pets.php`),
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_filter_options.php`)
         ]);
+console.log(petResponse.data);
 
-        setPets(Array.isArray(petResponse.data) ? petResponse.data : []);
+        setPets(petResponse.data);
         setAges(Array.isArray(filterOptionsResponse.data.ages) ? filterOptionsResponse.data.ages : []);
         setBreeds(Array.isArray(filterOptionsResponse.data.breeds) ? filterOptionsResponse.data.breeds : []);
       } catch (error) {
@@ -44,7 +47,7 @@ const PetForm = () => {
         setLoading(false);
       }
     };
-
+  useEffect(() => {
     fetchInitialData();
   }, []);
 
@@ -60,51 +63,51 @@ const PetForm = () => {
     }));
   };
 
-  const filterPets = async () => {
-    try {
-      const queryParams = new URLSearchParams(formData).toString();
-      const response = await axios.get(`http://localhost/petadoption/backend/pets_api/filter_search.php?${queryParams}`);
-      const result = response.data;
+const filterPets = async () => {
+  try {
+    const queryParams = new URLSearchParams(formData).toString();
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/filter_search.php?${queryParams}`);
+    const result = response.data;
 
-      if (result.status === 'success') {
-        setPets(result.data.length > 0 ? result.data : []);
-        setError('');
-      } else {
-        setPets([]);
-        const noMatchFilters = result.noMatchFilters;
-        let errorMessage = 'No matching pets found.';
-
-        if (Object.keys(noMatchFilters).length > 0) {
-          errorMessage += ' Filters with no matching pets: ' + Object.keys(noMatchFilters).join(', ');
-        }
-
-        setError(errorMessage);
-      }
-    } catch (error) {
+    if (result.status === 'success') {
+      setPets(result.data.length > 0 ? result.data : []);
+      setError(''); 
+    } else {
       setPets([]);
-      setError('Pet not available');
+      setError('No matching pets found.'); 
     }
-  };
+  } catch (error) {
+    setPets([]);
+    setError('Pet not available'); 
+  }
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const handleSubmit = () => {
     filterPets();
   };
+console.log(pets);
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  const indexOfLastPet = currentPage * petsPerPage;
+  const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    const shuffledPets = shuffleArray([...pets]);  
+console.log(pets);
+
+  const currentPets = shuffledPets.slice(indexOfFirstPet, indexOfLastPet);
+console.log(currentPets);
+// return;
 
   return (
-    <div className="filter-filterpet">
-      <div className="filterSearch">
-        <form className="pet-form" onSubmit={handleSubmit}>
-          <label>
-            Pet Type:
-            <select name="petType" value={formData.petType} onChange={handleChange}>
-              <option value="">Select Pet Type</option>
-              {petTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
-          </label>
-          <label>
+    <div className="petsfilter-filterpet">
+      <div className="petsfilterSearch">
+        <form className="petspet-form" onSubmit={handleSubmit}>
+         <label>
             Search Location:
             <input
               type="text"
@@ -114,8 +117,18 @@ const PetForm = () => {
             />
           </label>
           <label>
+            Pet Type:
+            <select name="petType" className="petsselect" value={formData.petType} onChange={handleChange}>
+              <option value="">Select Pet Type</option>
+              {petTypes.map(type => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </label>
+         
+          <label>
             Size:
-            <select name="size" value={formData.size} onChange={handleChange}>
+            <select name="size" className="petsselect" value={formData.size} onChange={handleChange}>
               <option value="">Select Size</option>
               {sizes.map(size => (
                 <option key={size} value={size}>{size}</option>
@@ -124,7 +137,7 @@ const PetForm = () => {
           </label>
           <label>
             Breed:
-            <select name="breed" value={formData.breed} onChange={handleChange}>
+            <select name="breed" className="petsselect" value={formData.breed} onChange={handleChange}>
               <option value="">Select Breed</option>
               {breeds.map(breed => (
                 <option key={breed} value={breed}>{breed}</option>
@@ -133,7 +146,7 @@ const PetForm = () => {
           </label>
           <label>
             Age:
-            <select name="age" value={formData.age} onChange={handleChange}>
+            <select name="age"  className="petsselect" value={formData.age} onChange={handleChange}>
               <option value="">Select Age</option>
               {ages.map(age => (
                 <option key={age} value={age}>{age}</option>
@@ -142,7 +155,7 @@ const PetForm = () => {
           </label>
           <label>
             Color:
-            <select name="color" value={formData.color} onChange={handleChange}>
+            <select name="color" className="petsselect" value={formData.color} onChange={handleChange}>
               <option value="">Select Color</option>
               {colors.map(color => (
                 <option key={color} value={color}>{color}</option>
@@ -151,27 +164,41 @@ const PetForm = () => {
           </label>
           <label>
             Gender:
-            <select name="gender" value={formData.gender} onChange={handleChange}>
+            <select name="gender" className="petsselect" value={formData.gender} onChange={handleChange}>
               <option value="">Select Gender</option>
               {genders.map(gender => (
                 <option key={gender} value={gender}>{gender}</option>
               ))}
             </select>
           </label>
-         
         </form>
       </div>
+<div className="petspet-details_card">
+        <div className="petspets_details">
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {error && (
+                <div className="petsno-pets-container">
+                  <img src="/src/assets/queryimage.png" alt="No pets available" className="petsno-pets-image" />
+                </div>
+              )}
+              <CardView pets={currentPets} />
+              {pets.length > petsPerPage && (
+                <Pagination
+                  className="pagination"
+                  current={currentPage}
+                  pageSize={petsPerPage}
+                  total={pets.length}
+                  onChange={(page) => setCurrentPage(page)}
+                />
+              )}
+            </>
+          )}
+        </div>
+      </div>
 
-      <div className="pet-details">
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {error && <Alert message={error} type="error" className="error-alert" />}
-            <CardView pets={pets} />
-          </>
-        )}
-      </div>        
     </div>
   );
 };

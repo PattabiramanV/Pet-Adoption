@@ -44,75 +44,37 @@ const DoctorCard = ({ doctor }) => {
         <div className="doctor-card-info">
 
         <div className="info-item">
-            {/* <div className="div_title"> */}
+          
               <h3 className="title_doctorcard">Education :<span className="doctorcard-item">{doctor.education}</span></h3>
-            {/* </div> */}
-            {/* <div className="div_value"> */}
-              {/* <h3 className="value_doctorcard">{doctor.education}</h3> */}
-            {/* </div> */}
+          
           </div>
 
           <div className="info-item">
-            {/* <div className="div_title"> */}
+            
               <h3 className="title_doctorcard">Specialist :<span className="doctorcard-item">{doctor.specialist}</span></h3>
-            {/* </div> */}
-            {/* <div className="div_value"> */}
-              {/* <h3 className="value_doctorcard">{doctor.specialist}</h3> */}
-            {/* </div> */}
+           
           </div>
 
           <div className="info-item">
-            {/* <div className="div_title"> */}
+           
               <h3 className="title_doctorcard">Experience :<span className="doctorcard-item">{doctor.experience} Years</span></h3>
-            {/* </div> */}
-            {/* <div className="div_value"> */}
-              {/* <h3 className="value_doctorcard">{doctor.experience}</h3> */}
-            {/* </div> */}
+          
           </div>
 
           <div className="info-item">
-            {/* <div className="div_title"> */}
+          
             <h3 className="title_doctorcard">
                 Availability : 
                 <span className="doctorcard-item">
                     {moment(doctor.available_timing_from).format('hh:mm A')} - {moment(doctor.available_timing_to).format('hh:mm A')}
                 </span>
             </h3>
-            {/* </div> */}
-            {/* <div className="div_value"> */}
-              {/* <h3 className="value_doctorcard">{doctor.experience}</h3> */}
-            {/* </div> */}
+       
           </div>
 
 
 
-          {/* <div className="info-item">
-            <div className="div_title">
-              <h3 className="title_doctorcard">Clinic :</h3>
-            </div>
-            <div className="div_value">
-              <h3 className="value_doctorcard">{doctor.have_a_clinic}</h3>
-            </div>
-          </div>
-
-          <div className="info-item">
-            <div className="div_title">
-              <h3 className="title_doctorcard">Phone :</h3>
-            </div>
-            <div className="div_value">
-              <h3 className="value_doctorcard">{doctor.phone}</h3>
-            </div>
-          </div>
-
-          <div className="info-item">
-            <div className="div_title">
-              <h3 className="title_doctorcard">Availability :</h3>
-            </div>
-            <div className="div_value">
-              <h3 className="value_doctorcard">{doctor.available_timing}</h3>
-            </div>
-          </div>
- */}
+         
         </div>
         <div className="btn">
           <button className="more-info-btn" onClick={handleMoreInfoClick}>More Info</button>

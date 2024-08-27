@@ -53,6 +53,20 @@ const Doctorpersonalpage = () => {
     setFilteredData(filtered);
   };
 
+
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'Accepted':
+        return 'status-delivered';
+      case 'Pending':
+        return 'status-process';
+      case 'Cancelled':
+        return 'status-canceled';
+      default:
+        return '';
+    }
+  };
+
     const handleAccept = async (data) => {
         try {
             setLoading(true);
@@ -111,6 +125,12 @@ const Doctorpersonalpage = () => {
     };
 
     const columns = [
+      {
+        title: 'No.',
+        key: 'serial',
+        render: (text, record, index) => index + 1,
+    },
+
         {
             title: 'Profile',
             dataIndex: 'users_profile',
@@ -162,18 +182,20 @@ const Doctorpersonalpage = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status, record) => (
-                status === 'Pending' ? (
-                    <button 
-                        onClick={() => handleAccept(record)} 
-                        className="bg-green-500 text-white px-4 py-2 rounded"
-                    >
-                        Accept
-                    </button>
+              <div>
+                {status === 'Pending' ? (
+                  <button 
+                    onClick={() => handleAccept(record)} 
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                  >
+                    Accept
+                  </button>
                 ) : (
-                    status
-                )
+                  <span className={`status-label ${getStatusClass(status)}`}>{status}</span>
+                )}
+              </div>
             )
-        }
+          }
     ];
 
    

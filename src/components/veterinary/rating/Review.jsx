@@ -9,20 +9,23 @@ import StarRating from './StarRating'; // Ensure you have this component
 
 const MySwal = withReactContent(Swal);
 
+
 const ReviewForm = ({ onSubmit }) => {
   const handleReviewSubmit = async () => {
     let currentRating = 0;
 
     const { value: formValues } = await MySwal.fire({
       title: 'Submit Your Review',
+      
       html: `
-        <textarea id="review-text" class="swal2-input" placeholder="Write your review here..." style="height: 100px;"></textarea>
         <div id="star-rating"></div>
+        <textarea id="review-text" class="swal2-input" placeholder="Write your review here..." style="height: 100px;"></textarea>
       `,
       focusConfirm: false,
       confirmButtonText: 'Submit Review',
       showCancelButton: true,
       didOpen: () => {
+        // Render the StarRating component in the div with id "star-rating"
         ReactDOM.render(
           <StarRating 
             rating={currentRating} 

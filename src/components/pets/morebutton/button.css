@@ -1,4 +1,4 @@
-.more-info .more{
+.mores-info .petsmores{
    border: 1px solid #675BC8;
    color:#675BC8 ;
    width: 10%;
@@ -9,14 +9,34 @@
    display: flex;
    justify-content: center;
    align-items: center;
+       position: relative;
+    right: 20px;
+
 }
-.more-info{
-display:flex;
-justify-content: center;
-padding: 2%;
+.mores-info{
+      display: flex;
+    justify-content: center;
+    padding: 2%;
+    position: relative;
+    top: 58px;
 
 }
 .Rehome {
+    margin-bottom: 46px;
+}
+
+.threeCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    bottom: 200px;
+    top: 75px;
+}
+.overlapcard {
+    width: 75%;
+}
+.petsmores:hover {
+background-color: #696299; 
+color: white ;
+
 }

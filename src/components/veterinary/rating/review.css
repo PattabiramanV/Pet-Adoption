@@ -60,3 +60,8 @@
     top: 15px;
     /* padding: 4%; */
 }
+#star-rating{
+display: flex;
+    justify-content: center;
+    padding: 12px;
+}

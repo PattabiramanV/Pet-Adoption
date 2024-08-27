@@ -1,144 +1,224 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-* {
-  font-family: "Inter";
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-        display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3%;
-    padding: 58px 35px;
-    justify-items: center;
-
-}
-
-.card-container {
-  background-color: #f9f9fa;
-  border-radius: 10px 10px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 302px;
-  height: 470px;
-  text-align: center;
-  position: relative;
-}
-
-.img {
-  width: 100%;
-  height: 175px;
-  border-radius: 10px 10px 0 0;
-}
-
-.name {
-  color: #2E256F;
-  text-align: left;
-  padding-left: 4%;
-  font-weight: 700;
-  font-size: 18px;
-  padding-top: 5%;
-}
-
-.loca {
-  text-align: left;
-  padding-left: 4%;
-  font-size: 14px;
-  color: #66b366;
-  font-weight: 600;
+ .petscontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 19px;
+  padding: 20px;
+  flex-wrap: wrap;
   display: flex;
-  align-items: center;
-  gap: 3px;
-  position: relative;
-  top: 10px;
-}
+ }
 
-.loca .location {
-  width: 14px;
-  height: 14px;
-  color: #37ff0f;
-}
+ .petsloca .petslocation {
+       width: 19px;
+    height: 19px;
 
-.details {
-  padding-left: 5%;
-  position: relative;
-  top: 4%;
-  width: 100%;
-}
+ }
 
-.detail1 {
-  display: flex;
-  gap: 45px;
-}
-.detail2 {
-  display: flex;
-  gap: 92px;
-}
+ .petscard-container {
+   width: 288px;
+   height: 469px;
+   gap: 0px;
+   border-radius: 16px;
+   border: 1px solid #c3c3c3;
+   opacity: 0px;
+ }
 
-.details p {
-  line-height: 2;
-  font-size: 16px;
-  text-align: left;
-  font-weight: 500;
-}
+ .petscardimg .petsimg {
+   width: 286px;
+   height: 168px;
+   border-radius: 10px 10px 0 0;
+ }
 
-.details p span {
-  /* margin-left: 3px; */
-  font-size: 12px;
-}
-
-.age {
-  position: relative;
-  left: 26px;
-}
-
-.details span {
-  background-color: #EAE8F7;
-  color: #2E256F;
-  padding: 4px 8px;
-  border-radius: 10%;
-}
-
-.description {
-  font-weight: 400;
-  font-size: 16px;
-  position: relative;
-  top: 8%;
-}
-
-.buttons-card {
-  position: relative;
-  top: 48px;
-}
-
-.buttons-card .more {
-border: 1px solid #675BC8;
-    color: #675BC8;
-    width: 52%;
-    font-weight: 500;
-    height: 44px;
-    margin-bottom: 5%;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.more a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.breeds{
-  position: relative;
-  right: 10px;
-}
-.rightSide{
-  position: relative;
-  left: 10px;
-}
-.right {
+ .petscommonData {
+   padding: 16px 0px;
+ }
+ .petsbreed {
     position: relative;
-    /* left: 8px; */
+    right: 6%;
 }
+
+ .petsnamelocation {
+   width: 100%;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+   gap: 19px;
+   position: relative;
+   left: 16px;
+ }
+
+ .petslocationdescript {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
+
+ .petsdes {
+   position: relative;
+   left: 16px;
+ }
+
+ .petsdatas {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
+
+ .petsname {
+   color: #2E256F;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21.78px;
+ }
+
+ .petsloca {
+   font-size: 14px;
+   color: #66b366;
+   font-weight: 600;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+ }
+
+ .petsdetails {
+   width: 100%;
+   padding-left: 5%;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+  
+
+ }
+
+ .petsdetail1 {
+   display: flex;
+   justify-content: space-between;
+ }
+
+ .petsdetail2 {
+   display: flex;
+   gap: 75px;
+ }
+
+ span.petsrightSide {
+   position: relative;
+   left: 9px;
+ }
+
+ span.petsage {
+   position: relative;
+   left: 24px;
+ }
+
+ span#age {
+   padding: 3px 16px;
+   border-radius: 21px;
+   position: relative;
+   left: 22px;
+ }
+
+ .petsgenders {
+   width: 116px;
+   height: 23px;
+   display: flex;
+ }
+
+
+ .petsdetails p {
+   font-size: 16px;
+   font-weight: 500;
+ }
+
+ .petsdetails p span {
+   font-size: 12px;
+   background-color: #EAE8F7;
+   color: #2E256F;
+   padding: 4px 8px;
+   border-radius: 10%;
+ }
+
+ .petscardimg {
+   width: 286px;
+   height: 168px;
+   opacity: 0px;
+ }
+
+ .petsdescription {
+   font-size: 16px;
+   font-weight: 400;
+   margin-top: 10px;
+ }
+
+ .petsbuttons-card {
+   position: relative;
+   top: 9px;
+   left: 63px;
+ }
+
+ .petsbuttons-card .petsmores {
+   border: 1px solid #675BC8;
+   color: #675BC8;
+   width: 52%;
+   font-weight: 500;
+   height: 44px;
+   border-radius: 5px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .petsBreedsname {
+   display: flex;
+   gap: 24px;
+ }
+
+ .petsmores:hover {
+   background-color: #696299;
+   color: white;
+ }
+
+ .petsdetail1 {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+ }
+
+ .petsBreedsname {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+ }
+
+ .petsgenders,
+ .petsbreed {
+   display: inline-block;
+   min-width: 48%;
+ }
+
+ .petsgenders p,
+ .petsbreed p {
+   margin: 0;
+   padding: 0;
+ }
+
+ .petsbreed .petsright {
+   display: inline-block;
+   padding-left: 5px;
+   color: #2E256F;
+   background-color: #EAE8F7;
+   border-radius: 5px;
+ }
+
+ .petsrightSide {
+   display: inline-block;
+   padding-left: 5px;
+   color: #675BC8;
+   background-color: #F5F5FF;
+   border-radius: 5px;
+ }
+
+ .petsgenders span,
+ .petsbreed span {
+   padding-left: 5px;
+ }

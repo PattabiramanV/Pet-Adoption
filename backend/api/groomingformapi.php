@@ -1,4 +1,6 @@
 <?php
+
+
 require '../config/config.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -66,6 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // print_r($_POST);
+    // exit;
     // Check if all required fields are filled
     if (empty($_POST['name']) || empty($_POST['contact']) || empty($_POST['email']) 
     || empty($_POST['petType']) || empty($_POST['petGender']) || empty($_POST['petAge']) 
@@ -88,9 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $needForYou = htmlspecialchars(strip_tags($_POST['needForPet']));
     $doctorName = htmlspecialchars(strip_tags($_POST['selectdoctorname']));
     $doctorAddress = htmlspecialchars(strip_tags($_POST['doctorAddress']));
-    $service = htmlspecialchars(strip_tags($_POST['sevice']));
+    $service = htmlspecialchars(strip_tags($_POST['service']));
     $appoinmentDate = htmlspecialchars(strip_tags($_POST['appointmentDate']));
-
+    $newSlots=$_POST['selectedSlots'];
+    // print_r($slots);
+ 
     // Retrieve doctor_id based on doctor_name
     $doctorQuery = "SELECT id, email,phone FROM vetneries WHERE name = :doctorName";
     $stmt = $conn->prepare($doctorQuery);
@@ -166,7 +173,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
 
             // echo json_encode( array(" message" => "User registered successfully.",'status'=>'sucess'));
+            global $conn;
+          
+     
+
+             $query = "INSERT INTO slot (doctor_id, booking_date, bookingslot,user_id) VALUES (:doctorId, :date, :slots,:user_id)";
+             $stmt = $conn->prepare($query);
+             // Loop through each slot in the $newSlots array
+          // Ensure $newSlots is an array
+          if (is_string($newSlots)) {
+            // Remove square brackets and double quotes from the string
+            $newSlots = str_replace(['[', ']', '"'], '', $newSlots);
+        
+            // Convert the cleaned string into an array
+            $newSlots = explode(',', $newSlots);
+        }
+        
+        // print_r($newSlots);
+        // exit;
+        
+        for ($i = 0; $i < count($newSlots); $i++) {
+            $slot = trim($newSlots[$i]);
+            $stmt->bindParam(':doctorId', $doctorID, PDO::PARAM_INT);
+            $stmt->bindParam(':date', $appoinmentDate, PDO::PARAM_STR);
+            $stmt->bindParam(':slots',  $slot, PDO::PARAM_STR);  // Bind the current slot value
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);  // Assuming user_id
+            
+            $stmt->execute();
+        }
+      
+
+
+            //  echo json_encode(array("success" => true, "message" => "New record created successfully."));
+ 
             emailSendFun($email, $doctorName, $doctorEmail, $username, $doctorAddress, $petType, $petGender, $petAge, $city, $service, $userContact, $doctorcontact,$appoinmentDate);
+
         } else {
             echo json_encode(array("message" => "Unable to register user.","status"=>' error'));
            
@@ -292,6 +333,8 @@ function emailSendFun($toUserEmail, $doctorName, $doctorEmail, $username, $docto
         $mail->send();
         echo json_encode( array(" message" => "User registered successfully.",'status'=>'sucess'));
 
+    
+        
     } catch (Exception $e) {
         echo json_encode(array("message" => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"));
     }

@@ -203,14 +203,16 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case 'GET':
         if (isset($_GET['hosid'])) {
+
             $userId = $_GET['hosid'];
             $query = "SELECT 
     users.id AS user_id,
     users.username AS user_name,
     users.phone AS user_phone,
-     users.avatar ,
+    users.avatar,
     hostel_ratings.rating AS user_rating,
     hostel_ratings.comments,
+    hostel_ratings.	craeted_at,
     AVG(hostel_ratings.rating) OVER (PARTITION BY hostel_ratings.hos_id) AS average_rating,
     pet_hostels.id AS hostel_id,
     pet_hostels.name AS hostel_name,
@@ -222,22 +224,36 @@ switch ($method) {
     pet_hostels.photos,
     pet_hostels.available_time
 FROM 
-    hostel_ratings
-JOIN 
+    pet_hostels
+LEFT JOIN 
+    hostel_ratings ON pet_hostels.id = hostel_ratings.hos_id
+LEFT JOIN 
     users ON users.id = hostel_ratings.user_id
-JOIN 
-    pet_hostels ON pet_hostels.id = hostel_ratings.hos_id
 WHERE 
-    hostel_ratings.hos_id =:hosid";
+    pet_hostels.id = :hosid";
 
             $params=[':hosid'=>$_GET['hosid']];
             $data = $hostel->getData($query,  $params);
-            echo json_encode($data);
+
+            $sql = "SELECT * FROM pet_hostels";
+            $all_Data = $hostel->getData($sql);
+           
+            // echo json_encode($all_Data);
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Operation completed successfully.',
+                'reviewData' => $data,
+                'hostels' =>  $all_Data,
+                'user_id' =>  $user_id
+
+            ]);
+            
         } else {
             $query = "SELECT * FROM pet_hostels";
             $all_Data = $hostel->getData($query);
             echo json_encode($all_Data);
         }
+        
         break;
 
     case 'POST':

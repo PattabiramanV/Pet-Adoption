@@ -7,34 +7,7 @@
   padding: 0;
   
 }
-/* 
-.background-section {
-  background-image: url('../src/assets/groom.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 350px;
-  width: 100%;
-  opacity: 0.7;
-  
-}
 
-.background-section h1{
-  color: #675BC8;
-  font-size:xx-large;
-  margin: 0 auto;
-  text-align: center;
-  font-weight: 800;  
-  
-}
-.background-section p{
-  width: 50%;
-  text-align: center;
-  margin: 0 auto;
-  font-weight: 500;
-  font-size: larger;
-  margin-top: 60px;
-} */
 
 .background-section {
   position: relative;

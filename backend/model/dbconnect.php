@@ -8,6 +8,8 @@ class Database {
     private $db_name = 'pet_adoption';
     private $username = 'dckap';
     private $password = 'Dckap2023Ecommerce';
+    // private $password = 'Dckap2023Ubuntu';
+
     public $conn;
     
     // Get the database connection

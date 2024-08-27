@@ -16,8 +16,10 @@ const ReviewForm = ({ onSubmit }) => {
     const { value: formValues } = await MySwal.fire({
       title: 'Submit Your Review',
       html: `
+       <div class='grid gap-6'>
+        <div id="star-rating" style="display: flex; justify-content: center; "></div>
         <textarea id="review-text" class="swal2-input" placeholder="Write your review here..." style="height: 100px;"></textarea>
-        <div id="star-rating"></div>
+      </div>
       `,
       focusConfirm: false,
       confirmButtonText: 'Submit Review',

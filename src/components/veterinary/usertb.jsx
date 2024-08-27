@@ -1,6 +1,8 @@
 import Groomingusertable from '../veterinary/groomingusertable';
 import Doctorpersonalpage from '../veterinary/doctortablepage';
 import BookingSlat from '../veterinary/bookingslat';
+// import EditDoctorInformation from '../veterinary/doctereditcomponent';
+
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -45,6 +47,15 @@ function Tablesvent() {
                             </div>
                         </Link>
 
+                        {/* <Link to={`EditDoctorInformation`}>
+                            <div
+                                className={`toggle-button ${activeTab === 'Edit Doctor Profile' ? 'active' : ''}`}
+                                onClick={() => handleTabClick('Edit Doctor Profile')}
+                            >
+                              EditDoctorInformation
+                            </div>
+                        </Link> */}
+
 
 
                     </div>
@@ -53,7 +64,7 @@ function Tablesvent() {
                         {activeTab === 'mypets' && (
                             <div className="mypets-content">
                                 <Routes>
-                                    <Route path="/" element={<Groomingusertable />} />
+                                    <Route path="/tables/groomingusertable" element={<Groomingusertable />} />
                                     <Route path="/groomingusertable" element={<Groomingusertable />} />
                                 </Routes>
                             </div>
@@ -61,7 +72,7 @@ function Tablesvent() {
                         {activeTab === 'request' && (
                             <div className="request-content">
                                 <Routes>
-                                    <Route path="/" element={<Doctorpersonalpage />} />
+                                  
                                     <Route path="/doctorpersonaltable" element={<Doctorpersonalpage />} />
                                 </Routes>
                             </div>
@@ -70,11 +81,21 @@ function Tablesvent() {
                         {activeTab === 'slat' && (
                             <div className="slat-content">
                                 <Routes>
-                                    <Route path="/" element={<BookingSlat />} />
+                                   
                                     <Route path="/BookingSlat" element={<BookingSlat />} />
                                 </Routes>
                             </div>
                         )}
+
+
+                            {/* {activeTab === 'Edit Doctor Profile' && (
+                            <div className="Edit-Doctor-Profile-content">
+                                <Routes>
+                                   
+                                    <Route path="/doctereditcomponent" element={<EditDoctorInformation />} />
+                                </Routes>
+                            </div>
+                        )}           */}
 
 
                     </div>

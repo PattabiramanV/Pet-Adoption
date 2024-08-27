@@ -1,34 +1,72 @@
-// import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './card.css';
 
-function PetDetails({ id, name, city, description, profile, breed, gender, age, size }) {
+function PetDetails({ id, name, city, description = 'No description available', profile, breed, gender, age, size }) {
+  let image1 = '';
+   console.log(profile);
+// return;
+
+  if (profile) {
+    try {
+      
+      const parsed = JSON.parse(profile); 
+
+      const baseUrl = '/backend/petsapi/hostelimg/';
+      const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
+      image1 = imageUrls[0] || image1; 
+    } catch (error) {
+      console.error("Error parsing profile photos:", error);
+    }
+  }
+
   return (
-    <div className="card-container">
-      <img
-        src={`data:image/jpeg;base64,${profile}`}
-        className="img"
-        alt={name}
-      />
-      <h3 className="name">{name}</h3>
-      <h3 className="loca">
-        <img className="location" src="https://img.icons8.com/material-outlined/24/000000/marker.png" alt="marker"/>
-        <span>{city}</span>
-      </h3>
-      <div className="details">
-        <div className="detail1">
-          <p>Gender: <span>{gender}</span></p>
-          <p className="breeds">Breed: <span className="right">{breed}</span></p>
-        </div>
-        <div className="detail2">
-          <p>Age: <span className="age">{age}</span></p>
-          <p>Size: <span className="rightSide">{size}</span></p>
-        </div>
+    <div className="petscard-container">
+      <div className="petscardimg">
+        <img
+          src={image1}
+          className="petsimg"
+          alt={name}
+        />
       </div>
-      <p className="description">{description.slice(0, 55)}...</p>
-      <div className="buttons-card more-info">
-        <Link to={`/petDetails/${id}`} className="more">More info</Link>
+      <div className="petscommonData">
+        <div className="petslocationdescript">
+          <div className="petsdatas">
+            <div className="petsnamelocation">
+              <h3 className="petsname">{name}</h3>
+              <h3 className="petsloca">
+                <img className="petslocation" src="/src/assets/location_on.png" alt="marker" />
+                <span>{city}</span>
+              </h3>
+            </div>
+            <div className="petsdetails">
+              <div className="petsdetail1">
+                <div className="petsBreedsname">
+                  <div className="petsgenders">
+                    <p>Gender: <span>{gender}</span></p>
+                  </div>
+                  <div className="petsbreed">
+                    <p className="petsbreeds">Breed: <span className="petsright">{breed}</span></p>
+                  </div>
+                </div>
+              </div>
+              <div className="petsdetail2">
+                <div className="petsages">
+                  <p>Age: <span id="petsage">{age}</span></p>
+                </div>
+                <div className="petssizes">
+                  <p>Size: <span className="petsrightSide">{size}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="petsdes">
+            <p className="petsdescription">{description.slice(0, 70)}...</p>
+          </div>
+        </div>
+        <div className="petsbuttons-card">
+          <Link to={`/petDetails/${id}`} className="petsmores" >More info</Link>
+        </div>
       </div>
     </div>
   );
@@ -38,33 +76,47 @@ PetDetails.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  profile: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  profile: PropTypes.string.isRequired, // Expecting Base64 encoded JSON string
+  description: PropTypes.string,
   breed: PropTypes.string.isRequired,
   gender: PropTypes.string.isRequired,
   age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   size: PropTypes.string.isRequired
 };
 
+PetDetails.defaultProps = {
+  description: 'No description available'
+};
+
 const CardView = ({ pets }) => {
+
+//   // console.log(pets);
+//   // return;
+// const parse=JSON.parse(pets[0].photo);
+// // console.log(parse);
+
+//   // return;
+
+  
   if (!Array.isArray(pets)) {
     return <p>No pets available.</p>;
   }
 
   return (
-    <div className="container">
+    <div className="petscontainer">
       {pets.map(pet => (
         <PetDetails 
           key={pet.id}
           id={pet.id}
-          name={pet.pet_name}
+          name={pet.name}
           city={pet.city}
           description={pet.description}
-          profile={pet.photo}
+          profile={pet?.photo}
           breed={pet.breeds}
           gender={pet.gender}
           age={pet.age}
           size={pet.size}
+          demo={pet}
         />
       ))}
     </div>
