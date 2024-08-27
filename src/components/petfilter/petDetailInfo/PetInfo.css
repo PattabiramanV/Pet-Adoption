@@ -104,9 +104,10 @@ html, body {
 }
 
 .healthDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 1%;
 }
 
 .healthDetails span {
@@ -120,12 +121,12 @@ html, body {
 }
 
 .petPerson {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 34px; 
-  width: 600px;
-  height: 89px;
-  gap: 24px;
+     display: flex;
+    justify-content: center;
+    margin-top: 34px;
+    width: 600px;
+    height: 89px;
+    gap: 6%;
 }
 
 .semi {
@@ -239,9 +240,13 @@ html, body {
 } 
 
 .adoptNow{
-      position: relative;
-    left: 102px;
-    top: 7px;
+         position: relative;
+    left: 45%;
+    top: 7%;
+
+}
+.swal2-input{
+  width: 80%;
 }
 
 .adoptNow .adopte{
@@ -314,7 +319,7 @@ html, body {
 }
 
 .address-fields {
-  margin-left: 28px;
+  /* margin-left: 28px; */
   display: none; /* Hidden by default */
 }
 

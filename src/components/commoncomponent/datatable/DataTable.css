@@ -144,7 +144,7 @@ span.div_reacod_name_span {
   .custom-table th, .custom-table td {
     padding: 12px;
     border: 1px solid #e5e7eb;
-    text-align: left;
+    text-align: center;
   }
   
   .custom-table thead {

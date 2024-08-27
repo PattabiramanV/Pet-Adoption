@@ -20,6 +20,8 @@ const AdoptionRequests = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/petsapi/get_adoption_requests.php`);
+        console.log(response.data);
+        
         setRequests(response.data);
         setError(null);
       } catch (error) {
@@ -53,13 +55,13 @@ const AdoptionRequests = () => {
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
       notification.success({
         message: 'Request Accepted',  
-        description: 'The adoption request has been successfully Accepted.',
-      })
+        description: 'The adoption request has been successfully accepted.',
+      });
     } catch (error) {
       console.error('Error accepting request:', error);
       notification.error({
-        message: 'Request Accepted Failed',
-        description: 'There was an error Accepted the adoption request. Please try again.',
+        message: 'Request Acceptance Failed',
+        description: 'There was an error accepting the adoption request. Please try again.',
       });
     }
   };
@@ -71,7 +73,7 @@ const AdoptionRequests = () => {
       notification.success({
         message: 'Request Rejected',
         description: 'The adoption request has been successfully rejected.',
-      })
+      });
     } catch (error) {
       console.error('Error rejecting request:', error);
       notification.error({
@@ -87,52 +89,47 @@ const AdoptionRequests = () => {
         <div><Loader /></div>
       ) : error ? (
         <div>{error}</div>
+      ) : filteredRequests.length === 0 ? (
+        <div className="no-data-container">
+          <img src='/src/assets/norecord.jpg' alt="No data available" className="no-data-image" />
+        </div>
       ) : (
-        <div className="table-container mt-10 mb-10">
+        <div className="table-containers mt-10 mb-10">
+          <h1>Adoption Requests</h1>
           <div className="search-container">
             {searchTerm === '' && (
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
             )}
-            <div  id='requestserach'><input
-              type="text"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input searchBox "
-             
-            />
+            <div id='requestserach'>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input searchBox"
+              />
             </div>
-            
           </div>
           
           <div className="table-content">
             <CommonTable
-              headers={['S.No', 'Name', 'Address', 'Adoption Time', 'Action']}
-              body={
-                filteredRequests.length === 0 && searchTerm !== '' ? (
-                
-               
-                    <div key="no-data">
-                        Data not found in table
-                    </div>
-              
-                ) : (
-                  currentRequests.map((request, index) => [
-                    (currentPage - 1) * requestsPerPage + index + 1,
-                    request.name,
-                    request.address,
-                    request.adoption_time,
-                    <div className="ARbutton" key={request.request_id}>
-                      <button className='accepted' onClick={() => handleAccept(request.request_id)}>
-                        <img src="/src/assets/tick.webp" alt="Accept" />
-                      </button>
-                      <button className='rejected' onClick={() => handleReject(request.request_id)}>
-                        <img src="/src/assets/xmark.png" alt="Reject" />
-                      </button>
-                    </div>
-                  ])
-                )
-              }
+              headers={['S.No', 'Name','username', 'contact', 'Address', 'Adoption Time', 'Action']}
+              body={currentRequests.map((request, index) => [
+                (currentPage - 1) * requestsPerPage + index + 1,
+                request.name,
+                request.user_name,
+                request.user_phone,
+                request.address,
+                request.adoption_time,
+                <div className="ARbutton" key={request.request_id}>
+                  <button className='accepted' onClick={() => handleAccept(request.request_id)}>
+                    Accept
+                  </button>
+                  <button className='rejected' onClick={() => handleReject(request.request_id)}>
+                    Reject
+                  </button>
+                </div>
+              ])}
             />
             {filteredRequests.length > requestsPerPage && (
               <ReactPaginate

@@ -80,7 +80,7 @@ const Adoptedpetlist = () => {
 
   const tableBody = currentData.map((pet, index) => {
     let serialNumber = (currentPage - 1) * petsPerPage + index + 1;
- let image1;
+    let image1;
     if (pet.photo) {
       const parsed = JSON.parse(pet.photo);
       const baseUrl = '/backend/petsapi/hostelimg/';
@@ -104,8 +104,8 @@ const Adoptedpetlist = () => {
   });
 
   return (
-    <div className="table-container mt-10 mb-10">
-      <h1 className="page-title">Adopted list</h1> 
+    <div className="table-containers mt-10 mb-10">
+      <h1 className="page-title">Adopted List</h1> 
       {loading ? (
         <div className="loader-container">
           <Loader />

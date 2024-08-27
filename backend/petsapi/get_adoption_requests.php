@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 try {
     $stmt = $conn->prepare("
-        SELECT
+SELECT
             a.id AS request_id,
             a.pet_id,
             a.user_id,
@@ -16,11 +16,12 @@ try {
             a.status,
             p.name AS name,
             u.username AS user_name,  
+            u.phone AS user_phone,
             a.adoption_time
         FROM adoption_events a
         JOIN pets p ON a.pet_id = p.id
         JOIN users u ON a.user_id = u.id
-        WHERE a.status = 'pending'
+        WHERE a.status = 'pending';
     ");
     $stmt->execute();
     

@@ -17,6 +17,9 @@
   /* transition: color 0.3s, border-bottom 0.3s; */
   position: relative;
 }
+.contenttables {
+    width: 482%;
+}
 
 .toggle-button.active {
   color: #000; 
@@ -34,24 +37,10 @@
 }
 
 .togglecontent {
-  /* padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 0 5px 5px 5px; */
+
       border: 1px solid #ccc;
     border-radius: 0 5px 5px 5px;
-  /* background-color: white; */
       overflow-y: scroll;
       height: 500px;
+          overflow-x: hidden;
 }
-/* 
-.mypets-content,
-.request-content ,
-.adopt-content{
-  display: block;
-} */
-
-/* .petsandrequest { */
-  /* background-color: #EFF0F4; */
-  /* padding: 20px;
-  border-radius: 5px;
-} */
