@@ -10,6 +10,8 @@
 
 .footer {
   background: var(--background-color);
+  padding-top: 25px;
+
 }
 
 .footer-container {

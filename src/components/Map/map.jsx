@@ -421,11 +421,12 @@ import 'antd/dist/reset.css';
 const GEOAPIFY_API_KEY = "092a4983401e47f78765fb35889c237c"; // Use environment variable
 
 const defaultIcon = new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/1189/1189615.png',
-    iconSize: [32, 32],
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/4042/4042356.png',
+    iconSize: [55, 55],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
 });
+
 
 const lowestDistanceIcon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828856.png',
@@ -658,7 +659,7 @@ const getImageSrc1 = (photo) => {
                                         className={`map-categary-button ${category === 'pets' ? 'selected' : ''}`}
                                         onClick={() => setCategory('pets')}
                                     >
-                                  <span><FontAwesomeIcon icon={faPaw} className="signup-icon" /></span> Pets
+                                  <span><FontAwesomeIcon icon={faPaw} className="signup-icon" /></span> Adoption
                                     </button>
                                 </div>
                                 <Autocomplete
@@ -726,7 +727,7 @@ const getImageSrc1 = (photo) => {
                             <div className="Map_icon">
                                 <div className="Map_icon_main">
                                     <img src={Map_icon} alt="Map" /> 
-                                    <span>Select Your Desired Option</span>
+                                    {/* <span>Select Your Desired Option</span> */}
                                 </div>
                             </div>
                         )}
@@ -784,6 +785,8 @@ const getImageSrc1 = (photo) => {
                                                 marker.openPopup();
                                             }
                                         }}
+
+                                        icon={defaultIcon}
                                         
                                     >
           <Popup>
@@ -828,14 +831,14 @@ const getImageSrc1 = (photo) => {
                     </div>
                 </div>
             </div>
-            <div className="div_page_map">
-                <Pagination 
+           <div className="div_page_map">
+           { locations.length > 0 &&  <Pagination 
                     current={currentPage}
                     total={locations.length}
                     pageSize={itemsPerPage}
                     onChange={onPageChange}
                     showSizeChanger={false}
-                />
+                />}
             </div>
         </div>
     );

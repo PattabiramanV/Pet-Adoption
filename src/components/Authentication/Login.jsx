@@ -63,6 +63,8 @@ const Login = () => {
 
   const handleGoogleLoginSuccess = async (response) => {
     const { credential } = response;
+    console.log(credential);
+    
 
     try {
       const res = await axios.post(

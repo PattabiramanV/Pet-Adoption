@@ -414,7 +414,6 @@ button.map-categary-button:hover {
     font-size: 13px;
     font-weight: bold;
     transition: background 0.3s;
-    margin-top: 10px;
 }
 
 .popup-btn:hover {
