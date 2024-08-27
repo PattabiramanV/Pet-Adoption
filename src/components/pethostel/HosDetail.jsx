@@ -368,7 +368,7 @@ console.log(hostels);
               <main>:</main>
               <span className="bg-gray-100 rounded-md  flex items-center space-x-1 text-customblue text-sm" style={{padding:'6px'}}>
   <span className="text-2xl text-customblue font-semibold">&#8377;</span>
-  <span className="text-xl font-bold text-customblue">{pet?.price_per_day}</span>
+  <span className=" font-bold text-customblue" style={{fontSize:'14px'}}>{pet?.price_per_day}</span>
   <span className="ml-1 text-xs text-gray-800 font-semibold">/day</span>
 </span>
 

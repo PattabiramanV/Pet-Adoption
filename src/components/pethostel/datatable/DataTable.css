@@ -270,4 +270,10 @@
     border-top: 1px solid #e5e7eb; /* Optional: Add a border on top */
   }
   
+
+
+  .hostelDataTable strong {
+    font-weight: bolder;
+    font-size: 23px;
+}
   

@@ -614,13 +614,13 @@ const Hosteldetails = () => {
     </span>,
 <>
 <Tooltip title="Accept" placement="top">
-<strong className="" onClick={() => handleAccept(item)} style={{ color: 'gray', marginRight: '8px',cursor:'pointer' }}>
+<strong className="" onClick={() => handleAccept(item)} style={{ color: 'green', marginRight: '12px',cursor:'pointer' }}>
   <FontAwesomeIcon icon={faCheck} />
 </strong>
 </Tooltip>
 
-<Tooltip title="Remove" placement="top">
-<strong className="" onClick={() => handleRemove(item)} style={{ color: 'gray', marginRight: '8px',cursor:'pointer' }}>
+<Tooltip title="Cancel" placement="top">
+<strong className="" onClick={() => handleRemove(item)} style={{ color: 'red', marginRight: '12px',cursor:'pointer' }}>
   <FontAwesomeIcon icon={faTimes} />
 </strong>
 </Tooltip>

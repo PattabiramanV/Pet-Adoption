@@ -124,6 +124,8 @@ function RouterPage() {
         <Route path="/pethostel/details/:id" element={<HosDetailPage/>} />
         <Route path="/pethostel" element={<PrivateRoute><PetHostels /></PrivateRoute>} />
         <Route path="/pethostel/booking/:id" element={<BookHosPage />} />
+        <Route path="/pethostel/booking" element={<BookHosPage />} />
+
         <Route path="/hosteldeteils/*" element={<HostelDataTable />} />
 
         
