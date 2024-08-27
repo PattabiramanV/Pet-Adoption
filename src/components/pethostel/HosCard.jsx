@@ -149,7 +149,7 @@ console.log(images);
 
     
    
-<div className="Hostelcard-container  ">
+<div className="Hostelcard-container pethostelCard ">
 <div className="hoscardimg">
         {/* {images.length > 0 ? ( */}
           <img

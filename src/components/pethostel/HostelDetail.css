@@ -160,7 +160,8 @@
 
     .hosright-details strong{
     font-size: 18px;
-    width: 124px;
+    width: 130px;
+    text-transform: capitalize;
 }
 
 .hosName{

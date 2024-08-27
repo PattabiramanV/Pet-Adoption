@@ -467,9 +467,9 @@ import { message, notification, Tooltip } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
-import CommonTable from '../../commoncomponent/datatable/DataTable'; // Import the CommonTable component
+import CommonTable from './DataTable'; // Import the CommonTable component
 import ReactPaginate from 'react-paginate';
-import { faSearch,faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faCheck,faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 const Hosteldetails = () => {
@@ -519,7 +519,22 @@ const Hosteldetails = () => {
     }
   };
 
+  const handleRemove = async (data) => {
+   
+    statusChangeFun(data,'Cancelled')
+
+  };
+
+
   const handleAccept = async (data) => {
+   
+    statusChangeFun(data,'Accepted')
+
+  };
+
+  const statusChangeFun= async(data,status)=>{
+
+
     setLoading(true);
     try {
       const givenDateString = data.checkin_date;
@@ -535,7 +550,7 @@ const Hosteldetails = () => {
       }
 
       const response = await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?id=${data.id}&value=Accepted`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/hostel.php?id=${data.id}&value=${status}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -553,7 +568,11 @@ const Hosteldetails = () => {
     } finally {
       setLoading(false);
     }
-  };
+  
+  
+    }
+
+
 
   const filteredData = hostelBookUser.filter(item =>
     [item.username, item.phone, item.state, item.city].some(field =>
@@ -593,12 +612,19 @@ const Hosteldetails = () => {
     <span className={`status-label ${getStatusClass(item.status)}`}>
       {item.status}
     </span>,
+<>
+<Tooltip title="Accept" placement="top">
+<strong className="" onClick={() => handleAccept(item)} style={{ color: 'gray', marginRight: '8px',cursor:'pointer' }}>
+  <FontAwesomeIcon icon={faCheck} />
+</strong>
+</Tooltip>
 
-   <Tooltip title="Accept" placement="top">
-     <button className="" onClick={() => handleAccept(item)} style={{ color: 'gray' }}>
-       <FontAwesomeIcon icon={faCheck} />
-     </button>
-   </Tooltip>
+<Tooltip title="Remove" placement="top">
+<strong className="" onClick={() => handleRemove(item)} style={{ color: 'gray', marginRight: '8px',cursor:'pointer' }}>
+  <FontAwesomeIcon icon={faTimes} />
+</strong>
+</Tooltip>
+</>
   ]);
 
   return (

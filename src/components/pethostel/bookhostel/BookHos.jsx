@@ -803,7 +803,7 @@ console.log(formData);
 
   <div className='p-4'>
     <p className="text-lg  text-gray-700 mb-2 "><strong>Name:</strong> {selectedHostel.name}</p>
-    <p className="text-lg text-gray-700 mb-4 h-12"><strong>Address:</strong> {selectedHostel.address}</p>
+    <p className="text-lg text-gray-700 mb-4 min-h-12"><strong>Address:</strong> {selectedHostel.address}</p>
     <p className="text-lg text-gray-700 mb-2"><strong>Phone:</strong> {selectedHostel.phone}</p>
     <p className="text-lg text-gray-700 mb-2"><strong>Price/Day:</strong> ₹{selectedHostel.price}</p>
   </div>

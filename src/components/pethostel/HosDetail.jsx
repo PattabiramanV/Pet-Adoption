@@ -333,20 +333,24 @@ console.log(hostels);
           </div>
 
           <div className="hosright-details">  
-            <div className='w-full grid  gap-4'>
+            <div className='w-full grid  gap-3'>
             {/* <div className="div_name">
               <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
                 {pet?.hostel_name}
               </h2>
             </div> */}
 
-             <div className="div_name flex gap-6">
+             <div className="div_name flex gap-2">
               {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
 
               </h2> */}
               {console.log('saa0',rating)}
+              <div style={{width:'130px'}}>
               {rating || rating==0 ?
-                            <StarRating rating={rating } readOnly={true} style={{width:'124px'}}  /> : null }
+                    
+                    <StarRating rating={rating } readOnly={true}  /> : null }
+              </div>
+             
               <main>:</main>
               <ReviewForm onSubmit={handleReviewSubmit} />
 
@@ -362,7 +366,13 @@ console.log(hostels);
             <div className="flex items-center gap-3">
               <strong className='w-30'>Price/Day</strong>
               <main>:</main>
-              <span>&#8377;{pet?.price_per_day}</span>
+              <span className="bg-gray-100 rounded-md  flex items-center space-x-1 text-customblue text-sm" style={{padding:'6px'}}>
+  <span className="text-2xl text-customblue font-semibold">&#8377;</span>
+  <span className="text-xl font-bold text-customblue">{pet?.price_per_day}</span>
+  <span className="ml-1 text-xs text-gray-800 font-semibold">/day</span>
+</span>
+
+              {/* <span className='text-customblue text-sm'> <a className='text-xl text-black'>&#8377;</a>{pet?.price_per_day}</span> */}
             </div>
 
             <div className="flex items-center gap-3" style={{ textTransform: 'capitalize' }}>
@@ -380,7 +390,7 @@ console.log(hostels);
             <div className="flex items-center gap-3">
               <strong>Available time</strong>
               <main>:</main>
-              <span> {pet?.available_time}</span>
+              <span style={{textTransform:'uppercase'}}> {pet?.available_time}</span>
             </div>
 
            
@@ -388,7 +398,7 @@ console.log(hostels);
 </div>
                 <div className='w-full flex ' style={{position:'relative',bottom:'-52px'}}>
             <div className="btn_for_message ">
-              <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Contact Owner</Link>
+             <a href={`tel:${pet?.contact}`} className="add-to-cart">Contact Owner</a>
             </div>
 
             <div className="hosBookNowBtn btn_for_message ">

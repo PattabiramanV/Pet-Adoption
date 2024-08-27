@@ -209,8 +209,8 @@ function App({hostelReviews}) {
   return (
    
 
-<div className="about">
-      <section id="wrapper">
+<div className="about hostelTabParent">
+      <section id="wrapper ">
         <div className="content border ">
           {/* Tab links */}
           <div className="tabs flex mb-4">

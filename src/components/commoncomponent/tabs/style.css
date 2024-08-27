@@ -94,7 +94,7 @@ body {
   }
   
   /* Tab active */
-  .tablinks.active {
+  .hostelTabParent .tablinks.active {
     background-color: white;
     z-index: 0;
     border-right: 0px;
@@ -102,6 +102,7 @@ body {
     height: 84px;
     bottom: 0px;
     overflow: hidden;
+    font-size: 20px;
   }
   @media screen and (max-width: 512px) {
     .tablinks.active {

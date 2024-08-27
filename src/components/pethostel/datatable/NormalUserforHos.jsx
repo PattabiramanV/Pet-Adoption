@@ -585,7 +585,7 @@ import BreadcrumbComponent from '../../commoncomponent/Breadcrumb'; // Adjust th
 import { message, notification, Tooltip } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import CommonTable from '../../commoncomponent/datatable/DataTable'; // Import the CommonTable component
+import CommonTable from './DataTable'; // Import the CommonTable component
 import ReactPaginate from 'react-paginate';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 

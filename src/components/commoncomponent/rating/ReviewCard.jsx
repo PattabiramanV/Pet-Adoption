@@ -64,10 +64,10 @@ const ReviewCard = ({ pet }) => {
       <div className="name font-semibold text-gray-700 mb-2">{pet?.user_name}</div>
       <StarRating rating={pet?.user_rating} readOnly={true} />
 
-      <p className="text-gray-600 mt-2">{pet?.comments} Amazing service! I can't wait to come back, love your products.</p>
+      <p className="text-gray-600 mt-2">{pet?.comments} </p>
 
       {/* <div className="date text-gray-500 text-sm mt-2"> */}
-        {/* {new Date(pet?.date).toLocaleDateString()} */}
+        {/* {new Date(pet?.date).toLocaleDateString()} */}  
         {/* 2024-7-12
       </div> */}
     </div>
