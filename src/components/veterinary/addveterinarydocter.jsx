@@ -659,11 +659,12 @@ function AddVeterinaryDoctor() {
                     </div>
 
 
-                    <div>
-                        <button className="custom-button" type="submit">Submit</button>
-                    </div>
+                    
 
                 </div>
+                <div className='flex justify-center '>
+                        <button className="custom-button" type="submit">Submit</button>
+                    </div>
             </form>
 
             {loading && <Loader />}

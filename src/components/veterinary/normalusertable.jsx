@@ -167,6 +167,7 @@ const getStatusClass = (status) => {
             <th>City</th>
             <th>State</th>
             <th>Appointment Date</th>
+            <th>Booking Slot</th> 
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -184,6 +185,7 @@ const getStatusClass = (status) => {
               <td>{item.doctor_city}</td>
               <td>{item.doctor_state}</td>
               <td>{item.appoinment_date}</td>
+              <td>{item.bookingslot}</td>
               <td>
                 <span className={`status-label ${getStatusClass(item.status)}`}>
                   {item.status}

@@ -143,19 +143,19 @@ const Header = () => {
               {isDropdownOpen && (
                <div className="dropdown-menu dropdown-menu-Features">
                <Link className="menu" to="/Veterinary">
-               Veterinarians
+               Healthcare Providers
                </Link>
                <Link className="menu" to="/doctoraddform">
-                Add Veterinarians
+               New Doctor Entry
                </Link>
                <Link className="menu" to="/PetGrooming">
-                Apply for Grooming
+               Groom Your Pet
                </Link>
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
                <Link className="menu" to="/tables/groomingusertable">
-               Service Records
+               Doctor Activity Dashboard
                </Link>
                {/* <Link className="menu" to="/">
                Doctor Registration       

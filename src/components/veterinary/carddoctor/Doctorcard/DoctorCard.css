@@ -1,24 +1,23 @@
 .doctor-card {
-  border: 1px solid #ddd;
+  flex: 1 1 calc(33.333% - 20px);
+  max-width: 300px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  width: 300px; /* Fixed width */
-  background-color: #fff;
+
 }
 
 .doctor-card-header {
-  /* position: relative; */
-  width: 100%;
-  height: 168px; 
-  /* overflow: hidden; */
-
+  height: 200px;
 }
 
 .doctor-card-image {
   width: 100%;
   height: 100%;
+  border-radius: 10px 10px 0 0;
    /* Ensures the image covers the entire header */
 }
 

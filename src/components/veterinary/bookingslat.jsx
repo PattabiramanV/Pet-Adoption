@@ -466,16 +466,17 @@ function BookingSlot() {
 
 
     return (
-
+       
         <>
-                    {loading && <Loader />}
+                    {/* {loading && <Loader />} */}
                 
-        <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
+        <div className="slots p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Book Your Pet Grooming Service</h2>
             <p className="mb-4">Select your pet's grooming service and book an appointment today!</p>
 
             <div className="mb-4">
                 <label htmlFor="appointmentDate" className="block text-lg font-medium mb-2">Select Date</label>
+                <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
                 <input
                     id="appointmentDate"
                     className="w-full p-2 border border-gray-300 rounded-md"
@@ -486,9 +487,9 @@ function BookingSlot() {
                 />
             </div>
 
-            <div>
-                <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
-                <div className="grid grid-cols-2 gap-4">
+            <div className='timeslots'>
+               
+            <div className="flex flex-wrap gap-4">
                     {loading ? (
                         <Loader />
                     ) : timeSlots.length > 0 ? (

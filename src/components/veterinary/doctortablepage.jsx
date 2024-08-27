@@ -125,6 +125,12 @@ const Doctorpersonalpage = () => {
     };
 
     const columns = [
+      {
+        title: 'No.',
+        key: 'serial',
+        render: (text, record, index) => index + 1,
+    },
+
         {
             title: 'Profile',
             dataIndex: 'users_profile',
@@ -185,7 +191,7 @@ const Doctorpersonalpage = () => {
                     Accept
                   </button>
                 ) : (
-                  <span className={getStatusClass(status)}>{status}</span>
+                  <span className={`status-label ${getStatusClass(status)}`}>{status}</span>
                 )}
               </div>
             )
