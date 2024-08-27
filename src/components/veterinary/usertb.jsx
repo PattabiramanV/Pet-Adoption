@@ -1,6 +1,8 @@
 import Groomingusertable from '../veterinary/groomingusertable';
 import Doctorpersonalpage from '../veterinary/doctortablepage';
 import BookingSlat from '../veterinary/bookingslat';
+// import EditDoctorInformation from '../veterinary/doctereditcomponent';
+
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -45,6 +47,15 @@ function Tablesvent() {
                             </div>
                         </Link>
 
+                        {/* <Link to={`EditDoctorInformation`}>
+                            <div
+                                className={`toggle-button ${activeTab === 'Edit Doctor Profile' ? 'active' : ''}`}
+                                onClick={() => handleTabClick('Edit Doctor Profile')}
+                            >
+                              EditDoctorInformation
+                            </div>
+                        </Link> */}
+
 
 
                     </div>
@@ -73,6 +84,16 @@ function Tablesvent() {
                                 </Routes>
                             </div>
                         )}
+
+
+                            {/* {activeTab === 'Edit Doctor Profile' && (
+                            <div className="Edit-Doctor-Profile-content">
+                                <Routes>
+                                   
+                                    <Route path="/doctereditcomponent" element={<EditDoctorInformation />} />
+                                </Routes>
+                            </div>
+                        )}           */}
 
 
                     </div>

@@ -14,7 +14,7 @@ function PetGroomingPage({ scrollToForm, setSelectedService }) {
                 <div className='bothingPets'>
                     <img src="../src/assets/grooming-1.jpg" alt="bothing" className='bothing' />
                     <h2>Pet Bathing</h2>
-                    <h3>Shampoo, Conditioning, Ear Cleaning</h3>
+                    <h3>Grooming includes shampoo, conditioning, and ear cleaning for complete care</h3>
                     <div className='bookingNow'>
                         <button onClick={() => {
                             const serviceName = "Pet Bathing";

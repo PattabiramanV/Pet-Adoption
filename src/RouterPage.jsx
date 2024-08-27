@@ -56,6 +56,7 @@ import Userpersonaltable from './components/veterinary/groomingusertable';
 import Doctorpersonaltable from './components/veterinary/docterpersonalpage';
 import Venterinarytables from './components/veterinary/tablelrouting';
 import BookingSlat from './components/veterinary/bookingslat';
+// import EditDoctorInformation from './components/veterinary/doctorprofileedit';
 
 //  Ahalya Durairaj
 
@@ -145,6 +146,8 @@ function RouterPage() {
         <Route path="/venterinarytables/*" element={<Venterinarytables/>} />
 
         <Route path="/BookingSlat" element={<BookingSlat/>} />
+        {/* <Route path="/doctereditcomponent" element={<EditDoctorInformation/>} /> */}
+
     {/* Ahalya Durairaj */}
 
     {/* Veena */}

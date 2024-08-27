@@ -43,7 +43,8 @@
   
   .mypets-content,
   .request-content ,
-  .slat-content
+  .slat-content,
+  .Edit-Doctor-Profile-content,
   .adopt-content{
     display: block;
   }

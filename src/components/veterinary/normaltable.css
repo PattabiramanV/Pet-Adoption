@@ -11,9 +11,7 @@
   width: 172%;
   font-size: 24px;
   font-weight: 800;
-  /* margin-left: 35%; */
-  text-align: center;
-  margin-left: 130px;
+  
 }
 
 /* grooming form css */
@@ -48,7 +46,7 @@
   font-weight: 400;
   line-height: 16px;
   cursor: pointer;
-  margin-left: 74%;
+  /* margin-left: 74%; */
   }
  
   .custom-div span{
@@ -317,7 +315,7 @@ color: rgba(195, 0, 0, 1);
   
   font-size: 24px;
   font-weight: 800;
-  /* margin-left: 35%; */
+ 
 }
 
 
@@ -338,10 +336,17 @@ color: rgba(195, 0, 0, 1);
 /* .doctortablename{
   width: 30%;
 } */
+
+.custom-table th {
+  text-wrap: nowrap;
+}
+
+
 .custom-table td {
   padding: 12px;
   border: 1px solid #e5e7eb;
   text-align: left;
+  text-wrap: nowrap;
 }
 
 .custom-table thead {
@@ -350,6 +355,15 @@ color: rgba(195, 0, 0, 1);
 
 .custom-table tr:hover {
   background-color: #f9fafb;
+}
+
+.ant-table-thead{
+  text-wrap: nowrap;
+}
+
+.ant-table-tbody td{
+  text-align: left;
+  text-wrap: nowrap;
 }
 
 .status-label {
@@ -367,7 +381,7 @@ color: rgba(195, 0, 0, 1);
 }
 
 .status-process {
-  background-color: #2d46b6; /* Dark blue background */
+  background-color: #677fe9; /* Dark blue background */
   color: #ffffff; /* White text color */
   padding: 5px 10px; /* Optional: Adds some padding for better spacing */
   border-radius: 5px; /* Optional: Adds rounded corners */
@@ -454,7 +468,7 @@ color: darkred; /* Darker red when hovered */
   max-width: 300px;
   margin-bottom: 1rem;
   display: flex;
-  margin-left: 818px;
+  margin-left: 1140px;
 }
 
 .search-input {
@@ -605,3 +619,15 @@ img.profileImg {
   margin-top: 62px;
 
 }
+
+
+
+
+/* slot time */
+
+
+.slots .timeslots{
+  display: flex;
+  gap: 10px;
+  /* margin-bottom: 10px; */
+} 
