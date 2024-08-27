@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import "./lostpets.css"; // Import your CSS file
+import "./lostpets.css"; 
 
 const PetCard = ({ pet }) => {
   const navigate = useNavigate();

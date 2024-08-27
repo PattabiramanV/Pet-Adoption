@@ -69,7 +69,6 @@ const LostPetForm = () => {
                     message: 'Success',
                     description: response.data.message,
                 });
-                // Reset the form after successful submission
                 setFormData({
                     name: '',
                     petType: '',
@@ -82,7 +81,7 @@ const LostPetForm = () => {
                     description: '',
                     location: ''
                 });
-                setErrors({}); // Clear errors
+                setErrors({}); 
             } catch (error) {
                 notification.error({
                     message: 'Error',
@@ -206,7 +205,7 @@ const LostPetForm = () => {
                         <input
                             name="photo"
                             className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 ${errors.photo ? 'border-red-500' : ''}`}
-                            id="photo"
+                            id="lostphoto"
                             type="file"
                             onChange={handleChange}
                         />

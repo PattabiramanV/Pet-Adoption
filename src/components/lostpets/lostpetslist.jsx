@@ -17,7 +17,6 @@ const PetList = () => {
         }
         const data = await response.json();
         setPets(data);
-        // console.log(data);
       } catch (error) {
         setError(error.message);
       } finally {

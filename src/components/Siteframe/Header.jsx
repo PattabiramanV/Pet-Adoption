@@ -118,16 +118,16 @@ const Header = () => {
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
                 <Link className="menu" to="/findpet">
-                  Add lost pets
+                Lost Pets
                 </Link>
                 <Link className="menu" to="/lostingpet">
-             Lost pets
+                Lost Post Pets
                 </Link>
                 <Link className="menu" to="/mypetlostpost">
-                  Found Pets
+                  Found Pets Details
                 </Link>
                 <Link className="menu" to="/tables">
-                My Entries
+                Lostpet Dashboard
                 </Link>
               </div>
               )}
