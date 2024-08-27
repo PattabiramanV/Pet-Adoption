@@ -328,7 +328,9 @@ console.log(hostels);
                 {pet?.hostel_name}
               </h2>
 
+
             </div>
+           
             <CustomPaging imageUrls={imageUrls} /> {/* Pass image URLs as props */}
           </div>
 
@@ -357,7 +359,7 @@ console.log(hostels);
             </div>
             
 
-            <div className="div_location w-full flex items-center gap-5">
+            <div className="div_location w-full flex items-center gap-5 min-h-12">
               <strong className='w-30'>Location</strong>
               <main>:</main>
               <span> {pet?.hostel_address}</span>
