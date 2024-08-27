@@ -131,6 +131,12 @@
 
 
 
+
+
+
+
+
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
@@ -171,10 +177,25 @@ function calculateDistance($lat1, $lng1, $lat2, $lng2) {
     return $earthRadius * $c;
 }
 
+function normalizePath($path) {
+    $parts = array_filter(explode('/', $path));
+    $result = [];
+    
+    foreach ($parts as $part) {
+        if ($part === '..') {
+            array_pop($result);
+        } else {
+            $result[] = $part;
+        }
+    }
+    
+    return implode('/', $result);
+}
+
+$baseUrl = 'http://localhost/petadoption/backend/'; // Adjust this base URL if necessary
+
 try {
     $inputData = json_decode(file_get_contents('php://input'), true);
-
-   
 
     if (isset($inputData['address']) && isset($inputData['category'])) {
         $userAddress = $inputData['address'];
@@ -186,14 +207,12 @@ try {
             'pets' => 'pets'
         ];
 
-       
         if (!isset($tableMap[$category])) {
             echo json_encode(['error' => 'Invalid category']);
             exit;
         }
 
         $tableName = $tableMap[$category];
-   
     } else {
         echo json_encode(['error' => 'Required parameters not provided']);
         exit;
@@ -207,46 +226,52 @@ try {
     $results = [];
 
     if ($userLat && $userLng) {
-        // Fetch records with non-null coordinates
-        if ($tableName === "pet_hostels"){
-            $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name,photos  FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
-
+        if ($tableName === "pet_hostels") {
+            $data = "photos";
+        } else if ($tableName === "vetneries") {
+            $data = "profile_img";
+        } else {
+            $data = "photo"; 
         }
-        else if ($tableName==="vetneries"){
-            $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name,photo  FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
 
-        }
-        else{
-            
-        }
-       
-
+        $stmt = $conn->prepare("SELECT id, longitude, latitude, address, name, $data FROM $tableName WHERE latitude IS NOT NULL AND longitude IS NOT NULL");
         $stmt->execute();
         $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // $photos = ['photos']; // Initialize it as an empty array or any other default value
 
         foreach ($locations as $location) {
-            $photos = $location['photos'] ? explode(',', $location['photos']) : [];
+            $photos = $location[$data] ?? null;
 
             $distance = calculateDistance($userLat, $userLng, $location['latitude'], $location['longitude']);
 
             if ($distance <= 100) { // If the location is within 100 km
                 $location['distance'] = $distance;
-                $location['photos'] = $photos;
+              
+                if ($data === "profile_img" && $photos) {
+                    $normalizedPath = normalizePath($photos);
+                    $location[$data] = $baseUrl . $normalizedPath;
+                }else if ($data === "photo"){
+                    $photos = $location['photo'] ?? null ;
+
+                }
+                else{
+                    $photos = $location['photos']?? null ;
+                }
 
                 $results[] = $location;
             } else if ($distance <= 200) { // If the location is within 200 km but not within 100 km
                 $location['distance'] = $distance;
                 $location['message'] = "No locations available within 100 km.";
-                $location['message_in_100km'] = "No records found in within 100 km .";
+                $location['message_in_100km'] = "No records found in within 100 km.";
+                if ($data === "profile_img" && $photos) {
+                    $normalizedPath = normalizePath($photos);
+                    $location[$data] = $baseUrl . $normalizedPath;
+                }
                 $results[] = $location;
             }
-            
-            
         }
 
         // Fetch records with null coordinates
-        $stmt = $conn->prepare("SELECT id ,longitude ,latitude, address,name  FROM $tableName WHERE latitude IS NULL OR longitude IS NULL");
+        $stmt = $conn->prepare("SELECT id, longitude, latitude, address, name FROM $tableName WHERE latitude IS NULL OR longitude IS NULL");
         $stmt->execute();
         $locationsToUpdate = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -271,13 +296,12 @@ try {
                     $location['longitude'] = $lng;
                     $location['distance'] = $distance;
                     $results[] = $location;
-                }else if($distance <= 200){
+                } else if ($distance <= 200) {
                     $location['latitude'] = $lat;
                     $location['longitude'] = $lng;
                     $location['distance'] = $distance;
                     $results[] = $location;
-                
-                } 
+                }
             }
         }
     } else {
@@ -289,8 +313,6 @@ try {
 
     if ($results) {
         echo json_encode($results);
-        // print_r($results);
-        // exit();
     } else {
         echo json_encode(['message' => 'No records found']);
     }

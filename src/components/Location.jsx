@@ -11,7 +11,7 @@ function Location() {
   return (
     <>
       <Header />
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Location', href: '/map' }]} />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Find Nearby', href: '/findnearby' }]} />
       <Map/>
       <Footer />
     </>

@@ -345,81 +345,63 @@ button.map-categary-button:hover {
 
 /* Add additional styles if needed */
 
-
-
-
-
-
-/* Popup.css */
-
-
-.popup-container strong {
-    font-size: 16px;
-    color: #675bc8;
+.popup-container {
+    width: 400px; /* Fixed width for the popup */
+    height: 200px; /* Adjust height as needed */
+    display: flex;
+    padding: 10px;
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background-color: #fff; */
+    border-radius: 8px;
+    overflow: hidden; /* Ensure content doesn't overflow */
 }
 
-.popup-container .popup-address {
-    font-size: 14px;
-    color: #555;
-    margin-top: 5px;
-}
-
-.popup-container .popup-distance {
-    font-size: 14px;
-    color: #888;
-    margin-top: 5px;
-}
-
-.popup-container .popup-message {
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
-}
-
-h2.pop_Address_in_map {
-    font-size: medium;
-    font-family: inherit;
-    font-weight: bold;
-    color: black;
-}
-.Map_icon {
+.location-image_pop {
+    width: 30%; /* Fixed width for the image container */
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-right: 10px; /* Space between image and text */
 }
 
-.Map_icon_main {
-    width: 90%;
+.popup-text {
+    width: 70%; /* Fixed width for the text container */
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    flex-direction: column-reverse;
-    gap: 0em;
 }
 
 .popup-header {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
+    color: #675bc8;
 }
-.popup-address {
-    display: block;
+
+.popup-address,
+.popup-distance,
+.popup-message {
     font-size: 14px;
+    margin: 5px 0;
+}
+
+.popup-address {
     color: #555;
-    margin-bottom: 4px;
 }
 
 .popup-distance {
-    display: block;
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 4px;
+    font-weight: bolder;
+    color: #000000;
 }
 
 .popup-message {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 16px;
+    color: #666;
+}
+
+.pop_Address_in_map {
+    font-size: medium;
+    font-weight: bold;
+    color: black;
 }
 
 .popup-btn {
@@ -429,15 +411,28 @@ h2.pop_Address_in_map {
     border-radius: 4px;
     padding: 10px 16px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
     transition: background 0.3s;
+    margin-top: 10px;
 }
 
 .popup-btn:hover {
     background: #ffffff;
     color: #6A5ACD;
-    border:1px solid #6A5ACD;
-
+    border: 1px solid #6A5ACD;
 }
 
+img.pop_img {
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Adjust size as needed */
+    border-radius: 8px;
+}
+
+.popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    width: 300px;
+}

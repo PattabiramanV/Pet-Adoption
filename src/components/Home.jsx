@@ -37,15 +37,17 @@ function Home() {
       {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } /> */}
       <Section />
       <PeacefulCoexistence />
-      <Adoptioncard />
-      <Doctorcard />
-<Petcard/>
-{/* <Pomika  /> */}
-
-
+      <Petcard/>
       <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
         <button className="more hi more-info-btn" onClick={handleNavigation}>See More</button>
       </div>
+      <Adoptioncard />
+
+      <Doctorcard />
+{/* <Pomika  /> */}
+
+
+
       {/* <Doctorcard /> */}
       {/* <Hostal_card /> */}
       {/* <Adoptioncard /> */}

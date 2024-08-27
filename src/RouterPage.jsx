@@ -95,7 +95,7 @@ function RouterPage() {
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/reset" element={<PublicRoute><Reset /> </PublicRoute>} />
-        <Route path="/map" element={<Map />} />
+        <Route path="/findnearby" element={<Map />} />
         
 
 

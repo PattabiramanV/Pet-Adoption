@@ -76,6 +76,11 @@ section.header_nav {
   overflow: hidden;
   display: none;
   z-index: 50;
+  width: 12em;
+}
+
+.menu_profile{
+  width: auto;
 }
 
 .dropdown-menu a {

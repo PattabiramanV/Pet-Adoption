@@ -5,7 +5,7 @@ import Profile from "./Profile";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMap, faLocationArrow, faSignOutAlt,faMapMarkerAlt ,faPaw,faRunning,faShoppingCart,faBoxOpen ,faMapSigns} from "@fortawesome/free-solid-svg-icons";
-import { faUser, faUserCircle, faIdBadge, faAddressCard } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserCircle, faIdBadge, faAddressCard ,faStar,faUserDoctor,faHandsHelping,faHeart,faShieldAlt,} from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
@@ -114,7 +114,7 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Spotlight</span>
+              <span><FontAwesomeIcon icon={faStar} className="signup-icon" /> Pet Spotlight</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
                 <Link className="menu" to="/findpet">
@@ -139,7 +139,8 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Expertise</span>
+              <span><FontAwesomeIcon icon={faShieldAlt} className="signup-icon" />   Pet Expertise</span>
+          
               {isDropdownOpen && (
                <div className="dropdown-menu dropdown-menu-Features">
                <Link className="menu" to="/Veterinary">
@@ -171,7 +172,7 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Sanctuary</span>
+              <span><FontAwesomeIcon icon={faHandsHelping} className="signup-icon" />   Pet Sanctuary</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
                   <Link className="menu" to="/pets">
@@ -197,7 +198,7 @@ const Header = () => {
               onMouseEnter={handleMouseEnter}
               // onMouseLeave={handleMouseLeave}
             >
-              <span>Pet Oasis</span>
+              <span> <FontAwesomeIcon icon={faHeart} className="signup-icon" />  Pet Oasis</span>
               {isDropdownOpen && (
                <div className="dropdown-menu dropdown-menu-Features">
                <Link className="menu" to="/pethostel">
@@ -220,7 +221,7 @@ const Header = () => {
             </div>
 
             <div className="">
-                  <Link to="/map"><span><FontAwesomeIcon icon={faLocationArrow} className="signup-icon" /></span> Epic Nearby</Link>
+                  <Link to="/findnearby"><span><FontAwesomeIcon icon={faLocationArrow} className="signup-icon" /></span> Epic Nearby</Link>
                 </div>
 
 
@@ -263,9 +264,9 @@ const Header = () => {
                 />
                 <span className="profile_name">{profile.username}</span>
                 {isDropdownOpen && (
-                  <div className="dropdown-menu">
+                  <div className="dropdown-menu menu_profile">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to="/tables"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
+                    <Link to="/tables"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Dashboard</Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

@@ -484,10 +484,7 @@ function Map() {
                 setTableImage(hostelImage);
                 break;
             case 'vetneries':
-                setTableImage(vetImage);
-                break;
-            default:
-                setTableImage(Map_icon);
+                setTableImage(vetImage );
                 break;
         }
     }, [category]);
@@ -615,6 +612,24 @@ function Map() {
     const minDistanceLocation = sortedLocations[0]; // Closest location
     const isBeyond100Km = minDistanceLocation?.distance > 100; // Check if it's beyond 100 km
 
+const getImageSrc = (photos) => {
+    const photoArray = JSON.parse(photos || '[]');
+    if (photoArray.length > 0) {
+        return `http://localhost/petadoption/backend/hostel/hostelimg/${photoArray[2]}`;
+    }
+    // return tableImage; // Default image if no photos
+};
+
+const getImageSrc1 = (photo) => {
+    const photoArray = JSON.parse(photo || '[]');
+    if (photoArray.length > 0) {
+        return `http://localhost/petadoption/backend/petsapi/hostelimg/${photoArray[2]}`;
+    }
+    // return tableImage; // Default image if no photos
+};
+
+
+
     return (
         <div className="pet-hostel-finder">
             <div className="map-table-container">
@@ -724,13 +739,20 @@ function Map() {
                                 </div>
                             </div>
                         )}
+                        
                         {currentLocations.length > 0 && (
+                            
                             <div className='card_list_map'>
                                 {currentLocations.map((location) => (
+                                    
                                     <div className="location-item" key={location.id}>
                                         <div className="location-image-details">
                                             <div className="location-image">
-                                                <img src={tableImage} alt={location.name} />
+                                
+                                                { !location.photo && !location.profile_img &&  <img src={getImageSrc(location.photos)} alt={location.name} />  }
+                                                { !location.photos && !location.profile_img &&  <img src={getImageSrc1(location.photo)} alt={location.name} />  }
+                                               { !location.photos && !location.photo &&  <img src={location.profile_img} alt={location.name} />  }                                               
+                                               
                                             </div>
                                             <div className="location-details">
                                                 <div className="location-name">{location.name}</div>
@@ -762,26 +784,43 @@ function Map() {
                                                 marker.openPopup();
                                             }
                                         }}
+                                        
                                     >
-                                        <Popup>
-                                            {/* <strong>{location.name}</strong><br />
-                                            <span className="popup-address">Address: {location.address}</span><br />
-                                            {location.distance && <span className="popup-distance">Distance: {location.distance.toFixed(2)} km</span>}<br />
-                                            <span className="popup-message">{location.message}</span>
-                                            <button className='pop_btn' >Booking</button> */}
-                                            <div className="popup-container">
-    <div className="popup-header">
-        <strong>{location.name}</strong>
+          <Popup>
+    <div className="popup-container">
+        <div className="popup-content">
+            <div className="location-image_pop">
+                {location.photos && !location.photo && !location.profile_img && (
+                    <img className='pop_img' src={getImageSrc(location.photos)} alt={location.name} />
+                )}
+                {location.photo && !location.photos && !location.profile_img && (
+                    <img className='pop_img' src={getImageSrc1(location.photo)} alt={location.name} />
+                )}
+                {location.profile_img && !location.photos && !location.photo && (
+                    <img className='pop_img' src={location.profile_img} alt={location.name} />
+                )}
+            </div>
+            <div className="popup-text">
+                <div className="popup-header">
+                    <strong>{location.name}</strong>
+                </div>
+                <div className="popup-address">
+                    <h2 className='pop_Address_in_map'>Address:</h2> {location.address}
+                </div>
+                {location.distance && (
+                    <div className="popup-distance">Distance: {location.distance.toFixed(2)} km</div>
+                )}
+                {/* {location.message && (
+                    <p className="popup-message">{location.message}</p>
+                )} */}
+                <div className="div_pop_btn">
+                    <button className="popup-btn">Book Now</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div className="popup-content">
-        <span className="popup-address"> <h2 className='pop_Address_in_map' >Address :</h2> {location.address}</span>
-        {location.distance && <span className="popup-distance">Distance: {location.distance.toFixed(2)} km</span>}
-        <p className="popup-message">{location.message}</p>
-    </div>
-    <button className="popup-btn">Book Now</button>
-</div>
+</Popup>
 
-                                        </Popup>
                                     </Marker>
                                 );
                             })}
