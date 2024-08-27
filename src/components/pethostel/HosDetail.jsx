@@ -340,6 +340,17 @@ console.log(hostels);
               </h2>
             </div> */}
 
+             <div className="div_name flex gap-6">
+              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+
+              </h2> */}
+              {console.log('saa0',rating)}
+              {rating || rating==0 ?
+                            <StarRating rating={rating } readOnly={true} style={{width:'124px'}}  /> : null }
+              <main>:</main>
+              <ReviewForm onSubmit={handleReviewSubmit} />
+
+            </div>
             
 
             <div className="div_location w-full flex items-center gap-5">
@@ -372,21 +383,15 @@ console.log(hostels);
               <span> {pet?.available_time}</span>
             </div>
 
-            <div className="div_name flex gap-6">
-              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
-
-              </h2> */}
-              {console.log('saa0',rating)}
-              {rating || rating==0 ?
-                            <StarRating rating={rating } readOnly={true} style={{width:'124px'}}  /> : null }
-              <main>:</main>
-              <ReviewForm onSubmit={handleReviewSubmit} />
-
-            </div>
+           
          
 </div>
-                <div className='w-full ' style={{position:'relative',bottom:'-52px'}}>
-            <div className="btn_for_message flex justify-start items-end">
+                <div className='w-full flex ' style={{position:'relative',bottom:'-52px'}}>
+            <div className="btn_for_message ">
+              <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Contact Owner</Link>
+            </div>
+
+            <div className="hosBookNowBtn btn_for_message ">
               <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Book Now</Link>
             </div>
             </div>

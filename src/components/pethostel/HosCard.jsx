@@ -181,8 +181,8 @@ console.log(images);
     <div className="phoneTime">
 
       <div className="phone">
-       <p>Phone: </p>
-       <span>{hostel.contact}</span>
+       <p>Time: </p>
+       <span>{hostel.available_time}</span>
       </div>
           <div className="time">
                   <p className="">Price/Day:</p>

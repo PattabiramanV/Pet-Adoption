@@ -7,8 +7,8 @@ class Database {
     private $host = 'localhost';
     private $db_name = 'pet_adoption';
     private $username = 'dckap';
-    private $password = 'Dckap2023Ecommerce';
-    // private $password = 'Dckap2023Ubuntu';
+    // private $password = 'Dckap2023Ecommerce';
+    private $password = 'Dckap2023Ubuntu';
 
     public $conn;
     

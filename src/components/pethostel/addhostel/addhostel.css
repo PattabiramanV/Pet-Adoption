@@ -29,14 +29,14 @@
     color: rgba(96, 96, 96, 1);
     line-height: 16px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .addHostelFormParent textarea::placeholder{
     color: rgba(96, 96, 96, 1);
     line-height: 60px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .addimagesdiv label {

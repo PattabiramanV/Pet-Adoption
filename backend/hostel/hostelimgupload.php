@@ -23,13 +23,14 @@ $price_per_day = $_POST['price_per_day'] ?? '';
 $available_time = $_POST['available_time'] ?? '';
 $address = $_POST['address'] ?? '';
 $description = $_POST['description'] ?? '';
+$facilities=$_POST['facilities']?? '';
 $photos = $_FILES['photos'] ?? null;
 
 // print_r($photos);
 // // //     exit;
     // echo $name,$contact,$price_per_day;
     // exit;
-$errors = validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $photos);
+$errors = validateFormData($name, $contact, $price_per_day, $available_time, $address, $description,$facilities, $photos);
 
 if (!empty($errors)) {
     respondWithError($errors);
@@ -44,7 +45,7 @@ if (!empty($errors)) {
 
 try {
 // print_r($uploaded_files);
-    insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files);
+    insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description,$facilities, $uploaded_files);
     // updateUserType($db, $user_id);
 
     // emailSendFun($name);
@@ -52,7 +53,7 @@ try {
     respondWithError(['message' => 'Failed to insert data', 'error' => $e->getMessage()]);
 }
 
-function validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $photos)
+function validateFormData($name, $contact, $price_per_day, $available_time, $address, $description, $facilities,$photos)
 {
 
     $errors = [];
@@ -63,6 +64,9 @@ function validateFormData($name, $contact, $price_per_day, $available_time, $add
     if (empty($available_time)) $errors['available_time'] = "Available time is required";
     if (empty($address)) $errors['address'] = "Address is required";
     if (empty($description)) $errors['description'] = "Description is required";
+    if (empty($facilities)) $errors['facilities'] = "Facilities is required";
+
+    
     if (empty($photos) || !is_array($photos['name'])) $errors['photos'] = "At least one photo is required";
 
     return $errors;
@@ -110,15 +114,15 @@ function handleFileUploads($photos, $user_id)
 
 
 
-function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $uploaded_files)
+function insertHostelData($db, $name, $contact, $price_per_day, $available_time, $address, $description, $facilities,$uploaded_files)
 {
     try {
         $image_paths_json = json_encode($uploaded_files);
         global $user_id;
-        $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description, photos, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO pet_hostels (name, contact, price_per_day, available_time, address, description,	facilities, photos, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
         $stmt = $db->conn->prepare($query);
 
-        if ($stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description, $image_paths_json, $user_id])) {
+        if ($stmt->execute([$name, $contact, $price_per_day, $available_time, $address, $description,$facilities, $image_paths_json, $user_id])) {
             // echo json_encode(['status' => 'success', 'message' => 'Hostel successfully added']);
     updateUserType($db, $user_id);
 

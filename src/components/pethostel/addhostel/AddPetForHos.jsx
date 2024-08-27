@@ -20,6 +20,7 @@ function AddPetHos() {
     available_time: '',
     address: '',
     description: '',
+    facilities:'',
     photos: [] // Changed to an array to support multiple files
   });
   
@@ -55,46 +56,73 @@ function AddPetHos() {
     let formErrors = {};
     let valid = true;
 
+    // Validate Name
     if (!formData.name) {
       formErrors.name = "Name is required";
       valid = false;
     }
-    if (!formData.contact || formData.contact.length<10) {
 
-      if(formData.contact.length==0){
-        formErrors.contact = "Contact no is required";
-
-      }
-      else{
-        formErrors.contact = "Contact no must be 10 charactor ";
-      }
-
+    // Validate Contact
+    if (!formData.contact) {
+      formErrors.contact = "Contact number is required";
+      valid = false;
+    } else if (formData.contact.length < 10) {
+      formErrors.contact = "Contact number must be at least 10 characters";
       valid = false;
     }
-   
+
+    // Validate Price per Day
     if (!formData.price_per_day) {
       formErrors.price_per_day = "Price per day is required";
       valid = false;
     }
-    if (!formData.available_time) {
-      formErrors.available_time = "Available time is required";
-      valid = false;
-    }
+
+    // Validate Address
     if (!formData.address) {
       formErrors.address = "Address is required";
       valid = false;
     }
+ // Validate Address
+ if (!formData.facilities) {
+  formErrors.facilities = "Facilities is required";
+  valid = false;
+}
+
+    // Validate Photos
     if (formData.photos.length === 0) {
       formErrors.photos = "At least one photo is required";
       valid = false;
     }
+
+    // Validate Description
     if (!formData.description) {
       formErrors.description = "Description is required";
       valid = false;
     }
+
+    // Validate Available Time
+
+    // Validate Available Time
+    if (!formData.available_time) {
+      formErrors.available_time = "Available time is required";
+      valid = false;
+    } else {
+      // Regular expression to check if the format is "X AM - Y PM" (case-insensitive)
+      const timePattern = /^((0?[1-9])|(1[0-2]))\s?(AM|PM)\s?-\s?((0?[1-9])|(1[0-2]))\s?(AM|PM)$/i;
+
+      if (!timePattern.test(formData.available_time)) {
+        formErrors.available_time = "Time format must be 'X AM - Y PM'";
+        valid = false;
+      }
+    }
+
+    // Set all collected errors at once
     setErrors(formErrors);
+    console.log('formErrors',formErrors);
     return valid;
-  };
+};
+
+
 
 //   const formSubmitFun = async (e) => {
 //     e.preventDefault();
@@ -192,7 +220,7 @@ function AddPetHos() {
 
 const formSubmitFun = async (e) => {
   e.preventDefault();
-
+console.log('formData',formData);
   if (validateForm()) {
       try {
           const data = new FormData();
@@ -232,7 +260,7 @@ const formSubmitFun = async (e) => {
 
               // Clear the form fields if needed
               setFormData({
-                  name: '',
+                  name: '', 
                   contact: '',
                   price_per_day: '',
                   available_time: '',
@@ -351,8 +379,8 @@ const formSubmitFun = async (e) => {
                 id="available_time"
                 name="available_time"
                 value={formData.available_time}
-                type="time"
-                placeholder="Available time"
+                type="text"
+                placeholder="8AM - 10PM"
                 onChange={onChangeFun}
               />
               {errors.available_time && <p className="text-red-500 text-xs mt-1">{errors.available_time}</p>}
@@ -373,6 +401,24 @@ const formSubmitFun = async (e) => {
               ></textarea>
               {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
             </div>
+
+
+            <div className="sm:col-span-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facilities">
+              Facilities <span className="star">*</span>
+              </label>
+              <textarea
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
+                id="facilities"
+                name="facilities"
+                value={formData.facilities}
+                rows="4"
+                placeholder=" Address"
+                onChange={onChangeFun}
+              ></textarea>
+              {errors.facilities && <p className="text-red-500 text-xs mt-1">{errors.facilities}</p>}
+            </div>
+
 
             <div className="sm:col-span-2">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
