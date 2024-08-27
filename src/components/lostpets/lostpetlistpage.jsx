@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PetCard from './lostpets';
 import { Pagination } from 'antd';
 import Loader from '../Loader/Loader';
-import 'antd/dist/reset.css'; // Ensure Ant Design styles are loaded
+import 'antd/dist/reset.css'; 
 
 const LostListMain = () => {
   const [pets, setPets] = useState([]);

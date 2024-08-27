@@ -16,7 +16,7 @@ const LostListPet = () => {
         try {
           const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/model/getlostingpet.php`);
           const data = await response.json();
-          console.log("Fetched Pet Data:", data); // Debugging output
+          console.log("Fetched Pet Data:", data); 
           setPet(data);
         } catch (error) {
           console.error("Failed to fetch pet details:", error);
@@ -28,7 +28,7 @@ const LostListPet = () => {
 
 
   let imageSrc = `data:image/jpeg;base64,${pet.photo}`;
-  console.log("Image Source:", imageSrc); // Debugging output
+  console.log("Image Source:", imageSrc); 
 
   return (
     <section className="lost_pet-detail-page">

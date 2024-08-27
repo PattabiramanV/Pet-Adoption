@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spin, Alert, Modal, Checkbox } from 'antd';
+import { Table, Spin, Alert, Modal } from 'antd';
 import Loader from '../Loader/Loader';
 import EditForm from './editform';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +10,6 @@ import '../lostpets/lostusertable.css';
 import ReactPaginate from 'react-paginate';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import catanddog from "../../assets/emptydata.png";
-
 
 const Lostusertable = () => {
     const [userData, setUserData] = useState([]);
@@ -61,12 +61,11 @@ const Lostusertable = () => {
     const handleStatusChange = async (record) => {
         const updatedStatus = record.status === 'completed' ? 'pending' : 'completed';
         try {
-      const response =  await axios.post(`${import.meta.env.VITE_API_BASE_URL}/model/editform.php`, {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/model/editform.php`, {
                 user_id: record.user_id,
                 status: updatedStatus
             });
 
-            console.log(response)
             fetchData(); 
         } catch (error) {
             console.error('Status update error:', error);
@@ -74,26 +73,24 @@ const Lostusertable = () => {
         }
     };
     
-const updateRecord = (updatedRecord) => {
-    setUserData((prevUserData) =>
-        prevUserData.map((item) =>
-            item.user_id === updatedRecord.user_id ? { ...item, ...updatedRecord } : item
-        )
-    );
-    fetchData(); // Refresh data after updating status
-    setIsModalVisible(false); // Close the modal after updating the record
-};
-
-    
+    const updateRecord = (updatedRecord) => {
+        setUserData((prevUserData) =>
+            prevUserData.map((item) =>
+                item.user_id === updatedRecord.user_id ? { ...item, ...updatedRecord } : item
+            )
+        );
+        fetchData(); // Refresh data after updating status
+        setIsModalVisible(false); // Close the modal after updating the record
+    };
 
     const getStatusClass = (status) => {
         switch (status) {
-          case 'completed':
-            return 'status-delivered';
-          case 'pending':
-            return 'status-process';
-          default:
-            return '';
+            case 'completed':
+                return 'status-delivered';
+            case 'pending':
+                return 'status-processes';
+            default:
+                return '';
         }
     };
 
@@ -160,10 +157,6 @@ const updateRecord = (updatedRecord) => {
             key: 'status',
             render: (record) => (
                 <div>
-                    <Checkbox 
-                        checked={record.status === 'completed'} 
-                        onChange={() => handleStatusChange(record)}
-                    />
                     <span className={`status-label ${getStatusClass(record.status)}`}>
                         {record.status}
                     </span>
@@ -206,96 +199,87 @@ const updateRecord = (updatedRecord) => {
     };
 
     return (
-
         <div className="div_lost_re">
-            
-        <div className="table-container mt-10 mb-10">
-            <h1 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'inter', fontSize:'24px', fontWeight:'800'}}>Lost Pet Details</h1>
-            <div className="search-container">
-                {searchTerm === '' && (
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                )}
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleChange}
-                    className="search-input searchBox"
-                />
-            </div>
-            {filteredData.length === 0 ? (  
-                <div className="no-data-container">
-                     <img className="dogCat" loading="lazy" alt="Cat and Dog" src={catanddog} />
-                </div>
-            ) : (
-                <>
-                    <table className="custom-table">
-                        <thead>
-                            <tr>
-                                {columns.map((col) => (
-                                    <th key={col.key}>{col.title}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                    <tbody>
-                    {currentData.length === 0 ? (
-        <tr>
-            <td colSpan={columns.length} className="text-center">
-                No data foundd
-                
-            </td>
-        </tr>
-    ) : (
-        currentData.map((item, index) => (
-            <tr key={item.user_id}>
-                {columns.map((col) => (
-                    <td key={col.key}>{col.render ? col.render(item, null, index) : item[col.dataIndex]}</td>
-                ))}
-            </tr>
-        ))
-    )}
-</tbody>
-
-                    </table>
-                    <Modal
-                        title="Edit Pet Details"
-                        visible={isModalVisible}
-                        onCancel={handleCancel}
-                        footer={null}
-                        width={600}
-                    >
-                        {editRecord && <EditForm record={editRecord} onClose={handleCancel} onUpdate={updateRecord} refresh={fetchData} />}
-                    </Modal>
-                    <ReactPaginate
-                        previousLabel={'Previous'}
-                        nextLabel={'Next'}
-                        breakLabel={'...'}
-                        pageCount={Math.ceil(filteredData.length / recordsPerPage)}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={'pagination'}
-                        pageClassName={'page-item'}
-                        pageLinkClassName={'page-link'}
-                        activeClassName={'active-page'}
-                        previousClassName={'previous-page'}
-                        nextClassName={'next-page'}
-                        disabledClassName={'disabled-page'}
+            <div className="table-container mt-10 mb-10">
+                <h1 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'inter', fontSize:'26px', fontWeight:'700'}}>Lost Pet Details</h1>
+                <div className="search-container">
+                    {searchTerm === '' && (
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    )}
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleChange}
+                        className="search-input searchBox"
                     />
-                </>
-            )}
-              {loading && <Loader/>}
+                </div>
+                {filteredData.length === 0 ? (  
+                    <div className="no-data-container">
+                         <img className="dogCat" loading="lazy" alt="Cat and Dog" src={catanddog} />
+                    </div>
+                ) : (
+                    <>
+                        <table className="custom-table">
+                            <thead>
+                                <tr>
+                                    {columns.map((col) => (
+                                        <th key={col.key}>{col.title}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {currentData.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={columns.length} className="text-center">
+                                            No data found
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    currentData.map((item, index) => (
+                                        <tr key={item.user_id}>
+                                            {columns.map((col) => (
+                                                <td key={col.key}>{col.render ? col.render(item, null, index) : item[col.dataIndex]}</td>
+                                            ))}
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                        <Modal
+                            title="Edit Pet Details"
+                            visible={isModalVisible}
+                            onCancel={handleCancel}
+                            footer={null}
+                            width={600}
+                        >
+                            {editRecord && <EditForm record={editRecord} onClose={handleCancel} onUpdate={updateRecord} refresh={fetchData} />}
+                        </Modal>
+                        <ReactPaginate
+                            previousLabel={'Previous'}
+                            nextLabel={'Next'}
+                            breakLabel={'...'}
+                            pageCount={Math.ceil(filteredData.length / recordsPerPage)}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={'pagination'}
+                            pageClassName={'page-item'}
+                            pageLinkClassName={'page-link'}
+                            activeClassName={'active-page'}
+                            previousClassName={'previous-page'}
+                            nextClassName={'next-page'}
+                            disabledClassName={'disabled-page'}
+                        />
+                    </>
+                )}
+                {loading && <Loader />}
+            </div>
         </div>
-        </div>
-
     );
 };
 
 export default Lostusertable;
-
-
-
-
 
 
 
