@@ -147,16 +147,16 @@ function RouterPage() {
 
     {/* Veena */}
         <Route path="/reguesttabel" element={<Requesttables />} />
-        <Route path="/pets/*" element={<Pets />} />
+        <Route path="/petHighlights/*" element={<Pets />} />
         <Route path="/petList" element={<AllPetList />} />
          <Route path="/petDetails/:id"  element={<Info />} />
          <Route path="/sale" element={<Sale />} />
-         <Route path="/adopte" element={<PetForm />} />
-         <Route path="/adoptelist" element={<Adoptedlits />}  />
-         <Route path="/userpets" element={<UserPets />}  />
-         <Route path="/request" element={<AdoptionRequests />}  />
+         <Route path="/PetGallery" element={<PetForm />} />
+         <Route path="/adoptedPetList" element={<Adoptedlits />}  />
+         <Route path="/userSalePets" element={<UserPets />}  />
+         <Route path="/petRequests" element={<AdoptionRequests />}  />
          <Route path="/requestpets/*" element={<Request />} />
-         <Route path="/tables/*"  element={<OverallTables />} />
+         <Route path="/dashboard/*"  element={<OverallTables />} />
          <Route path="/payment"  element={<Payment />} />
 
     {/* Veena */}

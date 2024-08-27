@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SimilarPetsSlider.css';
 import CardView from '../../pets/card/card';
@@ -6,21 +6,25 @@ import CardView from '../../pets/card/card';
 const SimilarPetsSlider = ({ similarPets }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleItems = 3;
-  
-  const isNextDisabled = currentIndex >= similarPets.length - visibleItems;
-  const isPrevDisabled = currentIndex <= 0;
+
+  const adjustedIndex = currentIndex % (similarPets.length - visibleItems + 1);
 
   const handleNext = () => {
-    if (!isNextDisabled) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % similarPets.length);
   };
 
   const handlePrev = () => {
-    if (!isPrevDisabled) {
-      setCurrentIndex(currentIndex - 1);
-    }
+    setCurrentIndex((prevIndex) => 
+      (prevIndex - 1 + similarPets.length) % similarPets.length
+    );
   };
+
+  useEffect(() => {
+    const autoSlideInterval = setInterval(() => {
+      handleNext();
+    }, 3000); 
+    return () => clearInterval(autoSlideInterval);
+  }, [currentIndex]);
 
   return (
     <div className="slider-container">
@@ -28,14 +32,13 @@ const SimilarPetsSlider = ({ similarPets }) => {
         <button 
           className="arrow-btn prev-btn" 
           onClick={handlePrev} 
-          disabled={isPrevDisabled}
           aria-label="Previous"
         >
           &#8249;
         </button>
         <div className="slider-content">
           <div className="slider-track">
-            {similarPets.slice(currentIndex, currentIndex + visibleItems).map((petItem) => (
+            {similarPets.slice(adjustedIndex, adjustedIndex + visibleItems).map((petItem) => (
               <div key={petItem.id} className="slider-item">
                 <CardView pets={[petItem]} />
               </div>
@@ -45,7 +48,6 @@ const SimilarPetsSlider = ({ similarPets }) => {
         <button 
           className="arrow-btn next-btn" 
           onClick={handleNext} 
-          disabled={isNextDisabled}
           aria-label="Next"
         >
           &#8250;

@@ -126,7 +126,7 @@ const Header = () => {
                 <Link className="menu" to="/mypetlostpost">
                   Found Pets
                 </Link>
-                <Link className="menu" to="/tables">
+                <Link className="menu" to="/dashboard">
                 My Entries
                 </Link>
               </div>
@@ -154,7 +154,7 @@ const Header = () => {
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
-               <Link className="menu" to="/tables/groomingusertable">
+               <Link className="menu" to="/dashboard/groomingusertable">
                Service Records
                </Link>
                {/* <Link className="menu" to="/">
@@ -174,17 +174,17 @@ const Header = () => {
               <span>Pet Sanctuary</span>
               {isDropdownOpen && (
                 <div className="dropdown-menu dropdown-menu-Features">
-                  <Link className="menu" to="/pets">
+                  <Link className="menu" to="/petHighlights">
                  Pet Home Finder
                   </Link>
                   <Link className="menu" to="/sale">
                    Pet Rehoming Form
                   </Link>
-                  <Link className="menu" to="/adopte">
+                  <Link className="menu" to="/PetGallery">
                  Pet Gallery
                   </Link>
                  
-                  <Link className="menu" to="/tables/userpets">
+                  <Link className="menu" to="/dashboard/userSalePets">
                   My Pets Dashboard
                   </Link>
                 </div>
@@ -212,7 +212,7 @@ const Header = () => {
                <Link className="menu" to="/pethostel/booking">
                  Manage Reservations
                </Link>
-               <Link className="menu" to="/tables/userpets">
+               <Link className="menu" to="/dashboard/userpets">
                  Client Profiles
                </Link>
              </div>
@@ -241,7 +241,7 @@ const Header = () => {
                   <Link to="/findpet">Reuniting lost pets</Link>
                   <Link to="/PetGrooming">Pet Grooming</Link>
                   <Link to="/pethostel">Pet Hostel</Link>
-                  <Link to="/pets">Pets</Link>
+                  <Link to="/petHighlights">Pets</Link>
                 </div>
               )}
             </div>
@@ -265,7 +265,7 @@ const Header = () => {
                 {isDropdownOpen && (
                   <div className="dropdown-menu">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to="/tables"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
+                    <Link to="/dashboard/userpets"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

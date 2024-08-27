@@ -24,8 +24,8 @@ const PetDetailsRoute = () => {
   const [isAdopted, setIsAdopted] = useState(false);
  const [breadcrumbItems, setBreadcrumbItems] = useState([
     { title: 'Home', href: '/' },
-    { title: 'Pets', href: '/pets' },
-    { title: 'Adopt', href: '/adopte' },
+    { title: 'petHighlights', href: '/petHighlights' },
+    { title: 'Pet Gallery', href: '/PetGallery' },
     { title: 'Pet Details', href: `/petDetails/${id}` },
   ]);
 

@@ -194,8 +194,8 @@ const handleUpdate = async (formData) => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div className="table-container mt-10 mb-10">
-          <h1 className="page-title">Pet list</h1> 
+        <div className="table-containers mt-10 mb-10">
+          <h1 className="page-title">userPetsForSale</h1> 
           <div className="search-container petssearch">
             {searchTerm === '' && (
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
