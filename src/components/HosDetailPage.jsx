@@ -15,9 +15,10 @@ const HosDetailPage=()=>{
   items={[
     { title: 'Home', href: '/' }, 
     { title: 'Pet Hostels', href: '/pethostel' },
-    { title: 'Pet Detail', href: '/pethostel/details' }
+    { title: 'Hostel Details', href: '/pethostel/details/' }
   ]} 
 />
+
 
         <HostelDetails></HostelDetails>
         <Footer></Footer>

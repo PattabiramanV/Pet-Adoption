@@ -84,7 +84,7 @@ function handleFileUploads($photos, $user_id)
 {
     
     $uploaded_files = [];
-    $upload_directory = "./hostelimg/$user_id/";
+    $upload_directory = "./hostelimg/";
 
     // Create user directory if it doesn't exist
     if (!is_dir($upload_directory)) {
@@ -188,16 +188,31 @@ function emailSendFun($hostelName)
             'email' => $bookingUserEmail,
             'name' => $bookingUsername,
             'body' => $header . "
-                <div style=\"padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;\">
-                    <h1 style=\"color: #333; font-size: 24px; text-align: center;\">Hostel Added Confirmation</h1>
-                    <p style=\"color: #555; font-size: 16px;\">Dear {$bookingUsername},</p>
-                    <p style=\"color: #555; font-size: 16px;\">Your hostel <strong style=\"color: #000;\">{$hostelName}</strong> has been successfully added to our platform.</p>
-                    <p style=\"color: #555; font-size: 16px;\">Thank you for partnering with us!</p>
-                    <p style=\"color: #555; font-size: 16px;\">We look forward to providing excellent service together.</p>
+                <div style='padding: 24px; font-family: Arial, sans-serif; background-color: #f9f9f9;'>
+                    <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+                        <h1 style='font-size: 24px; font-weight: bold;'>Hostel Added Confirmation</h1>
+                    </div>
+                    <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
+                       
+                        
+                        <div style='margin-top: 24px;'>
+                            <div style='padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;'>
+                               
+                                <p style='color: #555; font-size: 16px;'>Dear {$bookingUsername},</p>
+                                <p style='color: #555; font-size: 16px;'>Your hostel <strong style='color: #000;'>{$hostelName}</strong> has been successfully added to our platform.</p>
+                                <p style='color: #555; font-size: 16px;'>Thank you for partnering with us!</p>
+                                <p style='color: #555; font-size: 16px;'>We look forward to providing excellent service together.</p>
+                            </div>
+                        </div>
+                        
+            
+                        <p style='color: #555; font-size: 20px; text-align:center'>Thank you!</p>
+                    </div>
                 </div>" . $footer,
             'altBody' => "Dear {$bookingUsername},\n\nYour hostel {$hostelName} has been successfully added to our platform.\n\nThank you for partnering with us!\n\nWe look forward to providing excellent service together."
         ]
     ];
+    
 
   
     $status = 'success';
@@ -234,3 +249,9 @@ function emailSendFun($hostelName)
 
     echo json_encode(['status' => $status, 'message' => $message]);
 }
+
+
+
+
+
+

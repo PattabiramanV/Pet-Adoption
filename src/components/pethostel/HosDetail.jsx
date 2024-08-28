@@ -249,7 +249,7 @@ console.log('rating',typeof rating);
     console.error("Failed to parse pet photos:", error);
   }
 
-  const baseUrl = `../../../backend/hostel/hostelimg/${userId}/`; // Adjust base URL if necessary
+  const baseUrl = `../../../backend/hostel/hostelimg/`; // Adjust base URL if necessary
   const imageUrls = parsed.map(photo => `${baseUrl}${photo}`);
 console.log(imageUrls);
 
@@ -278,11 +278,7 @@ const handleReviewSubmit = async (reviewData) => {
       }
     );
     
-    console.log(response.data.status);
-
-    // Handle the response
-    // const parseData=JSON.parse(response.data);
-    // console.log(parseData);
+ 
     if (response.data.status == 'success') {
       console.log(response.data);
       notification.success({
@@ -290,6 +286,7 @@ const handleReviewSubmit = async (reviewData) => {
         description: response.data.message || 'Your review has been submitted.',
       });
   fetchPetDetails();
+ 
 
       // You can also clear the form or navigate as needed
       // e.g., setReviewData({ review: '', rating: 0 });
@@ -335,80 +332,63 @@ console.log(hostels);
           </div>
 
           <div className="hosright-details">  
-            <div className='w-full grid  gap-3'>
-            {/* <div className="div_name">
-              <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
-                {pet?.hostel_name}
-              </h2>
-            </div> */}
+  <div className="w-full grid gap-3">
+    
+    <div className="div_name flex items-center gap-6">
+      <div style={{width:'130px'}}>
+        {rating || rating === 0 ? (
+          <StarRating rating={rating} readOnly={true} />
+        ) : null}
+      </div>
+      <ReviewForm onSubmit={handleReviewSubmit} />
+    </div>
 
-             <div className="div_name flex gap-2">
-              {/* <h2 className="pet-name hosName" style={{ color: 'black', fontSize: '30px' }}>
+    <div className="info-row flex items-center gap-3 min-h-12">
+      <strong className="info-label">Location</strong>
+      <main>:</main>
+      <span className="info-content">{pet?.hostel_address}</span>
+    </div>
 
-              </h2> */}
-              {console.log('saa0',rating)}
-              <div style={{width:'130px'}}>
-              {rating || rating==0 ?
-                    
-                    <StarRating rating={rating } readOnly={true}  /> : null }
-              </div>
-             
-              <main>:</main>
-              <ReviewForm onSubmit={handleReviewSubmit} />
+    <div className="info-row flex items-center gap-3">
+      <strong className="info-label">Price/Day</strong>
+      <main>:</main>
+      <span className="info-content bg-gray-100 rounded-md flex items-center space-x-1 text-customblue text-sm" style={{ padding: '6px' }}>
+        <span className="text-2xl text-customblue font-semibold">&#8377;</span>
+        <span className="font-bold text-customblue" style={{ fontSize: '14px' }}>{pet?.price_per_day}</span>
+        <span className="ml-1 text-xs text-gray-800 font-semibold">/day</span>
+      </span>
+    </div>
 
-            </div>
-            
+    <div className="info-row flex items-center gap-3" style={{ textTransform: 'capitalize' }}>
+      <strong className="info-label">Facilities</strong>
+      <main>:</main>
+      <span className="info-content">{pet?.facilities}</span>
+    </div>
 
-            <div className="div_location w-full flex items-center gap-5 min-h-12">
-              <strong className='w-30'>Location</strong>
-              <main>:</main>
-              <span> {pet?.hostel_address}</span>
-            </div>
+    <div className="info-row flex items-center gap-3">
+      <strong className="info-label">Contact No</strong>
+      <main>:</main>
+      <span className="info-content">{pet?.contact}</span>
+    </div>
 
-            <div className="flex items-center gap-3">
-              <strong className='w-30'>Price/Day</strong>
-              <main>:</main>
-              <span className="bg-gray-100 rounded-md  flex items-center space-x-1 text-customblue text-sm" style={{padding:'6px'}}>
-  <span className="text-2xl text-customblue font-semibold">&#8377;</span>
-  <span className=" font-bold text-customblue" style={{fontSize:'14px'}}>{pet?.price_per_day}</span>
-  <span className="ml-1 text-xs text-gray-800 font-semibold">/day</span>
-</span>
+    <div className="info-row flex items-center gap-3">
+      <strong className="info-label">Available time</strong>
+      <main>:</main>
+      <span className="info-content" style={{ textTransform: 'uppercase' }}>{pet?.available_time}</span>
+    </div>
 
-              {/* <span className='text-customblue text-sm'> <a className='text-xl text-black'>&#8377;</a>{pet?.price_per_day}</span> */}
-            </div>
+  </div>
 
-            <div className="flex items-center gap-3" style={{ textTransform: 'capitalize' }}>
-              <strong>Facilities</strong>
-              <main>:</main>
-              <span>{pet?.facilities}</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <strong>Contact No</strong>
-              <main>:</main>
-              <span> {pet?.contact}</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <strong>Available time</strong>
-              <main>:</main>
-              <span style={{textTransform:'uppercase'}}> {pet?.available_time}</span>
-            </div>
-
-           
-         
+  <div className="w-full flex" style={{ position: 'relative', bottom: '-52px' }}>
+    <div className="btn_for_message">
+      <a href={`tel:${pet?.contact}`} className="add-to-cart">Contact Owner</a>
+    </div>
+    <div className="hosBookNowBtn btn_for_message">
+      <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Book Now</Link>
+    </div>
+  </div>
 </div>
-                <div className='w-full flex ' style={{position:'relative',bottom:'-52px'}}>
-            <div className="btn_for_message ">
-             <a href={`tel:${pet?.contact}`} className="add-to-cart">Contact Owner</a>
-            </div>
 
-            <div className="hosBookNowBtn btn_for_message ">
-              <Link to={`/pethostel/booking/${hosId}`} className="add-to-cart">Book Now</Link>
-            </div>
-            </div>
-
-          </div>
         </div>
       </div>
     </section>

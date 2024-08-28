@@ -19,6 +19,7 @@ function PetHostelPage() {
   ]} 
 />
 
+
       <Hostels />
       {/* <Hostels hostel={data[1]}/>
       <Hostels hostel={data[2]}/> */}

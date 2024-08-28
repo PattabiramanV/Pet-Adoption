@@ -373,26 +373,32 @@ function emailSendFun($data) {
             'email' => $data['email'],  // Owner's email
             'name' => $data['username'], // Owner's name
             'body' => $header . "
-                <div style=\"padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;\">
-                    <h1 style=\"color: #333; font-size: 24px; text-align: center;\">New Booking Notification</h1>
-                    <p style=\"color: #555; font-size: 16px;\">Dear {$data['username']},</p>
-                    <p style=\"color: #555; font-size: 16px;\">A new booking has been made at <strong style=\"color: #000;\">{$hostelName}</strong>.</p>
-                    <p style=\"color: #555; font-size: 16px;\">Booking details:</p>
-                    <ul style=\"color: #555; font-size: 16px;\">
-                        <li><strong>Name:</strong> {$bookingUsername}</li>
-                        <li><strong>Email:</strong> $bookingUserEmail</li>
-                        <li><strong>Phone:</strong> {$bookingUserContact}</li>
-                        <li><strong>Dates:</strong> {$bookingDates}</li>
-                        <li><strong>totaldays:</strong> {$totaldays}</li>
-                        <li><strong>totalPrice:</strong> {$totalPrice}</li>
-
-                        
-
-             
-                    </ul>
-                    <p style=\"color: #555; font-size: 16px;\">Please prepare for their arrival.</p>
-                    <p style=\"color: #555; font-size: 16px;\">Thank you!</p>
-                </div>" . $footer,
+               <div style='padding: 24px; font-family: Arial, sans-serif; background-color: #f9f9f9;'>
+    <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
+        <h1 style='font-size: 24px; font-weight: bold;'>Hostel Booking Confirmation</h1>
+    </div>
+    <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
+        <div style='margin-top: 24px;'>
+            <div style='padding: 20px; border-radius: 5px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;'>
+                <p style='color: #555; font-size: 16px;'>Dear {$data['username']},</p>
+                <p style='color: #555; font-size: 16px;'>A new booking has been made at <strong style='color: #000;'>{$hostelName}</strong>.</p>
+                <p style='color: #555; font-size: 16px;'>Booking details:</p>
+                <ul style='color: #555; font-size: 16px;'>
+                    <li><strong>Name:</strong> {$bookingUsername}</li>
+                    <li><strong>Email:</strong> {$bookingUserEmail}</li>
+                    <li><strong>Phone:</strong> {$bookingUserContact}</li>
+                    <li><strong>Dates:</strong> {$bookingDates}</li>
+                    <li><strong>Total Days:</strong> {$totaldays}</li>
+                    <li><strong>Total Price:</strong> {$totalPrice}</li>
+                </ul>
+                <p style='color: #555; font-size: 16px;'>Please prepare for their arrival.</p>
+                <p style='color: #555; font-size: 16px;'>Thank you!</p>
+            </div>
+        </div>
+        <p style='color: #555; font-size: 20px; text-align: center;'>Thank you!</p>
+    </div>
+</div>
+" . $footer,
             'altBody' => "Dear {$data['username']},\n\nA new booking has been made at {$hostelName}.\n\nBooking details:\nName: {$bookingUsername}\nEmail: {$bookingUserEmail}\nContact: {$bookingUserContact}\n\nPlease prepare for their arrival.\n\nThank you!"
         ],
         // Email to the booking user
@@ -402,11 +408,12 @@ function emailSendFun($data) {
             'body' => $header . "
                 <div style='padding: 24px; font-family: Arial, sans-serif; background-color: #f9f9f9;'>
                     <div style='padding: 16px; background-color: #4a90e2; color: white; text-align: center; border-radius: 8px 8px 0 0;'>
-                        <h1 style='font-size: 24px; font-weight: bold;'>New Booking Notification</h1>
+                       <h1 style='font-size: 24px; font-weight: bold;'>New Hostel Booking Received</h1>
+
                     </div>
                     <div style='padding: 24px; background-color: white; border-radius: 0 0 8px 8px;'>
                         <p>Dear Pattabi,</p>
-                        <p>A new booking has been made at <strong>Pamela Bates</strong>.</p>
+                        <p>A new booking has been made at <strong>{$hostelName}</strong>.</p>
                         
                         <div style='margin-top: 24px;'>
                             <table style='width: 100%; border-collapse: collapse;'>

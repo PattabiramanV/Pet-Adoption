@@ -520,7 +520,7 @@ console.log(visibleHostels); // Should print the currently visible hostels
       {/* <div>
         <h1>Similar Hostels</h1>
       </div> */}
-      <div className="slider-container mt-20 m-auto">
+      <div className="slider-container mt-20 m-auto similar-Hostel">
         <div className="slider-wrapper">
           <p
             className="arrow-btn"

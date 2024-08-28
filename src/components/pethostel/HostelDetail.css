@@ -178,3 +178,18 @@
   flex-direction: column;
   min-height: 120px;
 }
+
+
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-label {
+  width: 130px; /* Fixed width for all labels */
+  flex-shrink: 0; /* Prevent labels from shrinking */
+}
+
+

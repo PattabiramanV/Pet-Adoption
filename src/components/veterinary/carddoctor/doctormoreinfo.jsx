@@ -8,14 +8,21 @@ import StarRating from "../../veterinary/rating/StarRating";
 import Tabs from '../../veterinary/tabs/Tabs';
 import axios from "axios";
 import moment from 'moment';
+import Loader from "../../Loader/Loader";
+import { notification } from 'antd';
+
+// import { set } from "react-datepicker/dist/date_utils";
 
 const DoctorMoreInfo = () => {
   const location = useLocation();
   const doctor = location.state?.doctor;
   const [reviews, setReviews] = useState([]);
+  const [rating, setRating]=useState(null);
+  const [loading, setLoading]=useState(false);
 
   const token = localStorage.getItem('token');
 
+  
   if (!doctor) {
     return <p>Doctor not found</p>;
   }
@@ -23,6 +30,7 @@ const DoctorMoreInfo = () => {
   // Example function for handling review submission
   const handleReviewSubmit = async (reviewData) => {
     try {
+      setLoading(true);
       const data = {
         ...reviewData,
         doctor_id: doctor.id // Assuming you have a doctor ID to send
@@ -39,33 +47,54 @@ const DoctorMoreInfo = () => {
         }
       );
 
-      console.log('Review submitted successfully:', response.data);
+    fetchReviews();
+ 
+     
+      notification.success({
+        message: 'Review Submitted Successfully!',
+        description: response.data.message || 'Your review has been submitted.',
+      });
     } catch (error) {
       console.error('Error submitting review:', error);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
   // Get review data
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/doctorrating.php?doctor_id=${doctor.id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (response.data.status === 'success') {
-          setReviews(response.data.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch reviews:", error);
-      }
-    };
+  
     fetchReviews();
   }, [doctor.id, token]);
+
+  const fetchReviews = async () => {
+    try {
+      setLoading(true)
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/doctorrating.php?doctor_id=${doctor.id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.data.status === 'success') {
+        setReviews(response.data.data);
+        setRating(Math.floor(response?.data?.data[0]?.average_rating));
+
+      }
+    } catch (error) {
+      console.error("Failed to fetch reviews:", error);
+    }finally{
+      setLoading(false)
+
+    }
+  };
+ 
+  const reviewsToDisplay = reviews && reviews.length > 0 ? reviews : doctor ? [doctor] : [];
+
   
   return (
     <>
+    {loading && <Loader></Loader>}
       <div className="doctor-more-info-container">
         <div className="doctor-details">
           <div className="doctor-pic">
@@ -81,7 +110,10 @@ const DoctorMoreInfo = () => {
             </div>
 
             <div className="flex gap-5 mb-5">
-              <StarRating rating={4} readOnly={true} />
+              {console.log('rating',rating)}
+              {rating || rating === 0  ? (
+          <StarRating rating={rating} readOnly={true} />
+        ) : null}
               <ReviewForm onSubmit={handleReviewSubmit} />
             </div>
 
@@ -187,14 +219,16 @@ const DoctorMoreInfo = () => {
           </div>
         </div>
       </div>
+      {console.log('reviews:', reviewsToDisplay)}
 
-      <div className="reviews-section">
-        {reviews.length > 0 ? (
-          <Tabs hostelReviews={reviews} />
-        ) : (
-          <p className="text-center text-gray-500 font-semibold mt-4 mb-5">No reviews available</p>
-        )}
-      </div>
+{/* // Check if reviews is empty or undefined, and if so, assign doctor to reviews */}
+
+{reviewsToDisplay.length > 0 && (
+  <div className="reviews-section">
+    <Tabs hostelReviews={reviewsToDisplay} />
+  </div>
+)}
+
     </>
   );
 };

@@ -17,6 +17,7 @@
   flex: 1;
   overflow: hidden;
   position: relative;
+  left: 12px;
 }
 
 .slider-track {

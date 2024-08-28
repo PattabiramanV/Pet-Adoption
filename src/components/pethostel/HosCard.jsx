@@ -113,6 +113,9 @@ function HostelCard({ hostel, active }) {
   // console.log(hostel);
   const navigate = useNavigate();
 const [images, setImages] = useState([]);
+const [imageLoaded, setImageLoaded] = useState(false);
+  const defaultImage = '../../../backend/hostel/hostelimg/cat3.jpg'; // Set the path to your default image
+
 
 
      
@@ -145,22 +148,22 @@ useEffect(() => {
   setImages(imageArray);
 }, [hostel.photos]);
 console.log(images);
+
+
   return (
 
     
    
 <div className="Hostelcard-container pethostelCard ">
 <div className="hoscardimg">
-        {/* {images.length > 0 ? ( */}
-          <img
-            src={`../../../backend/hostel/hostelimg/${hostel?.user_id}/${images[0]}`}
-            className="img"
-            alt="Hostel"
-          />
-        {/* ) : ( */}
-          {/* <p>No image available</p> */}
-        {/* )} */}
-      </div>
+      <img
+        src={imageLoaded ? `../../../backend/hostel/hostelimg/${images[0]}` : defaultImage}
+        className="img"
+        alt="Hostel"
+        onLoad={() => setImageLoaded(true)}
+        onError={() => setImageLoaded(false)} // In case of error, revert to default image
+      />
+    </div>
   
   <div className="commonData">
   <div className="locationdescript">

@@ -9,7 +9,7 @@ const AddHosPage=()=>{
 
         <>
         <Header></Header>
-      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Pet Detail Page',href: '/pethostel' }]} />
+      <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Add Hostel',href: '/pethostel' }]} />
         
         <PetaddForm>
         </PetaddForm>

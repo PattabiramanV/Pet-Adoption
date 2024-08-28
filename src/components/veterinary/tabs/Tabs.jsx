@@ -11,7 +11,7 @@ import ReviewCard from '../rating/ReviewCard';
 // Functional component that accepts a component as a prop
 const TabComponent = ({ hostelReviews }) => {
 
-  console.log(hostelReviews);
+  console.log('hostelReviews',!hostelReviews[0].user_rating);
 
   const [activeTab, setActiveTab] = useState('London');
 
@@ -58,7 +58,7 @@ const TabComponent = ({ hostelReviews }) => {
   {activeTab === 'Paris' && (
     <div id="Paris" className="tabcontent active">
       <h3>Reviews</h3>
-      {hostelReviews.length === 0 ? (
+      {hostelReviews.length === 0 || !hostelReviews[0].user_rating ? (
         <p>No reviews available</p>
       ) : (
         <div className="flex flex-wrap -m-4">

@@ -6,8 +6,8 @@
     margin: 0 5px;
     padding: 0;
     cursor: pointer;
-  
 }
+
 .slider-container {
     width: 100%;
     display: flex;
@@ -23,25 +23,27 @@
     width: 570px;
 }
 
-
-/* Apply opacity to all thumbnails */
-.slick-thumb a img {
-    opacity: 0.5;
-    transition: opacity 0.3s ease-in-out;
-    width: 100%;
+/* Ensure single image alignment */
+.slider-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-  
-  /* Remove opacity for the active thumbnail */
-  .slick-thumb .slick-active img {
-    opacity: 1; /* Full opacity for the active thumbnail */
-  }
-  
-  .slick-dots {
+
+.slider-image {
+    width: 570px;
+    height: auto;
+    max-height: 392px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.slick-dots {
     position: absolute;
     bottom: -65px;
     display: block;
     width: 100%;
-    padding:0  16px;
+    padding: 0 16px;
     margin: 0;
     list-style: none;
     text-align: start;
@@ -50,23 +52,20 @@
     gap: 19px;
 }
 
-.slick-slide img {
-    display: block;
-    width: 570px;
-    height: 392px;
-    border-radius: 16px;
+/* Apply opacity to all thumbnails */
+.slick-thumb a img {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+    width: 100%;
 }
 
-
-
-
-
-
-
+/* Remove opacity for the active thumbnail */
+.slick-thumb .slick-active img {
+    opacity: 1; /* Full opacity for the active thumbnail */
+}
 
 /* Custom styles for slider */
 .slick-dots li {
-    /* width: 70px; */
     height: 100%;
     margin: 0 5px;
 }
@@ -75,26 +74,3 @@
     position: relative;
     width: 100%;
 }
-/* .slider-container {
-    @apply w-full flex justify-center;
-}
-
-.slick-list {
-    @apply relative block overflow-hidden w-[400px];
-}
-
-.slick-thumb a img {
-    @apply opacity-50 transition-opacity duration-300 ease-in-out;
-}
-
-.slick-thumb .slick-active img {
-    @apply opacity-100;
-}
-
-.slick-dots {
-    @apply absolute bottom-[-65px] flex gap-4 w-full justify-center text-center;
-}
-
-.slick-slide img {
-    @apply block w-[400px] h-[392px] rounded-lg;
-} */

@@ -630,39 +630,51 @@ console.log('disabledSlots',disabledSlots);
           </div>
 
 
-          <div>
-            <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {loading ? (
-                <Loader />
-              ) : timeSlots.length > 0 && applyGrooming.appointmentDate ? (
-                timeSlots.map((slot, index) => (
-                  <div key={index} className="flex items-center">
-                    <Checkbox
-                      checked={selectedSlots.includes(slot.start)}
-                      onChange={() => handleCheckboxChange(slot.start)}
-                      id={`checkbox${index}`}
-                    //   onClick={() => handleSlotClick(slot)}
-                      disabled={disabledSlots.includes(slot.start)} // Disable if date not chosen
-                    />
-                    <label
-                      htmlFor={`checkbox${index}`}
-                      className={`ml-2 cursor-pointer ${
-                        !applyGrooming.appointmentDate &&
-                        "text-gray-500 cursor-not-allowed"
-                      }`}
-                    //   onClick={() => handleSlotClick(slot)}
-                    >
-                      {slot.start}
-                    </label>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500 col-span-2">No available slots.</p>
-              )}
-            </div>
-          </div>
+     
+
         </div>
+        <div>
+  {timeSlots.length > 0 && applyGrooming.appointmentDate && (
+    <h3 className="text-xl font-medium mb-4 mt-4 ml-2">Available Time Slots</h3>
+  )}
+  <div className="grid grid-cols-5 gap-4">
+    {loading ? (
+      <Loader />
+    ) : timeSlots.length > 0 && applyGrooming.appointmentDate ? (
+      timeSlots.map((slot, index) => (
+        <div
+          key={index}
+          className={`flex items-center justify-between p-2 border rounded-lg shadow-md transition-transform duration-300 cursor-pointer ${
+            disabledSlots.includes(slot.start)
+              ? 'line-through text-gray-500 bg-gray-100 cursor-not-allowed'
+              : 'bg-white hover:bg-gray-50'
+          }`}
+          onClick={() => handleCardClick(slot.start)}
+        >
+          <Checkbox
+            checked={selectedSlots.includes(slot.start)}
+            onChange={() => handleCheckboxChange(slot.start)}
+            id={`checkbox${index}`}
+            disabled={disabledSlots.includes(slot.start)}
+          />
+          <label
+            htmlFor={`checkbox${index}`}
+            className={`ml-2 text-lg ${
+              disabledSlots.includes(slot.start) ? 'cursor-not-allowed' : ''
+            } cursor-pointer`}
+          >
+            {slot.start}
+          </label>
+        </div>
+      ))
+    ) : (
+      <p className="text-gray-500 col-span-5 text-center mt-8">No available slots.</p>
+    )}
+  </div>
+</div>
+
+
+
 
         {/* Submit Button */}
         <div className="flex justify-center">

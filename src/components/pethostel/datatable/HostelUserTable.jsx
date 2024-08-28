@@ -614,16 +614,49 @@ const Hosteldetails = () => {
     </span>,
 <>
 <Tooltip title="Accept" placement="top">
-<strong className="" onClick={() => handleAccept(item)} style={{ color: 'green', marginRight: '12px',cursor:'pointer' }}>
-  <FontAwesomeIcon icon={faCheck} />
-</strong>
+  <button
+    className={`action-button ${item.status === 'Accepted' || item.status === 'Cancelled' ? 'disabled' : ''}`}
+    onClick={() => item.status === 'Pending' && handleAccept(item)}
+    style={{
+      color: 'white',
+      backgroundColor: 'green',
+      marginRight: '12px',
+      cursor: item.status === 'Accepted' || item.status === 'Cancelled' ? 'not-allowed' : 'pointer',
+      opacity: item.status === 'Accepted' || item.status === 'Cancelled' ? 0.7 : 1,
+      border: 'none',
+      padding: '8px 16px',
+      borderRadius: '4px',
+      fontWeight: 'bold'
+    }}
+    disabled={item.status === 'Accepted' || item.status === 'Cancelled'}
+  >
+    Accept
+  </button>
 </Tooltip>
 
 <Tooltip title="Cancel" placement="top">
-<strong className="" onClick={() => handleRemove(item)} style={{ color: 'red', marginRight: '12px',cursor:'pointer' }}>
-  <FontAwesomeIcon icon={faTimes} />
-</strong>
+  <button
+    className={`action-button ${item.status === 'Accepted' || item.status === 'Cancelled' ? 'disabled' : ''}`}
+    onClick={() => item.status === 'Pending' && handleRemove(item)}
+    style={{
+      color: 'white',
+      backgroundColor: 'red',
+      marginRight: '12px',
+      cursor: item.status === 'Accepted' || item.status === 'Cancelled' ? 'not-allowed' : 'pointer',
+      opacity: item.status === 'Accepted' || item.status === 'Cancelled' ? 0.7 : 4,
+      border: 'none',
+      padding: '8px 16px',
+      borderRadius: '4px',
+      fontWeight: 'bold'
+    }}
+    disabled={item.status === 'Accepted' || item.status === 'Cancelled'}
+  >
+    Cancel
+  </button>
 </Tooltip>
+
+
+
 </>
   ]);
 

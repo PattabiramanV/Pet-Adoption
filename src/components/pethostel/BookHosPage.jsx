@@ -13,11 +13,14 @@ const BookHosPage =()=>{
         
         <Header></Header>
       {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' }, { title: 'Pet Hostel',href: '/pethostel' },{ title: 'Hostel Booking Page',href: '/hosdetailpage' }]} /> */}
-      <BreadcrumbComponent items={[
-  { title: 'Home', href: '/' }, 
-  { title: 'Pet Hostel', href: '/pethostel' }, 
-  { title: 'Hostel Booking Page', href: '/pethostel/booking' }
-]} />
+     <BreadcrumbComponent 
+  items={[
+    { title: 'Home', href: '/' }, 
+    { title: 'Pet Hostels', href: '/pethostel' }, 
+    { title: 'Hostel Booking', href: '/pethostel/booking' }
+  ]} 
+/>
+
 
         <BookHosForm/>
 

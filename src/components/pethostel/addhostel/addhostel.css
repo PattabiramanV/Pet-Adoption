@@ -106,9 +106,9 @@ font-size: 18px;
     height: 56px;
     border-radius: 8px;
 }
-.addHostelFormParent  input[type="file"] {
+/* .addHostelFormParent  input[type="file"] {
     display: none;
-}
+} */
 
 .addHostelFormParent label {
     font-size: 16px;
