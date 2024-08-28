@@ -47,14 +47,7 @@ function Tablesvent() {
                             </div>
                         </Link>
 
-                        {/* <Link to={`EditDoctorInformation`}>
-                            <div
-                                className={`toggle-button ${activeTab === 'Edit Doctor Profile' ? 'active' : ''}`}
-                                onClick={() => handleTabClick('Edit Doctor Profile')}
-                            >
-                              EditDoctorInformation
-                            </div>
-                        </Link> */}
+                      
 
 
 
@@ -86,14 +79,7 @@ function Tablesvent() {
                         )}
 
 
-                            {/* {activeTab === 'Edit Doctor Profile' && (
-                            <div className="Edit-Doctor-Profile-content">
-                                <Routes>
-                                   
-                                    <Route path="/doctereditcomponent" element={<EditDoctorInformation />} />
-                                </Routes>
-                            </div>
-                        )}           */}
+                          
 
 
                     </div>

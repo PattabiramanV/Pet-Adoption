@@ -155,8 +155,8 @@ const Header = () => {
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
-               <Link className="menu" to="/tables/groomingusertable">
-               Doctor Activity Dashboard
+               <Link className="menu" to="/dashboard/groomingusertable">
+               Doctor Activity 
                </Link>
                {/* <Link className="menu" to="/">
                Doctor Registration       
@@ -266,7 +266,7 @@ const Header = () => {
                 {isDropdownOpen && (
                   <div className="dropdown-menu menu_profile profil_mena">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to="/dashboard/userpets"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Dashboard</Link>
+                    <Link to="/dashboard/userpets"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity </Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

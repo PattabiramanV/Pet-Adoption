@@ -239,6 +239,10 @@ html, body {
 
 } 
 
+.loca-info .locsd{
+  text-transform: capitalize;
+}
+
 .adoptNow{
          position: relative;
     left: 45%;

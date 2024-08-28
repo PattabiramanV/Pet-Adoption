@@ -130,7 +130,7 @@ const getStatusClass = (status) => {
   return (
     
     <div className="table-container">
-      <h1>Medical Professional Summary</h1>
+        {filteredData.length > 0 && <h1>Medical Professional Summary</h1>}
 
       <div className="search-container">
       {searchTerm === '' && (
@@ -146,7 +146,7 @@ const getStatusClass = (status) => {
       </div>
       {filteredData.length === 0 ? (
         <div className="no-data-container">
-         <img src="../src/assets/emptydata.png" alt="nodata image" />
+         <img src="../src/assets/norecord.jpg" alt="nodata image" />
 
 
           

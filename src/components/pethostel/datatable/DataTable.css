@@ -123,13 +123,13 @@
   }
   
   
- .hostelDataTable .search-container {
+ /* .hostelDataTable .search-container {
     position: relative;
     width: 100%;
-    max-width: 300px; /* Adjust the width as needed */
-    /* margin-bottom: 1rem; */
+    max-width: 300px; 
+    margin: 10px;
     padding: 0 2%;
-  }
+  } */
   
   .hostelDataTable .search-input {
     width: 100%;

@@ -228,86 +228,69 @@ function BookingSlot() {
 
 
     return (
-       
+
         <>
-                <div className="slots p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
-  <h2 className="text-2xl font-semibold mb-4">Book Your Pet Grooming Service</h2>
-  <p className="mb-4">Select your pet's grooming service and book an appointment today!</p>
+<div className="slots p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">Book Your Pet Grooming Service</h2>
+            <p className="mb-4">Select your pet's grooming service and book an appointment today!</p>
 
-  <div className="mb-4">
-    <label htmlFor="appointmentDate" className="block text-lg font-medium mb-2">Select Date</label>
-    <input
-      id="appointmentDate"
-      className="w-full p-2 border border-gray-300 rounded-md"
-      type="date"
-      min={currentDayShowFun()}
-      value={selectedDate}
-      onChange={handleDateChange}
-    />
-  </div>
+            <div className="mb-4">
+                <label htmlFor="appointmentDate" className="block text-lg font-medium mb-2">Select Date</label>
+                <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
+                <input
+                    id="appointmentDate"
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    type="date"
+                    min={currentDayShowFun()}
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                />
+            </div>
 
-  <div className="mb-4">
-    {/* Show heading only if time slots are available and date is selected */}
-    {timeSlots.length > 0 && applyGrooming.appointmentDate && (
-      <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
-    )}
-    <div className="grid grid-cols-5 gap-4">
-      {loading ? (
-        <Loader />
-      ) : timeSlots.length > 0 ? (
-        timeSlots.map((slot, index) => (
-          <div
-            key={index}
-            className={`flex items-center justify-center p-3 border rounded-lg shadow-md transition-transform duration-300 cursor-pointer ${
-              disabledSlots.includes(slot.start)
-                ? 'line-through text-gray-500 bg-gray-100 cursor-not-allowed'
-                : 'bg-white hover:bg-gray-50'
-            }`}
-            onClick={() => handleCardClick(slot.start)}
-          >
-            <Checkbox
-              checked={selectedSlots.includes(slot.start)}
-              onChange={() => handleCheckboxChange(slot.start)}
-              id={`checkbox${index}`}
-              disabled={disabledSlots.includes(slot.start)}
-            />
-            <label
-              htmlFor={`checkbox${index}`}
-              className={`ml-2 text-lg ${
-                disabledSlots.includes(slot.start) ? 'cursor-not-allowed' : ''
-              }`}
+            <div className='timeslots'>
+               
+            <div className="flex flex-wrap gap-4">
+                    {loading ? (
+                        <Loader />
+                    ) : timeSlots.length > 0 ? (
+                        timeSlots.map((slot, index) => (
+                            <div key={index} className="flex items-center">
+                                <Checkbox
+                                    checked={selectedSlots.includes(slot.start)}
+                                    onChange={() => handleCheckboxChange(slot.start)}
+                                    id={`checkbox${index}`}
+                                    // disabled={disabledSlots[selectedDate]?.includes(slot.start)}
+                                />
+                                <label htmlFor={`checkbox${index}`} className="ml-2 cursor-pointer">{slot.start}</label>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-500 col-span-2">No available slots.</p>
+                    )}
+                </div>
+            </div>
+
+            <button
+                className={`mt-6 w-full py-2 px-4 text-white rounded-md ${isSubmitted ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                onClick={handleSubmit}
             >
-              {slot.start}
-            </label>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray-500 col-span-5 text-center">No available slots.</p>
-      )}
-    </div>
-  </div>
+                Submit
+            </button>
 
-  <button
-    className={`mt-6 w-full py-2 px-4 text-white rounded-md ${isSubmitted ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
-    onClick={handleSubmit}
-  >
-    Submit
-  </button>
+            {/* Alert Notification */}
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={3000}
+                onClose={handleAlertClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+                    Slot selection updated!
+                </Alert>
+            </Snackbar>
 
-  {/* Alert Notification */}
-  <Snackbar
-    open={alertOpen}
-    autoHideDuration={3000}
-    onClose={handleAlertClose}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  >
-    <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
-      Slot selection updated!
-    </Alert>
-  </Snackbar>
-
-  {loading && <Loader />}
-</div>
+            {loading && <Loader />}
+        </div>
 
 
         </>

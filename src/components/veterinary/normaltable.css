@@ -100,16 +100,24 @@
   background-color: white;
   border-radius: 8px;
 }
-.doctortablename .no-data-container {
-  /* position: absolute; */
-  /* left: 700px; */
+/* .doctortablename .no-data-container {
+
   width: 200%;
   top: 82%;
   max-width: 291%;
   margin-bottom: 1rem;
   margin-left: 10%;
   margin-top: 50px;
+} */
+
+.doctortablename .no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
 }
+
 .doctortablename .search-containerdoc {
 
 margin-left: 30%;
@@ -469,6 +477,10 @@ color: darkred; /* Darker red when hovered */
   margin-bottom: 1rem;
   display: flex;
   margin-left: 1140px;
+}
+
+.search-container {
+  margin: 10px;
 }
 
 .search-input {

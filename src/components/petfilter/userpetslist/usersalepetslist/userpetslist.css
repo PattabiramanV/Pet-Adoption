@@ -150,11 +150,11 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.search-container {
+/* .search-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-}
+} */
 
 .search-input {
   margin-left: 8px;
@@ -201,8 +201,8 @@
     /* top: 57px; */
     margin-top: 5%;
 }
-.petssearch{
+/* .petssearch{
       position: relative;
     right: 76px;
 
-}
+} */

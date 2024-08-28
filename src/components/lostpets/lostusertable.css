@@ -100,13 +100,13 @@ th {
   }
   
   
-  .search-container {
+  /* .search-container {
     position: relative;
     width: 100%;
     max-width: 300px; 
     margin-bottom: 1rem;
     margin-left: 81%;
-  }
+  } */
   
   .search-input {
     width: 100%;
