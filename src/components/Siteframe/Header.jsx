@@ -264,9 +264,9 @@ const Header = () => {
                 />
                 <span className="profile_name">{profile.username}</span>
                 {isDropdownOpen && (
-                  <div className="dropdown-menu menu_profile">
+                  <div className="dropdown-menu menu_profile profil_mena">
                     <a onClick={openProfile}><span><FontAwesomeIcon icon={faAddressCard} className="signup-icon" /></span> Profile</a>
-                    <Link to="/dashboard/userpets"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Activity</Link>
+                    <Link to="/dashboard/userpets"><span><FontAwesomeIcon icon={faBoxOpen} className="signup-icon" /></span>  Dashboard</Link>
 
 
                     <a onClick={logout}><span> <FontAwesomeIcon icon={faSignOutAlt} className="signup-icon" /></span>  Logout</a>                   

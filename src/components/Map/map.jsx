@@ -417,6 +417,7 @@ import { faBed, faHotel, faBuilding } from "@fortawesome/free-solid-svg-icons";
 
 import 'leaflet/dist/leaflet.css';
 import 'antd/dist/reset.css';
+import { Link } from 'react-router-dom';
 
 const GEOAPIFY_API_KEY = "092a4983401e47f78765fb35889c237c"; // Use environment variable
 
@@ -817,7 +818,7 @@ const getImageSrc1 = (photo) => {
                     <p className="popup-message">{location.message}</p>
                 )} */}
                 <div className="div_pop_btn">
-                    <button className="popup-btn">Book Now</button>
+                  <button  className="popup-btn">  <Link to={`/pethostel/booking/${location.id}`}  style={{color:"black" }} >Book Now</Link>  </button>
                 </div>
             </div>
         </div>
