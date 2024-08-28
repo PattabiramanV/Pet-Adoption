@@ -247,10 +247,7 @@ function BookingSlot() {
   </div>
 
   <div className="mb-4">
-    {/* Show heading only if time slots are available and date is selected */}
-    {timeSlots.length > 0 && applyGrooming.appointmentDate && (
-      <h3 className="text-xl font-medium mb-2">Available Time Slots</h3>
-    )}
+   
     <div className="grid grid-cols-5 gap-4">
       {loading ? (
         <Loader />
@@ -269,13 +266,13 @@ function BookingSlot() {
               checked={selectedSlots.includes(slot.start)}
               onChange={() => handleCheckboxChange(slot.start)}
               id={`checkbox${index}`}
-              disabled={disabledSlots.includes(slot.start)}
+              // disabled={disabledSlots.includes(slot.start)}
             />
             <label
               htmlFor={`checkbox${index}`}
-              className={`ml-2 text-lg ${
-                disabledSlots.includes(slot.start) ? 'cursor-not-allowed' : ''
-              }`}
+              // className={`ml-2 text-lg ${
+              //   disabledSlots.includes(slot.start) ? 'cursor-not-allowed' : ''
+              // }`}
             >
               {slot.start}
             </label>

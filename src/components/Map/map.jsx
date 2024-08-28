@@ -421,12 +421,6 @@ import { Link } from 'react-router-dom';
 
 const GEOAPIFY_API_KEY = "092a4983401e47f78765fb35889c237c"; // Use environment variable
 
-const defaultIcon = new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/4042/4042356.png',
-    iconSize: [55, 55],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-});
 
 
 const lowestDistanceIcon = new L.Icon({
@@ -457,7 +451,15 @@ function Map() {
     const [itemsPerPage] = useState(3);
     const [tableImage, setTableImage] = useState(Map_icon); // Default table image
     const debounceTimeoutRef = useRef(null);
-
+    const tableImageIcon = new L.Icon({
+        iconUrl: tableImage,
+        iconSize: [55, 55], // Adjust the size as needed
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+    
+    // Use `tableImageIcon` instead of `defaultIcon` when rendering markers
+    
     useEffect(() => {
         if (category) findLocations();
     }, [category]);
@@ -787,7 +789,7 @@ const getImageSrc1 = (photo) => {
                                             }
                                         }}
 
-                                        icon={defaultIcon}
+                                        icon={tableImageIcon} // Use the new icon here
                                         
                                     >
           <Popup>

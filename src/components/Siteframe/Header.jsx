@@ -155,7 +155,7 @@ const Header = () => {
                {/* <Link className="menu" to="/groomingusertable">
               Patinent info
                </Link> */}
-               <Link className="menu" to="/tables/groomingusertable">
+               <Link className="menu" to="/dashboard/groomingusertable">
                Doctor Activity Dashboard
                </Link>
                {/* <Link className="menu" to="/">
