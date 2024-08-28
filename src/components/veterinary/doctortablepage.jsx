@@ -203,11 +203,11 @@ const Doctorpersonalpage = () => {
     return (
        <div className='table-container'>
     <div className='doctortablename'>
-        <div className="doctertitle">
+        {filteredData.length > 0 &&<div className="doctertitle">
 
         <h2>Client Information Overview</h2>
 
-        </div>
+        </div>}
         <div className="search-container">
       {searchTerm === '' && (
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -222,7 +222,7 @@ const Doctorpersonalpage = () => {
       </div>
       {filteredData.length === 0 ? (
         <div className="no-data-container">
-         <img src="../src/assets/emptydata.png" alt="nodata image" />
+         <img src="../src/assets/norecord.jpg" alt="nodata image" />
 
 
           

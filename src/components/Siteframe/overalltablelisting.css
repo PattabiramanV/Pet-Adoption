@@ -1,4 +1,4 @@
-.barmenu{
+/* .barmenu{
       width: 40px;
     height: 40px;
 }
@@ -86,3 +86,129 @@
   width: 100vw;
 }
 
+ */
+
+
+
+
+
+ /* Sidebar */
+.sidebar {
+  /* height: 100%; */
+  background-color: #2f2f3a;
+  color: #fff;
+  /* position: fixed;
+  top: 60px;
+  left: 0; */
+  transition: width 0.3s ease;
+}
+
+.sidebar.expanded {
+  width: 200px;
+}
+
+.sidebar.collapsed {
+  width: 55px; /* Adjusted width */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border-top: 20px solid #2f2f3a;
+}
+
+.sidebar ul li {
+  padding: 22px 23px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar ul li.active {
+  background-color: #40404d;
+}
+
+.sidebar ul li span {
+  display: flex;
+  align-items: center;
+}
+
+.sidebarlink ul li span .signup-icon {
+  margin-right: 12px;
+}
+
+.sidebar.collapsed .sidebarlink ul li span .signup-text {
+  display: none;
+}
+
+.sidebar.expanded .sidebarlink ul li span .signup-text {
+  display: inline-block;
+}
+
+.sidebar.collapsed .sidebarlink ul li {
+  justify-content: center;
+}
+
+/* Content Area */
+.tablescontainer {
+  display: flex;
+  /* margin-left: 200px;  */
+  /* transition: margin-left 0.3s ease; */
+}
+
+
+
+.contenttables {
+  flex: 1;
+  padding: 20px;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.contenttables table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.contenttables table th, .contenttables table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 768px) {
+  .tablescontainer {
+    /* margin-left: 55px; Use collapsed width on small screens */
+  }
+
+  .sidebar.expanded {
+    width: 150px; /* Smaller width on mobile */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.bar {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  width: 90%;
+  padding-top: 1em;
+}
+
+
+
+
+
+img.barmenu {
+  width: 34px;
+
+  height: 2em;
+}

@@ -15,7 +15,7 @@ require '../config/config.php'; // Adjust the path to your config file
 $host = 'localhost';
 $db_name = 'pet_adoption';
 $username = 'dckap';
-$password = 'Dckap2023Ubuntu';
+$password = 'Dckap2023Ecommerce';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);

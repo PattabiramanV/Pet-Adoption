@@ -121,13 +121,13 @@ th {
   border-radius: 4px;
 }
 
-
+/* 
 .search-container {
   position: relative;
   width: 100%;
-  max-width: 300px; /* Adjust the width as needed */
+  max-width: 300px; 
   margin-bottom: 1rem;
-}
+} */
 
 .search-input {
   width: 100%;

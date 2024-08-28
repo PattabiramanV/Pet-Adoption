@@ -70,7 +70,7 @@ const AdoptionRequests = () => {
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/petsapi/reject_adoption_request.php`, { requestId });
       setRequests(prevRequests => prevRequests.filter(request => request.request_id !== requestId));
-      notification.success({
+      notification.warning({
         message: 'Request Rejected',
         description: 'The adoption request has been successfully rejected.',
       });

@@ -326,7 +326,7 @@ console.log(image1);
             </div>
             <h3 className="loca-info">
               <img className="location" src="https://img.icons8.com/material-outlined/24/000000/marker.png" alt="marker" />
-              <span>{pet.city}</span>
+              <span className='locsd'>{pet.city}</span>
             </h3>
           </div>
         </div>

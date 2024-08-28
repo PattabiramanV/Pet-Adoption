@@ -48,67 +48,151 @@ const OverallTables = () => {
       <BreadcrumbComponent items={breadcrumbItems[selectedItem] || []} />
       
       <div className={`tablescontainer ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
-        <div className={`sidebar ${sidebarOpen ? 'expanded' : 'collapsed'}`}>
-          <div className="bar">
-            <img 
-              className="barmenu" 
-              src="/src/assets/barmenu1.png" 
-              alt="Menu Toggle"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            />
-          </div>
-          <div className={`sidebarlink ${sidebarOpen ? 'show' : 'hide'}`}>
-            <ul>
-              <li 
-                onClick={() => handleMenuItemClick('Hostel', '/dashboard/userpets')} 
-                className={selectedItem === 'Hostel' ? 'active' : ''}
-              >
-                <span>
-                  <FontAwesomeIcon icon={faHeart} className="signup-icon" />
-                  <span className="signup-text">Hostel</span>
-                </span>
-              </li>
-              <li 
-                onClick={() => handleMenuItemClick('Veternarians', '/dashboard/groomingusertable')} 
-                className={selectedItem === 'Veternarians' ? 'active' : ''}
-              >
-                <span>
-                  <FontAwesomeIcon icon={faShieldAlt} className="signup-icon" />
-                  <span className="signup-text">Veterinarians</span>
-                </span>
-              </li>
-              <li 
-                onClick={() => handleMenuItemClick('Lost Pet', '/dashboard/lost-pet')} 
-                className={selectedItem === 'Lost Pet' ? 'active' : ''}
-              >
-                <span>
-                  <FontAwesomeIcon icon={faStar} className="signup-icon" />
-                  <span className="signup-text">Lost Pet</span>
-                </span>
-              </li>
-              <li 
-                onClick={() => handleMenuItemClick('Pet', '/dashboard/userSalePets')} 
-                className={selectedItem === 'Pet' ? 'active' : ''}
-              >
-                <span>
-                  <FontAwesomeIcon icon={faHandsHelping} className="signup-icon" />
-                  <span className="signup-text">Pet Adoption</span>
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
+  <div className={`sidebar ${sidebarOpen ? 'expanded' : 'collapsed'}`}>
+    <div className="bar">
+      <img 
+        className="barmenu" 
+        src="/src/assets/barmenu1.png" 
+        alt="Menu Toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      />
+    </div>
+    <div className={`sidebarlink ${sidebarOpen ? 'show' : 'hide'}`}>
+      <ul>
+        {/* Your menu items */}
 
-        <div className="contenttables">
-          {selectedItem === 'Hostel' && <HostelDataTable />}
+        <li 
+        onClick={() => handleMenuItemClick('Hostel', '/dashboard/userpets')} 
+        className={selectedItem === 'Hostel' ? 'active' : ''}
+      >
+        <span>
+          <FontAwesomeIcon icon={faHeart} className="signup-icon" />
+          <span className="signup-text">Hostel</span>
+        </span>
+      </li>
+      <li 
+        onClick={() => handleMenuItemClick('Veternarians', '/dashboard/groomingusertable')} 
+        className={selectedItem === 'Veternarians' ? 'active' : ''}
+      >
+        <span>
+          <FontAwesomeIcon icon={faShieldAlt} className="signup-icon" />
+          <span className="signup-text">Veterinarians</span>
+        </span>
+      </li>
+      <li 
+        onClick={() => handleMenuItemClick('Lost Pet', '/dashboard/lost-pet')} 
+        className={selectedItem === 'Lost Pet' ? 'active' : ''}
+      >
+        <span>
+          <FontAwesomeIcon icon={faStar} className="signup-icon" />
+          <span className="signup-text">Lost Pet</span>
+        </span>
+      </li>
+      <li 
+        onClick={() => handleMenuItemClick('Pet', '/dashboard/userSalePets')} 
+        className={selectedItem === 'Pet' ? 'active' : ''}
+      >
+        <span>
+          <FontAwesomeIcon icon={faHandsHelping} className="signup-icon" />
+          <span className="signup-text">Pet Adoption</span>
+        </span>
+      </li>
+      
+      </ul>
+    </div>
+  </div>
+
+  <div className="contenttables">
+    {/* Your dynamic content based on selectedItem */}
+    {selectedItem === 'Hostel' && <HostelDataTable />}
           {selectedItem === 'Veternarians' && <Tablesvent />}
           {selectedItem === 'Lost Pet' && <Lostusertable />}
           {selectedItem === 'Pet' && <Requesttables />}
-        </div>
-      </div>
+
+  </div>
+</div>
+
       <Footer />
     </>
   );
 };
 
 export default OverallTables;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <div className={tablescontainer ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}}>
+// <div className={sidebar ${sidebarOpen ? 'expanded' : 'collapsed'}}>
+//   <div className="bar">
+//     <img 
+//       className="barmenu" 
+//       src="/src/assets/barmenu1.png" 
+//       alt="Menu Toggle"
+//       onClick={() => setSidebarOpen(!sidebarOpen)}
+//     />
+//   </div>
+//   <div className={sidebarlink ${sidebarOpen ? 'show' : 'hide'}}>
+//     <ul>
+//       <li 
+//         onClick={() => handleMenuItemClick('Hostel', '/dashboard/userpets')} 
+//         className={selectedItem === 'Hostel' ? 'active' : ''}
+//       >
+//         <span>
+//           <FontAwesomeIcon icon={faHeart} className="signup-icon" />
+//           <span className="signup-text">Hostel</span>
+//         </span>
+//       </li>
+//       <li 
+//         onClick={() => handleMenuItemClick('Veternarians', '/dashboard/groomingusertable')} 
+//         className={selectedItem === 'Veternarians' ? 'active' : ''}
+//       >
+//         <span>
+//           <FontAwesomeIcon icon={faShieldAlt} className="signup-icon" />
+//           <span className="signup-text">Veterinarians</span>
+//         </span>
+//       </li>
+//       <li 
+//         onClick={() => handleMenuItemClick('Lost Pet', '/dashboard/lost-pet')} 
+//         className={selectedItem === 'Lost Pet' ? 'active' : ''}
+//       >
+//         <span>
+//           <FontAwesomeIcon icon={faStar} className="signup-icon" />
+//           <span className="signup-text">Lost Pet</span>
+//         </span>
+//       </li>
+//       <li 
+//         onClick={() => handleMenuItemClick('Pet', '/dashboard/userSalePets')} 
+//         className={selectedItem === 'Pet' ? 'active' : ''}
+//       >
+//         <span>
+//           <FontAwesomeIcon icon={faHandsHelping} className="signup-icon" />
+//           <span className="signup-text">Pet Adoption</span>
+//         </span>
+//       </li>
+//     </ul>
+//   </div>
+// </div>
+
+// <div className="contenttables">
+//   {selectedItem === 'Hostel' && <HostelDataTable />}
+//   {selectedItem === 'Veternarians' && <Tablesvent />}
+//   {selectedItem === 'Lost Pet' && <Lostusertable />}
+//   {selectedItem === 'Pet' && <Requesttables />}
+// </div>
+// </div>
+// <Footer />
+// </>
+// );
+// };
+
+// export default OverallTables;

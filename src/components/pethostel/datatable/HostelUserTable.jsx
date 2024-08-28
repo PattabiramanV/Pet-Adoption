@@ -663,53 +663,66 @@ const Hosteldetails = () => {
   return (
     <>
  {loading && <Loader/>}
- <h1 style={{
-  fontSize: '26px',
-  color: 'rgba(12, 12, 12, 1)',
-  fontWeight: 700,
-  textAlign: 'center',
-  marginTop: '27px',
-  textTransform:'uppercase'
-}}>User Booking Details</h1>
-   
-      <div className="table-container mt-2 mb-10">
-      
 
-        <div className="search-container">
-          {searchTerm === '' && (
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          )}
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleChange}
-            className="search-input searchBox"
-          />
-        </div>
-        <CommonTable
-          headers={tableHeaders}
-          body={tableBody}
-          onAction={(item) => handleClear(item)}
-          isLoading={loading}
-        />
-        <ReactPaginate
-          previousLabel={'Previous'}
-          nextLabel={'Next'}
-          breakLabel={'...'}
-          pageCount={Math.ceil(filteredData.length / recordsPerPage)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          pageClassName={'page-item'}
-          pageLinkClassName={'page-link'}
-          activeClassName={'active-page'}
-          previousClassName={'previous-page'}
-          nextClassName={'next-page'}
-          disabledClassName={'disabled-page'}
+ {hostelBookUser.length === 0 ? (
+  <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <img 
+      src="/src/assets/norecord.jpg" 
+      alt="No data available" 
+      style={{ Width: '500px', height: '500px' }} 
+    />
+    {/* <h2 style={{ color: 'rgba(12, 12, 12, 0.7)' }}>No booking details found</h2> */}
+  </div>
+) : (
+  <>
+    <h1 style={{
+      fontSize: '26px',
+      color: 'rgba(12, 12, 12, 1)',
+      fontWeight: 700,
+      textAlign: 'center',
+      marginTop: '27px',
+      textTransform: 'uppercase'
+    }}>User Booking Details</h1>
+
+    <div className="table-container mt-2 mb-10">
+      <div className="search-container">
+        {searchTerm === '' && (
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+        )}
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleChange}
+          className="search-input searchBox"
         />
       </div>
+      <CommonTable
+        headers={tableHeaders}
+        body={tableBody}
+        onAction={(item) => handleClear(item)}
+        isLoading={loading}
+      />
+      <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        pageCount={Math.ceil(filteredData.length / recordsPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        activeClassName={'active-page'}
+        previousClassName={'previous-page'}
+        nextClassName={'next-page'}
+        disabledClassName={'disabled-page'}
+      />
+    </div>
+  </>
+)}
+
      
     </>
   );

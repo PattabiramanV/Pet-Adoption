@@ -37,11 +37,8 @@ function Home() {
       {/* <BreadcrumbComponent items={[{ title: 'Home', href: '/' } ] } /> */}
       <Section />
       <PeacefulCoexistence />
-      <Petcard/>
-      <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
-        <button className="more hi more-info-btn" onClick={handleNavigation}>See More</button>
-      </div>
-      <Adoptioncard />
+    
+      {/* <Adoptioncard /> */}
 
       <Doctorcard />
 {/* <Pomika  /> */}
@@ -51,6 +48,10 @@ function Home() {
       {/* <Doctorcard /> */}
       {/* <Hostal_card /> */}
       {/* <Adoptioncard /> */}
+      <Petcard/>
+      <div className="div_more_btn_home" style={divMoreBtnHomeStyle} >
+        <button className="more hi more-info-btn" onClick={handleNavigation}>See More</button>
+      </div>
       <Footer />
     </>
   );
