@@ -13,7 +13,7 @@ const Section = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   const handleNavigation = () => {
-    navigate('/map'); // Navigate to the desired route when the button is clicked
+    navigate('/findnearby'); // Navigate to the desired route when the button is clicked
   };
 
   return (
